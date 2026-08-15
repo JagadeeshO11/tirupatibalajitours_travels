@@ -14,6 +14,12 @@ export const fleet = [
   { id:'bus-50', name:'Bus 50 Seater', category:'BUS', seats:'50', bags:'25', image:images.bus50, local:'₹16,000/day', outstation:'₹75/km', minimum:'350 km/day', fuel:'3 km/l', features:['AC','TV','Music','USB'], use:'Maximum-capacity group tours, events and large pilgrimages.', slug:'bus-rental-in-tirupati' }
 ];
 
+export const rentalOptions = [
+  { id:'car-day', label:'Car Rent for a Day', title:'Full-day car rental', detail:'Choose a sedan, MUV or premium SUV for a local Tirupati day plan.', price:'From ₹2,000/day', note:'4–12 hour local packages available', message:'Hi, I need a car rental for a full day in Tirupati. Please share the available cars, hours/km packages and final quote.' },
+  { id:'tirupati-local', label:'In Tirupati', title:'Local Tirupati rental', detail:'Ideal for temple visits, city travel and flexible hourly local use.', price:'From ₹2,000', note:'40 km / 4 hr package', message:'Hi, I need a local taxi rental in Tirupati. Please share the available vehicles and 4-hour, 8-hour and 12-hour packages.' },
+  { id:'tirupati-airport', label:'Tirupati → Airport', title:'Tirupati Airport transfer', detail:'One-way pickup or drop to Tirupati Airport (TIR).', price:'From ₹1,200', note:'Etios one-way · driver included', message:'Hi, I need a taxi from Tirupati to Tirupati Airport. Please share vehicle options and the final one-way fare.' }
+];
+
 export const fleetCategories = [
   { key:'all', label:'All Vehicles' },
   { key:'cars', label:'Cars', ids:['etios','ertiga','innova-crysta'] },
