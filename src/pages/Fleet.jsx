@@ -1,7 +1,7 @@
-import { Luggage, Wind, ShieldCheck, Clock3, Fuel, Users, MapPin, Car, BusFront, Sparkles } from 'lucide-react';
+import { Luggage, Wind, ShieldCheck, Clock3, Fuel, Users, MapPin, Car, BusFront, Sparkles, ArrowRight } from 'lucide-react';
 import Page from './PageTemplate';
 import { images, whatsapp } from '../data/siteData';
-import { fleet, fleetCategories, fleetCapacityNote } from '../data/fleetData';
+import { fleet, fleetCategories, fleetCapacityNote, rentalOptions } from '../data/fleetData';
 import './Fleet.css';
 import './FleetOverride.css';
 import { Link } from 'react-router-dom';
@@ -12,8 +12,14 @@ export default function Fleet(){
   return <Page eyebrow="FLEET & RENTALS" title="Choose the right vehicle for your journey." text="From economical Tirupati cabs to premium Urbania, Tempo Travellers and large buses, choose the space, comfort and price point that fits your trip." image={images.hero}>
     <section className="content" id="rentals">
       <div className="fleet-intro"><div><p className="eyebrow">OUR FLEET</p><h2>Comfort for small groups. Space for everyone.</h2><p className="fleet-subcopy">Official fleet options cover local day rentals and outstation travel. Every quote is confirmed for your exact route and itinerary.</p></div><div className="fleet-trust"><span><ShieldCheck/> Professional drivers</span><span><Wind/> AC vehicles</span><span><Clock3/> 24/7 support</span></div></div>
+
+      <div className="rental-purpose">
+        <div className="rental-purpose-heading"><span className="eyebrow">WHAT DO YOU NEED?</span><h3>Choose your rental type</h3><p>Start with your trip requirement, then pick the vehicle that fits.</p></div>
+        <div className="rental-purpose-grid">{rentalOptions.map(option=><a className="rental-purpose-card" key={option.id} href={`${whatsapp}?text=${encodeURIComponent(option.message)}`} target="_blank" rel="noreferrer"><span className="rental-purpose-icon">{option.id==='tirupati-airport'?<MapPin/>:<Car/>}</span><div><span>{option.label}</span><strong>{option.title}</strong><p>{option.detail}</p><small>{option.note}</small></div><div className="rental-purpose-price"><b>{option.price}</b><ArrowRight/></div></a>)}</div>
+      </div>
+
       <div className="fleet-chooser" aria-label="Choose a vehicle type">
-        <div className="fleet-chooser-copy"><span className="eyebrow">CHOOSE YOUR OPTION</span><strong>What are you travelling with?</strong><small>Jump directly to the vehicle type that fits your group.</small></div>
+        <div className="fleet-chooser-copy"><span className="eyebrow">CHOOSE VEHICLE</span><strong>What are you travelling with?</strong><small>Jump directly to the vehicle type that fits your group.</small></div>
         <nav className="fleet-filter-row">{fleetCategories.slice(1).map(c=>{const Icon=categoryIcons[c.key] || Car; return <a className="fleet-choice" key={c.key} href={`#${c.key}`}><span className="fleet-choice-icon"><Icon/></span><span><b>{c.label}</b><small>{c.ids.length} options</small></span><span className="fleet-choice-arrow">→</span></a>})}</nav>
       </div>
       <div className="fleet-pricing-strip"><div><span>LOCAL DAY RENT</span><strong>From ₹2,000/day</strong></div><div><span>OUTSTATION</span><strong>From ₹15/km</strong></div><div><span>GROUP OPTIONS</span><strong>Up to 50 seats</strong></div></div>
