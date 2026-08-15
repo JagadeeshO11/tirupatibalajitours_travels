@@ -41,17 +41,20 @@ export const services = [
   [Car, 'Premium Car Rental', 'Elevated comfort for special journeys.']
 ];
 
+// Vehicle names, capacities, indicative outstation rates and service notes are based on the official company website.
+// Images intentionally remain the repository/Cloudinary assets already used by this application.
 export const vehicles = [
-  ['Toyota Etios', '4 Passengers', '2 Bags', images.etios, '₹2,299/day'],
-  ['Ertiga', '6 Passengers', '3 Bags', images.ertiga, '₹2,899/day'],
-  ['Innova Crysta', '7 Passengers', '4 Bags', images.crysta, '₹3,999/day'],
-  ['Tempo Traveller 12', '12 Passengers', '8 Bags', images.tempo12, '₹5,999/day'],
-  ['Tempo Traveller 17', '17 Passengers', '10 Bags', images.tempo17, '₹6,999/day'],
-  ['Tempo Traveller 20', '20 Passengers', '12 Bags', images.tempo20, '₹7,999/day'],
-  ['Force Urbania 16', '16 Passengers', '10 Bags', images.urbania16, '₹7,499/day'],
-  ['Bus 27 Seater', '27 Passengers', '15 Bags', images.bus27, '₹10,999/day'],
-  ['Bus 40 Seater', '40 Passengers', '20 Bags', images.bus40, '₹13,999/day'],
-  ['Bus 50 Seater', '50 Passengers', '25 Bags', images.bus50, '₹16,999/day']
+  ['Toyota Etios', '4+1 Seats', '2 Bags', images.etios, '₹15/km', 'AC · WITH DRIVER', 'SEDAN', 'Compact sedan for couples, small families and efficient city or outstation travel.', '300 km minimum/day'],
+  ['Maruti Ertiga', '6+1 Seats', '3 Bags', images.ertiga, '₹20/km', 'AC · WITH DRIVER', 'SUV / MUV', 'Spacious family-friendly option for comfortable local sightseeing and outstation journeys.', '300 km minimum/day'],
+  ['Toyota Innova Crysta', '7+1 Seats', '4 Bags', images.crysta, '₹23/km', 'AC · WITH DRIVER', 'PREMIUM SUV', 'Premium, spacious choice for families, corporate travel and longer journeys.', '300 km minimum/day'],
+  ['Tempo Traveller 12', '12+1 Seats', '8 Bags', images.tempo12, '₹25/km', 'AC · WITH DRIVER', 'TEMPO TRAVELLER', 'Comfortable group vehicle for pilgrimages, family tours and medium-sized groups.', '300 km minimum/day'],
+  ['Tempo Traveller 17', '17+1 Seats', '10 Bags', images.tempo17, '₹35/km', 'AC · WITH DRIVER', 'TEMPO TRAVELLER', 'A practical group-travel option with more seating for larger family and pilgrimage groups.', '300 km minimum/day'],
+  ['Tempo Traveller 20', '20+1 Seats', '12 Bags', images.tempo20, '₹45/km', 'AC · WITH DRIVER', 'TEMPO TRAVELLER', 'Large-group travel with generous seating for tours, pilgrimages and events.', '300 km minimum/day'],
+  ['Urbania 12', '12+1 Seats', '8 Bags', images.urbania16, '₹45/km', 'AC · WITH DRIVER', 'PREMIUM URBANIA', 'Premium group travel with a modern cabin and a more elevated long-distance experience.', '300 km minimum/day'],
+  ['Urbania 16', '16+1 Seats', '10 Bags', images.urbania16, '₹65/km', 'AC · WITH DRIVER', 'PREMIUM URBANIA', 'Spacious premium group transport for larger families, pilgrimages and corporate trips.', '300 km minimum/day'],
+  ['Bus 27 Seater', '27 Seats', '15 Bags', images.bus27, '₹55/km', 'AC · WITH DRIVER', 'MINI BUS', 'Group bus suited to larger pilgrimages, events and organized tours.', '350 km minimum/day'],
+  ['Bus 40 Seater', '40 Seats', '20 Bags', images.bus40, 'Quote', 'AC · WITH DRIVER', 'BUS', 'Large-capacity group travel for tours, institutions and pilgrimage groups.', 'Custom quote'],
+  ['Bus 50 Seater', '50 Seats', '25 Bags', images.bus50, 'Quote', 'AC · WITH DRIVER', 'BUS', 'Maximum-capacity group travel for large tours, events and organized journeys.', 'Custom quote']
 ];
 
 export const destinations = [
