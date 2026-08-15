@@ -1,0 +1,1 @@
+.map-section{background:#fff}.map-card{overflow:hidden;border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);background:var(--surface)}.map-card iframe{display:block;width:100%;height:430px;border:0}@media(max-width:650px){.map-card iframe{height:320px}}
