@@ -9,11 +9,7 @@ import { Link } from 'react-router-dom';
 const categoryIcons = { cars: Car, tempo: Users, urbania: Sparkles, bus: BusFront };
 
 export default function Fleet(){
-  const purposeOptions = [
-    { icon: CalendarDays, label: 'Car Rent for a Day', detail: 'Local day rentals', href: '#cars' },
-    { icon: MapPinned, label: 'In Tirupati', detail: 'Temple & local travel', href: '#cars' },
-    { icon: Plane, label: 'Tirupati → Airport', detail: 'Airport transfers', href: '#cars' }
-  ];
+  const rentalOptions = { icon: CalendarDays, label: 'Car Rentals', detail: 'Day rent · Tirupati · Airport', href: '#cars' };
 
   return <Page eyebrow="FLEET & RENTALS" title="Choose the right vehicle for your journey." text="From economical Tirupati cabs to premium Urbania, Tempo Travellers and large buses, choose the space, comfort and price point that fits your trip." image={images.hero}>
     <section className="content" id="rentals">
@@ -23,7 +19,7 @@ export default function Fleet(){
         <div className="fleet-chooser-copy"><span className="eyebrow">CHOOSE VEHICLE</span><strong>What are you travelling with?</strong><small>Jump directly to the vehicle type that fits your group.</small></div>
         <nav className="fleet-filter-row">
           {fleetCategories.slice(1).map(c=>{const Icon=categoryIcons[c.key] || Car; return <a className="fleet-choice" key={c.key} href={`#${c.key}`}><span className="fleet-choice-icon"><Icon/></span><span><b>{c.label}</b><small>{c.ids.length} options</small></span><span className="fleet-choice-arrow"><ArrowRight/></span></a>})}
-          {purposeOptions.map(option=>{const Icon=option.icon; return <a className="fleet-choice" key={option.label} href={option.href}><span className="fleet-choice-icon"><Icon/></span><span><b>{option.label}</b><small>{option.detail}</small></span><span className="fleet-choice-arrow"><ArrowRight/></span></a>})}
+          {(() => { const Icon=rentalOptions.icon; return <a className="fleet-choice" href={rentalOptions.href}><span className="fleet-choice-icon"><Icon/></span><span><b>{rentalOptions.label}</b><small>{rentalOptions.detail}</small></span><span className="fleet-choice-arrow"><ArrowRight/></span></a> })()}
         </nav>
       </div>
 
