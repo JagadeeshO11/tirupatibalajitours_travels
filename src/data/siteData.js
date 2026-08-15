@@ -10,6 +10,7 @@ export const images = {
   temple: 'https://tirupatibalajitourstravels.com/wp-content/uploads/2025/07/Meenakshi-Amman-Temple.png',
   taxi: 'https://tirupatibalajitourstravels.com/wp-content/uploads/2025/10/Taxi-service-in-tirupati.jpeg',
   place: 'https://tirupatibalajitourstravels.com/wp-content/uploads/2025/02/Kanipakam_20200131151403.jpg',
+  srikalahasti: 'https://www.templedairy.in/wp-content/uploads/2017/06/225.jpg',
   etios: 'https://res.cloudinary.com/znbhjevm/image/upload/v1786732680/etios.png',
   ertiga: 'https://res.cloudinary.com/znbhjevm/image/upload/v1786732675/ertiga.png',
   crysta: 'https://res.cloudinary.com/znbhjevm/image/upload/v1786732671/crysta.png',
@@ -50,7 +51,7 @@ export const destinations = [
   ['tirumala', 'Tirumala', 'Sri Venkateswara Temple and the seven sacred hills.', 'https://res.cloudinary.com/znbhjevm/image/upload/v1786733399/8d17421f-0c51-490c-9fd1-34615a6a9dbd.png', '₹2,499'],
   ['tirupati', 'Tirupati', 'A complete local temple and sightseeing experience.', 'https://res.cloudinary.com/znbhjevm/image/upload/v1786733408/39dd8a6a-1c70-433d-abb2-7a5491fddf57.png', '₹2,999'],
   ['tiruchanur', 'Tiruchanur', 'Visit the sacred Padmavathi Ammavari Temple.', 'https://res.cloudinary.com/znbhjevm/image/upload/v1786733391/c167177a-f7b2-4705-b622-c6d9cf88070f.png', '₹2,299'],
-  ['srikalahasti', 'Srikalahasti', 'A revered Shiva temple and traditional pilgrimage route.', 'https://res.cloudinary.com/znbhjevm/image/upload/v1786733326/f61277ef-a079-406e-422c467dcc3d.png', '₹2,999'],
+  ['srikalahasti', 'Srikalahasti', 'A revered Shiva temple and traditional pilgrimage route.', images.srikalahasti, '₹2,999'],
   ['kanipakam', 'Kanipakam', 'Sri Varasiddhi Vinayaka Temple near Tirupati.', 'https://res.cloudinary.com/znbhjevm/image/upload/v1786733245/2294ffc1-24a6-4284-bd31-20ada6598736.png', '₹3,499'],
   ['golden-temple', 'Golden Temple', 'Vellore Golden Temple spiritual day tour.', 'https://res.cloudinary.com/znbhjevm/image/upload/v1786733338/113c0590-3a8d-4dfd-9ea4-c225fab55199.png', '₹5,999'],
   ['arunachalam', 'Arunachalam', 'Sacred Annamalaiyar Temple pilgrimage.', 'https://res.cloudinary.com/znbhjevm/image/upload/v1786733151/78ba506e-406e-419e-9bd0-7310625bdb82.png', '₹7,499'],
@@ -64,7 +65,7 @@ moreDestinationImages.forEach(([slug,name,image], index) => destinations.push([s
 
 export const tours = [
   ['Tirupati 5 Temples Tour', '1 Day', 'Tirumala · Padmavathi · Kapila', '₹2,499', images.temple],
-  ['Tirupati to Srikalahasti', 'Full Day', 'Srikalahasti · Tiruchanur', '₹2,999', images.place],
+  ['Tirupati to Srikalahasti', 'Full Day', 'Srikalahasti · Tiruchanur', '₹2,999', images.srikalahasti],
   ['Tirupati to Kanipakam', 'Full Day', 'Kanipakam · Golden Temple', '₹3,499', images.place],
   ['South India Pilgrimage', '5 Days', 'Tirupati · Madurai · Rameshwaram', '₹18,999', images.taxi]
 ];
