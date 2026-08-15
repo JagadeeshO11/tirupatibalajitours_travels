@@ -2,6 +2,7 @@ import { Car, Route, Landmark, Plane, Sparkles, MapPin, BriefcaseBusiness } from
 
 export const phone = '+918688624758';
 export const whatsapp = `https://wa.me/${phone}`;
+export const whatsappBooking = (message = 'Hi, I would like to enquire about your travel services.') => `${whatsapp}?text=${encodeURIComponent(message)}`;
 export const email = 'Taxi@TirupatiBalajiToursTravels.com';
 
 export const images = {
