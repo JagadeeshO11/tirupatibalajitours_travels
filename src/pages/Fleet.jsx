@@ -1,7 +1,7 @@
 import { Luggage, Wind, ShieldCheck, Clock3, Fuel, Users, MapPin, Car, BusFront, Sparkles, ArrowRight } from 'lucide-react';
 import Page from './PageTemplate';
 import { images, whatsapp } from '../data/siteData';
-import { fleet, fleetCategories, fleetCapacityNote } from '../data/fleetData';
+import { fleet, fleetCategories } from '../data/fleetData';
 import './Fleet.css';
 import './FleetOverride.css';
 import { Link } from 'react-router-dom';
@@ -25,7 +25,6 @@ export default function Fleet(){
         <div className="vehicle-media"><img src={v.image} alt={`${v.name} rental in Tirupati`} loading="lazy"/><span className="media-type">{v.category}</span><div className="media-bottom"><span className="media-rate">{v.local}</span><span className="media-seats"><Users/> {v.seats}</span></div></div>
         <div className="rental-info"><div className="vehicle-heading"><div><span className="vehicle-category">{v.category}</span><h3>{v.name}</h3></div><span className="vehicle-capacity">{v.seats} seats</span></div><p className="vehicle-summary">{v.use}</p><div className="vehicle-features">{v.features.map(feature=><span key={feature}><Wind/> {feature}</span>)}<span><Luggage/> {v.bags} bags</span><span><Fuel/> {v.fuel}</span></div><div className="vehicle-price-grid"><span><small>Local</small><b>{v.local}</b></span><span><small>Outstation</small><b>{v.outstation}</b></span></div><p className="vehicle-minimum"><MapPin/> Minimum {v.minimum}</p><Link className="view-details" to={`/fleet/${v.id}`}>View Details</Link><div className="rent-actions"><a className="button" href={`${whatsapp}?text=${encodeURIComponent(`Hi, I want to book ${v.name} in Tirupati. Please share availability and the exact quote.`)}`} target="_blank" rel="noreferrer">Book on WhatsApp</a></div></div>
       </article>)}</div></section>})}
-      <div className="fleet-capacity-note"><strong>30-seater bus</strong><span>{fleetCapacityNote.replace('The official fleet information also lists a 30-seater bus. ','')}</span></div>
       <div className="fleet-pricing-note"><strong>Pricing note</strong><span>These are indicative figures published on the official service pages. Tolls, parking, permits, state taxes and other trip-specific charges may apply. Final pricing is confirmed on WhatsApp.</span></div>
     </section>
   </Page>
