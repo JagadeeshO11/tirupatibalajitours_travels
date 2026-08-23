@@ -1,9 +1,11 @@
-import {motion} from 'framer-motion';
-import {ArrowRight,MessageCircle,Phone} from 'lucide-react';
-import {Link} from 'react-router-dom';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight, CalendarDays, MessageCircle, Phone, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { packageItineraries } from '../data/packageItineraries';
 import './PopularPackages.css';
 
-const packages=[
+const packages = [
 ['2 Days Arunachalam Package','2 Days','Tirupati → Tiruttani → Kanchipuram → Arunachalam → Vellore → Kanipakam → Tirupati','https://tirupatibalajitourstravels.com/wp-content/uploads/2025/06/Arunachalam.png','https://tirupatibalajitourstravels.com/tour/tirupati-to-arunachalam-packages/'],
 ['1 Day Arunachalam Package','1 Day','Tirupati → Kanipakam → Golden Temple → Arunachalam → Tirupati','https://tirupatibalajitourstravels.com/wp-content/uploads/2025/09/ArunachalaShiva.webp','https://tirupatibalajitourstravels.com/tour/tirupati-to-arunachalam-taxi-service/'],
 ['Pancha Linga Tour from Tirupati','3 Days','Tirupati → Srikalahasti → Kanchipuram → Chidambaram → Srirangam → Arunachalam → Vellore → Kanipakam → Tirupati','https://tirupatibalajitourstravels.com/wp-content/uploads/2025/07/Pancha-Linga-Tour-from-Tirupati.png','https://tirupatibalajitourstravels.com/tour/pancha-linga-tour-from-tirupati/'],
@@ -30,5 +32,15 @@ const packages=[
 ['7 Days Divine Tamil Nadu Temple Tour from Tirupati','7 Days','Tirupati → Vellore → Arunachalam → Srirangam → Madurai → Trivandrum → Kanyakumari → Rameswaram → Kumbakonam → Chidambaram → Kanchipuram → Tirupati','https://tirupatibalajitourstravels.com/storage/2025/07/Tamil-Nadu-Temple-Tour-from-Tirupati.png','https://tirupatibalajitourstravels.com/tour/7-day-divine-tamil-nadu-temple-tour-from-tirupati/']
 ];
 
-export default function PopularPackages(){
-  return <section className="popular-packages-section"><div className="popular-heading"><div><p className="eyebrow">🔥 MOST BOOKED PACKAGES</p><h2>Explore Our Popular Temple Tour Packages</h2><p>Safe, Comfortable & Memorable Journeys to Sacred Destinations</p></div><div className="popular-benefits"><span>🚕 Tolls Included</span><span>🅿️ Parkings Included</span><span>👨‍✈️ Driver Batta Included</span><span>🏛️ TN Border Tax Included</span><span>📞 24×7 Support</span><span>💰 Best Price Guaranteed</span></div></div><div className="popular-package-grid">{packages.map(([name,duration,route,image,details],i)=><motion.article className="popular-package-card" key={name} initial={{opacity:0,y:24}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.1}} transition={{duration:.4,delay:(i%3)*.05}}><div className="popular-package-image"><img src={image} alt={name} loading="lazy"/><span className="popular-badge">★ Most Popular</span><span className="popular-duration">{duration}</span></div><div className="popular-package-content"><h3>{name}</h3><p>{route}</p><div className="popular-actions"><a href="tel:+918688624758"><Phone size={14}/> <span>Call Now</span></a><a href={`https://wa.me/918688624758?text=${encodeURIComponent(`Hi, I want to book ${name}`)}`} target="_blank" rel="noopener noreferrer" className="package-whatsapp"><MessageCircle size={14} aria-hidden="true"/><span>WhatsApp</span></a><Link to={details} className="details"><span>Details</span> <ArrowRight size={14}/></Link></div></div></motion.article>)}</div></section>}
+export default function PopularPackages() {
+  const [selectedItinerary, setSelectedItinerary] = useState(null);
+  const openItinerary = (name) => { const days = packageItineraries[name]; if (days) setSelectedItinerary({ name, days }); };
+
+  return <>
+    <section className="popular-packages-section">
+      <div className="popular-heading"><div><p className="eyebrow">🔥 MOST BOOKED PACKAGES</p><h2>Explore Our Popular Temple Tour Packages</h2><p>Safe, Comfortable & Memorable Journeys to Sacred Destinations</p></div><div className="popular-benefits"><span>🚕 Tolls Included</span><span>🅿️ Parkings Included</span><span>👨‍✈️ Driver Batta Included</span><span>🏛️ TN Border Tax Included</span><span>📞 24×7 Support</span><span>💰 Best Price Guaranteed</span></div></div>
+      <div className="popular-package-grid">{packages.map(([name,duration,route,image,details],i) => { const hasItinerary = Boolean(packageItineraries[name]); return <motion.article className="popular-package-card" key={name} initial={{opacity:0,y:24}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.1}} transition={{duration:.4,delay:(i%3)*.05}}><div className="popular-package-image"><img src={image} alt={name} loading="lazy"/><span className="popular-badge">★ Most Popular</span><span className="popular-duration">{duration}</span></div><div className="popular-package-content"><h3>{name}</h3><p>{route}</p><div className="popular-actions"><a href="tel:+918688624758"><Phone size={14}/> <span>Call Now</span></a><a href={`https://wa.me/918688624758?text=${encodeURIComponent(`Hi, I want to book ${name}`)}`} target="_blank" rel="noopener noreferrer" className="package-whatsapp"><MessageCircle size={14} aria-hidden="true"/><span>WhatsApp</span></a>{hasItinerary && <button type="button" className="itinerary-button" onClick={() => openItinerary(name)}><CalendarDays size={14}/><span>Itinerary</span></button>}<Link to={details} className="details"><span>Details</span> <ArrowRight size={14}/></Link></div></div></motion.article>; })}</div>
+    </section>
+    {selectedItinerary && <div className="itinerary-overlay" role="presentation" onClick={() => setSelectedItinerary(null)}><div className="itinerary-modal" role="dialog" aria-modal="true" aria-labelledby="itinerary-title" onClick={(event) => event.stopPropagation()}><button type="button" className="itinerary-close" aria-label="Close itinerary" onClick={() => setSelectedItinerary(null)}><X size={20}/></button><div className="itinerary-modal-header"><span className="itinerary-icon"><CalendarDays size={20}/></span><div><p>PACKAGE ITINERARY</p><h3 id="itinerary-title">{selectedItinerary.name}</h3></div></div><div className="itinerary-days">{selectedItinerary.days.map(({day,places}) => <div className="itinerary-day" key={day}><div className="itinerary-day-label">{day}</div><p>{places}</p></div>)}</div><a className="itinerary-book" href={`https://wa.me/918688624758?text=${encodeURIComponent(`Hi, I want to book ${selectedItinerary.name}`)}`} target="_blank" rel="noopener noreferrer"><MessageCircle size={16}/> Enquire on WhatsApp</a></div></div>}
+  </>;
+}
