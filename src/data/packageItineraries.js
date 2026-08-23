@@ -91,5 +91,30 @@ export const packageItineraries = {
     { day: "Day 5", places: "Rameswaram Temple, Dhanushkodi, Pamban Bridge, Kalam Memorial, Rameswaram Stay" },
     { day: "Day 6", places: "Brihadeeswara Temple, Kumbakonam Temples, Thirunallar Stay" },
     { day: "Day 7", places: "Thirunallar Shani Temple, Chidambaram Temple, Kanchipuram Temples, Tirupati Drop" }
+  ],
+  "1 Day Arunachalam Package": [
+    { day: "Day 1", places: "Tirupati Pickup, Kanipakam Vinayaka Temple, Golden Temple (Vellore), Arunachalam Temple Darshan, Tirupati Drop" }
+  ],
+  "Tirupati 1 Day Taxi Package": [
+    { day: "Day 1", places: "Tirupati Pickup, Padmavathi Temple, Varahaswamy Temple Darshan, Sri Venkateswara Balaji Darshan, Kapila Theertham, Tirupati Drop" }
+  ],
+  "Tirupati to Golden Temple Vellore Tour": [
+    { day: "Day 1", places: "Tirupati Pickup, Srinivasa Mangapuram Temple, Kanipakam Vinayaka Temple, Golden Temple (Vellore), Tirupati Drop" }
+  ],
+  "Tirupati to Kanipakam Temple Tour": [
+    { day: "Day 1", places: "Tirupati Pickup, Vakula Devi Temple Visit, Srinivasa Mangapuram Darshan, Kanipakam Vinayaka Temple, Tirupati Drop" }
+  ],
+  "Tirupati 5 Local Temples Tour Package": [
+    { day: "Day 1", places: "Tirupati Pickup, Kapila Theertham & ISKCON Temple, Govindaraja Swamy & Padmavathi Temple, Srikalahasti Temple, Tirupati Drop" }
+  ],
+  "Tirupati to Kanchipuram Taxi Service": [
+    { day: "Day 1", places: "Tirupati Pickup, Tiruttani Murugan Temple, Varadaraja Perumal Temple, Kamakshi Amman Temple, Kailasanathar Temple, Tirupati Drop" }
+  ],
+  "QUICK 1-DAY DARSHAN": [
+    { day: "Day 1", places: "Airport / Railway Pickup, Mundan / Hair Removal, Varahaswamy Temple, Balaji Darshan, Padmavathi Temple, Airport / Railway Drop" }
+  ],
+  "QUICK 2-DAY DARSHAN": [
+    { day: "Day 1", places: "Airport / Railway Pickup, Mundan / Hair Removal, Varahaswamy Temple, Balaji Darshan, Padmavathi Temple, Hotel Drop" },
+    { day: "Day 2", places: "Srikalahasti, Padmavathi Temple, Kapilatheertham, Iskcon Temple, Govinda Rajaswamy Temple, Airport / Railway Drop" }
   ]
 };
