@@ -4,10 +4,11 @@ import {phone,whatsappBooking,vehicles} from '../data/siteData';
 import {getCabRoute} from '../data/cabRoutes';
 import './CabRoutePage.css';
 
-export default function CabRoutePage(){
- const {slug}=useParams(); const route=getCabRoute(slug);
- if(!route) return <main className="cab-route-page"><section className="section"><h1>Cab route not found</h1><Link className="button" to="/cabs">Back to Tirupati Cabs</Link></section></main>;
- const fleet=route.prices.length?route.prices:vehicles.slice(0,5).map(v=>[v[0],v[4]]);
+export default function CabRoutePage({route: routeProp}){
+ const {slug}=useParams();
+ const route=routeProp || getCabRoute(slug);
+ if(!route) return <main className="cab-route-page"><section className="section"><h1>Cab route not found</h1><Link className="button" to="/tirupati-cabs/tirupati-to-srikalahasti">Back to Tirupati Cabs</Link></section></main>;
+ const fleet=route.prices?.length?route.prices:vehicles.slice(0,5).map(v=>[v[0],v[4]]);
  return <main className="cab-route-page">
   <section className="cab-route-hero">
    <div className="cab-route-hero-copy"><p className="eyebrow">TIRUPATI CABS · OUTSTATION TAXI</p><h1>{route.title}</h1><p>{route.description}</p><div className="cab-route-actions"><a className="button" href={`tel:${phone}`}><Phone size={16}/>Call Now</a><a className="button secondary" href={whatsappBooking(`Hi, I would like to book ${route.title}. Please share availability and current fare.`)} target="_blank" rel="noreferrer"><MessageCircle size={16}/>WhatsApp</a></div></div>
