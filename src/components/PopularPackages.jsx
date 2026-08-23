@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, CalendarDays, MessageCircle, Phone, X } from 'lucide-react';
+import { ArrowRight, CalendarDays, CarFront, CheckCircle2, MessageCircle, Phone, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { packageItineraries } from '../data/packageItineraries';
+import { packageDetails } from '../data/packageDetails';
 import './PopularPackages.css';
 
 const packages = [
@@ -33,14 +34,24 @@ const packages = [
 ];
 
 export default function PopularPackages() {
-  const [selectedItinerary, setSelectedItinerary] = useState(null);
-  const openItinerary = (name) => { const days = packageItineraries[name]; if (days) setSelectedItinerary({ name, days }); };
+  const [selectedPanel, setSelectedPanel] = useState(null);
+  const openPanel = (name, type) => setSelectedPanel({ name, type });
+  const closePanel = () => setSelectedPanel(null);
+  const phone = 'tel:+918688624758';
+  const whatsapp = (name) => `https://wa.me/918688624758?text=${encodeURIComponent(`Hi, I want to book ${name}`)}`;
 
   return <>
     <section className="popular-packages-section">
       <div className="popular-heading"><div><p className="eyebrow">🔥 MOST BOOKED PACKAGES</p><h2>Explore Our Popular Temple Tour Packages</h2><p>Safe, Comfortable & Memorable Journeys to Sacred Destinations</p></div><div className="popular-benefits"><span>🚕 Tolls Included</span><span>🅿️ Parkings Included</span><span>👨‍✈️ Driver Batta Included</span><span>🏛️ TN Border Tax Included</span><span>📞 24×7 Support</span><span>💰 Best Price Guaranteed</span></div></div>
-      <div className="popular-package-grid">{packages.map(([name,duration,route,image,details],i) => { const hasItinerary = Boolean(packageItineraries[name]); return <motion.article className="popular-package-card" key={name} initial={{opacity:0,y:24}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.1}} transition={{duration:.4,delay:(i%3)*.05}}><div className="popular-package-image"><img src={image} alt={name} loading="lazy"/><span className="popular-badge">★ Most Popular</span><span className="popular-duration">{duration}</span></div><div className="popular-package-content"><h3>{name}</h3><p>{route}</p><div className="popular-actions"><a href="tel:+918688624758"><Phone size={14}/> <span>Call Now</span></a><a href={`https://wa.me/918688624758?text=${encodeURIComponent(`Hi, I want to book ${name}`)}`} target="_blank" rel="noopener noreferrer" className="package-whatsapp"><MessageCircle size={14} aria-hidden="true"/><span>WhatsApp</span></a>{hasItinerary && <button type="button" className="itinerary-button" onClick={() => openItinerary(name)}><CalendarDays size={14}/><span>Itinerary</span></button>}<Link to={details} className="details"><span>Details</span> <ArrowRight size={14}/></Link></div></div></motion.article>; })}</div>
+      <div className="popular-package-grid">{packages.map(([name,duration,route,image,details],i) => { const hasItinerary = Boolean(packageItineraries[name]); const data = packageDetails[name]; return <motion.article className="popular-package-card" key={name} initial={{opacity:0,y:24}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.1}} transition={{duration:.4,delay:(i%3)*.05}}><div className="popular-package-image"><img src={image} alt={name} loading="lazy"/><span className="popular-badge">★ Most Popular</span><span className="popular-duration">{duration}</span></div><div className="popular-package-content"><h3>{name}</h3><p>{route}</p><div className="popular-actions">
+        <button type="button" className="action-itinerary" onClick={() => openPanel(name,'itinerary')} disabled={!hasItinerary}><CalendarDays size={14}/><span>Itinerary</span></button>
+        <button type="button" className="action-prices" onClick={() => openPanel(name,'prices')} disabled={!data}><CarFront size={14}/><span>Vehicle Prices</span></button>
+        <button type="button" className="action-inclusions" onClick={() => openPanel(name,'inclusions')} disabled={!data}><CheckCircle2 size={14}/><span>Inclusions</span></button>
+        <a href={phone}><Phone size={14}/><span>Call Now</span></a>
+        <a href={whatsapp(name)} target="_blank" rel="noopener noreferrer" className="package-whatsapp"><MessageCircle size={14}/><span>WhatsApp</span></a>
+        <Link to={details} className="details"><span>Details</span><ArrowRight size={14}/></Link>
+      </div></div></motion.article>; })}</div>
     </section>
-    {selectedItinerary && <div className="itinerary-overlay" role="presentation" onClick={() => setSelectedItinerary(null)}><div className="itinerary-modal" role="dialog" aria-modal="true" aria-labelledby="itinerary-title" onClick={(event) => event.stopPropagation()}><button type="button" className="itinerary-close" aria-label="Close itinerary" onClick={() => setSelectedItinerary(null)}><X size={20}/></button><div className="itinerary-modal-header"><span className="itinerary-icon"><CalendarDays size={20}/></span><div><p>PACKAGE ITINERARY</p><h3 id="itinerary-title">{selectedItinerary.name}</h3></div></div><div className="itinerary-days">{selectedItinerary.days.map(({day,places}) => <div className="itinerary-day" key={day}><div className="itinerary-day-label">{day}</div><p>{places}</p></div>)}</div><a className="itinerary-book" href={`https://wa.me/918688624758?text=${encodeURIComponent(`Hi, I want to book ${selectedItinerary.name}`)}`} target="_blank" rel="noopener noreferrer"><MessageCircle size={16}/> Enquire on WhatsApp</a></div></div>}
+    {selectedPanel && <div className="itinerary-overlay" role="presentation" onClick={closePanel}><div className="itinerary-modal package-info-modal" role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}><button type="button" className="itinerary-close" aria-label="Close" onClick={closePanel}><X size={20}/></button>{(() => { const {name,type}=selectedPanel; const data=packageDetails[name]; if(type==='itinerary'){ return <><div className="itinerary-modal-header"><span className="itinerary-icon"><CalendarDays size={20}/></span><div><p>PACKAGE ITINERARY</p><h3>{name}</h3></div></div><div className="itinerary-days">{packageItineraries[name]?.map(({day,places}) => <div className="itinerary-day" key={day}><div className="itinerary-day-label">{day}</div><p>{places}</p></div>)}</div></>; } if(type==='prices'){ return <><div className="itinerary-modal-header"><span className="itinerary-icon"><CarFront size={20}/></span><div><p>VEHICLE & PRICES</p><h3>{name}</h3></div></div><div className="vehicle-price-list">{data?.prices.map(([vehicle,price]) => <div className="vehicle-price-row" key={vehicle}><span>{vehicle}</span><strong>{price}</strong></div>)}</div></>; } return <><div className="itinerary-modal-header"><span className="itinerary-icon"><CheckCircle2 size={20}/></span><div><p>PACKAGE INCLUSIONS</p><h3>{name}</h3></div></div><div className="inclusion-box"><div><CheckCircle2 size={17}/><span>{data?.included}</span></div><div className="excluded"><X size={17}/><span>{data?.excluded}</span></div></div></>; })()}<a className="itinerary-book" href={whatsapp(selectedPanel.name)} target="_blank" rel="noopener noreferrer"><MessageCircle size={16}/> Enquire on WhatsApp</a></div></div>}
   </>;
 }
