@@ -15,4 +15,5 @@ export const cabRoutes = [
   { slug:'tirupati-to-mahabalipuram', title:'Tirupati to Mahabalipuram Cabs', shortTitle:'Tirupati → Mahabalipuram', image:'https://res.cloudinary.com/znbhjevm/image/upload/v1786733297/51d2c19a-22c0-41ce-b299-9ca4ba7cc078.png', distance:'Approx. 200 km', time:'4.5–5.5 hours', starting:'₹10,000', route:'Tirupati → Kanchipuram → Mahabalipuram → Tirupati', highlights:['Shore Temple','Pancha Rathas','Arjuna’s Penance & beach'], description:'Combine temple heritage and the coast with a Tirupati to Mahabalipuram cab. The official route package includes Kanchipuram-side temple stops, Mahabalipuram Beach and the UNESCO heritage monuments.', prices:[['Etios / Swift Dzire','₹10,000'],['Ertiga','₹12,500'],['Innova Crysta','₹15,000'],['Tempo Traveller 12 Seater','₹18,500'],['Tempo Traveller 16 Seater','₹21,000']] }
 ];
 
-export const getCabRoute = slug => cabRoutes.find(route => route.slug === slug);
+const normalizeSlug = value => decodeURIComponent(String(value || '')).trim().toLowerCase().replace(/\/$/, '').replace(/-distance$/, '').replace(/-taxi-service$/, '').replace(/-taxi$/, '').replace(/-cabs$/, '');
+export const getCabRoute = slug => { const normalized = normalizeSlug(slug); return cabRoutes.find(route => normalizeSlug(route.slug) === normalized || normalizeSlug(route.title) === normalized || route.slug === slug); };
