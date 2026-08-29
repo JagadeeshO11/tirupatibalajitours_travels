@@ -1,2 +1,222 @@
-/* Travel Made Simple: clean four-piece rhombus layout */
-.travel-simple-section{position:relative!important;isolation:isolate;overflow:hidden;display:grid!important;grid-template-columns:minmax(280px,.72fr) minmax(560px,1.28fr)!important;align-items:center!important;gap:clamp(35px,5vw,80px)!important;min-height:650px!important;padding:90px clamp(28px,7vw,110px)!important;background:#f8f8f4!important}.travel-simple-backdrop{position:absolute!important;inset:0!important;z-index:-2!important;pointer-events:none!important;overflow:hidden}.travel-simple-backdrop img{position:absolute!important;right:-5%!important;top:-8%!important;width:60%!important;height:116%!important;object-fit:cover!important;opacity:.07!important;filter:saturate(.65) contrast(.9)!important}.travel-simple-backdrop:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#f8f8f4 0%,#f8f8f4 38%,rgba(248,248,244,.82) 67%,rgba(248,248,244,.96) 100%)!important}.travel-namam-mark{position:absolute!important;right:19%!important;top:8%!important;font-size:220px!important;line-height:1!important;color:rgba(180,138,28,.055)!important;z-index:-1!important}.travel-simple-heading{position:relative!important;width:auto!important;max-width:430px!important;padding:24px 0 24px 24px!important;display:block!important}.travel-simple-heading:before{content:"";position:absolute;left:0;top:22px;width:5px;height:155px;background:linear-gradient(#e4bf20,#f2df86);border-radius:999px}.travel-simple-heading .eyebrow{margin:0 0 12px!important;color:#d4aa08!important;letter-spacing:.2em!important;font-weight:900!important;font-size:11px!important}.travel-simple-heading h2{font-size:clamp(2.7rem,4vw,4.35rem)!important;line-height:.96!important;letter-spacing:-.045em!important;margin:0 0 24px!important;color:#11152e!important}.travel-simple-heading h2 span{color:#32177d!important}.travel-simple-heading>p{max-width:360px!important;margin:0!important;color:#65708b!important;font-size:13px!important;line-height:1.85!important}.travel-simple-slider{position:relative!important;width:min(650px,100%)!important;height:500px!important;margin:0 auto!important;overflow:visible!important}.travel-simple-slider .swiper-wrapper{display:grid!important;grid-template-columns:1fr 1fr!important;grid-template-rows:1fr 1fr!important;gap:8px!important;width:100%!important;height:100%!important;transform:none!important}.travel-simple-slider .swiper-slide{width:auto!important;height:auto!important;margin:0!important;display:block!important;opacity:1!important;transform:none!important}.travel-simple-slider .swiper-slide:nth-child(1){transform:translate(12px,12px)!important}.travel-simple-slider .swiper-slide:nth-child(2){transform:translate(-12px,12px)!important}.travel-simple-slider .swiper-slide:nth-child(3){transform:translate(12px,-12px)!important}.travel-simple-slider .swiper-slide:nth-child(4){transform:translate(-12px,-12px)!important}.travel-simple-card{position:relative!important;width:100%!important;height:100%!important;min-height:0!important;box-sizing:border-box!important;padding:34px 42px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;color:#fff!important;border:0!important;border-radius:24px!important;background:linear-gradient(145deg,#183f59,#285f76)!important;box-shadow:0 16px 34px rgba(22,51,70,.18)!important;overflow:hidden!important;clip-path:none!important;transition:transform .3s ease,box-shadow .3s ease!important}.travel-simple-card:after{content:"";position:absolute;width:76px;height:76px;border-radius:50%;background:#f8f8f4;z-index:2}.travel-simple-slider .swiper-slide:nth-child(1) .travel-simple-card:after{right:-38px;bottom:-38px}.travel-simple-slider .swiper-slide:nth-child(2) .travel-simple-card:after{left:-38px;bottom:-38px}.travel-simple-slider .swiper-slide:nth-child(3) .travel-simple-card:after{right:-38px;top:-38px}.travel-simple-slider .swiper-slide:nth-child(4) .travel-simple-card:after{left:-38px;top:-38px}.travel-simple-card:before{content:""!important;position:absolute!important;inset:0!important;background:linear-gradient(135deg,rgba(255,255,255,.1),transparent 45%,rgba(244,196,0,.05))!important;pointer-events:none!important}.travel-simple-card:hover{transform:translateY(-5px)!important;box-shadow:0 24px 44px rgba(22,51,70,.25)!important}.travel-simple-card .service-icon{width:48px!important;height:48px!important;border-radius:50%!important;background:#fff!important;color:#b38b16!important;margin:0 0 18px!important;box-shadow:0 7px 16px rgba(0,0,0,.12)!important}.travel-simple-card .service-index{right:24px!important;top:20px!important;color:rgba(255,255,255,.55)!important}.travel-simple-card h3{font-size:clamp(1.05rem,1.35vw,1.35rem)!important;margin:0 0 8px!important;color:#fff!important}.travel-simple-card p{font-size:11px!important;line-height:1.65!important;color:rgba(255,255,255,.8)!important;max-width:250px!important;margin:0 0 16px!important}.travel-simple-card a{display:inline-flex!important;align-items:center!important;gap:6px!important;color:#f1d35e!important;font-size:10px!important;font-weight:900!important;letter-spacing:.1em!important;text-transform:uppercase!important;margin:0!important}.travel-simple-slider .swiper-slide:nth-child(2) .travel-simple-card{background:linear-gradient(145deg,#173e57,#275d73)!important}.travel-simple-slider .swiper-slide:nth-child(3) .travel-simple-card{background:linear-gradient(145deg,#204f60,#2d7280)!important}.travel-simple-slider .swiper-slide:nth-child(4) .travel-simple-card{background:linear-gradient(145deg,#244d5d,#356f79)!important}.travel-simple-slider:before{content:"ॐ\A TIRUPATI BALAJI\A TOURS & TRAVELS"!important;white-space:pre!important;position:absolute!important;z-index:10!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;width:124px!important;height:124px!important;border-radius:50%!important;display:flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;background:#fff!important;border:5px solid #fff!important;box-shadow:0 12px 30px rgba(22,51,70,.18),inset 0 0 0 1px rgba(180,138,28,.45)!important;color:#a67c16!important;font:800 9px/1.35 Georgia,serif!important;letter-spacing:.06em!important;pointer-events:none!important}.travel-simple-slider:after{content:""!important;position:absolute!important;z-index:4!important;left:50%!important;top:50%!important;width:172px!important;height:172px!important;transform:translate(-50%,-50%)!important;border:1px solid rgba(180,138,28,.18)!important;border-radius:50%!important;box-shadow:0 0 0 14px rgba(255,255,255,.3)!important;pointer-events:none!important}.travel-simple-slider .swiper-pagination{display:none!important}@media(max-width:1050px){.travel-simple-section{grid-template-columns:.72fr 1.28fr!important;gap:28px!important;padding-left:35px!important;padding-right:35px!important}.travel-simple-slider{height:450px!important}.travel-simple-card{padding:28px 30px!important}}@media(max-width:800px){.travel-simple-section{display:block!important;padding:70px 20px 80px!important;min-height:auto!important}.travel-simple-heading{max-width:620px!important;padding:8px 5px 36px 18px!important;margin:0 auto!important}.travel-simple-heading h2{font-size:clamp(2.4rem,9vw,3.5rem)!important}.travel-simple-slider{height:520px!important;width:min(620px,100%)!important}}@media(max-width:480px){.travel-simple-section{padding:55px 12px 65px!important}.travel-simple-heading{padding-left:16px!important}.travel-simple-heading h2{font-size:2.55rem!important}.travel-simple-heading>p{font-size:12px!important}.travel-simple-slider{height:390px!important}.travel-simple-card{padding:22px 18px!important;border-radius:18px!important}.travel-simple-card .service-icon{width:38px!important;height:38px!important;margin-bottom:12px!important}.travel-simple-card h3{font-size:.9rem!important}.travel-simple-card p{font-size:9px!important}.travel-simple-card:after{width:58px;height:58px}.travel-simple-slider .swiper-slide:nth-child(1){transform:translate(5px,5px)!important}.travel-simple-slider .swiper-slide:nth-child(2){transform:translate(-5px,5px)!important}.travel-simple-slider .swiper-slide:nth-child(3){transform:translate(5px,-5px)!important}.travel-simple-slider .swiper-slide:nth-child(4){transform:translate(-5px,-5px)!important}.travel-simple-slider:before{width:82px!important;height:82px!important;font-size:6px!important;border-width:4px!important}.travel-simple-slider:after{width:118px!important;height:118px!important}.travel-simple-slider .swiper-slide:nth-child(1) .travel-simple-card:after,.travel-simple-slider .swiper-slide:nth-child(2) .travel-simple-card:after{bottom:-29px}.travel-simple-slider .swiper-slide:nth-child(3) .travel-simple-card:after,.travel-simple-slider .swiper-slide:nth-child(4) .travel-simple-card:after{top:-29px}.travel-simple-slider .swiper-slide:nth-child(1) .travel-simple-card:after,.travel-simple-slider .swiper-slide:nth-child(3) .travel-simple-card:after{right:-29px}.travel-simple-slider .swiper-slide:nth-child(2) .travel-simple-card:after,.travel-simple-slider .swiper-slide:nth-child(4) .travel-simple-card:after{left:-29px}}
+/* Modern Glassmorphism UI for OUR TAXI & PACKAGE SERVICES */
+.services-section-wrapper {
+  position: relative;
+  padding: 5rem 1.5rem;
+  background: linear-gradient(135deg, #090d16 0%, #0f172a 50%, #1e293b 100%);
+  border-top: 1px solid rgba(255, 215, 0, 0.15);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+  overflow: hidden;
+}
+
+.services-section-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.services-section-backdrop img {
+  position: absolute;
+  right: -5%;
+  top: -10%;
+  width: 50%;
+  height: 120%;
+  object-fit: cover;
+  opacity: 0.08;
+  filter: blur(2px);
+}
+
+.services-header-container {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 3.5rem;
+}
+
+.services-eyebrow-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1.2rem;
+  background: rgba(255, 215, 0, 0.12);
+  color: #ffd700;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.services-header-container h2 {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.services-header-container h2 span {
+  color: #ffd700;
+  background: linear-gradient(135deg, #ffd700, #ffaa00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.services-header-container p {
+  font-size: 1.1rem;
+  color: #94a3b8;
+  line-height: 1.6;
+}
+
+.services-cards-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.service-glass-card {
+  position: relative;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 2.25rem 2rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  overflow: hidden;
+}
+
+.service-glass-card:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #ffd700, #ffaa00, transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.service-glass-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255, 215, 0, 0.4);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 215, 0, 0.15);
+}
+
+.service-glass-card:hover:before {
+  opacity: 1;
+}
+
+.service-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.service-icon-box {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 170, 0, 0.05));
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffd700;
+  transition: transform 0.3s ease;
+}
+
+.service-glass-card:hover .service-icon-box {
+  transform: scale(1.1) rotate(3deg);
+  background: linear-gradient(135deg, #ffd700, #ffaa00);
+  color: #0f172a;
+}
+
+.service-index-number {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.25);
+  font-family: monospace;
+  letter-spacing: 1px;
+}
+
+.service-card-content h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.service-card-content p {
+  font-size: 0.98rem;
+  color: #94a3b8;
+  line-height: 1.6;
+  margin-bottom: 1.75rem;
+}
+
+.service-explore-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffd700;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.service-explore-link:hover {
+  color: #ffffff;
+  gap: 0.75rem;
+}
+
+.service-explore-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1.4rem;
+  background: rgba(255, 215, 0, 0.12);
+  color: #ffd700;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  width: fit-content;
+}
+
+.service-glass-card:hover .service-explore-btn {
+  background: linear-gradient(135deg, #ffd700, #ffaa00);
+  color: #0f172a;
+  border-color: #ffd700;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .services-section-wrapper {
+    padding: 3.5rem 1rem;
+  }
+  .services-header-container h2 {
+    font-size: 2rem;
+  }
+  .services-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
