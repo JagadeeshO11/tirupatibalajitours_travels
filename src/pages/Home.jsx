@@ -7,10 +7,10 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-coverflow';
 import {
-  ArrowRight, ShieldCheck, Clock3, Star, MapPin, ChevronRight,
-  ExternalLink, Car, Bus, PhoneCall, MessageCircle, ChevronDown, CheckCircle2,
-  Route, Landmark, Plane, Sparkles
-} from 'lucide-react';
+  FaArrowRight, FaShieldHalved, FaClock, FaStar, FaLocationDot,
+  FaChevronRight, FaCar, FaBus, FaPhone, FaWhatsapp, FaChevronDown,
+  FaCircleCheck, FaRoute, FaLandmark, FaPlane, FaWandMagicSparkles
+} from 'react-icons/fa6';
 import { destinations, images, services, tours, vehicles, whatsapp, phone } from '../data/siteData';
 import { cabRoutes } from '../data/cabRoutes';
 import BookingForm from '../components/BookingForm';
@@ -108,23 +108,23 @@ export default function Home() {
             </p>
             <p className="actions">
               <a className="button" href={whatsapp} target="_blank" rel="noreferrer">
-                Book Cab on WhatsApp <ArrowRight size={16} />
+                Book Cab on WhatsApp <FaArrowRight size={14} />
               </a>
               <Link className="button secondary" to="/tours">
-                Explore Packages <ChevronRight size={16} />
+                Explore Packages <FaChevronRight size={14} />
               </Link>
             </p>
           </motion.div>
 
           <div className="hero-trust-row">
             <span>
-              <ShieldCheck /> Verified Drivers
+              <FaShieldHalved /> Verified Drivers
             </span>
             <span>
-              <Clock3 /> 24×7 Service
+              <FaClock /> 24×7 Service
             </span>
             <span>
-              <Star /> <AnimatedCounter end={4.9} decimals={1} suffix="★" /> Rated
+              <FaStar /> <AnimatedCounter end={4.9} decimals={1} suffix="★" /> Rated
             </span>
           </div>
         </div>
@@ -137,14 +137,14 @@ export default function Home() {
         >
           <img src={images.hero} alt="Tirupati Balaji luxury vehicle fleet" />
           <div className="hero-location">
-            <MapPin size={15} />
+            <FaLocationDot size={15} />
             <div>
               <strong>Tirupati & Tirumala</strong>
               <small>Andhra Pradesh · India</small>
             </div>
           </div>
           <div className="hero-rating">
-            <Star size={14} fill="currentColor" />
+            <FaStar size={14} fill="currentColor" />
             <strong><AnimatedCounter end={4.9} decimals={1} /></strong>
             <span>trusted journeys</span>
           </div>
@@ -174,12 +174,12 @@ export default function Home() {
 
         <div className="services-cards-grid">
           {[
-            { index: '01', title: 'One Way Cab', desc: 'Simple, comfortable point-to-point travel.', link: '/taxi-in-tirupati', Icon: Car },
-            { index: '02', title: 'Round Trip', desc: 'Flexible return journeys at fair prices.', link: '/outstation-taxi-in-tirupati', Icon: Route },
-            { index: '03', title: 'Local Sightseeing', desc: 'Discover Tirupati at your own pace.', link: '/car-rentals-in-tirupati', Icon: Landmark },
-            { index: '04', title: 'Airport Taxi', desc: 'Punctual pickup and drop, every time.', link: '/tirupati-airport-taxi', Icon: Plane },
-            { index: '05', title: 'Temple Darshan Taxi', desc: 'Peaceful rides for your sacred visit.', link: '/services/balaji-darshan-packages', Icon: Sparkles },
-            { index: '06', title: 'Outstation Taxi', desc: 'Go beyond Tirupati with confidence.', link: '/outstation-taxi-in-tirupati', Icon: MapPin }
+            { index: '01', title: 'One Way Cab', desc: 'Simple, comfortable point-to-point travel.', link: '/taxi-in-tirupati', Icon: FaCar },
+            { index: '02', title: 'Round Trip', desc: 'Flexible return journeys at fair prices.', link: '/outstation-taxi-in-tirupati', Icon: FaRoute },
+            { index: '03', title: 'Local Sightseeing', desc: 'Discover Tirupati at your own pace.', link: '/car-rentals-in-tirupati', Icon: FaLandmark },
+            { index: '04', title: 'Airport Taxi', desc: 'Punctual pickup and drop, every time.', link: '/tirupati-airport-taxi', Icon: FaPlane },
+            { index: '05', title: 'Temple Darshan Taxi', desc: 'Peaceful rides for your sacred visit.', link: '/services/balaji-darshan-packages', Icon: FaWandMagicSparkles },
+            { index: '06', title: 'Outstation Taxi', desc: 'Go beyond Tirupati with confidence.', link: '/outstation-taxi-in-tirupati', Icon: FaLocationDot }
           ].map((item, i) => (
             <motion.div
               key={item.title}
@@ -192,7 +192,7 @@ export default function Home() {
               <div>
                 <div className="service-card-top">
                   <div className="service-icon-box">
-                    <item.Icon size={26} />
+                    <item.Icon size={24} />
                   </div>
                   <span className="service-index-number">{item.index}</span>
                 </div>
@@ -204,7 +204,7 @@ export default function Home() {
               </div>
 
               <Link to={item.link} className="service-explore-btn">
-                Explore <ArrowRight size={15} />
+                Explore <FaArrowRight size={14} />
               </Link>
             </motion.div>
           ))}
@@ -212,9 +212,7 @@ export default function Home() {
       </section>
 
       {/* --- STATS COUNTER BANNER --- */}
-      <StatsBanner title="Trusted by Devotees Nationwide" subtitle="OUR MILESTONES" />
-
-      {/* --- POPULAR CAB ROUTES --- */}
+      <StatsBanner title="Trusted by Devotees Nationwide" subtitle="OUR MILESTONES" />      {/* --- POPULAR CAB ROUTES --- */}
       <section className="section pale home-showcase">
         <div className="section-heading compact">
           <div>
@@ -222,25 +220,27 @@ export default function Home() {
             <h2>Top Temple & City Routes from Tirupati</h2>
           </div>
           <Link className="all-link" to="/tirupati-cabs/tirupati-to-srikalahasti">
-            All Cab Routes <ArrowRight size={15} />
+            All Cab Routes <FaArrowRight size={14} />
           </Link>
         </div>
 
         <Slider>
           {cabRoutes.map(r => (
             <SwiperSlide key={r.slug}>
-              <article className="home-slide-card">
+              <article className="home-slide-card route-card">
                 <div className="slide-image">
                   <img src={r.image || images.temple} alt={r.title} />
-                  <span>{r.distance} · {r.time}</span>
+                  <span className="route-badge">{r.distance} · {r.time}</span>
                 </div>
-                <div>
-                  <small>OUTSTATION TAXI</small>
+                <div className="card-body">
+                  <div className="card-tag-row">
+                    <small className="category-tag">OUTSTATION TAXI</small>
+                    <span className="price-tag">Starting from {r.startPrice}</span>
+                  </div>
                   <h3>{r.title}</h3>
                   <p>{r.summary}</p>
-                  <b>Starting from {r.startPrice}</b>
-                  <Link to={`/tirupati-cabs/${r.slug}`}>
-                    View Route Details <ArrowRight size={14} />
+                  <Link to={`/tirupati-cabs/${r.slug}`} className="card-action-btn">
+                    View Route Details <FaArrowRight size={14} />
                   </Link>
                 </div>
               </article>
@@ -257,25 +257,31 @@ export default function Home() {
             <h2>Choose the Perfect Ride for Your Group</h2>
           </div>
           <Link className="all-link" to="/fleet">
-            View Full Fleet <ArrowRight size={15} />
+            View Full Fleet <FaArrowRight size={14} />
           </Link>
         </div>
 
         <Slider>
           {vehicles.map(v => (
             <SwiperSlide key={v[0]}>
-              <article className="home-slide-card vehicle-home">
-                <div className="slide-image">
+              <article className="home-slide-card vehicle-card">
+                <div className="slide-image vehicle-image-bg">
                   <img src={v[3]} alt={v[0]} />
-                  <span>AC · {v[1]}</span>
+                  <span className="vehicle-ac-badge">{v[5]}</span>
                 </div>
-                <div>
-                  <small>COMFORT CLASS</small>
+                <div className="card-body">
+                  <div className="card-tag-row">
+                    <small className="category-tag">{v[6]}</small>
+                    <span className="rate-badge">From {v[4]}</span>
+                  </div>
                   <h3>{v[0]}</h3>
-                  <p>{v[2]}</p>
-                  <b>From {v[4]}</b>
-                  <Link to="/fleet#rentals">
-                    View Specs & Rates <ArrowRight size={14} />
+                  <div className="vehicle-specs-row">
+                    <span>👥 {v[1]}</span>
+                    <span>🧳 {v[2]}</span>
+                  </div>
+                  <p className="vehicle-desc">{v[7] || v[2]}</p>
+                  <Link to="/fleet#rentals" className="card-action-btn vehicle-btn">
+                    View Specs & Rates <FaArrowRight size={14} />
                   </Link>
                 </div>
               </article>
@@ -292,24 +298,24 @@ export default function Home() {
             <h2>Explore Holy Temples & Tourist Attractions</h2>
           </div>
           <Link className="all-link" to="/destinations">
-            All Destinations <ArrowRight size={15} />
+            All Destinations <FaArrowRight size={14} />
           </Link>
         </div>
 
         <Slider>
           {destinations.slice(0, 9).map(d => (
             <SwiperSlide key={d[0]}>
-              <article className="home-slide-card destination-slide">
+              <article className="home-slide-card destination-card">
                 <div className="slide-image">
                   <img src={d[3]} alt={d[1]} />
-                  <span>FROM {d[4]}</span>
+                  <span className="price-badge-overlay">FROM {d[4]}</span>
                 </div>
-                <div>
-                  <small>PILGRIMAGE SITE</small>
+                <div className="card-body">
+                  <small className="category-tag">PILGRIMAGE SITE</small>
                   <h3>{d[1]}</h3>
                   <p>{d[2]}</p>
-                  <Link to={`/destinations/${d[0]}`}>
-                    Read Destination Guide <ArrowRight size={14} />
+                  <Link to={`/destinations/${d[0]}`} className="card-action-btn dest-btn">
+                    Read Destination Guide <FaArrowRight size={14} />
                   </Link>
                 </div>
               </article>
@@ -326,25 +332,27 @@ export default function Home() {
             <h2>Curated South India Pilgrimage Packages</h2>
           </div>
           <Link className="all-link" to="/tours">
-            View All Packages <ArrowRight size={15} />
+            View All Packages <FaArrowRight size={14} />
           </Link>
         </div>
 
         <Slider>
           {tours.map(t => (
             <SwiperSlide key={t[0]}>
-              <article className="home-slide-card">
+              <article className="home-slide-card package-card">
                 <div className="slide-image">
                   <img src={t[4]} alt={t[0]} />
-                  <span>{t[1]}</span>
+                  <span className="duration-badge">{t[1]}</span>
                 </div>
-                <div>
-                  <small>PILGRIMAGE PACKAGE</small>
+                <div className="card-body">
+                  <div className="card-tag-row">
+                    <small className="category-tag">PILGRIMAGE PACKAGE</small>
+                    <span className="price-tag">From {t[3]}</span>
+                  </div>
                   <h3>{t[0]}</h3>
-                  <p>{t[2]}</p>
-                  <b>From {t[3]}</b>
-                  <Link to="/tours">
-                    View Package Itinerary <ArrowRight size={14} />
+                  <div className="package-route-pill">{t[2]}</div>
+                  <Link to="/tours" className="card-action-btn package-btn">
+                    View Package Itinerary <FaArrowRight size={14} />
                   </Link>
                 </div>
               </article>
@@ -427,10 +435,10 @@ export default function Home() {
               style={{ padding: '1.25rem 1.5rem', cursor: 'pointer', transition: 'all 0.3s ease' }}
               onClick={() => toggleFaq(index)}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'nowrap', alignItems: 'center' }}>
                 <h3 style={{ color: '#fff', fontSize: '1.05rem', margin: 0 }}>{faq.q}</h3>
-                <ChevronDown
-                  size={18}
+                <FaChevronDown
+                  size={16}
                   style={{
                     color: '#ffd700',
                     transform: openFaq === index ? 'rotate(180deg)' : 'rotate(0deg)',
@@ -461,7 +469,7 @@ export default function Home() {
             target="_blank"
             rel="noreferrer"
           >
-            Open in Google Maps <ExternalLink size={15} />
+            Open in Google Maps <FaArrowRight size={14} />
           </a>
         </div>
         <div className="map-card">
@@ -484,11 +492,11 @@ export default function Home() {
           </h2>
           <p>Share your route and group size on WhatsApp. We will help you select the ideal vehicle and fare.</p>
           <a href={whatsapp} target="_blank" rel="noreferrer" className="button">
-            Chat on WhatsApp <ArrowRight size={16} />
+            Chat on WhatsApp <FaArrowRight size={14} />
           </a>
         </div>
         <div className="cta-mark">
-          <Star size={26} />
+          <FaStar size={24} />
           <span>
             TRUSTED
             <br />

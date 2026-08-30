@@ -1,5 +1,5 @@
 import React from 'react';
-import { Scale, CheckSquare, Car, Shield, PhoneCall, ArrowRight } from 'lucide-react';
+import { Scale, CheckSquare, Car, Shield, PhoneCall, ArrowRight, Clock, FileText, Lock, Globe } from 'lucide-react';
 import { phone, whatsapp, email } from '../data/siteData';
 import './LegalPage.css';
 
@@ -7,67 +7,105 @@ export default function TermsConditions() {
   return (
     <div className="legal-page">
       <div className="legal-hero">
-        <span className="legal-badge">TERMS OF SERVICE</span>
-        <h1>Terms & Conditions</h1>
+        <span className="legal-badge">OFFICIAL TERMS OF SERVICE</span>
+        <h1>Terms and Conditions</h1>
         <p>
-          Please review the terms and conditions governing the use of Tirupati Balaji Tours Travels taxi services, tour packages, and vehicle rentals.
+          Understand Our Best Terms and Conditions | 5 Star Rated Taxi Service in Tirupati
         </p>
       </div>
 
       <div className="legal-content-grid">
         <aside className="legal-toc">
-          <h3>Quick Navigation</h3>
+          <h3>Table of Contents</h3>
           <ul>
-            <li><a href="#acceptance">Acceptance of Terms</a></li>
-            <li><a href="#tariffs">Tariffs & Additional Charges</a></li>
-            <li><a href="#passenger-duties">Passenger Responsibilities</a></li>
-            <li><a href="#breakdown">Vehicle Maintenance & Support</a></li>
-            <li><a href="#jurisdiction">Jurisdiction & Contact</a></li>
+            <li><a href="#acceptance">Acceptance & Overview</a></li>
+            <li><a href="#driver-details">Driver & Car Details Policy</a></li>
+            <li><a href="#service-hours">Service Hours & Package Rules</a></li>
+            <li><a href="#booking-process">Booking & Confirmation</a></li>
+            <li><a href="#pricing">Payment & Pricing Transparency</a></li>
+            <li><a href="#cancellation">Cancellation & Refund Terms</a></li>
+            <li><a href="#responsibilities">Customer Responsibilities</a></li>
+            <li><a href="#jurisdiction">Jurisdiction & Governing Law</a></li>
           </ul>
         </aside>
 
         <main className="legal-sections">
           <section id="acceptance" className="legal-card">
-            <h2><Scale /> 1. Acceptance of Terms</h2>
+            <h2><Scale /> 1. Acceptance & Overview</h2>
             <p>
-              By booking a cab, renting a vehicle, or purchasing a tour package with <strong>Tirupati Balaji Tours Travels</strong>, you agree to comply with and be bound by the following terms and conditions.
+              By utilizing the services and website of <strong>Tirupati Balaji Tours Travels</strong>, you acknowledge and accept the terms and conditions outlined herein. Prior to making any bookings or reservations, we urge you to thoroughly review these terms.
             </p>
           </section>
 
-          <section id="tariffs" className="legal-card">
-            <h2><Car /> 2. Tariffs, Inclusions & Route Charges</h2>
+          <section id="driver-details" className="legal-card">
+            <h2><Clock /> 2. Driver and Car Details for Your Trip</h2>
             <p>
-              Our published vehicle rental and tour tariffs are designed with complete transparency:
+              To ensure a smooth travel experience, we’ll furnish you with the driver and car specifics by <strong>6:00 PM, a day prior to your journey</strong>.
             </p>
             <ul>
-              <li><strong>Local Packages:</strong> Standard local day packages are based on 8 Hours / 80 KMs or 12 Hours / 150 KMs limits. Additional hours or KMs are charged as per applicable rates.</li>
-              <li><strong>Outstation Tariffs:</strong> Outstation journeys are subject to a minimum billing of 300 KMs per calendar day for cars/travellers and 350 KMs per day for buses.</li>
-              <li><strong>Extra Route Costs:</strong> Toll gate fees, parking charges, interstate border permits, and driver night allowances (where applicable) are charged as actuals unless explicitly specified in your package quotation.</li>
+              <li>Stay tuned to your communication channels (WhatsApp / SMS / Email) for details on driver name, contact info, and car specifics.</li>
+              <li>Should you need assistance or have inquiries, don’t hesitate to contact our 24/7 customer service team at <strong>+91 8688624758</strong>.</li>
             </ul>
           </section>
 
-          <section id="passenger-duties" className="legal-card">
-            <h2><CheckSquare /> 3. Passenger Responsibilities</h2>
-            <ul>
-              <li>Passengers must adhere to TTD dress code and guidelines during Tirumala temple visits.</li>
-              <li>Carrying illegal, hazardous, or prohibited items in the vehicle is strictly prohibited.</li>
-              <li>Passengers are requested to take care of personal belongings and luggage during the journey.</li>
-            </ul>
-          </section>
-
-          <section id="breakdown" className="legal-card">
-            <h2><Shield /> 4. Fleet Safety & Vehicle Contingency</h2>
+          <section id="service-hours" className="legal-card">
+            <h2><Car /> 3. Service Hours Policy for One-Day Packages</h2>
             <p>
-              All vehicles in our fleet undergo routine mechanical checks and AC maintenance before trip dispatch.
+              For optimal service, our one-day package hours span from <strong>5:00 AM to 10:00 PM</strong>.
             </p>
             <div className="legal-alert legal-alert-info">
-              <strong>REPLACEMENT ASSURANCE:</strong> In the rare event of a mechanical breakdown during travel, we will arrange a replacement vehicle or alternative transport as quickly as possible.
+              <strong>OVERTIME & BATA POLICY:</strong> Should your journey exceed these hours or extend past 10:00 PM, an extra driver bata (night allowance) will be incurred based on your selected vehicle package.
             </div>
           </section>
 
-          <div id="jurisdiction" className="legal-contact-box">
-            <h3>Have Questions Regarding Our Terms?</h3>
-            <p>Our team is available 24/7 to clarify any booking terms or commercial conditions.</p>
+          <section id="booking-process" className="legal-card">
+            <h2><FileText /> 4. Booking Process & Confirmation</h2>
+            <p>
+              To secure your booking, please ensure you provide precise personal information, including accurate contact details and specific travel preferences.
+            </p>
+            <ul>
+              <li>You can conveniently make bookings online via our website chat, booking forms, or by reaching out to our representatives at <strong>8688624758</strong>.</li>
+              <li>Upon confirmation, expect to receive a reservation confirmation through WhatsApp, email, or designated communication channels.</li>
+              <li>Please review the reservation particulars carefully and inform us promptly of any inconsistencies.</li>
+            </ul>
+          </section>
+
+          <section id="pricing" className="legal-card">
+            <h2><CheckSquare /> 5. Payment and Pricing</h2>
+            <p>
+              Our tour package prices and car rental rates are prominently displayed on our website for your convenience.
+            </p>
+            <ul>
+              <li>During booking, you can make payments using accepted payment methods listed on our portal.</li>
+              <li>Additional charges including state taxes, toll fees, parking, or optional services will be communicated transparently.</li>
+            </ul>
+          </section>
+
+          <section id="cancellation" className="legal-card">
+            <h2><Shield /> 6. Cancellation & Refund Policy Summary</h2>
+            <ul>
+              <li><strong>Cancellation 24 Hours Prior:</strong> If you cancel at least 24 hours before the scheduled trip, the car rental fee will be reimbursed. Pre-booked darshan ticket costs are non-refundable.</li>
+              <li><strong>Late Cancellation:</strong> If cancellation occurs after driver and car details have been dispatched (post 6:00 PM prior day), no refund will be issued.</li>
+            </ul>
+          </section>
+
+          <section id="responsibilities" className="legal-card">
+            <h2><Lock /> 7. Customer Responsibilities & Intellectual Property</h2>
+            <p>
+              It is your responsibility to ensure the accuracy of information provided during booking and comply with all travel laws. All website content, logos, and trademarks are protected by intellectual property laws.
+            </p>
+          </section>
+
+          <section id="jurisdiction" className="legal-card">
+            <h2><Globe /> 8. Jurisdiction & Governing Law</h2>
+            <p>
+              The terms and conditions outlined herein shall be interpreted and governed by the laws of India. Any disputes arising from the utilization of our services shall fall under the exclusive jurisdiction of the courts in India.
+            </p>
+          </section>
+
+          <div className="legal-contact-box">
+            <h3>Need Assistance or Have Questions?</h3>
+            <p>Our travel desk is available 24/7 to assist with your bookings.</p>
             <div className="legal-actions">
               <a href={`tel:${phone}`} className="legal-btn legal-btn-primary">
                 <PhoneCall size={18} /> Call +91-8688624758

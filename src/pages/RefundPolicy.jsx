@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldAlert, AlertTriangle, FileText, HelpCircle, PhoneCall, Mail, ArrowRight } from 'lucide-react';
+import { ShieldCheck, AlertTriangle, Clock, RefreshCw, PhoneCall, ArrowRight, CheckCircle, XCircle } from 'lucide-react';
 import { phone, whatsapp, email } from '../data/siteData';
 import './LegalPage.css';
 
@@ -7,83 +7,80 @@ export default function RefundPolicy() {
   return (
     <div className="legal-page">
       <div className="legal-hero">
-        <span className="legal-badge">BOOKING TERMS & CONDITIONS</span>
-        <h1>Refund & Cancellation Policy</h1>
+        <span className="legal-badge">OFFICIAL REFUND POLICY</span>
+        <h1>100% Easy Refund and Cancellation Policy</h1>
         <p>
-          Transparent guidelines regarding cancellations, booking modifications, and refund terms for all Tirupati Balaji Tours Travels services.
+          Clear, fair, and transparent guidelines regarding cancellations, vehicle rental refunds, driver dispatch timelines, and booking modifications.
         </p>
       </div>
 
       <div className="legal-content-grid">
         <aside className="legal-toc">
-          <h3>Quick Navigation</h3>
+          <h3>Policy Sections</h3>
           <ul>
-            <li><a href="#no-refund">No-Refund Policy</a></li>
-            <li><a href="#cancellations">Cancellation Process</a></li>
-            <li><a href="#modifications">Date & Route Changes</a></li>
-            <li><a href="#unforeseen">Weather & TTD Delays</a></li>
-            <li><a href="#contact-support">Contact Support</a></li>
+            <li><a href="#cancellation-24h">Cancellation 24 Hours Prior</a></li>
+            <li><a href="#late-cancellation">Late Cancellation Policy</a></li>
+            <li><a href="#driver-assignment">Driver & Vehicle Dispatch</a></li>
+            <li><a href="#one-day-hours">Service Hours & Bata Rules</a></li>
+            <li><a href="#contact-support">Contact Support Desk</a></li>
           </ul>
         </aside>
 
         <main className="legal-sections">
-          <section id="no-refund" className="legal-card">
-            <h2><ShieldAlert /> 1. No-Refund Policy</h2>
+          <section id="cancellation-24h" className="legal-card">
+            <h2><RefreshCw /> 1. Cancellation 24 Hours Prior to Trip</h2>
             <p>
-              Thank you for choosing <strong>Tirupati Balaji Tours Travels</strong> for your pilgrimage and travel needs in Tirupati. Please note that Tirupati Balaji Tours Travels maintains a transparent policy regarding advance booking amounts.
-            </p>
-            <div className="legal-alert">
-              <strong>IMPORTANT NOTICE:</strong> Advance payments made for cab reservations, temple packages, vehicle rentals, and accommodation arrangements are non-refundable once confirmed.
-            </div>
-            <p>
-              This policy applies to all bookings including local cab rentals, Tirumala temple packages, outstation journeys, and group vehicle hires.
-            </p>
-          </section>
-
-          <section id="cancellations" className="legal-card">
-            <h2><FileText /> 2. Cancellation Process</h2>
-            <p>
-              If you need to cancel your upcoming journey, please notify our customer support team as early as possible.
-            </p>
-            <ul>
-              <li>Cancellation requests must be communicated directly via WhatsApp or phone call to <strong>+91-8688624758</strong>.</li>
-              <li>You may also submit a written cancellation request via email to <strong>{email}</strong>.</li>
-              <li>Timely notification helps us adjust driver schedules and vehicle dispatch plans efficiently.</li>
-            </ul>
-          </section>
-
-          <section id="modifications" className="legal-card">
-            <h2><AlertTriangle /> 3. Booking Modifications & Rescheduling</h2>
-            <p>
-              We understand that pilgrimage plans and darshan slots may occasionally change due to TTD token updates or flight/train timing adjustments.
+              We understand that travel plans and pilgrimage dates can change. Should you opt to cancel your package or cab booking at least <strong>24 hours before the scheduled pickup time</strong>:
             </p>
             <div className="legal-alert legal-alert-info">
-              <strong>FLEXIBLE RESCHEDULING:</strong> Subject to vehicle availability, we allow date or timing adjustments if requested at least 24 hours prior to scheduled pickup time.
+              <strong>CAR RENTAL REIMBURSEMENT:</strong> The vehicle rental fee will be reimbursed in accordance with the amount paid by the customer. Please note that special temple darshan tickets or pre-purchased pass costs cannot be refunded.
             </div>
             <ul>
-              <li>Rescheduling is subject to available vehicle capacity on your new requested travel dates.</li>
-              <li>Any difference in seasonal fares or revised vehicle class tariffs will be communicated transparently.</li>
+              <li><CheckCircle size={16} /> Full car rental fee reimbursement when cancelled &gt;24 hours in advance.</li>
+              <li><XCircle size={16} /> Pre-booked temple ticket costs are non-refundable as per TTD regulations.</li>
             </ul>
           </section>
 
-          <section id="unforeseen" className="legal-card">
-            <h2><HelpCircle /> 4. Unforeseen Circumstances & TTD Guidelines</h2>
+          <section id="late-cancellation" className="legal-card">
+            <h2><AlertTriangle /> 2. Late Cancellation Policy (After Driver & Car Details Sent)</h2>
             <p>
-              Tirupati Balaji Tours Travels is not liable for travel interruptions caused by unforeseen events beyond our control, including:
+              To guarantee seamless pickups, our team assigns dedicated vehicles and professional drivers well in advance.
+            </p>
+            <div className="legal-alert">
+              <strong>IMPORTANT:</strong> If a cancellation occurs after the driver and car details have been dispatched (sent by 6:00 PM the evening prior to your trip), or if cancellation notice is provided very late, regrettably <strong>no refund will be issued</strong>.
+            </div>
+            <p>
+              This is because the assigned driver and vehicle have already been reserved exclusively for your travel itinerary and cannot be reassigned at short notice.
+            </p>
+          </section>
+
+          <section id="driver-assignment" className="legal-card">
+            <h2><Clock /> 3. Driver & Car Assignment Timelines</h2>
+            <p>
+              To ensure a smooth and worry-free journey:
             </p>
             <ul>
-              <li>Sudden changes in TTD (Tirumala Tirupati Devasthanams) darshan rules or queue closures.</li>
-              <li>Extreme weather conditions, natural road blockages, or state border regulation updates.</li>
-              <li>Flight or train cancellations/delays by transport authorities.</li>
+              <li>Vehicle registration number, driver name, and driver phone number are furnished to you by <strong>6:00 PM</strong> on the day prior to your scheduled trip.</li>
+              <li>Details are sent via WhatsApp, SMS, or Email to your provided contact number.</li>
+              <li>Kindly review the details immediately upon receipt and inform us of any specific pickup requests.</li>
             </ul>
+          </section>
+
+          <section id="one-day-hours" className="legal-card">
+            <h2><ShieldCheck /> 4. Service Hours & Driver Bata Policy</h2>
             <p>
-              In such scenarios, our team will make every effort to assist you with alternative travel arrangements or rescheduled itineraries.
+              For all standard one-day local and temple tour packages:
             </p>
+            <ul>
+              <li>Package operational hours span from <strong>5:00 AM to 10:00 PM</strong>.</li>
+              <li>If your travel extends past 10:00 PM, an extra driver bata (night allowance) will apply based on your selected vehicle category.</li>
+              <li>Additional hourly or kilometer charges beyond agreed limits will be communicated transparently.</li>
+            </ul>
           </section>
 
           <div id="contact-support" className="legal-contact-box">
-            <h3>Need Assistance with Your Booking?</h3>
-            <p>Our dedicated travel desk is available 24/7 to resolve your booking queries.</p>
+            <h3>Need to Request a Refund or Change Booking Dates?</h3>
+            <p>Reach out to our customer service desk directly for fast processing.</p>
             <div className="legal-actions">
               <a href={`tel:${phone}`} className="legal-btn legal-btn-primary">
                 <PhoneCall size={18} /> Call +91-8688624758
