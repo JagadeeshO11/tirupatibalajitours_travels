@@ -1,7 +1,10 @@
-import { useState, useRef } from 'react';
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { useState, useRef, useEffect } from 'react';
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Menu, MessageCircle, X, ChevronDown, Phone, Mail } from 'lucide-react';
+import {
+  Menu, MessageCircle, X, ChevronDown, Phone, Mail,
+  Home as HomeIcon, Car, Package, Sparkles, Grid, Info, ChevronRight, MapPin, ShieldCheck
+} from 'lucide-react';
 import {
   FaFacebookF, FaXTwitter, FaInstagram, FaYoutube,
   FaLinkedinIn, FaWhatsapp
@@ -27,9 +30,9 @@ const packageNavLinks = [
 const moreNavLinks = [
   { path: '/contact-us', title: 'Contact Us' },
   { path: '/about-us', title: 'About Us' },
-  { path: '/refund-and-cancellation-policy', title: 'Refund and Cancellation Policy' },
+  { path: '/refund-and-cancellation-policy', title: 'Refund & Cancellation' },
   { path: '/privacy-policy', title: 'Privacy Policy' },
-  { path: '/terms-and-conditions', title: 'Terms and Conditions' }
+  { path: '/terms-and-conditions', title: 'Terms & Conditions' }
 ];
 
 const socialLinks = [
@@ -39,28 +42,6 @@ const socialLinks = [
   { name: 'YouTube', url: 'https://www.youtube.com/@tirupatibalajitourstravel', Icon: FaYoutube },
   { name: 'LinkedIn', url: 'https://www.linkedin.com/in/chandra-sekhar-59aa502b9', Icon: FaLinkedinIn }
 ];
-
-const TopBar = () => (
-  <div className="header-top-bar">
-    <div className="top-bar-container social-only">
-      <div className="top-bar-social-wrapper">
-        <span className="top-bar-social-label">Follow Us:</span>
-        {socialLinks.map(({ name, url, Icon }) => (
-          <a
-            key={name}
-            href={url}
-            target="_blank"
-            rel="noreferrer"
-            className="top-social-icon"
-            title={name}
-          >
-            <Icon size={13} />
-          </a>
-        ))}
-      </div>
-    </div>
-  </div>
-);
 
 const Brand = ({ header = false } = {}) => (
   <Link to="/" className={`brand ${header ? 'header-brand-only' : ''}`}>
@@ -112,7 +93,13 @@ function HeaderDropdown({ id, activeDropdown, onEnter, onLeave, label, to, links
 export default function Layout() {
   const [open, setOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [activeTab, setActiveTab] = useState('cabs');
   const timerRef = useRef(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   const handleDropdownEnter = id => {
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -132,103 +119,106 @@ export default function Layout() {
 
   return (
     <>
-      <div className="header-top-bar">
-        <div className="top-bar-container">
-          <div className="top-bar-left">
-            <a href={`tel:${phone}`} className="top-bar-link">
-              <Phone size={13} /> +91 8688624758
-            </a>
-            <a href={`mailto:${email}`} className="top-bar-link">
-              <Mail size={13} /> {email}
-            </a>
-          </div>
-          <div className="top-bar-right">
-            <span className="top-bar-social-label">Follow Us:</span>
-            {socialLinks.map(({ name, url, Icon }) => (
-              <a
-                key={name}
-                href={url}
-                target="_blank"
-                rel="noreferrer"
-                className="top-social-icon"
-                title={name}
-              >
-                <Icon size={13} />
+      <div className="sticky-header-wrapper">
+        <div className="header-top-bar">
+          <div className="top-bar-container">
+            <div className="top-bar-left">
+              <a href={`tel:${phone}`} className="top-bar-link">
+                <Phone size={13} /> +91 8688624758
               </a>
-            ))}
+              <a href={`mailto:${email}`} className="top-bar-link">
+                <Mail size={13} /> {email}
+              </a>
+            </div>
+            <div className="top-bar-right">
+              <span className="top-bar-social-label">Follow Us:</span>
+              {socialLinks.map(({ name, url, Icon }) => (
+                <a
+                  key={name}
+                  href={url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="top-social-icon"
+                  title={name}
+                >
+                  <Icon size={13} />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
+
+        <header className="navbar">
+          <Brand header />
+          <nav>
+            <div className="desktop-nav-links">
+              <NavLink to="/" onMouseEnter={() => handleDropdownLeave(true)}>
+                Home
+              </NavLink>
+              <HeaderDropdown
+                id="cabs"
+                activeDropdown={activeDropdown}
+                onEnter={handleDropdownEnter}
+                onLeave={handleDropdownLeave}
+                label="Tirupati Cabs"
+                links={cabRoutes}
+                getSlug={r => `/tirupati-cabs/${r.slug}`}
+              />
+              <HeaderDropdown
+                id="taxi"
+                activeDropdown={activeDropdown}
+                onEnter={handleDropdownEnter}
+                onLeave={handleDropdownLeave}
+                label="Taxi in Tirupati"
+                className="nav-taxi"
+                links={serviceLinks}
+                getSlug={r => `/${r.slug}`}
+              />
+              <HeaderDropdown
+                id="services"
+                activeDropdown={activeDropdown}
+                onEnter={handleDropdownEnter}
+                onLeave={handleDropdownLeave}
+                label="Services"
+                to="/services"
+                className="nav-services"
+                links={packageNavLinks}
+                getSlug={p => `/services/${p.slug}`}
+              />
+              <NavLink to="/fleet" onMouseEnter={() => handleDropdownLeave(true)}>
+                Fleet & Rentals
+              </NavLink>
+              <NavLink to="/tours" onMouseEnter={() => handleDropdownLeave(true)}>
+                Tours
+              </NavLink>
+              <NavLink to="/destinations" onMouseEnter={() => handleDropdownLeave(true)}>
+                Destinations
+              </NavLink>
+              <NavLink to="/blog" onMouseEnter={() => handleDropdownLeave(true)}>
+                Blog
+              </NavLink>
+              <HeaderDropdown
+                id="more"
+                activeDropdown={activeDropdown}
+                onEnter={handleDropdownEnter}
+                onLeave={handleDropdownLeave}
+                label="More"
+                isMore
+                className="nav-more"
+                links={moreNavLinks}
+              />
+            </div>
+          </nav>
+          <a className="nav-wa" href={whatsapp} target="_blank" rel="noreferrer">
+            <MessageCircle size={16} /> WhatsApp
+          </a>
+          <button className="menu" onClick={() => setOpen(true)} aria-label="Toggle Menu">
+            <Menu />
+          </button>
+        </header>
       </div>
 
-      <header className="navbar">
-        <Brand header />
-        <nav>
-          <div className="desktop-nav-links">
-            <NavLink to="/" onMouseEnter={() => handleDropdownLeave(true)}>
-              Home
-            </NavLink>
-            <HeaderDropdown
-              id="cabs"
-              activeDropdown={activeDropdown}
-              onEnter={handleDropdownEnter}
-              onLeave={handleDropdownLeave}
-              label="Tirupati Cabs"
-              links={cabRoutes}
-              getSlug={r => `/tirupati-cabs/${r.slug}`}
-            />
-            <HeaderDropdown
-              id="taxi"
-              activeDropdown={activeDropdown}
-              onEnter={handleDropdownEnter}
-              onLeave={handleDropdownLeave}
-              label="Taxi in Tirupati"
-              className="nav-taxi"
-              links={serviceLinks}
-              getSlug={r => `/${r.slug}`}
-            />
-            <HeaderDropdown
-              id="services"
-              activeDropdown={activeDropdown}
-              onEnter={handleDropdownEnter}
-              onLeave={handleDropdownLeave}
-              label="Services"
-              to="/services"
-              className="nav-services"
-              links={packageNavLinks}
-              getSlug={p => `/services/${p.slug}`}
-            />
-            <NavLink to="/fleet" onMouseEnter={() => handleDropdownLeave(true)}>
-              Fleet & Rentals
-            </NavLink>
-            <NavLink to="/tours" onMouseEnter={() => handleDropdownLeave(true)}>
-              Tours
-            </NavLink>
-            <NavLink to="/destinations" onMouseEnter={() => handleDropdownLeave(true)}>
-              Destinations
-            </NavLink>
-            <NavLink to="/blog" onMouseEnter={() => handleDropdownLeave(true)}>
-              Blog
-            </NavLink>
-            <HeaderDropdown
-              id="more"
-              activeDropdown={activeDropdown}
-              onEnter={handleDropdownEnter}
-              onLeave={handleDropdownLeave}
-              label="More"
-              isMore
-              className="nav-more"
-              links={moreNavLinks}
-            />
-          </div>
-        </nav>
-        <a className="nav-wa" href={whatsapp} target="_blank" rel="noreferrer">
-          <MessageCircle size={16} /> WhatsApp
-        </a>
-        <button className="menu" onClick={() => setOpen(true)}>
-          <Menu />
-        </button>
-      </header>
-
+      {/* --- EXECUTIVE MOBILE DRAWER MODAL --- */}
       <AnimatePresence>
         {open && (
           <>
@@ -240,71 +230,112 @@ export default function Layout() {
               exit={{ opacity: 0 }}
             />
             <motion.aside
-              className="drawer"
+              className="drawer executive-mobile-drawer"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 220 }}
             >
-              <button onClick={() => setOpen(false)}>
-                <X />
-              </button>
-              <Brand />
-              <NavLink onClick={() => setOpen(false)} to="/">
-                Home
-              </NavLink>
-
-              <div className="drawer-cabs">
-                <strong>Tirupati Cabs</strong>
-                {cabRoutes.map(r => (
-                  <NavLink key={r.slug} onClick={() => setOpen(false)} to={`/tirupati-cabs/${r.slug}`}>
-                    {r.title}
-                  </NavLink>
-                ))}
+              <div className="drawer-header-row">
+                <Brand />
+                <button className="drawer-close-btn" onClick={() => setOpen(false)} aria-label="Close Drawer">
+                  <X size={20} />
+                </button>
               </div>
 
-              <div className="drawer-cabs">
-                <strong>Taxi in Tirupati</strong>
-                {serviceLinks.map(r => (
-                  <NavLink key={r.slug} onClick={() => setOpen(false)} to={`/${r.slug}`}>
-                    {r.title}
-                  </NavLink>
-                ))}
+              <div className="mobile-quick-actions">
+                <a href={`tel:${phone}`} className="mob-action-btn phone-btn">
+                  <Phone size={14} /> Call Now
+                </a>
+                <a href={whatsapp} target="_blank" rel="noreferrer" className="mob-action-btn wa-btn">
+                  <FaWhatsapp size={15} /> WhatsApp
+                </a>
               </div>
 
-              <div className="drawer-cabs">
-                <strong>Services & Packages</strong>
-                {packageNavLinks.map(p => (
-                  <NavLink key={p.slug} onClick={() => setOpen(false)} to={`/services/${p.slug}`}>
-                    {p.title}
-                  </NavLink>
-                ))}
+              {/* Drawer Category Tabs */}
+              <div className="mobile-drawer-tab-bar">
+                <button
+                  className={`drawer-tab ${activeTab === 'cabs' ? 'is-active' : ''}`}
+                  onClick={() => setActiveTab('cabs')}
+                >
+                  <Car size={14} /> Cabs
+                </button>
+                <button
+                  className={`drawer-tab ${activeTab === 'packages' ? 'is-active' : ''}`}
+                  onClick={() => setActiveTab('packages')}
+                >
+                  <Package size={14} /> Packages
+                </button>
+                <button
+                  className={`drawer-tab ${activeTab === 'more' ? 'is-active' : ''}`}
+                  onClick={() => setActiveTab('more')}
+                >
+                  <Info size={14} /> More Info
+                </button>
               </div>
 
-              <div className="drawer-cabs">
-                <strong>More Information</strong>
-                {moreNavLinks.map(m => (
-                  <NavLink key={m.path} onClick={() => setOpen(false)} to={m.path}>
-                    {m.title}
-                  </NavLink>
-                ))}
+              <div className="drawer-scroll-content">
+                {activeTab === 'cabs' && (
+                  <div className="drawer-section-block">
+                    <span className="drawer-badge-pill">Popular Cab Routes</span>
+                    <div className="drawer-link-card-grid">
+                      {cabRoutes.map(r => (
+                        <NavLink key={r.slug} onClick={() => setOpen(false)} to={`/tirupati-cabs/${r.slug}`} className="mob-link-card">
+                          <span>{r.title}</span>
+                          <ChevronRight size={14} />
+                        </NavLink>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'packages' && (
+                  <div className="drawer-section-block">
+                    <span className="drawer-badge-pill">Taxi & Tour Packages</span>
+                    <div className="drawer-link-card-grid">
+                      {packageNavLinks.map(p => (
+                        <NavLink key={p.slug} onClick={() => setOpen(false)} to={`/services/${p.slug}`} className="mob-link-card">
+                          <span>{p.title}</span>
+                          <ChevronRight size={14} />
+                        </NavLink>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'more' && (
+                  <div className="drawer-section-block">
+                    <span className="drawer-badge-pill">Information & Pages</span>
+                    <div className="drawer-link-card-grid">
+                      <NavLink onClick={() => setOpen(false)} to="/" className="mob-link-card">
+                        <span>Home Page</span> <ChevronRight size={14} />
+                      </NavLink>
+                      <NavLink onClick={() => setOpen(false)} to="/fleet" className="mob-link-card">
+                        <span>Fleet & Vehicle Rentals</span> <ChevronRight size={14} />
+                      </NavLink>
+                      <NavLink onClick={() => setOpen(false)} to="/tours" className="mob-link-card">
+                        <span>All Tour Packages</span> <ChevronRight size={14} />
+                      </NavLink>
+                      <NavLink onClick={() => setOpen(false)} to="/destinations" className="mob-link-card">
+                        <span>Temple Destinations</span> <ChevronRight size={14} />
+                      </NavLink>
+                      <NavLink onClick={() => setOpen(false)} to="/blog" className="mob-link-card">
+                        <span>Travel Blog</span> <ChevronRight size={14} />
+                      </NavLink>
+                      {moreNavLinks.map(m => (
+                        <NavLink key={m.path} onClick={() => setOpen(false)} to={m.path} className="mob-link-card">
+                          <span>{m.title}</span>
+                          <ChevronRight size={14} />
+                        </NavLink>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
-              <NavLink onClick={() => setOpen(false)} to="/fleet">
-                Fleet & Rentals
-              </NavLink>
-              <NavLink onClick={() => setOpen(false)} to="/tours">
-                Tours
-              </NavLink>
-              <NavLink onClick={() => setOpen(false)} to="/destinations">
-                Destinations
-              </NavLink>
-              <NavLink onClick={() => setOpen(false)} to="/blog">
-                Blog
-              </NavLink>
-
-              <a className="button" href={whatsapp}>
-                WhatsApp Us
-              </a>
+              <div className="drawer-footer-row">
+                <ShieldCheck size={16} /> 24/7 Verified Tirupati Taxi Service
+              </div>
             </motion.aside>
           </>
         )}
@@ -349,7 +380,7 @@ export default function Layout() {
         </div>
       </footer>
 
-      {/* --- FLOATING ACTION BUTTON (POPUP ACTION) --- */}
+      {/* --- FLOATING WHATSAPP BUTTON --- */}
       <div className="floating-whatsapp-container">
         <div className="whatsapp-tooltip">
           <span className="online-dot" /> Need a Cab? <strong>Chat Now!</strong>
@@ -363,4 +394,5 @@ export default function Layout() {
     </>
   );
 }
+
 

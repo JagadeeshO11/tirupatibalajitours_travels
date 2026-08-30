@@ -2,9 +2,9 @@
 .services-section-wrapper {
   position: relative;
   padding: 5rem 1.5rem;
-  background: linear-gradient(135deg, #090d16 0%, #0f172a 50%, #1e293b 100%);
-  border-top: 1px solid rgba(255, 215, 0, 0.15);
-  border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+  background: linear-gradient(135deg, #060c2c 0%, #08134a 50%, #0d1e6e 100%);
+  border-top: 2px solid rgba(245, 158, 11, 0.4);
+  border-bottom: 2px solid rgba(245, 158, 11, 0.4);
   overflow: hidden;
 }
 
@@ -39,15 +39,16 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.4rem 1.2rem;
-  background: rgba(255, 215, 0, 0.12);
-  color: #ffd700;
-  border: 1px solid rgba(255, 215, 0, 0.3);
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: #060c2c;
+  border: none;
   border-radius: 50px;
   font-size: 0.85rem;
   font-weight: 800;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   margin-bottom: 1rem;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
 }
 
 .services-header-container h2 {
@@ -67,7 +68,7 @@
 
 .services-header-container p {
   font-size: 1.1rem;
-  color: #94a3b8;
+  color: #e2e8f0;
   line-height: 1.6;
 }
 
@@ -75,7 +76,7 @@
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   max-width: 1280px;
   margin: 0 auto;
@@ -83,13 +84,13 @@
 
 .service-glass-card {
   position: relative;
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(145deg, #0b1a56 0%, #12247a 100%);
+  border: 1.5px solid rgba(245, 158, 11, 0.35);
   border-radius: 20px;
   padding: 2.25rem 2rem;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 10px 30px rgba(6, 12, 44, 0.4);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
