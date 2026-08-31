@@ -245,23 +245,23 @@ export default function Blog() {
           ].map((item, idx) => (
             <div
               key={item.q}
-              className="legal-card"
-              style={{ padding: '1.25rem 1.5rem', cursor: 'pointer' }}
+              style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '14px', boxShadow: 'var(--shadow-sm)', padding: '1.25rem 1.5rem', cursor: 'pointer' }}
               onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h3 style={{ color: '#fff', fontSize: '1.05rem', margin: 0 }}>{item.q}</h3>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
+                <h3 style={{ color: 'var(--blue-950, #060c2c)', fontSize: '1.05rem', margin: 0, fontWeight: 700 }}>{item.q}</h3>
                 <ChevronDown
                   size={18}
                   style={{
-                    color: '#ffd700',
+                    color: 'var(--gold-dark, #d97706)',
                     transform: openFaq === idx ? 'rotate(180deg)' : 'rotate(0deg)',
-                    transition: 'transform 0.3s ease'
+                    transition: 'transform 0.3s ease',
+                    flexShrink: 0
                   }}
                 />
               </div>
               {openFaq === idx && (
-                <p style={{ color: '#94a3b8', fontSize: '0.95rem', marginTop: '0.85rem', lineHeight: '1.6' }}>
+                <p style={{ color: 'var(--muted, #334155)', fontSize: '0.95rem', marginTop: '0.85rem', lineHeight: '1.65', margin: '0.85rem 0 0' }}>
                   {item.a}
                 </p>
               )}

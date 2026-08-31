@@ -371,22 +371,22 @@ export default function Home() {
         </div>
 
         <div className="card-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginTop: '2rem' }}>
-          <div className="legal-card" style={{ textAlign: 'center', padding: '2rem 1.5rem' }}>
-            <span style={{ fontSize: '2.5rem', fontWeight: 900, color: '#ffd700', display: 'block', marginBottom: '0.5rem' }}>01</span>
-            <h3 style={{ color: '#fff', fontSize: '1.25rem', marginBottom: '0.5rem' }}>Share Travel Details</h3>
-            <p style={{ color: '#94a3b8', fontSize: '0.95rem' }}>Tell us your travel dates, pickup point, destination, passenger count, and preferred vehicle class.</p>
+          <div style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '16px', boxShadow: 'var(--shadow-sm)', textAlign: 'center', padding: '2rem 1.5rem' }}>
+            <span style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--gold-dark, #d97706)', display: 'block', marginBottom: '0.5rem' }}>01</span>
+            <h3 style={{ color: 'var(--blue-950, #060c2c)', fontSize: '1.25rem', marginBottom: '0.5rem', fontWeight: 800 }}>Share Travel Details</h3>
+            <p style={{ color: 'var(--muted, #334155)', fontSize: '0.95rem', lineHeight: '1.6', margin: 0 }}>Tell us your travel dates, pickup point, destination, passenger count, and preferred vehicle class.</p>
           </div>
 
-          <div className="legal-card" style={{ textAlign: 'center', padding: '2rem 1.5rem' }}>
-            <span style={{ fontSize: '2.5rem', fontWeight: 900, color: '#ffd700', display: 'block', marginBottom: '0.5rem' }}>02</span>
-            <h3 style={{ color: '#fff', fontSize: '1.25rem', marginBottom: '0.5rem' }}>Receive Instant Quote</h3>
-            <p style={{ color: '#94a3b8', fontSize: '0.95rem' }}>Get transparent fare details with verified driver assignment, AC status, and toll inclusions.</p>
+          <div style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '16px', boxShadow: 'var(--shadow-sm)', textAlign: 'center', padding: '2rem 1.5rem' }}>
+            <span style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--gold-dark, #d97706)', display: 'block', marginBottom: '0.5rem' }}>02</span>
+            <h3 style={{ color: 'var(--blue-950, #060c2c)', fontSize: '1.25rem', marginBottom: '0.5rem', fontWeight: 800 }}>Receive Instant Quote</h3>
+            <p style={{ color: 'var(--muted, #334155)', fontSize: '0.95rem', lineHeight: '1.6', margin: 0 }}>Get transparent fare details with verified driver assignment, AC status, and toll inclusions.</p>
           </div>
 
-          <div className="legal-card" style={{ textAlign: 'center', padding: '2rem 1.5rem' }}>
-            <span style={{ fontSize: '2.5rem', fontWeight: 900, color: '#ffd700', display: 'block', marginBottom: '0.5rem' }}>03</span>
-            <h3 style={{ color: '#fff', fontSize: '1.25rem', marginBottom: '0.5rem' }}>Travel Comfortably</h3>
-            <p style={{ color: '#94a3b8', fontSize: '0.95rem' }}>Your driver greets you on time at your hotel, airport, or railway station for a safe journey.</p>
+          <div style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '16px', boxShadow: 'var(--shadow-sm)', textAlign: 'center', padding: '2rem 1.5rem' }}>
+            <span style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--gold-dark, #d97706)', display: 'block', marginBottom: '0.5rem' }}>03</span>
+            <h3 style={{ color: 'var(--blue-950, #060c2c)', fontSize: '1.25rem', marginBottom: '0.5rem', fontWeight: 800 }}>Travel Comfortably</h3>
+            <p style={{ color: 'var(--muted, #334155)', fontSize: '0.95rem', lineHeight: '1.6', margin: 0 }}>Your driver greets you on time at your hotel, airport, or railway station for a safe journey.</p>
           </div>
         </div>
       </section>
@@ -402,16 +402,16 @@ export default function Home() {
 
         <div className="card-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', marginTop: '2rem' }}>
           {homeTestimonials.map(review => (
-            <div key={review.name} className="legal-card" style={{ padding: '1.75rem' }}>
-              <div style={{ color: '#ffd700', fontSize: '1.1rem', marginBottom: '0.75rem' }}>
+            <div key={review.name} style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '16px', boxShadow: 'var(--shadow-sm)', padding: '1.75rem', display: 'flex', flexDirection: 'column' }}>
+              <div style={{ color: '#f59e0b', fontSize: '1.15rem', marginBottom: '0.75rem', letterSpacing: '2px' }}>
                 {'★'.repeat(review.rating)}
               </div>
-              <p style={{ color: '#e2e8f0', fontSize: '0.95rem', fontStyle: 'italic', marginBottom: '1.25rem', lineHeight: '1.6' }}>
+              <p style={{ color: '#0f172a', fontSize: '0.95rem', fontStyle: 'italic', marginBottom: '1.25rem', lineHeight: '1.65', flex: 1 }}>
                 "{review.comment}"
               </p>
-              <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '0.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <strong style={{ color: '#fff', fontSize: '0.95rem' }}>{review.name}</strong>
-                <span style={{ color: '#94a3b8', fontSize: '0.85rem' }}>{review.location}</span>
+              <div style={{ borderTop: '1px solid var(--line)', paddingTop: '0.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <strong style={{ color: '#060c2c', fontSize: '0.95rem', fontWeight: 800 }}>{review.name}</strong>
+                <span style={{ color: '#475569', fontSize: '0.85rem', fontWeight: 600 }}>{review.location}</span>
               </div>
             </div>
           ))}
@@ -431,23 +431,23 @@ export default function Home() {
           {homeFaqs.map((faq, index) => (
             <div
               key={faq.q}
-              className="legal-card"
-              style={{ padding: '1.25rem 1.5rem', cursor: 'pointer', transition: 'all 0.3s ease' }}
+              style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '14px', boxShadow: 'var(--shadow-sm)', padding: '1.25rem 1.5rem', cursor: 'pointer', transition: 'all 0.3s ease' }}
               onClick={() => toggleFaq(index)}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'nowrap', alignItems: 'center' }}>
-                <h3 style={{ color: '#fff', fontSize: '1.05rem', margin: 0 }}>{faq.q}</h3>
+              <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'nowrap', alignItems: 'center', gap: '1rem' }}>
+                <h3 style={{ color: '#060c2c', fontSize: '1.05rem', margin: 0, fontWeight: 700 }}>{faq.q}</h3>
                 <FaChevronDown
                   size={16}
                   style={{
-                    color: '#ffd700',
+                    color: '#d97706',
                     transform: openFaq === index ? 'rotate(180deg)' : 'rotate(0deg)',
-                    transition: 'transform 0.3s ease'
+                    transition: 'transform 0.3s ease',
+                    flexShrink: 0
                   }}
                 />
               </div>
               {openFaq === index && (
-                <p style={{ color: '#94a3b8', fontSize: '0.95rem', marginTop: '0.85rem', lineHeight: '1.6' }}>
+                <p style={{ color: '#334155', fontSize: '0.95rem', marginTop: '0.85rem', lineHeight: '1.65', margin: '0.85rem 0 0' }}>
                   {faq.a}
                 </p>
               )}

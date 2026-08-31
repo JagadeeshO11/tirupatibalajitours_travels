@@ -12,45 +12,54 @@ import { cabRouteContent } from '../data/cabRouteContent';
 import StatsBanner from '../components/StatsBanner';
 import './CabRoutePage.css';
 
-const ContentTable = ({ rows, headers, routeTitle }) => (
-  <div className="content-table-card">
-    <div className="content-table-header-strip">
-      <div className="table-title">
-        <Car className="table-title-icon" size={18} />
-        <div>
-          <h3>Vehicle Tariff & Fare Chart</h3>
-          <p>Transparent pricing for {routeTitle || 'your journey'}</p>
+const ContentTable = ({ rows, headers, routeTitle }) => {
+  const isFourCol = headers.length === 3;
+  const gridStyle = {
+    gridTemplateColumns: isFourCol ? '1.2fr 1.2fr 0.8fr 140px' : '1.4fr 1.1fr 140px'
+  };
+
+  return (
+    <div className="content-table-card">
+      <div className="content-table-header-strip">
+        <div className="table-title">
+          <Car className="table-title-icon" size={18} />
+          <div>
+            <h3>Vehicle Tariff & Fare Chart</h3>
+            <p>Transparent pricing for {routeTitle || 'your journey'}</p>
+          </div>
         </div>
       </div>
-    </div>
-    <div className="content-table">
-      <div className="content-table-head">
-        {headers.map(h => <strong key={h}>{h}</strong>)}
-        <span>Action</span>
-      </div>
-      {rows.map((row, i) => (
-        <div className="content-table-row" key={i}>
-          {row.map((cell, j) => (
-            <span key={j} className={j === 1 ? 'fare-cell' : 'vehicle-cell'}>
-              {cell}
-            </span>
-          ))}
-          <a 
-            className="table-book-btn" 
-            href={whatsappBooking(`Hi, I would like to book ${row[0]} for ${routeTitle || 'cab service'}. Please share exact fare and availability.`)}
-            target="_blank" 
-            rel="noreferrer"
-          >
-            <MessageCircle size={13} /> Book
-          </a>
+      <div className="content-table">
+        <div className="content-table-head" style={gridStyle}>
+          {headers.map(h => <strong key={h}>{h}</strong>)}
+          <strong className="action-header">Book Taxi</strong>
         </div>
-      ))}
+        {rows.map((row, i) => (
+          <div className="content-table-row" key={i} style={gridStyle}>
+            {row.map((cell, j) => (
+              <span key={j} className={j === 1 ? 'fare-cell' : 'vehicle-cell'}>
+                {cell}
+              </span>
+            ))}
+            <div className="table-action-cell">
+              <a 
+                className="table-book-btn" 
+                href={whatsappBooking(`Hi, I would like to book ${row[0]} for ${routeTitle || 'cab service'}. Please share exact fare and availability.`)}
+                target="_blank" 
+                rel="noreferrer"
+              >
+                <MessageCircle size={13} /> Book Now
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p className="table-note">
+        <Info size={13} /> Rates are indicative starting fares. Final pricing may vary based on exact pickup point, toll gates, state permits, parking fees, and seasonal demand.
+      </p>
     </div>
-    <p className="table-note">
-      <Info size={13} /> Rates are indicative starting fares. Final pricing may vary based on exact pickup point, toll gates, state permits, parking fees, and seasonal demand.
-    </p>
-  </div>
-);
+  );
+};
 
 function DetailedRouteContent({ content, route }) {
   const [activeTab, setActiveTab] = useState('vehicles');
@@ -481,21 +490,31 @@ export default function CabRoutePage({ route: routeProp }) {
             </div>
           </section>
 
-          <section className="section longform-section pale">
-            <div className="section-header">
-              <span className="badge-pill"><Clock3 size={13} /> DARSHAN TIMINGS</span>
-              <h2>Darshan Timing & Schedule</h2>
+          <section className="section longform-section darshan-timings-section">
+            <div className="section-header-centered">
+              <span className="badge-pill gold"><Clock3 size={13} /> DARSHAN & PUJA SCHEDULE</span>
+              <h2>Srikalahasti Temple Darshan Timings</h2>
+              <p className="section-lead" style={{ color: 'var(--muted, #334155)', fontSize: '0.95rem', marginTop: '6px' }}>
+                Plan your visit around daily darshan slots, Rahu Kala puja timings, and special entry passes.
+              </p>
             </div>
-            <ContentTable headers={['Service', 'Timing', 'Duration']} rows={srikalahastiContent.darshan} routeTitle="Srikalahasti Temple" />
+
+            <ContentTable headers={['Service / Darshan', 'Timing & Slot', 'Duration']} rows={srikalahastiContent.darshan} routeTitle="Srikalahasti Temple" />
             
-            <h3 className="subheading">Special Darshan Options</h3>
-            <div className="option-grid">
-              {srikalahastiContent.specialDarshan.map(([name, detail]) => (
-                <div key={name} className="option-card">
-                  <strong>{name}</strong>
-                  <span>{detail}</span>
-                </div>
-              ))}
+            <div className="special-darshan-wrapper">
+              <div className="subheading-header">
+                <Sparkles size={18} className="sparkle-gold" />
+                <h3>Special Entry & Ticket Options</h3>
+              </div>
+              <div className="option-grid">
+                {srikalahastiContent.specialDarshan.map(([name, detail]) => (
+                  <div key={name} className="option-card">
+                    <span className="option-card-badge">ENTRY PASS</span>
+                    <strong>{name}</strong>
+                    <span>{detail}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
 

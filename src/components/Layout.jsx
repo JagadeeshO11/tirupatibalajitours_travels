@@ -3,7 +3,7 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   Menu, MessageCircle, X, ChevronDown, Phone, Mail,
-  Home as HomeIcon, Car, Package, Sparkles, Grid, Info, ChevronRight, MapPin, ShieldCheck
+  Home as HomeIcon, Car, Package, Sparkles, Grid, Info, ChevronRight, MapPin, ShieldCheck, ArrowLeft
 } from 'lucide-react';
 import {
   FaFacebookF, FaXTwitter, FaInstagram, FaYoutube,
@@ -212,7 +212,7 @@ export default function Layout() {
           <a className="nav-wa" href={whatsapp} target="_blank" rel="noreferrer">
             <MessageCircle size={16} /> WhatsApp
           </a>
-          <button className="menu" onClick={() => setOpen(true)} aria-label="Toggle Menu">
+          <button className="menu" onClick={() => { setOpen(true); setActiveTab('cabs'); }} aria-label="Toggle Menu">
             <Menu />
           </button>
         </header>
@@ -238,9 +238,15 @@ export default function Layout() {
             >
               <div className="drawer-header-row">
                 <Brand />
-                <button className="drawer-close-btn" onClick={() => setOpen(false)} aria-label="Close Drawer">
-                  <X size={20} />
-                </button>
+                <div className="drawer-header-actions">
+                  <button className="drawer-back-pill-btn" onClick={() => setOpen(false)} aria-label="Back to page">
+                    <ArrowLeft size={15} />
+                    <span>Back</span>
+                  </button>
+                  <button className="drawer-x-icon-btn" onClick={() => setOpen(false)} aria-label="Close menu">
+                    <X size={18} />
+                  </button>
+                </div>
               </div>
 
               <div className="mobile-quick-actions">
@@ -391,6 +397,26 @@ export default function Layout() {
           <FaWhatsapp size={26} />
         </a>
       </div>
+
+      {/* --- FLOATING ROUNDED-CORNER POP BOTTOM NAV (MOBILE ONLY) --- */}
+      <nav className="mobile-pop-bottom-nav" aria-label="Mobile Quick Navigation">
+        <NavLink to="/" className={({ isActive }) => `mob-pop-nav-item ${isActive ? 'active' : ''}`}>
+          <HomeIcon size={18} />
+          <span>Home</span>
+        </NavLink>
+        <NavLink to="/fleet" className={({ isActive }) => `mob-pop-nav-item ${isActive ? 'active' : ''}`}>
+          <Car size={18} />
+          <span>Fleets</span>
+        </NavLink>
+        <NavLink to="/destinations" className={({ isActive }) => `mob-pop-nav-item ${isActive ? 'active' : ''}`}>
+          <MapPin size={18} />
+          <span>Destinations</span>
+        </NavLink>
+        <NavLink to="/tours" className={({ isActive }) => `mob-pop-nav-item ${isActive ? 'active' : ''}`}>
+          <Package size={18} />
+          <span>Tours</span>
+        </NavLink>
+      </nav>
     </>
   );
 }
