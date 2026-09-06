@@ -43,13 +43,13 @@ const socialLinks = [
   { name: 'LinkedIn', url: 'https://www.linkedin.com/in/chandra-sekhar-59aa502b9', Icon: FaLinkedinIn }
 ];
 
-const Brand = ({ header = false } = {}) => (
+const Brand = ({ header = false, logoOnly = false } = {}) => (
   <Link to="/" className={`brand ${header ? 'header-brand-only' : ''}`}>
     <img
       src="https://res.cloudinary.com/znbhjevm/image/upload/v1786735614/6a36504b-4108-47ac-8a09-34f153b10f97.png"
       alt="Tirupati Balaji Tours & Travels"
     />
-    {!header && (
+    {!header && !logoOnly && (
       <strong>
         TIRUPATI BALAJI<small>TOURS & TRAVELS</small>
       </strong>
@@ -237,7 +237,7 @@ export default function Layout() {
               transition={{ type: 'spring', damping: 25, stiffness: 220 }}
             >
               <div className="drawer-header-row">
-                <Brand />
+                <Brand logoOnly />
                 <div className="drawer-header-actions">
                   <button className="drawer-back-pill-btn" onClick={() => setOpen(false)} aria-label="Back to page">
                     <ArrowLeft size={15} />
