@@ -3,7 +3,7 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   Menu, MessageCircle, X, ChevronDown, Phone, Mail,
-  Home as HomeIcon, Car, Package, Sparkles, Grid, Info, ChevronRight, MapPin, ShieldCheck, ArrowLeft
+  Home as HomeIcon, Car, Package, Sparkles, Grid, Info, ChevronRight, MapPin, ShieldCheck
 } from 'lucide-react';
 import {
   FaFacebookF, FaXTwitter, FaInstagram, FaYoutube,
@@ -93,7 +93,7 @@ function HeaderDropdown({ id, activeDropdown, onEnter, onLeave, label, to, links
 export default function Layout() {
   const [open, setOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
-  const [activeTab, setActiveTab] = useState('cabs');
+  const [activeTab, setActiveTab] = useState('more');
   const timerRef = useRef(null);
   const location = useLocation();
 
@@ -212,7 +212,7 @@ export default function Layout() {
           <a className="nav-wa" href={whatsapp} target="_blank" rel="noreferrer">
             <MessageCircle size={16} /> WhatsApp
           </a>
-          <button className="menu" onClick={() => { setOpen(true); setActiveTab('cabs'); }} aria-label="Toggle Menu">
+          <button className="menu" onClick={() => { setOpen(true); setActiveTab('more'); }} aria-label="Toggle Menu">
             <Menu />
           </button>
         </header>
@@ -239,10 +239,6 @@ export default function Layout() {
               <div className="drawer-header-row">
                 <Brand />
                 <div className="drawer-header-actions">
-                  <button className="drawer-back-pill-btn" onClick={() => setOpen(false)} aria-label="Back to page">
-                    <ArrowLeft size={15} />
-                    <span>Back</span>
-                  </button>
                   <button className="drawer-x-icon-btn" onClick={() => setOpen(false)} aria-label="Close menu">
                     <X size={18} />
                   </button>
@@ -261,6 +257,12 @@ export default function Layout() {
               {/* Drawer Category Tabs */}
               <div className="mobile-drawer-tab-bar">
                 <button
+                  className={`drawer-tab ${activeTab === 'more' ? 'is-active' : ''}`}
+                  onClick={() => setActiveTab('more')}
+                >
+                  <Info size={14} /> More Info
+                </button>
+                <button
                   className={`drawer-tab ${activeTab === 'cabs' ? 'is-active' : ''}`}
                   onClick={() => setActiveTab('cabs')}
                 >
@@ -271,12 +273,6 @@ export default function Layout() {
                   onClick={() => setActiveTab('packages')}
                 >
                   <Package size={14} /> Packages
-                </button>
-                <button
-                  className={`drawer-tab ${activeTab === 'more' ? 'is-active' : ''}`}
-                  onClick={() => setActiveTab('more')}
-                >
-                  <Info size={14} /> More Info
                 </button>
               </div>
 
