@@ -1026,3 +1026,68 @@ body {
   }
   .whatsapp-pulse-btn { width: 52px; height: 52px; }
 }
+
+
+/* Mobile hamburger drawer logo and scrolling refinement */
+@media (max-width: 980px) {
+  .executive-mobile-drawer {
+    overflow: hidden !important;
+  }
+
+  .drawer-header-row {
+    flex: 0 0 auto;
+    gap: 12px;
+  }
+
+  .drawer-header-row .brand {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .drawer-header-row .brand img {
+    width: 82px;
+    height: 82px;
+    padding: 5px;
+    object-fit: contain;
+    border: 1px solid rgba(255, 215, 0, 0.55);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .drawer-header-actions {
+    flex: 0 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .drawer-scroll-content {
+    min-height: 0;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding-right: 2px;
+    scrollbar-width: thin;
+  }
+
+  .drawer-footer-row {
+    flex: 0 0 auto;
+  }
+
+  .mob-link-card {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mob-link-card:active {
+    background: rgba(245, 158, 11, 0.24);
+    transform: scale(0.985);
+  }
+}
+
+@media (max-width: 480px) {
+  .drawer-header-row .brand img {
+    width: 72px;
+    height: 72px;
+  }
+}
