@@ -1091,3 +1091,103 @@ body {
     height: 72px;
   }
 }
+
+
+/* CLEAN MOBILE DRAWER NAVIGATION REFINEMENT */
+@media (max-width: 980px) {
+  .executive-mobile-drawer {
+    padding: 14px !important;
+    width: min(380px, 94vw) !important;
+  }
+
+  .drawer-header-row {
+    min-height: 72px;
+    padding: 0 0 12px;
+    margin-bottom: 12px;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .drawer-header-row .brand {
+    flex: 0 0 auto;
+    width: auto;
+    height: auto;
+  }
+
+  .drawer-header-row .brand img {
+    width: 66px;
+    height: 66px;
+    padding: 6px;
+    object-fit: contain;
+    border: 1px solid rgba(255, 215, 0, 0.42);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .drawer-header-actions {
+    margin-left: auto;
+  }
+
+  .drawer-x-icon-btn {
+    width: 38px;
+    height: 38px;
+    border-color: rgba(255, 215, 0, 0.42);
+  }
+
+  .mobile-drawer-tab-bar {
+    order: 0;
+    margin: 0 0 12px;
+    padding: 4px;
+  }
+
+  .drawer-tab {
+    min-height: 40px;
+    padding: 8px 5px;
+    font-size: 10.5px;
+  }
+
+  .drawer-scroll-content {
+    margin-bottom: 12px;
+    padding-right: 0;
+  }
+
+  .drawer-link-card-grid {
+    gap: 7px;
+  }
+
+  .mob-link-card {
+    min-height: 42px;
+    padding: 10px 12px;
+  }
+
+  .drawer-footer-row {
+    padding-top: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .executive-mobile-drawer {
+    padding: 12px !important;
+  }
+
+  .drawer-header-row {
+    min-height: 64px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+
+  .drawer-header-row .brand img {
+    width: 58px;
+    height: 58px;
+  }
+
+  .drawer-x-icon-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .drawer-tab {
+    font-size: 10px;
+    gap: 3px;
+  }
+}
