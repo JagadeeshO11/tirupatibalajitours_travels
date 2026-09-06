@@ -1191,3 +1191,45 @@ body {
     gap: 3px;
   }
 }
+
+
+/* FIX: crop the transparent whitespace inside the hamburger logo asset */
+@media (max-width: 980px) {
+  .drawer-header-row .brand {
+    width: 72px !important;
+    height: 72px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden !important;
+    border: 1px solid rgba(255, 215, 0, 0.48);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .drawer-header-row .brand img {
+    width: 128px !important;
+    height: 128px !important;
+    max-width: none !important;
+    max-height: none !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    object-fit: contain !important;
+    transform: scale(1.72);
+  }
+}
+
+@media (max-width: 480px) {
+  .drawer-header-row .brand {
+    width: 64px !important;
+    height: 64px !important;
+  }
+
+  .drawer-header-row .brand img {
+    width: 114px !important;
+    height: 114px !important;
+    transform: scale(1.72);
+  }
+}
