@@ -1280,29 +1280,24 @@ body {
 }
 
 
-/* FIX: keep active drawer tab inside the navigation track margins */
+
+/* FIX: selected navigation links must stay inside drawer margins */
 @media (max-width: 980px) {
-  .mobile-drawer-tab-bar {
+  .drawer-link-card-grid {
     width: 100%;
     box-sizing: border-box;
-    display: grid !important;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 4px;
-    padding: 5px !important;
-    overflow: hidden;
   }
 
-  .drawer-tab {
+  .mob-link-card,
+  .mob-link-card.active,
+  .mob-link-card:hover {
     width: 100%;
-    min-width: 0;
     box-sizing: border-box;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
-  .drawer-tab.is-active {
-    box-shadow: none !important;
+  .mob-link-card.active {
     transform: none !important;
+    margin: 0 !important;
+    box-shadow: inset 3px 0 0 #fbbf24;
   }
 }
