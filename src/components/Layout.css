@@ -1026,25 +1026,3 @@ body {
   }
   .whatsapp-pulse-btn { width: 52px; height: 52px; }
 }
-
-
-/* Mobile drawer cleanup */
-@media (max-width: 980px) {
-  .executive-mobile-drawer {
-    padding: 0;
-  }
-  .drawer-header-row {
-    padding: 14px 16px;
-  }
-  .mobile-quick-actions,
-  .mobile-drawer-tab-bar,
-  .drawer-scroll-content,
-  .drawer-footer-row {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-  .mobile-drawer-tab-bar {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-}
