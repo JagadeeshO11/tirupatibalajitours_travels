@@ -717,3 +717,14 @@
 .blog-newsletter-form button:hover {
   transform: scale(1.03);
 }
+
+
+/* MORE INFO > TRAVEL BLOG — MOBILE ONLY */
+@media (max-width: 640px) {
+  .blog-page{overflow-x:hidden;padding-bottom:105px}.blog-hero{padding:34px 5% 28px!important;min-height:auto!important}.blog-hero h1{font-size:30px!important;line-height:1.1!important}.blog-hero p{font-size:11px!important;line-height:1.6!important}
+  .blog-filters,.blog-content,.blog-newsletter-section{width:90%!important;margin-left:auto!important;margin-right:auto!important;padding-left:0!important;padding-right:0!important}
+  .blog-grid{grid-template-columns:1fr!important;gap:14px!important}.blog-card{border-radius:18px!important}.blog-card-image{height:185px!important}.blog-card-content{padding:15px!important}.blog-card h2,.blog-card h3{font-size:17px!important;line-height:1.3!important}.blog-card p{font-size:10px!important;line-height:1.55!important}
+  .blog-category-tabs{overflow-x:auto!important;flex-wrap:nowrap!important;gap:7px!important;padding-bottom:4px!important}.blog-category-tabs button{white-space:nowrap!important;font-size:9px!important;padding:8px 11px!important}
+  .blog-article-container{width:90%!important;margin:0 auto!important;padding:0!important}.blog-article-content{padding:18px 15px!important;border-radius:18px!important}.blog-article-content h1{font-size:26px!important;line-height:1.15!important}.blog-article-content h2{font-size:19px!important}.blog-article-content p,.blog-section-block p{font-size:11px!important;line-height:1.65!important}
+  .blog-highlights-box,.blog-cta-box{padding:14px!important;border-radius:15px!important}.blog-newsletter-section{margin-bottom:28px!important}.blog-newsletter-card{padding:22px 15px!important;border-radius:18px!important}.blog-newsletter-card h3{font-size:21px!important}.blog-newsletter-card p{font-size:10px!important;line-height:1.55!important}.blog-newsletter-form{gap:8px!important}.blog-newsletter-form input,.blog-newsletter-form button{min-height:44px!important;font-size:10px!important}
+}
