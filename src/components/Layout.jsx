@@ -300,18 +300,6 @@ export default function Layout() {
                   <div className="drawer-section-block">
                     <span className="drawer-badge-pill">Information & Pages</span>
                     <div className="drawer-link-card-grid">
-                      <NavLink onClick={() => setOpen(false)} to="/" className="mob-link-card">
-                        <span>Home Page</span> <ChevronRight size={14} />
-                      </NavLink>
-                      <NavLink onClick={() => setOpen(false)} to="/fleet" className="mob-link-card">
-                        <span>Fleet & Vehicle Rentals</span> <ChevronRight size={14} />
-                      </NavLink>
-                      <NavLink onClick={() => setOpen(false)} to="/tours" className="mob-link-card">
-                        <span>All Tour Packages</span> <ChevronRight size={14} />
-                      </NavLink>
-                      <NavLink onClick={() => setOpen(false)} to="/destinations" className="mob-link-card">
-                        <span>Temple Destinations</span> <ChevronRight size={14} />
-                      </NavLink>
                       <NavLink onClick={() => setOpen(false)} to="/blog" className="mob-link-card">
                         <span>Travel Blog</span> <ChevronRight size={14} />
                       </NavLink>
