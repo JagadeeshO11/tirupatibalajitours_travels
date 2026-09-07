@@ -1589,3 +1589,59 @@
     padding: 14px 12px !important;
   }
 }
+
+
+/* MOBILE CAB ROUTE HERO: image is the primary first element */
+@media (max-width: 768px) {
+  .cab-route-hero {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 0 5% 28px !important;
+    gap: 0 !important;
+  }
+
+  .cab-route-hero-backdrop {
+    display: none !important;
+  }
+
+  .cab-route-hero-image {
+    order: 1 !important;
+    width: 100% !important;
+    height: 230px !important;
+    margin: 14px 0 0 !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    position: relative !important;
+  }
+
+  .cab-route-hero-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block;
+  }
+
+  .cab-route-hero-copy {
+    order: 2 !important;
+    width: 100% !important;
+    padding: 22px 0 0 !important;
+  }
+
+  .route-price-glass {
+    right: 10px !important;
+    bottom: 10px !important;
+    padding: 9px 11px !important;
+    border-radius: 12px !important;
+  }
+
+  .cab-route-hero h1 {
+    font-size: 30px !important;
+    line-height: 1.12 !important;
+    margin: 10px 0 !important;
+  }
+
+  .hero-intro-text {
+    font-size: 12px !important;
+    line-height: 1.6 !important;
+  }
+}
