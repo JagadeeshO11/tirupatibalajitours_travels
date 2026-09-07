@@ -497,3 +497,17 @@
     padding: 24px 20px;
   }
 }
+
+
+/* MORE INFO > CONTACT — MOBILE ONLY */
+@media (max-width: 640px) {
+  .contact-page-wrapper{width:90%;margin:0 auto;padding-bottom:110px}
+  .contact-cards-grid{grid-template-columns:1fr 1fr!important;gap:9px!important;margin:22px 0!important}
+  .contact-card{min-height:190px!important;padding:15px!important;border-radius:17px!important}.contact-card:nth-child(3),.contact-card:nth-child(4){min-height:165px!important}
+  .contact-card .card-icon{width:42px!important;height:42px!important}.contact-card .card-badge{font-size:7px!important;margin-top:10px!important}.contact-card h3{font-size:13px!important;margin:7px 0!important}.contact-card p{font-size:9px!important;line-height:1.45!important}.contact-card .card-link,.contact-card .card-tag{font-size:8px!important;line-height:1.35!important;overflow-wrap:anywhere}
+  .contact-form-section{grid-template-columns:1fr!important;gap:18px!important;margin:28px 0!important}.form-info-col h2{font-size:25px!important;line-height:1.15!important}.lead-desc{font-size:11px!important;line-height:1.6!important}
+  .feature-bullets{gap:9px!important}.bullet-item{padding:11px!important}.bullet-icon-wrap{width:38px!important;height:38px!important;min-width:38px!important}.bullet-item strong{font-size:11px!important}.bullet-item p{font-size:9px!important;line-height:1.45!important}
+  .guarantee-box{padding:13px!important;border-radius:15px!important}.guarantee-box strong{font-size:11px!important}.guarantee-box p{font-size:9px!important;line-height:1.45!important}
+  .form-card{padding:17px!important;border-radius:18px!important}.form-card h3{font-size:19px!important}.form-grid{grid-template-columns:1fr!important;gap:10px!important}.form-group input,.form-group select,.form-group textarea{min-height:44px!important;font-size:11px!important}
+  .contact-faq-section{margin-top:30px!important}.contact-faq-section h2{font-size:24px!important}.contact-faq-item{padding:0!important;border-radius:14px!important}.faq-question{padding:14px!important;font-size:11px!important}.faq-answer{padding:0 14px 14px!important;font-size:10px!important;line-height:1.55!important}
+}
