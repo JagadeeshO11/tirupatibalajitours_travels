@@ -1136,3 +1136,91 @@
   .package-detail-page .feature-card { padding: 12px 9px; }
   .package-detail-page .trip-card { grid-template-columns: 96px minmax(0, 1fr); }
 }
+
+
+/* =========================================================
+   MOBILE QUICK CARDS — SPACING CORRECTION
+   Removes the oversized empty padding visible in service/package cards.
+   ========================================================= */
+@media (max-width: 640px) {
+  .service-page .service-quick-container {
+    padding: 18px 5% 12px !important;
+  }
+
+  .service-page .service-quick-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    align-items: stretch !important;
+  }
+
+  .service-page .quick-item {
+    min-width: 0 !important;
+    min-height: 132px !important;
+    padding: 16px 14px !important;
+    margin: 0 !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 18px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+  }
+
+  .service-page .quick-item > svg {
+    width: 24px !important;
+    height: 24px !important;
+    margin: 0 !important;
+    flex: 0 0 auto;
+  }
+
+  .service-page .quick-item > div {
+    min-width: 0;
+  }
+
+  .service-page .quick-item b {
+    font-size: 12px !important;
+    line-height: 1.32 !important;
+    margin: 0 !important;
+  }
+
+  .service-page .quick-item small {
+    font-size: 9.5px !important;
+    line-height: 1.45 !important;
+    margin-top: 5px !important;
+  }
+
+  /* The quote action should be a deliberate full-width row, not a stretched empty card */
+  .service-page .quick-action-box {
+    grid-column: 1 / -1 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .service-page .quick-book-btn {
+    width: 100% !important;
+    min-height: 46px !important;
+    justify-content: center !important;
+    border-radius: 14px !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .service-page .quick-item {
+    min-height: 124px !important;
+    padding: 14px 11px !important;
+  }
+
+  .service-page .quick-item b {
+    font-size: 11px !important;
+  }
+
+  .service-page .quick-item small {
+    font-size: 9px !important;
+  }
+}
