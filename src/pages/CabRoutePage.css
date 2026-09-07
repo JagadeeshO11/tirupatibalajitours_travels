@@ -1168,3 +1168,256 @@
     padding-bottom: 120px;
   }
 }
+
+
+/* =========================================================
+   CAB ROUTE PAGES — MOBILE ONLY REFINEMENT
+   Applies to pages opened from Hamburger > Cabs.
+   Desktop/tablet layouts remain unchanged.
+   ========================================================= */
+@media (max-width: 768px) {
+  .cab-route-page {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    padding-bottom: 90px;
+  }
+
+  .route-container,
+  .cab-route-page .container {
+    width: 90%;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Compact route hero */
+  .route-hero {
+    min-height: auto;
+    padding: 74px 5% 32px;
+  }
+
+  .route-hero-content {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .route-hero .eyebrow {
+    font-size: 9px;
+    letter-spacing: 1.2px;
+    margin-bottom: 10px;
+  }
+
+  .route-hero h1 {
+    font-size: clamp(29px, 8.5vw, 38px);
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+    margin-bottom: 12px;
+  }
+
+  .route-hero-description {
+    font-size: 12px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+
+  .route-hero-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+    width: 100%;
+  }
+
+  .route-hero-actions .button {
+    min-width: 0;
+    min-height: 44px;
+    padding: 9px 8px;
+    font-size: 10px;
+    justify-content: center;
+    white-space: nowrap;
+  }
+
+  /* Route facts: readable compact tiles */
+  .route-facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+    margin-top: 18px;
+  }
+
+  .route-fact {
+    min-width: 0;
+    padding: 12px 10px;
+    border-radius: 14px;
+  }
+
+  .route-fact-icon {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 7px;
+  }
+
+  .route-fact strong {
+    font-size: 13px;
+  }
+
+  .route-fact span {
+    font-size: 9px;
+    line-height: 1.35;
+  }
+
+  /* Main sections */
+  .route-section {
+    padding: 28px 0;
+  }
+
+  .route-section-heading {
+    margin-bottom: 16px;
+  }
+
+  .route-section-heading h2 {
+    font-size: 23px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .route-section-heading p {
+    font-size: 11px;
+    line-height: 1.55;
+  }
+
+  /* Journey / highlights */
+  .route-highlights-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .route-highlight-card {
+    padding: 14px 11px;
+    border-radius: 15px;
+    min-width: 0;
+  }
+
+  .route-highlight-card h3 {
+    font-size: 13px;
+    line-height: 1.25;
+  }
+
+  .route-highlight-card p {
+    font-size: 9.5px;
+    line-height: 1.5;
+  }
+
+  /* Vehicle/fare cards */
+  .route-vehicles-grid {
+    grid-template-columns: 1fr;
+    gap: 13px;
+  }
+
+  .route-vehicle-card {
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  .route-vehicle-card-body {
+    padding: 15px;
+  }
+
+  .route-vehicle-card h3 {
+    font-size: 17px;
+  }
+
+  /* Tables should never force page overflow */
+  .route-fare-table-wrap,
+  .fare-table-wrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 14px;
+  }
+
+  .route-fare-table,
+  .fare-table {
+    min-width: 560px;
+    font-size: 10px;
+  }
+
+  /* Travel tips */
+  .route-tips-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .route-tip-card {
+    padding: 14px;
+    border-radius: 15px;
+  }
+
+  .route-tip-card h3 {
+    font-size: 14px;
+  }
+
+  .route-tip-card p {
+    font-size: 10px;
+    line-height: 1.55;
+  }
+
+  /* FAQ: larger tap targets */
+  .route-faq-item {
+    border-radius: 13px;
+    margin-bottom: 9px;
+  }
+
+  .route-faq-question {
+    padding: 14px 13px;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .route-faq-answer {
+    padding: 0 13px 14px;
+    font-size: 10.5px;
+    line-height: 1.6;
+  }
+
+  /* Final CTA */
+  .route-cta {
+    padding: 26px 18px;
+    border-radius: 20px;
+    margin-top: 8px;
+  }
+
+  .route-cta h2 {
+    font-size: 24px;
+    line-height: 1.18;
+  }
+
+  .route-cta p {
+    font-size: 11px;
+    line-height: 1.55;
+  }
+
+  .route-cta-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+  }
+
+  .route-cta-actions .button {
+    width: 100%;
+    min-height: 44px;
+    padding: 9px 6px;
+    font-size: 10px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .route-hero { padding-top: 64px; }
+  .route-hero h1 { font-size: 28px; }
+  .route-facts,
+  .route-highlights-grid { gap: 8px; }
+  .route-fact { padding: 10px 8px; }
+  .route-section-heading h2 { font-size: 21px; }
+}
