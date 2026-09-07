@@ -93,7 +93,7 @@ function HeaderDropdown({ id, activeDropdown, onEnter, onLeave, label, to, links
 export default function Layout() {
   const [open, setOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
-  const [activeTab, setActiveTab] = useState('more');
+  const [activeTab, setActiveTab] = useState('cabs');
   const timerRef = useRef(null);
   const location = useLocation();
 
@@ -212,7 +212,7 @@ export default function Layout() {
           <a className="nav-wa" href={whatsapp} target="_blank" rel="noreferrer">
             <MessageCircle size={16} /> WhatsApp
           </a>
-          <button className="menu" onClick={() => { setOpen(true); setActiveTab('more'); }} aria-label="Toggle Menu">
+          <button className="menu" onClick={() => { setOpen(true); setActiveTab('cabs'); }} aria-label="Toggle Menu">
             <Menu />
           </button>
         </header>
@@ -245,19 +245,19 @@ export default function Layout() {
                 </div>
               </div>
 
-              {/* Drawer Category Tabs */}
+              {/* Drawer Category Tabs: Cabs is the primary mobile navigation tab */}
               <div className="mobile-drawer-tab-bar">
+                <button
+                  className={`drawer-tab drawer-tab-primary ${activeTab === 'cabs' ? 'is-active' : ''}`}
+                  onClick={() => setActiveTab('cabs')}
+                >
+                  <Car size={14} /> Cabs
+                </button>
                 <button
                   className={`drawer-tab ${activeTab === 'more' ? 'is-active' : ''}`}
                   onClick={() => setActiveTab('more')}
                 >
                   <Info size={14} /> More Info
-                </button>
-                <button
-                  className={`drawer-tab ${activeTab === 'cabs' ? 'is-active' : ''}`}
-                  onClick={() => setActiveTab('cabs')}
-                >
-                  <Car size={14} /> Cabs
                 </button>
                 <button
                   className={`drawer-tab ${activeTab === 'packages' ? 'is-active' : ''}`}
