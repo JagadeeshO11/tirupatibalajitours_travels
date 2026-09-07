@@ -316,7 +316,31 @@ export default function CabRoutePage({ route: routeProp }) {
   }
 
   const isSrikalahasti = route.slug === 'tirupati-to-srikalahasti';
-  const content = cabRouteContent[route.slug] || {
+  const srikalahastiStandardContent = isSrikalahasti ? {
+    eyebrow: 'SRIKALAHASTI PILGRIMAGE CAB',
+    intro: srikalahastiContent.intro,
+    facts: [
+      ['Distance', route.distance],
+      ['Typical drive', route.time],
+      ['Primary route', route.route]
+    ],
+    templeTitle: 'Srikalahasti Temple Experience',
+    templeText: srikalahastiContent.templeIntro,
+    routeTitle: 'Tirupati to Srikalahasti Route & Travel Guide',
+    routeText: 'A comfortable same-day pilgrimage route via Renigunta with flexible doorstep pickup and return timing.',
+    highlights: srikalahastiContent.route.details,
+    guideTitle: 'Temple Guidelines & Travel Tips',
+    guide: [
+      ['Best time to visit', srikalahastiContent.bestTimes[0]],
+      ['Dress code', 'Wear traditional or modest clothing and follow current temple entry rules.'],
+      ['Temple rules', 'Follow the temple guidance for mobile phones, photography and different darshan queues.'],
+      ['Travel planning', 'Start early from Tirupati for a more relaxed same-day pilgrimage.']
+    ],
+    packages: srikalahastiContent.packageHighlights.slice(0, 4).map(p => [p.title, p.duration, p.route, p.price]),
+    faqs: srikalahastiContent.faqs
+  } : null;
+
+  const content = cabRouteContent[route.slug] || srikalahastiStandardContent || {
     eyebrow: 'OUTSTATION PILGRIMAGE TAXI',
     intro: route.description,
     facts: [
@@ -356,10 +380,10 @@ export default function CabRoutePage({ route: routeProp }) {
             <span>TIRUPATI OUTSTATION CABS • 24x7 TAXI SERVICE</span>
           </div>
 
-          <h1>{isSrikalahasti ? srikalahastiContent.title : route.title}</h1>
+          <h1>{route.title}</h1>
           
           <p className="hero-intro-text">
-            {isSrikalahasti ? srikalahastiContent.intro : content?.intro || route.description}
+            {content?.intro || route.description}
           </p>
 
           <div className="hero-badges-row">
@@ -422,218 +446,8 @@ export default function CabRoutePage({ route: routeProp }) {
         </div>
       </section>
 
-      {/* Main Content Body */}
-      {isSrikalahasti ? (
-        <>
-          <section className="section longform-section intro-section">
-            <div className="longform-copy">
-              <span className="badge-pill gold"><Landmark size={13} /> SRIKALAHASTI TEMPLE</span>
-              <h2>Tirupati to Srikalahasti Distance & Temple Experience</h2>
-              <p className="lead-text">{srikalahastiContent.templeIntro}</p>
-              
-              <div className="info-strip">
-                <div className="fact-box">
-                  <Landmark size={18} />
-                  <div>
-                    <b>Vayu Sthalam</b>
-                    <small>Air element Panchabhoota shrine</small>
-                  </div>
-                </div>
-                <div className="fact-box">
-                  <MapPin size={18} />
-                  <div>
-                    <b>Swarnamukhi River</b>
-                    <small>Sacred riverbank geography</small>
-                  </div>
-                </div>
-                <div className="fact-box">
-                  <ShieldCheck size={18} />
-                  <div>
-                    <b>Pilgrimage Route</b>
-                    <small>Popular 37km same-day trip</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section className="section longform-section">
-            <div className="section-header">
-              <span className="badge-pill"><Navigation size={13} /> ROUTE DETAILS</span>
-              <h2>{srikalahastiContent.route.heading}</h2>
-            </div>
-            
-            <div className="route-guide-grid">
-              <div className="timeline-card">
-                <p><strong>Distance:</strong> {srikalahastiContent.route.distance}</p>
-                <p><strong>Travel time:</strong> {srikalahastiContent.route.time}</p>
-                <p><strong>Primary route:</strong> {srikalahastiContent.route.route}</p>
-                
-                <div className="route-map-line">
-                  {srikalahastiContent.route.route.split('→').map((stop, i) => (
-                    <span key={i}>{stop.trim()}</span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="highlights-card">
-                <h3>Route highlights</h3>
-                <div className="highlights-list">
-                  {srikalahastiContent.route.details.map(x => (
-                    <div key={x} className="highlight-chip">
-                      <CheckCircle2 size={16} />
-                      <span>{x}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section className="section longform-section darshan-timings-section">
-            <div className="section-header-centered">
-              <span className="badge-pill gold"><Clock3 size={13} /> DARSHAN & PUJA SCHEDULE</span>
-              <h2>Srikalahasti Temple Darshan Timings</h2>
-              <p className="section-lead" style={{ color: 'var(--muted, #334155)', fontSize: '0.95rem', marginTop: '6px' }}>
-                Plan your visit around daily darshan slots, Rahu Kala puja timings, and special entry passes.
-              </p>
-            </div>
-
-            <ContentTable headers={['Service / Darshan', 'Timing & Slot', 'Duration']} rows={srikalahastiContent.darshan} routeTitle="Srikalahasti Temple" />
-            
-            <div className="special-darshan-wrapper">
-              <div className="subheading-header">
-                <Sparkles size={18} className="sparkle-gold" />
-                <h3>Special Entry & Ticket Options</h3>
-              </div>
-              <div className="option-grid">
-                {srikalahastiContent.specialDarshan.map(([name, detail]) => (
-                  <div key={name} className="option-card">
-                    <span className="option-card-badge">ENTRY PASS</span>
-                    <strong>{name}</strong>
-                    <span>{detail}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          <section className="section longform-section">
-            <div className="two-col-copy">
-              <div>
-                <h2>Dress Code Guidelines</h2>
-                <h3>For Men</h3>
-                <ul>{srikalahastiContent.dressCode.men.map(x => <li key={x}>{x}</li>)}</ul>
-                <h3>For Women</h3>
-                <ul>{srikalahastiContent.dressCode.women.map(x => <li key={x}>{x}</li>)}</ul>
-              </div>
-              <div>
-                <h2>Temple Rules</h2>
-                <div className="feature-list compact">
-                  {srikalahastiContent.rules.map(x => (
-                    <div key={x} className="guide-card">
-                      <ShieldCheck size={18} />
-                      <span>{x}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section className="section longform-section pale">
-            <div className="section-header-centered">
-              <span className="badge-pill"><Sparkles size={13} /> TOUR PACKAGES</span>
-              <h2>Srikalahasti Tour Packages</h2>
-            </div>
-            <div className="package-grid">
-              {srikalahastiContent.packageHighlights.map(p => (
-                <article key={p.title} className="package-card">
-                  <div className="package-card-badge">{p.duration}</div>
-                  <h3>{p.title}</h3>
-                  <p className="package-route-text">{p.route}</p>
-                  <div className="package-footer">
-                    <div className="package-price">
-                      <small>Fare</small>
-                      <strong>{p.price}/-</strong>
-                    </div>
-                    <a 
-                      href={whatsappBooking(`Hi, I would like to enquire about ${p.title}.`)} 
-                      target="_blank" 
-                      rel="noreferrer"
-                      className="package-btn"
-                    >
-                      Enquire Now <ArrowRight size={14} />
-                    </a>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          <section className="section longform-section">
-            <div className="section-header-centered">
-              <span className="badge-pill"><Car size={13} /> VEHICLE FLEET</span>
-              <h2>Fleet for Tirupati to Srikalahasti</h2>
-            </div>
-            <div className="full-fleet-grid">
-              {srikalahastiContent.fleet.map(v => (
-                <article key={v.name} className="fleet-card">
-                  <div className="fleet-card-top">
-                    <span>{v.category}</span>
-                    <strong>{v.name}</strong>
-                    <small>{v.type} • {v.persons} persons • AC • {v.bags} bags</small>
-                  </div>
-                  <div className="fleet-rates">
-                    <div>
-                      <span>8 Hours / 80 KMs</span>
-                      <b>{v.local8}</b>
-                    </div>
-                    <div>
-                      <span>12 Hours / 150 KMs</span>
-                      <b>{v.local12}</b>
-                    </div>
-                    <div>
-                      <span>Outstation Rate</span>
-                      <b>{v.perKm}</b>
-                    </div>
-                  </div>
-                  <a 
-                    href={whatsappBooking(`Hi, I need ${v.name} for Tirupati to Srikalahasti. Please confirm current pricing.`)} 
-                    target="_blank" 
-                    rel="noreferrer"
-                    className="button full-width"
-                  >
-                    <MessageCircle size={15} /> Book Now
-                  </a>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          <section className="section longform-section pale">
-            <div className="section-header">
-              <span className="badge-pill"><Info size={13} /> FAQ</span>
-              <h2>Frequently Asked Questions</h2>
-            </div>
-            <div className="faq-list">
-              {srikalahastiContent.faqs.map(([q, a]) => (
-                <details key={q} className="faq-item">
-                  <summary className="faq-question">
-                    <span>{q}</span>
-                    <ChevronDown size={18} />
-                  </summary>
-                  <div className="faq-answer">
-                    <p>{a}</p>
-                  </div>
-                </details>
-              ))}
-            </div>
-          </section>
-        </>
-      ) : (
-        <DetailedRouteContent content={content} route={route} />
-      )}
+      {/* Main Content Body — one consistent UI for every cab route */}
+      <DetailedRouteContent content={content} route={route} />
 
       {/* --- STATS COUNTER BANNER --- */}
       <StatsBanner title="Trusted Outstation Taxi Partner" subtitle="SERVICE HIGHLIGHTS" />
