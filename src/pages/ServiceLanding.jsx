@@ -110,9 +110,16 @@ export default function ServiceLanding({ slug: routeSlug }) {
     'corporate-packages', 'customized-packages', 'holiday-packages',
     'family-packages', 'student-packages', 'wedding-packages', 'devotional-packages'
   ].includes(slug);
+  const isTaxiServicePage = [
+    'taxi-in-tirupati',
+    'car-rentals-in-tirupati',
+    'car-for-rent-in-tirupati-day-rentals',
+    'outstation-taxi-in-tirupati',
+    'tirupati-airport-taxi'
+  ].includes(slug);
 
   return (
-    <main className={`service-page ${isPackagePage ? 'package-detail-page' : ''}`}>
+    <main className={`service-page ${isPackagePage ? 'package-detail-page' : ''} ${isTaxiServicePage ? 'taxi-service-page' : ''}`}>
       {/* Hero Section */}
       <section className="service-hero">
         <div className="hero-backdrop-gradient"></div>
