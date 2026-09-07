@@ -30,3 +30,170 @@
   .media-type, .media-bottom { display: none; }
   .vehicle-capacity { font-size: 8px; padding: 4px 5px; }
 }
+
+
+/* Final mobile fleet correction: compact cards, no horizontal overflow */
+@media (max-width: 720px) {
+  html, body, #root { width: 100%; max-width: 100%; overflow-x: hidden; }
+
+  .fleet-intro {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 24px;
+  }
+
+  .fleet-intro h2 {
+    font-size: 34px;
+    line-height: 1.08;
+    letter-spacing: -.035em;
+    margin: 8px 0 12px;
+    max-width: 330px;
+  }
+
+  .fleet-subcopy {
+    font-size: 12px;
+    line-height: 1.65;
+    max-width: 100% !important;
+  }
+
+  .fleet-trust {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 16px;
+  }
+
+  .fleet-trust span {
+    min-width: 0;
+    padding: 10px 9px;
+    font-size: 9px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .fleet-trust span:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .fleet-pricing-strip,
+  .fleet-chooser {
+    display: none !important;
+  }
+
+  .fleet-group {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 26px !important;
+    padding: 0 !important;
+  }
+
+  .fleet-group-heading {
+    width: 90%;
+    margin: 0 auto 12px;
+    align-items: center;
+  }
+
+  .fleet-group-heading h3 {
+    font-size: 20px;
+    margin: 4px 0 0;
+  }
+
+  .fleet-category-note {
+    display: none;
+  }
+
+  .vehicle-slider {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    width: 90% !important;
+    max-width: 90%;
+    margin: 0 auto !important;
+    gap: 12px !important;
+    overflow: visible !important;
+    padding: 0 0 24px !important;
+  }
+
+  .vehicle-slider > * {
+    min-width: 0 !important;
+    width: 100%;
+  }
+
+  .rental-card {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .vehicle-media {
+    height: 115px !important;
+  }
+
+  .vehicle-media img {
+    height: 100% !important;
+    padding: 8px !important;
+    object-fit: contain !important;
+    transform: none !important;
+  }
+
+  .media-type,
+  .media-bottom,
+  .vehicle-category,
+  .vehicle-summary,
+  .vehicle-features,
+  .vehicle-price-grid,
+  .vehicle-minimum,
+  .rent-actions {
+    display: none !important;
+  }
+
+  .rental-info {
+    padding: 10px !important;
+  }
+
+  .vehicle-heading {
+    display: block;
+  }
+
+  .rental-info h3 {
+    font-size: 13px !important;
+    line-height: 1.25;
+    margin: 0 0 7px !important;
+    min-height: 32px;
+  }
+
+  .vehicle-capacity {
+    display: inline-flex;
+    font-size: 8px;
+    padding: 4px 6px;
+    margin-bottom: 8px;
+  }
+
+  .view-details {
+    margin-top: 0;
+    padding: 8px 5px;
+    font-size: 8.5px;
+    min-height: 32px;
+  }
+
+  .fleet-pricing-note {
+    width: 90%;
+    margin: 12px auto 90px !important;
+    font-size: 9px;
+  }
+
+  .content {
+    overflow-x: hidden;
+  }
+}
+
+@media (max-width: 380px) {
+  .fleet-intro h2 { font-size: 30px; }
+  .vehicle-slider { width: 92% !important; max-width: 92%; gap: 9px !important; }
+  .vehicle-media { height: 105px !important; }
+  .rental-info h3 { font-size: 12px !important; }
+}
