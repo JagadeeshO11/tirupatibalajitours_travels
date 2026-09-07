@@ -756,3 +756,383 @@
     padding-bottom: 120px;
   }
 }
+
+
+/* =========================================================
+   PACKAGE DETAIL PAGES — MOBILE ONLY
+   Scoped only to Hamburger > Packages pages.
+   ========================================================= */
+@media (max-width: 768px) {
+  .package-detail-page {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    padding-bottom: 96px;
+  }
+
+  /* Image first: make the package visual the primary entry point */
+  .package-detail-page .service-hero {
+    display: flex;
+    flex-direction: column;
+    padding: 14px 5% 28px;
+    min-height: auto;
+    gap: 0;
+  }
+
+  .package-detail-page .hero-backdrop-gradient {
+    display: none;
+  }
+
+  .package-detail-page .service-hero-image-card {
+    order: 1;
+    width: 100%;
+    height: 225px;
+    margin: 0;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .package-detail-page .service-hero-image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .package-detail-page .hero-image-glass-tag {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    width: auto;
+    padding: 9px 10px;
+    border-radius: 12px;
+  }
+
+  .package-detail-page .hero-image-glass-tag strong { font-size: 10px; }
+  .package-detail-page .hero-image-glass-tag small { font-size: 8px; }
+
+  .package-detail-page .service-hero-copy {
+    order: 2;
+    width: 100%;
+    padding: 20px 0 0;
+  }
+
+  .package-detail-page .hero-badge-pill {
+    display: none;
+  }
+
+  .package-detail-page .hero-kicker-tag {
+    font-size: 9px;
+    letter-spacing: .12em;
+    line-height: 1.4;
+  }
+
+  .package-detail-page .service-hero h1 {
+    font-size: clamp(28px, 8.2vw, 36px);
+    line-height: 1.08;
+    letter-spacing: -.035em;
+    margin: 9px 0 11px;
+  }
+
+  .package-detail-page .hero-description {
+    font-size: 12px;
+    line-height: 1.62;
+    margin-bottom: 15px;
+  }
+
+  .package-detail-page .hero-trust-badges {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+    margin: 0 0 15px;
+  }
+
+  .package-detail-page .hero-trust-badges span {
+    min-width: 0;
+    padding: 8px 7px;
+    font-size: 8.5px;
+    line-height: 1.3;
+  }
+
+  .package-detail-page .hero-trust-badges span:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .package-detail-page .service-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .package-detail-page .service-actions .button {
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    padding: 9px 7px;
+    font-size: 9px;
+    justify-content: center;
+    white-space: nowrap;
+  }
+
+  /* Consistent 5% page gutters */
+  .package-detail-page .section {
+    padding: 28px 5%;
+  }
+
+  .package-detail-page .service-quick-container {
+    padding-top: 0;
+    padding-bottom: 8px;
+  }
+
+  .package-detail-page .service-quick-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .package-detail-page .quick-item,
+  .package-detail-page .quick-action-box {
+    min-width: 0;
+    border-radius: 16px;
+    padding: 13px 10px;
+  }
+
+  .package-detail-page .quick-item {
+    display: block;
+  }
+
+  .package-detail-page .quick-item svg {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 7px;
+  }
+
+  .package-detail-page .quick-item b {
+    display: block;
+    font-size: 11px;
+    line-height: 1.3;
+  }
+
+  .package-detail-page .quick-item small {
+    display: block;
+    font-size: 8.5px;
+    line-height: 1.45;
+    margin-top: 4px;
+  }
+
+  .package-detail-page .quick-action-box {
+    grid-column: 1 / -1;
+  }
+
+  .package-detail-page .quick-book-btn {
+    min-height: 42px;
+    font-size: 10px;
+  }
+
+  /* About section: remove cramped desktop split */
+  .package-detail-page .service-about-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .package-detail-page .badge-pill {
+    font-size: 8px;
+    padding: 6px 9px;
+  }
+
+  .package-detail-page .service-about-grid h2,
+  .package-detail-page .section-header h2,
+  .package-detail-page .section-header-centered h2 {
+    font-size: 23px;
+    line-height: 1.18;
+    letter-spacing: -.02em;
+    margin: 8px 0;
+  }
+
+  .package-detail-page .lead-about-text,
+  .package-detail-page .section-header p,
+  .package-detail-page .section-header-centered p {
+    font-size: 11px;
+    line-height: 1.6;
+  }
+
+  .package-detail-page .service-about-points {
+    gap: 9px;
+  }
+
+  .package-detail-page .point-card {
+    padding: 13px 12px;
+    border-radius: 15px;
+    gap: 10px;
+  }
+
+  .package-detail-page .point-card strong { font-size: 12px; }
+  .package-detail-page .point-card p { font-size: 9.5px; line-height: 1.5; }
+
+  /* Booking steps become compact cards */
+  .package-detail-page .booking-steps-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .package-detail-page .step-card {
+    min-height: 0;
+    padding: 17px 15px 15px 56px;
+    position: relative;
+    border-radius: 16px;
+  }
+
+  .package-detail-page .step-number {
+    position: absolute;
+    left: 14px;
+    top: 16px;
+    font-size: 13px;
+  }
+
+  .package-detail-page .step-card h3 { font-size: 14px; }
+  .package-detail-page .step-card p { font-size: 10px; line-height: 1.5; }
+
+  /* Package vehicle options: clean one-card-per-row */
+  .package-detail-page .service-vehicles-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .package-detail-page .vehicle-card {
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  .package-detail-page .vehicle-photo-wrap {
+    height: 175px;
+  }
+
+  .package-detail-page .vehicle-photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 10px;
+  }
+
+  .package-detail-page .vehicle-card-content {
+    padding: 15px;
+  }
+
+  .package-detail-page .vehicle-card h3 { font-size: 18px; }
+  .package-detail-page .vehicle-capacity { font-size: 10px; }
+
+  .package-detail-page .vehicle-specs-pills {
+    gap: 6px;
+  }
+
+  .package-detail-page .vehicle-specs-pills span {
+    font-size: 8px;
+    padding: 6px 7px;
+  }
+
+  .package-detail-page .vehicle-price-box {
+    padding: 11px;
+    margin: 12px 0;
+  }
+
+  .package-detail-page .vehicle-price-box strong {
+    font-size: 14px;
+    line-height: 1.35;
+  }
+
+  .package-detail-page .vehicle-book-btn {
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+    font-size: 10px;
+  }
+
+  /* Trips and features: compact 2-column browsing */
+  .package-detail-page .features-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .package-detail-page .feature-card {
+    min-width: 0;
+    padding: 14px 11px;
+    border-radius: 15px;
+  }
+
+  .package-detail-page .feature-card h3 { font-size: 12px; line-height: 1.3; }
+  .package-detail-page .feature-card p { font-size: 9px; line-height: 1.5; }
+
+  .package-detail-page .service-trip-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .package-detail-page .trip-card {
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1fr);
+    min-height: 126px;
+    border-radius: 17px;
+    overflow: hidden;
+  }
+
+  .package-detail-page .trip-image-wrap {
+    height: 100%;
+    min-height: 126px;
+  }
+
+  .package-detail-page .trip-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .package-detail-page .trip-card-content {
+    padding: 13px 12px;
+    min-width: 0;
+  }
+
+  .package-detail-page .trip-meta-tag { font-size: 8px; }
+  .package-detail-page .trip-card h3 { font-size: 14px; margin: 4px 0; }
+  .package-detail-page .trip-route-desc { font-size: 9.5px; line-height: 1.4; }
+  .package-detail-page .trip-plan-btn { font-size: 9px; margin-top: 7px; }
+
+  /* Inclusion cards and FAQ */
+  .package-detail-page .inclusions-grid {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .package-detail-page .inclusion-card {
+    padding: 15px;
+    border-radius: 15px;
+  }
+
+  .package-detail-page .inclusion-card h3 { font-size: 13px; }
+  .package-detail-page .inclusion-card p { font-size: 10px; line-height: 1.55; }
+
+  .package-detail-page .service-faq-item {
+    border-radius: 14px;
+    margin-bottom: 8px;
+  }
+
+  .package-detail-page .service-faq-summary {
+    padding: 14px 13px;
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .package-detail-page .service-faq-answer {
+    padding: 0 13px 14px;
+    font-size: 10px;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 390px) {
+  .package-detail-page .service-hero-image-card { height: 205px; }
+  .package-detail-page .service-hero h1 { font-size: 27px; }
+  .package-detail-page .hero-trust-badges { grid-template-columns: 1fr; }
+  .package-detail-page .hero-trust-badges span:last-child { grid-column: auto; }
+  .package-detail-page .features-grid { gap: 8px; }
+  .package-detail-page .feature-card { padding: 12px 9px; }
+  .package-detail-page .trip-card { grid-template-columns: 96px minmax(0, 1fr); }
+}
