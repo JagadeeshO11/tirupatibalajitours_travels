@@ -1421,3 +1421,171 @@
   .route-fact { padding: 10px 8px; }
   .route-section-heading h2 { font-size: 21px; }
 }
+
+
+/* =========================================================
+   MOBILE CORRECTION — ACTUAL CAB ROUTE COMPONENT CLASSES
+   Fixes tariff overlap, route-fact spacing and fixed-nav clearance.
+   ========================================================= */
+@media (max-width: 640px) {
+  /* The screenshot issue: the JSX uses .fact-item, not .route-fact */
+  .route-facts-container {
+    padding: 24px 5% !important;
+  }
+
+  .route-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    width: 100%;
+    margin: 0 !important;
+  }
+
+  .fact-item {
+    min-width: 0;
+    min-height: 142px;
+    padding: 16px 14px !important;
+    border-radius: 18px !important;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .fact-item:nth-child(3) {
+    grid-column: 1 / -1;
+    min-height: auto;
+  }
+
+  .fact-item > div:last-child {
+    min-width: 0;
+  }
+
+  .fact-item span {
+    display: block;
+    font-size: 9px !important;
+    letter-spacing: .08em;
+    line-height: 1.4;
+  }
+
+  .fact-item strong {
+    display: block;
+    font-size: 16px !important;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
+  .fact-icon-wrap {
+    width: 58px !important;
+    height: 58px !important;
+    min-width: 58px;
+  }
+
+  /* TARIF TABLE: remove the desktop 4-column inline grid on phones */
+  .content-table-card {
+    width: 100%;
+    border-radius: 18px;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  .content-table-header-strip {
+    padding: 18px 16px;
+  }
+
+  .table-title {
+    gap: 10px;
+  }
+
+  .table-title h3 {
+    font-size: 17px;
+    line-height: 1.25;
+  }
+
+  .table-title p {
+    font-size: 10px;
+    line-height: 1.45;
+  }
+
+  .content-table-head {
+    display: none !important;
+  }
+
+  .content-table-row {
+    /* Override React inline gridTemplateColumns */
+    grid-template-columns: minmax(0, 1fr) minmax(78px, .9fr) !important;
+    gap: 10px 12px !important;
+    padding: 16px !important;
+    align-items: center;
+  }
+
+  .content-table-row .vehicle-cell,
+  .content-table-row .fare-cell {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    line-height: 1.45;
+  }
+
+  .content-table-row .vehicle-cell {
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .content-table-row .fare-cell {
+    font-size: 12px;
+    text-align: right;
+  }
+
+  .content-table-row .table-action-cell {
+    grid-column: 1 / -1;
+    width: 100%;
+    justify-content: stretch;
+    margin-top: 2px;
+  }
+
+  .content-table-row .table-book-btn {
+    grid-column: auto !important;
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+    margin: 0 !important;
+    padding: 10px 12px !important;
+    font-size: 11px !important;
+    border-radius: 12px;
+  }
+
+  .table-note {
+    padding: 13px 16px;
+    font-size: 10px;
+    line-height: 1.55;
+  }
+
+  /* Keep floating/bottom controls from covering final content */
+  .cab-route-page {
+    padding-bottom: 150px !important;
+  }
+
+  .route-cta {
+    margin-bottom: 22px !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .fact-item {
+    min-height: 132px;
+    padding: 14px 11px !important;
+  }
+
+  .fact-icon-wrap {
+    width: 52px !important;
+    height: 52px !important;
+    min-width: 52px;
+  }
+
+  .fact-item strong {
+    font-size: 15px !important;
+  }
+
+  .content-table-row {
+    grid-template-columns: minmax(0, 1fr) minmax(70px, .8fr) !important;
+    padding: 14px 12px !important;
+  }
+}
