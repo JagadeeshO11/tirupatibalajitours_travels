@@ -197,3 +197,89 @@
   .vehicle-media { height: 105px !important; }
   .rental-info h3 { font-size: 12px !important; }
 }
+
+
+/* Mobile polish: remove category container and repair first vehicle row */
+@media (max-width: 720px) {
+  /* Category sections must be flat, not wrapped inside a large outer card */
+  .fleet-group,
+  .fleet-group#cars,
+  .fleet-group#tempo,
+  .fleet-group#urbania,
+  .fleet-group#bus {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    outline: 0 !important;
+  }
+
+  .fleet-group::before,
+  .fleet-group::after {
+    display: none !important;
+  }
+
+  /* Clean first row: balanced image, title and essential trip info */
+  #cars .vehicle-slider {
+    align-items: stretch;
+  }
+
+  #cars .vehicle-slider > * {
+    display: flex;
+    min-width: 0;
+  }
+
+  #cars .rental-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 215px;
+    border-radius: 15px;
+  }
+
+  #cars .vehicle-media {
+    height: 125px !important;
+    flex: none;
+    background: #f3f6fb;
+  }
+
+  #cars .vehicle-media img {
+    padding: 10px !important;
+    object-position: center;
+  }
+
+  #cars .rental-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    padding: 11px !important;
+  }
+
+  #cars .vehicle-heading {
+    width: 100%;
+  }
+
+  #cars .rental-info h3 {
+    min-height: auto;
+    font-size: 14px !important;
+    margin-bottom: 5px !important;
+  }
+
+  #cars .vehicle-capacity {
+    margin-bottom: 9px;
+  }
+
+  #cars .view-details {
+    margin-top: auto;
+    width: 100%;
+  }
+
+  /* Keep every grid row visually consistent */
+  .vehicle-slider > * {
+    align-self: stretch;
+  }
+
+  .rental-card {
+    box-shadow: 0 5px 16px rgba(17,27,94,.07);
+  }
+}
