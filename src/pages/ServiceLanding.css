@@ -1315,3 +1315,113 @@
     font-size: 8.5px !important;
   }
 }
+
+
+/* =========================================================
+   TAXIS IN TIRUPATI / TIRUPATI CABS — MOBILE PADDING FIX
+   Scoped to taxi service pages only.
+   ========================================================= */
+@media (max-width: 768px) {
+  .taxi-service-page {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    padding-bottom: 112px;
+  }
+
+  /* Every major section gets a consistent mobile gutter */
+  .taxi-service-page .section {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 26px 5% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Pale sections were visually touching the viewport edges */
+  .taxi-service-page .section.pale {
+    padding-top: 28px !important;
+    padding-bottom: 28px !important;
+  }
+
+  /* Keep section headings aligned with their actual content */
+  .taxi-service-page .section-header,
+  .taxi-service-page .section-header-centered {
+    width: 100%;
+    margin: 0 0 15px !important;
+    padding: 0 !important;
+  }
+
+  .taxi-service-page .section-header h2,
+  .taxi-service-page .section-header-centered h2 {
+    margin: 8px 0 !important;
+  }
+
+  /* Route table/card: the exact area visible in your screenshot */
+  .taxi-service-page .route-table-card {
+    width: 100% !important;
+    margin: 0 !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  .taxi-service-page .route-table-grid {
+    width: 100% !important;
+  }
+
+  .taxi-service-page .route-row-item {
+    min-width: 0 !important;
+    padding: 14px 12px !important;
+    gap: 8px !important;
+  }
+
+  /* Fare note must align to the same 5% content rhythm */
+  .taxi-service-page .fare-note-box {
+    width: 100% !important;
+    margin: 18px 0 0 !important;
+    padding: 14px !important;
+    box-sizing: border-box !important;
+    border-radius: 16px !important;
+  }
+
+  /* Vehicle and trip selections should never sit flush against an edge */
+  .taxi-service-page .service-vehicles-grid,
+  .taxi-service-page .service-trip-grid,
+  .taxi-service-page .features-grid,
+  .taxi-service-page .inclusions-grid,
+  .taxi-service-page .booking-steps-grid,
+  .taxi-service-page .service-about-grid {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .taxi-service-page .vehicle-card,
+  .taxi-service-page .trip-card,
+  .taxi-service-page .feature-card,
+  .taxi-service-page .inclusion-card,
+  .taxi-service-page .step-card,
+  .taxi-service-page .point-card,
+  .taxi-service-page .service-faq-item {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* The quick selection block keeps its own compact spacing */
+  .taxi-service-page .service-quick-container {
+    padding-top: 18px !important;
+    padding-bottom: 18px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .taxi-service-page .section {
+    padding-left: 5% !important;
+    padding-right: 5% !important;
+  }
+
+  .taxi-service-page .route-row-item {
+    padding: 13px 10px !important;
+  }
+}
