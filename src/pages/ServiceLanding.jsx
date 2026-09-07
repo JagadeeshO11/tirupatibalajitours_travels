@@ -105,9 +105,14 @@ export default function ServiceLanding({ slug: routeSlug }) {
   )}`;
   
   const trips = tripMap[slug] || defaultTrips;
+  const isPackagePage = [
+    'local-packages', 'outstation-packages', 'balaji-darshan-packages',
+    'corporate-packages', 'customized-packages', 'holiday-packages',
+    'family-packages', 'student-packages', 'wedding-packages', 'devotional-packages'
+  ].includes(slug);
 
   return (
-    <main className="service-page">
+    <main className={`service-page ${isPackagePage ? 'package-detail-page' : ''}`}>
       {/* Hero Section */}
       <section className="service-hero">
         <div className="hero-backdrop-gradient"></div>
