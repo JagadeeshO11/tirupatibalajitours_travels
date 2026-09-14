@@ -1346,3 +1346,8 @@ body {
     padding: 3px !important;
   }
 }
+
+/* TOP CONTACT BAR SCROLLS AWAY, MAIN NAVIGATION STAYS STICKY */
+.sticky-header-wrapper.is-scrolled .header-top-bar {
+  display: none;
+}
