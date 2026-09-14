@@ -714,3 +714,21 @@
   .tour-card-body h3 { font-size: 16px; }
   .tour-book-btn { font-size: 10px; }
 }
+
+/* MOBILE TOURS FINAL REFINEMENT */
+@media (max-width: 768px){
+.tours-page-wrapper{padding:12px 4% 72px!important;gap:18px!important}
+.tours-hero-card{padding:24px 16px!important;border-radius:20px!important}
+.tours-sticky-filter-wrapper{position:relative!important;top:auto!important;z-index:2!important}
+.tours-filter-bar{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;overflow:visible!important;padding:8px!important;gap:7px!important;border-radius:16px!important}
+.tours-filter-btn{min-width:0!important;width:100%!important;padding:10px 7px!important;font-size:10px!important;white-space:normal!important;line-height:1.2!important}
+.tours-filter-btn:first-child{grid-column:1/-1!important}
+.tours-section{width:100%!important;margin:0!important}
+.tours-grid{display:grid!important;grid-template-columns:1fr!important;gap:14px!important}
+.tour-card{border-radius:18px!important;overflow:hidden!important}
+.tour-card-header{height:180px!important}
+.tour-card-body{padding:15px!important}
+.tour-card-body h3{font-size:17px!important;line-height:1.25!important}
+.tour-card-body>p{-webkit-line-clamp:3!important}
+.tour-pricing-grid{margin-top:10px!important}
+}
