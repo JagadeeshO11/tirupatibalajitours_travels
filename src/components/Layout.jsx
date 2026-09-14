@@ -94,12 +94,20 @@ export default function Layout() {
   const [open, setOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [activeTab, setActiveTab] = useState('cabs');
+  const [headerPinned, setHeaderPinned] = useState(false);
   const timerRef = useRef(null);
   const location = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
+
+  useEffect(() => {
+    const onScroll = () => setHeaderPinned(window.scrollY > 42);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const handleDropdownEnter = id => {
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -119,7 +127,7 @@ export default function Layout() {
 
   return (
     <>
-      <div className="sticky-header-wrapper">
+      <div className={`sticky-header-wrapper ${headerPinned ? "is-scrolled" : ""}`}>
         <div className="header-top-bar">
           <div className="top-bar-container">
             <div className="top-bar-left">
