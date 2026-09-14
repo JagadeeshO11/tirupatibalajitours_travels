@@ -181,9 +181,6 @@ export default function Tours() {
         </div>
       </div>
 
-      {/* --- STATS COUNTER BANNER --- */}
-      <StatsBanner title="Trusted Tour Package Operator" subtitle="WHY TRAVEL WITH US" />
-
       {/* --- TOUR PACKAGES GRID --- */}
       <section className="tours-section">
         <div className="tours-grid">
@@ -237,6 +234,9 @@ export default function Tours() {
           ))}
         </div>
       </section>
+
+      {/* --- STATS COUNTER BANNER --- */}
+      <StatsBanner title="Trusted Tour Package Operator" subtitle="WHY TRAVEL WITH US" />
 
       {/* --- CUSTOM QUOTATION BANNER --- */}
       <section className="tours-custom-banner">
