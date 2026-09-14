@@ -163,3 +163,15 @@
     font-size: 12px;
   }
 }
+
+
+/* DESTINATIONS MOBILE */
+@media (max-width: 768px) {
+.page .destination-list{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;padding:18px 5% 0!important}
+.page .destination-list article{min-width:0!important;margin:0!important;overflow:hidden;border-radius:16px}
+.page .destination-list article img{width:100%!important;height:125px!important;object-fit:cover;display:block}
+.page .destination-list article>div{padding:11px 10px!important}
+.page .destination-list article h3{font-size:13px!important;line-height:1.25}
+.page .destination-list article span{font-size:9px!important}
+.page .destination-list article a{font-size:10px!important}
+}
