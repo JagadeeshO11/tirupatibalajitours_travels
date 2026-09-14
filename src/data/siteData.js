@@ -15,6 +15,9 @@ export const images = {
   goldentemple: 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto,w_800/v1786733338/113c0590-3a8d-4dfd-9ea4-c225fab55199.png',
   arunachalam: 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto,w_800/v1786733151/78ba506e-406e-419e-9bd0-7310625bdb82.png',
   srisailam: 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto,w_800/v1786733358/3544fc65-3444-4a2e-80bc-320384a75b9b.png',
+  // Dedicated fallbacks for tour cards so these packages never render a broken image.
+  kanchipuram: 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto,w_800/v1786733245/2294ffc1-24a6-4284-bd31-20ada6598736.png',
+  pondicherry: 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto,w_800/v1786735401/33e36867-e1e5-4785-bbf1-8255a659662e.png',
   tirumala: 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto,w_800/v1786733399/8d17421f-0c51-490c-9fd1-34615a6a9dbd.png',
   tirupati: 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto,w_800/v1786733408/39dd8a6a-1c70-433d-abb2-7a5491fddf57.png',
   tiruchanur: 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto,w_800/v1786733391/c167177a-f7b2-4705-b622-c6d9cf88070f.png',
