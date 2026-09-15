@@ -1,0 +1,257 @@
+.sacred-coverflow {
+  position: relative;
+  width: 100%;
+  min-height: 500px;
+  padding: 18px 70px 72px;
+  overflow: hidden;
+}
+
+.sacred-coverflow-stage {
+  position: relative;
+  width: min(1120px, 100%);
+  height: 390px;
+  margin: 0 auto;
+  perspective: 1500px;
+  transform-style: preserve-3d;
+}
+
+.sacred-coverflow-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(620px, 56vw);
+  height: 360px;
+  margin: -180px 0 0 -310px;
+  border-radius: 24px;
+  overflow: hidden;
+  cursor: pointer;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  transition:
+    transform 0.65s cubic-bezier(.22, .72, .2, 1),
+    opacity 0.5s ease,
+    filter 0.5s ease,
+    box-shadow 0.5s ease;
+  will-change: transform, opacity;
+}
+
+.sacred-coverflow-card[data-position="0"] {
+  transform: translate3d(0, 0, 100px) scale(1);
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 10;
+  filter: none;
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.38);
+}
+
+.sacred-coverflow-card[data-position="-1"] {
+  transform: translate3d(-390px, 18px, -70px) rotateY(14deg) scale(.8);
+  opacity: .62;
+  pointer-events: auto;
+  z-index: 7;
+  filter: brightness(.7) saturate(.78);
+}
+
+.sacred-coverflow-card[data-position="1"] {
+  transform: translate3d(390px, 18px, -70px) rotateY(-14deg) scale(.8);
+  opacity: .62;
+  pointer-events: auto;
+  z-index: 7;
+  filter: brightness(.7) saturate(.78);
+}
+
+.sacred-coverflow-card[data-position="-2"] {
+  transform: translate3d(-650px, 38px, -180px) rotateY(21deg) scale(.68);
+  opacity: .3;
+  pointer-events: auto;
+  z-index: 4;
+  filter: brightness(.48) saturate(.65);
+}
+
+.sacred-coverflow-card[data-position="2"] {
+  transform: translate3d(650px, 38px, -180px) rotateY(-21deg) scale(.68);
+  opacity: .3;
+  pointer-events: auto;
+  z-index: 4;
+  filter: brightness(.48) saturate(.65);
+}
+
+.sacred-coverflow-card:not([data-position="0"]):not([data-position="-1"]):not([data-position="1"]):not([data-position="-2"]):not([data-position="2"]) {
+  transform: translate3d(0, 0, -400px) scale(.45);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sacred-coverflow-card-inner,
+.sacred-coverflow-card-inner .home-slide-card {
+  width: 100%;
+  height: 100%;
+}
+
+.sacred-coverflow-card-inner .home-slide-card {
+  margin: 0;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: none;
+}
+
+.sacred-coverflow-card-inner .slide-image {
+  height: 205px;
+}
+
+.sacred-coverflow-card-inner .slide-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sacred-coverflow-card-inner .card-body {
+  min-height: 155px;
+  padding: 17px 22px 19px;
+}
+
+.sacred-coverflow-card-inner .card-body h3 {
+  margin: 6px 0 5px;
+  color: #17134e;
+  font-size: 21px;
+}
+
+.sacred-coverflow-card-inner .card-body p {
+  margin: 0 0 12px;
+}
+
+.sacred-coverflow-card-inner .card-action-btn {
+  display: inline-flex;
+}
+
+.sacred-coverflow-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 20;
+  width: 58px;
+  height: 58px;
+  margin-top: -32px;
+  border: 2px solid rgba(255,255,255,.78);
+  border-radius: 50%;
+  background: rgba(35, 13, 75, .56);
+  color: #fff;
+  font-size: 42px;
+  line-height: 45px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: transform .25s ease, background .25s ease, border-color .25s ease;
+}
+
+.sacred-coverflow-arrow:hover {
+  transform: scale(1.08);
+  background: rgba(255, 193, 7, .9);
+  border-color: #ffc107;
+  color: #24104e;
+}
+
+.sacred-coverflow-prev { left: 10px; }
+.sacred-coverflow-next { right: 10px; }
+
+.sacred-coverflow-pagination {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  z-index: 22;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(83, 65, 128, .55);
+  backdrop-filter: blur(10px);
+}
+
+.sacred-coverflow-dot {
+  width: 12px;
+  height: 12px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,.34);
+  cursor: pointer;
+  transition: transform .25s ease, background .25s ease;
+}
+
+.sacred-coverflow-dot:hover { transform: scale(1.2); }
+.sacred-coverflow-dot.is-active { background: #ffc107; transform: scale(1.35); }
+
+@media (max-width: 900px) {
+  .sacred-coverflow { padding-left: 54px; padding-right: 54px; }
+  .sacred-coverflow-stage { height: 350px; }
+  .sacred-coverflow-card {
+    width: min(560px, 68vw);
+    height: 330px;
+    margin: -165px 0 0 -280px;
+  }
+  .sacred-coverflow-card[data-position="-1"] { transform: translate3d(-270px, 20px, -60px) rotateY(12deg) scale(.8); }
+  .sacred-coverflow-card[data-position="1"] { transform: translate3d(270px, 20px, -60px) rotateY(-12deg) scale(.8); }
+  .sacred-coverflow-card[data-position="-2"] { transform: translate3d(-455px, 32px, -150px) rotateY(18deg) scale(.65); }
+  .sacred-coverflow-card[data-position="2"] { transform: translate3d(455px, 32px, -150px) rotateY(-18deg) scale(.65); }
+}
+
+@media (max-width: 640px) {
+  .sacred-coverflow {
+    min-height: 405px;
+    padding: 4px 8px 60px;
+  }
+
+  .sacred-coverflow-stage { height: 300px; }
+
+  .sacred-coverflow-card {
+    width: min(340px, 82vw);
+    height: 292px;
+    margin: -146px 0 0 -170px;
+    border-radius: 19px;
+  }
+
+  .sacred-coverflow-card[data-position="0"] {
+    transform: translate3d(0, 0, 80px) scale(1);
+  }
+
+  .sacred-coverflow-card[data-position="-1"] {
+    transform: translate3d(-142px, 14px, -45px) rotateY(10deg) scale(.8);
+    opacity: .5;
+  }
+
+  .sacred-coverflow-card[data-position="1"] {
+    transform: translate3d(142px, 14px, -45px) rotateY(-10deg) scale(.8);
+    opacity: .5;
+  }
+
+  .sacred-coverflow-card[data-position="-2"],
+  .sacred-coverflow-card[data-position="2"] {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .sacred-coverflow-card-inner .home-slide-card { border-radius: 19px; }
+  .sacred-coverflow-card-inner .slide-image { height: 168px; }
+  .sacred-coverflow-card-inner .card-body { min-height: 124px; padding: 12px 15px 14px; }
+  .sacred-coverflow-card-inner .card-body h3 { font-size: 18px; }
+  .sacred-coverflow-card-inner .card-body p { display: none; }
+  .sacred-coverflow-card-inner .card-action-btn { font-size: 12px; padding: 8px 11px; }
+
+  .sacred-coverflow-arrow {
+    width: 44px;
+    height: 44px;
+    margin-top: -22px;
+    font-size: 32px;
+    line-height: 32px;
+  }
+
+  .sacred-coverflow-prev { left: 2px; }
+  .sacred-coverflow-next { right: 2px; }
+}
