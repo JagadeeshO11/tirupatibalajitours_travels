@@ -1,0 +1,94 @@
+/* Final desktop coverflow alignment: symmetric, narrower rear cards with visible depth. */
+@media (min-width: 1201px) {
+  .sacred-coverflow-stage {
+    width: min(1760px, 100%);
+    height: 450px;
+    margin-top: 34px;
+  }
+
+  .sacred-coverflow-card {
+    width: 680px;
+    height: 420px;
+    margin: -210px 0 0 -340px;
+  }
+
+  /* Prominent center card */
+  .sacred-coverflow-card[data-position="0"] {
+    transform: translate3d(0, 0, 120px) scale(1);
+  }
+
+  /* First rear pair: intentionally narrower than the center card */
+  .sacred-coverflow-card[data-position="-1"],
+  .sacred-coverflow-card[data-position="1"] {
+    width: 320px;
+    height: 350px;
+    margin: -175px 0 0 -160px;
+    opacity: .72;
+    z-index: 7;
+  }
+
+  .sacred-coverflow-card[data-position="-1"] {
+    transform: translate3d(-385px, 20px, -70px) rotateY(13deg) scale(.96);
+  }
+
+  .sacred-coverflow-card[data-position="1"] {
+    transform: translate3d(385px, 20px, -70px) rotateY(-13deg) scale(.96);
+  }
+
+  /* Second rear pair */
+  .sacred-coverflow-card[data-position="-2"],
+  .sacred-coverflow-card[data-position="2"] {
+    width: 215px;
+    height: 315px;
+    margin: -157.5px 0 0 -107.5px;
+    opacity: .42;
+    z-index: 4;
+  }
+
+  .sacred-coverflow-card[data-position="-2"] {
+    transform: translate3d(-645px, 38px, -190px) rotateY(19deg) scale(.96);
+  }
+
+  .sacred-coverflow-card[data-position="2"] {
+    transform: translate3d(645px, 38px, -190px) rotateY(-19deg) scale(.96);
+  }
+
+  /* Third rear pair stays visible at the outer edges */
+  .sacred-coverflow-card[data-position="-3"],
+  .sacred-coverflow-card[data-position="3"] {
+    width: 155px;
+    height: 285px;
+    margin: -142.5px 0 0 -77.5px;
+    opacity: .22;
+    pointer-events: auto;
+    z-index: 2;
+    filter: brightness(.38) saturate(.58);
+  }
+
+  .sacred-coverflow-card[data-position="-3"] {
+    transform: translate3d(-810px, 54px, -300px) rotateY(23deg) scale(.96);
+  }
+
+  .sacred-coverflow-card[data-position="3"] {
+    transform: translate3d(810px, 54px, -300px) rotateY(-23deg) scale(.96);
+  }
+
+  /* Keep any remaining cards tucked symmetrically behind the visible stack. */
+  .sacred-coverflow-card:not([data-position="0"]):not([data-position="-1"]):not([data-position="1"]):not([data-position="-2"]):not([data-position="2"]):not([data-position="-3"]):not([data-position="3"]) {
+    transform: translate3d(0, 0, -500px) scale(.4);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .sacred-coverflow-card[data-position="-1"] .sacred-coverflow-card-body,
+  .sacred-coverflow-card[data-position="1"] .sacred-coverflow-card-body {
+    padding: 12px 18px;
+  }
+
+  .sacred-coverflow-card[data-position="-2"] .sacred-coverflow-card-body,
+  .sacred-coverflow-card[data-position="2"] .sacred-coverflow-card-body,
+  .sacred-coverflow-card[data-position="-3"] .sacred-coverflow-card-body,
+  .sacred-coverflow-card[data-position="3"] .sacred-coverflow-card-body {
+    padding: 10px 12px;
+  }
+}
