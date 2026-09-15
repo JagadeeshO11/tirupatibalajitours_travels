@@ -33,7 +33,7 @@ function mountSacredCoverFlow() {
   slider.style.display = 'none';
   slider.setAttribute('aria-hidden', 'true');
   section.querySelector('.section-heading')?.setAttribute('aria-hidden', 'true');
-  section.parentNode.insertBefore(mount, section.nextSibling);
+  section.insertBefore(mount, slider);
 
   createRoot(mount).render(<SacredDestinationsCoverFlow slides={slides} />);
   return true;
