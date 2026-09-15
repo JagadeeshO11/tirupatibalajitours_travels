@@ -1,0 +1,10 @@
+/* Mobile fleet section order: vehicle categories first, supporting sections last. */
+@media (max-width: 720px) {
+  #rentals { display: flex; flex-direction: column; }
+  #rentals > div:has(.fleet-intro) { order: 30; }
+  #rentals > .fleet-chooser,
+  #rentals > .fleet-pricing-strip { order: 1; }
+  #rentals > .stats-banner-wrapper { order: 40; margin-top: 18px; }
+  #rentals > .fleet-group { order: 10; }
+  #rentals > .fleet-pricing-note { order: 50; }
+}
