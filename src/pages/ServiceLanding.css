@@ -708,7 +708,7 @@
     grid-column: 1 / -1;
   }
   .service-vehicles-grid, .features-grid, .inclusions-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -716,19 +716,21 @@
   .service-hero {
     grid-template-columns: 1fr;
     padding-top: 110px;
-    gap: 40px;
+    gap: 30px;
   }
   .service-hero-image-card {
-    height: 320px;
+    height: 280px;
   }
   .service-about-grid {
     grid-template-columns: 1fr;
   }
   .booking-steps-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
   }
   .service-trip-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
   }
   .route-row-item {
     grid-template-columns: 1fr 1fr;
@@ -741,13 +743,94 @@
 
 @media (max-width: 640px) {
   .service-vehicles-grid, .features-grid, .inclusions-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .vehicle-card {
+    border-radius: 14px;
+  }
+  .vehicle-photo-wrap {
+    height: 125px;
+  }
+  .vehicle-card-content {
+    padding: 12px 10px;
+  }
+  .vehicle-card-content h3 {
+    font-size: 14.5px;
+    margin: 0 0 4px;
+  }
+  .vehicle-capacity {
+    font-size: 11px;
+    margin-bottom: 10px;
+  }
+  .vehicle-specs-pills {
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+  .vehicle-specs-pills span {
+    padding: 3px 6px;
+    font-size: 9.5px;
+  }
+  .vehicle-price-box {
+    padding: 8px 10px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+  }
+  .vehicle-price-box strong {
+    font-size: 13px;
+  }
+  .step-card {
+    padding: 16px 12px;
+    border-radius: 14px;
+  }
+  .step-number {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  .step-card h3 {
+    font-size: 14px;
+    margin: 0 0 6px;
+  }
+  .step-card p {
+    font-size: 11px;
+    line-height: 1.45;
+  }
+  .feature-card, .inclusion-card {
+    padding: 14px 12px;
+    border-radius: 14px;
+  }
+  .feature-icon-box {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  .feature-card h3, .inclusion-card h3 {
+    font-size: 14px;
+    margin: 0 0 6px;
+  }
+  .feature-card p, .inclusion-card p {
+    font-size: 11px;
+    line-height: 1.45;
   }
   .trip-card {
     grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 14px;
   }
   .trip-image-wrap {
-    height: 180px;
+    height: 105px;
+    border-radius: 10px;
+  }
+  .trip-card-content h3 {
+    font-size: 13.5px;
+    margin: 0 0 4px;
+  }
+  .trip-route-desc {
+    font-size: 10.5px;
+    line-height: 1.4;
+    margin: 0 0 8px;
   }
   .mobile-sticky-bar {
     display: grid;

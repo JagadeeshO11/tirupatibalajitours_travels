@@ -69,11 +69,20 @@ const homeTestimonials = [
 const Slider = ({ children }) => (
   <Swiper
     modules={[Autoplay, Pagination]}
-    autoplay={{ delay: 3600, disableOnInteraction: false }}
+    autoplay={{ delay: 4200, disableOnInteraction: false }}
     pagination={{ clickable: true }}
-    spaceBetween={18}
-    slidesPerView={1.08}
-    breakpoints={{ 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }}
+    loop={true}
+    spaceBetween={14}
+    slidesPerView={1.6}
+    centeredSlides={true}
+    grabCursor={true}
+    resistanceRatio={0.85}
+    breakpoints={{
+      480: { slidesPerView: 1.8, spaceBetween: 16, centeredSlides: true },
+      640: { slidesPerView: 1.8, spaceBetween: 16, centeredSlides: false },
+      768: { slidesPerView: 2.2, spaceBetween: 18, centeredSlides: false },
+      1024: { slidesPerView: 3, spaceBetween: 20, centeredSlides: false }
+    }}
     className="home-slider"
   >
     {children}
@@ -336,29 +345,27 @@ export default function Home() {
           </Link>
         </div>
 
-        <Slider>
+        <div className="tours-static-grid">
           {tours.map(t => (
-            <SwiperSlide key={t[0]}>
-              <article className="home-slide-card package-card">
-                <div className="slide-image">
-                  <img src={t[4]} alt={t[0]} />
-                  <span className="duration-badge">{t[1]}</span>
+            <article key={t[0]} className="home-slide-card package-card">
+              <div className="slide-image">
+                <img src={t[4]} alt={t[0]} />
+                <span className="duration-badge">{t[1]}</span>
+              </div>
+              <div className="card-body">
+                <div className="card-tag-row">
+                  <small className="category-tag">PILGRIMAGE PACKAGE</small>
+                  <span className="price-tag">From {t[3]}</span>
                 </div>
-                <div className="card-body">
-                  <div className="card-tag-row">
-                    <small className="category-tag">PILGRIMAGE PACKAGE</small>
-                    <span className="price-tag">From {t[3]}</span>
-                  </div>
-                  <h3>{t[0]}</h3>
-                  <div className="package-route-pill">{t[2]}</div>
-                  <Link to="/tours" className="card-action-btn package-btn">
-                    View Package Itinerary <FaArrowRight size={14} />
-                  </Link>
-                </div>
-              </article>
-            </SwiperSlide>
+                <h3>{t[0]}</h3>
+                <div className="package-route-pill">{t[2]}</div>
+                <Link to="/tours" className="card-action-btn package-btn">
+                  View Package Itinerary <FaArrowRight size={14} />
+                </Link>
+              </div>
+            </article>
           ))}
-        </Slider>
+        </div>
       </section>
 
       {/* --- 3-STEP EASY BOOKING FLOW --- */}
@@ -370,7 +377,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="card-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginTop: '2rem' }}>
+        <div className="card-grid home-steps-grid">
           <div style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '16px', boxShadow: 'var(--shadow-sm)', textAlign: 'center', padding: '2rem 1.5rem' }}>
             <span style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--gold-dark, #d97706)', display: 'block', marginBottom: '0.5rem' }}>01</span>
             <h3 style={{ color: 'var(--blue-950, #060c2c)', fontSize: '1.25rem', marginBottom: '0.5rem', fontWeight: 800 }}>Share Travel Details</h3>
@@ -400,7 +407,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="card-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', marginTop: '2rem' }}>
+        <div className="card-grid home-reviews-grid">
           {homeTestimonials.map(review => (
             <div key={review.name} style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '16px', boxShadow: 'var(--shadow-sm)', padding: '1.75rem', display: 'flex', flexDirection: 'column' }}>
               <div style={{ color: '#f59e0b', fontSize: '1.15rem', marginBottom: '0.75rem', letterSpacing: '2px' }}>

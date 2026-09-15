@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, Calendar, MapPin, CheckCircle2, MessageCircle, ArrowRight, Clock, Phone, ShieldCheck, Car } from 'lucide-react';
+import { Sparkles, Calendar, MapPin, CheckCircle2, MessageCircle, ArrowRight, Clock, Phone, ShieldCheck, Car, ChevronDown } from 'lucide-react';
 import { images, whatsapp, phone } from '../data/siteData';
 import { packageDetails } from '../data/packageDetails';
 import StatsBanner from '../components/StatsBanner';
@@ -198,9 +198,16 @@ export default function Tours() {
               </div>
 
               <div className="tour-card-body">
-                <span className="tour-category-tag">{pkg.category}</span>
+                <p className="tour-category-tag">{pkg.category}</p>
                 <h3>{pkg.title}</h3>
-                <p>{pkg.description}</p>
+
+                <details className="tour-route-details">
+                  <summary className="tour-route-summary">
+                    <span>Package Overview</span>
+                    <ChevronDown size={12} className="summary-chevron" />
+                  </summary>
+                  <p className="tour-route-full">{pkg.description}</p>
+                </details>
 
                 <div className="tour-pricing-grid">
                   <span className="grid-label">INDICATIVE VEHICLE TARIFFS</span>

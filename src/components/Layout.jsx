@@ -59,6 +59,7 @@ const Brand = ({ header = false, logoOnly = false } = {}) => (
 
 function HeaderDropdown({ id, activeDropdown, onEnter, onLeave, label, to, links, getSlug, isMore, className = '' }) {
   const isOpen = activeDropdown === id;
+  const isMultiCol = links.length > 6;
 
   return (
     <div
@@ -76,12 +77,16 @@ function HeaderDropdown({ id, activeDropdown, onEnter, onLeave, label, to, links
         </button>
       )}
 
-      <div className={`nav-cabs-menu ${isOpen ? 'is-open' : ''}`}>
+      <div className={`nav-cabs-menu ${isOpen ? 'is-open' : ''} ${isMultiCol ? 'multi-col' : ''}`}>
+        {isMultiCol && (
+          <div className="nav-dropdown-header">{label}</div>
+        )}
         {links.map(item => {
           const path = item.path || (getSlug ? getSlug(item) : `/${item.slug}`);
+          const lbl = item.shortTitle || item.title;
           return (
             <NavLink key={path} to={path} onClick={() => onLeave(true)}>
-              {item.title}
+              {lbl}
             </NavLink>
           );
         })}
@@ -94,7 +99,7 @@ export default function Layout() {
   const [open, setOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [activeTab, setActiveTab] = useState('cabs');
-  const [headerPinned, setHeaderPinned] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const timerRef = useRef(null);
   const location = useLocation();
 
@@ -103,8 +108,7 @@ export default function Layout() {
   }, [location.pathname]);
 
   useEffect(() => {
-    const onScroll = () => setHeaderPinned(window.scrollY > 42);
-    onScroll();
+    const onScroll = () => setScrolled(window.scrollY > 34);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -127,35 +131,35 @@ export default function Layout() {
 
   return (
     <>
-      <div className={`sticky-header-wrapper ${headerPinned ? "is-scrolled" : ""}`}>
-        <div className="header-top-bar">
-          <div className="top-bar-container">
-            <div className="top-bar-left">
-              <a href={`tel:${phone}`} className="top-bar-link">
-                <Phone size={13} /> +91 8688624758
+      <div className={`header-top-bar${scrolled ? ' is-hidden' : ''}`}>
+        <div className="top-bar-container">
+          <div className="top-bar-left">
+            <a href={`tel:${phone}`} className="top-bar-link">
+              <Phone size={13} /> +91 8688624758
+            </a>
+            <a href={`mailto:${email}`} className="top-bar-link">
+              <Mail size={13} /> {email}
+            </a>
+          </div>
+          <div className="top-bar-right">
+            <span className="top-bar-social-label">Follow Us:</span>
+            {socialLinks.map(({ name, url, Icon }) => (
+              <a
+                key={name}
+                href={url}
+                target="_blank"
+                rel="noreferrer"
+                className="top-social-icon"
+                title={name}
+              >
+                <Icon size={13} />
               </a>
-              <a href={`mailto:${email}`} className="top-bar-link">
-                <Mail size={13} /> {email}
-              </a>
-            </div>
-            <div className="top-bar-right">
-              <span className="top-bar-social-label">Follow Us:</span>
-              {socialLinks.map(({ name, url, Icon }) => (
-                <a
-                  key={name}
-                  href={url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="top-social-icon"
-                  title={name}
-                >
-                  <Icon size={13} />
-                </a>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
+      </div>
 
+      <div className={`sticky-header-wrapper${scrolled ? ' is-scrolled' : ''}`}>
         <header className="navbar">
           <Brand header />
           <nav>
@@ -282,7 +286,7 @@ export default function Layout() {
                     <div className="drawer-link-card-grid">
                       {cabRoutes.map(r => (
                         <NavLink key={r.slug} onClick={() => setOpen(false)} to={`/tirupati-cabs/${r.slug}`} className="mob-link-card">
-                          <span>{r.title}</span>
+                          <span>{r.shortTitle || r.title}</span>
                           <ChevronRight size={14} />
                         </NavLink>
                       ))}

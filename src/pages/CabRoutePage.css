@@ -1143,12 +1143,76 @@
 
 @media (max-width: 640px) {
   .fleet-card-grid, .package-grid, .why-grid.six, .full-fleet-grid, .option-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .fleet-pricing-card, .package-card, .fleet-card, .option-card {
+    padding: 12px 10px;
+    border-radius: 14px;
+  }
+  .why-card {
+    padding: 12px 10px;
+    border-radius: 14px;
+    gap: 8px;
+  }
+  .car-card-header .car-type {
+    font-size: 8.5px;
+  }
+  .car-card-header h3 {
+    font-size: 14px;
+    margin: 4px 0 8px;
+  }
+  .car-price-tag {
+    padding: 8px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+  }
+  .car-price-tag small {
+    font-size: 8px;
+  }
+  .car-price-tag strong {
+    font-size: 15px;
+  }
+  .car-specs {
+    font-size: 10.5px;
+    gap: 6px;
+    margin: 0 0 12px;
+  }
+  .package-card h3 {
+    font-size: 13.5px;
+    margin: 0 0 6px;
+  }
+  .package-route-text {
+    font-size: 10.5px;
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+  .package-price small {
+    font-size: 8.5px;
+  }
+  .package-price strong {
+    font-size: 14px;
+  }
+  .why-card strong {
+    font-size: 13.5px;
+    margin-bottom: 4px;
+  }
+  .why-card p {
+    font-size: 10.5px;
+    line-height: 1.4;
+  }
+  .option-card strong {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .option-card span {
+    font-size: 11px;
+    line-height: 1.4;
   }
   .content-table-head, .content-table-row {
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-    padding: 14px 16px;
+    padding: 12px 14px;
   }
   .content-table-head span {
     display: none;
@@ -1157,8 +1221,8 @@
     grid-column: 1 / -1;
     width: 100%;
     margin-top: 6px;
-    padding: 10px 14px;
-    font-size: 12px;
+    padding: 9px 12px;
+    font-size: 11.5px;
     font-weight: 800;
   }
   .mobile-sticky-bar {

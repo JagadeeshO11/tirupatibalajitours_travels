@@ -465,5 +465,7 @@ export const servicePages = {
 
 export const serviceLinks = Object.entries(servicePages).map(([slug, data]) => ({
   slug,
-  title: data.title
+  title: data.eyebrow
+    ? data.eyebrow.split('–')[0].split('|')[0].trim()
+    : data.title.split('–')[0].trim()
 }));

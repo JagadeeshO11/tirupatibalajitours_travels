@@ -211,13 +211,56 @@
 
 @media (max-width: 768px) {
   .services-section-wrapper {
-    padding: 3.5rem 1rem;
+    padding: 2.5rem 0.85rem;
+  }
+  .services-header-container {
+    margin-bottom: 2rem;
   }
   .services-header-container h2 {
-    font-size: 2rem;
+    font-size: clamp(1.6rem, 6.5vw, 2.2rem);
+    line-height: 1.25;
+    margin-bottom: 0.6rem;
+  }
+  .services-header-container p {
+    font-size: 0.95rem;
+    line-height: 1.5;
   }
   .services-cards-grid {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .service-glass-card {
+    padding: 1.2rem 0.9rem;
+    border-radius: 14px;
+  }
+  .service-card-top {
+    margin-bottom: 0.9rem;
+  }
+  .service-icon-box {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+  }
+  .service-icon-box svg {
+    width: 18px;
+    height: 18px;
+  }
+  .service-index-number {
+    font-size: 1rem;
+  }
+  .service-card-content h3 {
+    font-size: 1.02rem;
+    margin-bottom: 0.35rem;
+    line-height: 1.25;
+  }
+  .service-card-content p {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    margin-bottom: 0.85rem;
+  }
+  .service-explore-btn {
+    padding: 0.55rem 0.9rem;
+    font-size: 0.8rem;
+    width: 100%;
   }
 }

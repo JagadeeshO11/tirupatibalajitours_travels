@@ -351,7 +351,46 @@
 
 @media (max-width: 640px) {
   .blog-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .blog-card {
+    border-radius: 14px;
+  }
+  .blog-card-image {
+    height: 120px;
+  }
+  .blog-category-tag {
+    top: 0.5rem;
+    left: 0.5rem;
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+  }
+  .blog-card-body {
+    padding: 10px 8px;
+  }
+  .blog-card-meta {
+    font-size: 0.7rem;
+    margin-bottom: 0.4rem;
+  }
+  .blog-card-body h3 {
+    font-size: 0.88rem;
+    line-height: 1.3;
+    margin-bottom: 0.4rem;
+  }
+  .blog-card-body p {
+    font-size: 0.78rem;
+    line-height: 1.4;
+    margin-bottom: 0.6rem;
+  }
+  .blog-card-footer {
+    padding-top: 0.5rem;
+  }
+  .blog-author-info {
+    font-size: 0.7rem;
+  }
+  .blog-card-link-btn {
+    font-size: 0.75rem;
   }
 }
 

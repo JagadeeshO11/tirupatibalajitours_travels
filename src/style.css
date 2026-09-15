@@ -122,58 +122,105 @@ h3 { letter-spacing: -.01em; font-weight: 700; }
 .contact-form textarea { min-height: 140px; resize: vertical; }
 .submit-btn { border: 0; padding: 13px 20px; min-height: 48px; border-radius: 10px; background: var(--gradient-gold); color: var(--blue-950); font-weight: 800; cursor: pointer; }
 
-@media (max-width: 1000px) {
-  .hero { grid-template-columns: 1fr; gap: 35px; }
-  .hero > img { height: 360px; }
-  .card-grid { grid-template-columns: repeat(2, 1fr); }
-  .tour-grid, .destination-list { grid-template-columns: repeat(2, 1fr); }
-  .contact-grid { grid-template-columns: 1fr; }
-}
+.whatsapp { position: fixed; right: 22px; bottom: 22px; z-index: 5; width: 52px; height: 52px; display: grid; place-items: center; border-radius: 50%; color: white; background: linear-gradient(135deg, #25d366, #128c7e); box-shadow: 0 10px 28px rgba(37,211,102,.4); transition: transform .25s var(--ease), box-shadow .25s ease; }
+.whatsapp:hover { transform: translateY(-4px) scale(1.05); box-shadow: 0 14px 34px rgba(37,211,102,.5); }
+
+.hero h1, .page-hero h1 { font-size: clamp(2.45rem, 4.3vw, 4.6rem); line-height: 1.12; letter-spacing: -.03em; position: relative; z-index: 1; }
+.type-title { display: block; overflow: hidden; animation: typeIn .75s steps(18, end) both; }
+.page-hero h1 { max-width: 760px; }
+
+.trip-slider { display: flex; overflow-x: auto; gap: 20px; padding: 6px 4px 28px; margin-top: 32px; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+.trip-slider article { min-width: 295px; max-width: 355px; background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--radius-md); scroll-snap-align: start; overflow: hidden; box-shadow: var(--shadow-sm); transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s ease; }
+.trip-slider article:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: rgba(245,158,11,.4); }
+.trip-slider img { width: 100%; height: 195px; object-fit: cover; transition: transform .55s var(--ease); }
+.trip-slider article:hover img { transform: scale(1.05); }
+.trip-slider article > div { padding: 19px; }
+.trip-slider small { font-size: 11px; color: #475569; font-weight: 700; text-transform: uppercase; }
+.trip-slider h3 { font-size: 17px; margin: 10px 0 6px; color: var(--blue); }
+.trip-slider p { font-size: 12.5px; color: var(--muted); line-height: 1.6; font-weight: 500; }
+.trip-slider b { display: block; color: #d97706; margin-bottom: 14px; font-size: 15px; font-weight: 800; }
+.trip-slider .button { font-size: 11px; padding: 10px 14px; }
+
+.service-categories { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; }
+.service-categories a { padding: 10px 16px; background: var(--surface); border: 1.5px solid var(--line); border-radius: 999px; color: var(--blue); font-size: 12px; font-weight: 800; transition: .25s var(--ease); box-shadow: var(--shadow-sm); }
+.service-categories a:hover { background: var(--blue); color: #fff; border-color: var(--blue); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+.page .trip-slider { display: grid; grid-template-columns: repeat(3, 1fr); overflow: visible; }
+.page .trip-slider article { min-width: 0; max-width: none; }
+.vehicle-grid img { object-fit: cover; background: var(--surface-soft); }
+.rental-banner { background: linear-gradient(135deg, var(--blue-950), var(--blue-900), var(--blue)); color: #fff; padding: 36px; display: flex; justify-content: space-between; gap: 28px; align-items: center; margin-bottom: 40px; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); border: 1px solid rgba(255,215,0,0.25); }
+.rental-banner h2 { margin: 6px 0; font-size: 30px; }
+.rental-banner p:not(.eyebrow) { font-size: 14px; color: #e2e8f0; margin: 0; }
+.rental-banner .button { white-space: nowrap; }
+.rate-note { background: #fffbeb; border: 1.5px solid rgba(245,158,11,.4); padding: 18px; font-size: 13px; line-height: 1.6; border-radius: var(--radius-sm); color: #92400e; font-weight: 600; }
+.rate { display: block; color: var(--blue); font-size: 17px; margin: 12px 0; font-weight: 800; }
+.vehicle-grid ul { padding: 0; list-style: none; font-size: 11px; color: var(--muted); font-weight: 600; }
+.vehicle-grid li { display: flex; align-items: center; gap: 6px; margin: 6px 0; }
+.vehicle-grid li svg { width: 15px; color: #10b981; }
+.rental-more { text-align: center; margin-top: 32px; font-size: 14px; color: var(--ink); font-weight: 600; }
+.rental-more a, .all-link { color: var(--blue); font-weight: 800; }
+.all-link { display: flex; align-items: center; gap: 6px; margin-top: 28px; font-size: 13px; }
+
+@keyframes typeIn { from { clip-path: inset(0 100% 0 0); opacity: .35; } to { clip-path: inset(0 0 0 0); opacity: 1; } }
 
 @media (max-width: 800px) {
-  .hero { display: block; padding: 105px 20px 35px; min-height: 735px; }
-  .hero > img { height: 280px; margin-top: 30px; border-radius: 120px 12px 12px 12px; }
-  .section, .content { padding: 50px 18px; }
-  .card-grid { grid-template-columns: 1fr; gap: 14px; }
-  /* Keep destination cards in a true two-column mobile layout. */
-  .tour-grid, .destination-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; width: 100%; }
-  .destination-list article { height: 210px; min-width: 0; width: 100%; border-radius: 14px; }
-  .destination-list div { left: 12px; right: 12px; bottom: 14px; }
-  .destination-list h3 { font-size: 14px; line-height: 1.25; margin: 3px 0; }
-  .destination-list span { font-size: 9px; }
-  .destination-list a { font-size: 10px; }
-  .page-hero { padding: 115px 18px 55px; min-height: 360px; }
-  .contact-grid { grid-template-columns: 1fr; gap: 25px; }
+  .hero { display: block; padding: 100px 16px 30px; min-height: Auto; }
+  .hero > img { height: 260px; margin-top: 24px; border-radius: 80px 12px 12px 12px; }
+  .section, .content { padding: 36px 14px; }
+  .card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 20px; }
+  .card-grid article { padding: 14px 12px; min-height: 150px; border-radius: 12px; }
+  .card-grid h3 { font-size: 13.5px; margin: 10px 0 4px; }
+  .card-grid p { font-size: 11px; line-height: 1.45; }
+  .card-grid article > svg { width: 22px; height: 22px; }
+
+  .tour-grid, .destination-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 20px; }
+  .tour-grid article { border-radius: 14px; }
+  .tour-grid img { height: 130px; }
+  .tour-grid article > div { padding: 12px 10px; }
+  .tour-grid h3 { font-size: 13.5px; margin: 6px 0 4px; }
+  .tour-grid p { font-size: 11px; line-height: 1.45; margin-bottom: 8px; }
+  .tour-grid b { font-size: 13px; margin-bottom: 8px; }
+
+  .destination-list article { height: 160px; border-radius: 12px; }
+  .destination-list div { bottom: 12px; left: 10px; right: 10px; }
+  .destination-list h3 { font-size: 14px; }
+
+  .page-hero { padding: 110px 16px 45px; min-height: 320px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 20px; }
+  .contact-form { padding: 20px 16px; border-radius: 16px; }
   .blog-list article { grid-template-columns: 1fr; }
-  .blog-list img { height: 200px; }
-  .page .trip-slider { grid-template-columns: 1fr; gap: 16px; }
-  .rental-banner { display: block; padding: 28px 22px; }
-  .rental-banner .button { margin-top: 18px; width: 100%; text-align: center; }
-  .button, .submit-btn { min-height: 46px; }
-  input, select, textarea { font-size: 16px !important; }
+  .blog-list img { height: 180px; }
+  .page .trip-slider { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .trip-slider article { min-width: 0; border-radius: 14px; }
+  .trip-slider img { height: 125px; }
+  .trip-slider article > div { padding: 10px; }
+  .trip-slider h3 { font-size: 13px; margin: 6px 0 4px; }
+  .trip-slider p { font-size: 10.5px; line-height: 1.4; margin-bottom: 8px; }
+  .trip-slider b { font-size: 12.5px; margin-bottom: 8px; }
+
+  .rental-banner { display: block; padding: 24px 18px; border-radius: 16px; }
+  .rental-banner .button { margin-top: 16px; width: 100%; text-align: center; }
+  .button, .submit-btn { min-height: 44px; padding: 10px 16px; font-size: 11.5px; }
+  input, select, textarea { font-size: 15px !important; }
 }
 
 @media (max-width: 720px) {
-  .hero h1, .page-hero h1 { font-size: clamp(2.1rem, 8.5vw, 3rem); line-height: 1.18; }
+  .hero h1, .page-hero h1 { font-size: clamp(1.9rem, 7.5vw, 2.6rem); line-height: 1.15; }
 }
 
 @media (max-width: 480px) {
-  .card-grid, .page .trip-slider { grid-template-columns: 1fr; }
-  /* Destination cards stay 2 columns even on small phones. */
-  .destination-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding-left: 0; padding-right: 0; }
-  .destination-list article { height: 185px; border-width: 1.5px; border-radius: 12px; }
-  .destination-list div { left: 10px; right: 10px; bottom: 11px; }
-  .destination-list h3 { font-size: 13px; line-height: 1.2; }
-  .destination-list a { font-size: 9px; }
-  .hero h1 { font-size: 2.35rem; }
-  .actions { flex-direction: column; align-items: stretch; gap: 10px; }
-  .actions .button { width: 100%; min-height: 46px; }
-  .whatsapp { right: 18px; bottom: 112px; width: 54px; height: 54px; box-shadow: 0 10px 24px rgba(37,211,102,.45); }
+  .card-grid, .tour-grid, .destination-list, .page .trip-slider { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .card-grid article { padding: 12px 10px; min-height: 135px; }
+  .tour-grid img { height: 115px; }
+  .destination-list article { height: 140px; }
+  .trip-slider img { height: 110px; }
+  .hero h1 { font-size: 2.1rem; }
+  .actions { flex-direction: column; align-items: stretch; gap: 8px; }
+  .actions .button { width: 100%; min-height: 44px; }
+  .whatsapp { right: 16px; bottom: 100px; width: 50px; height: 50px; box-shadow: 0 8px 20px rgba(37,211,102,.45); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
-
-@keyframes typeIn { from { clip-path: inset(0 100% 0 0); opacity: .35; } to { clip-path: inset(0 0 0 0); opacity: 1; } }

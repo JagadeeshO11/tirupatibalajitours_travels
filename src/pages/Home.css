@@ -52,3 +52,9 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.home-steps-grid, .home-reviews-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+@media (max-width: 900px) {
+  .home-steps-grid, .home-reviews-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 1.25rem; }
+  .home-steps-grid > div, .home-reviews-grid > div { padding: 1.25rem 0.9rem !important; border-radius: 14px !important; }
+}
