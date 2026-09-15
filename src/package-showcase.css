@@ -1,0 +1,44 @@
+/* Static home package showcase: no horizontal Swiper interaction. */
+.home-showcase:has(.package-card) .home-slider {
+  width: 100%;
+  overflow: visible !important;
+}
+
+.home-showcase:has(.package-card) .home-slider .swiper-wrapper {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px !important;
+  width: 100% !important;
+  transform: none !important;
+}
+
+.home-showcase:has(.package-card) .home-slider .swiper-slide {
+  display: flex !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  transform: none !important;
+}
+
+/* Keep only the first three packages on the home page. */
+.home-showcase:has(.package-card) .home-slider .swiper-slide:nth-child(n + 4) {
+  display: none !important;
+}
+
+/* Keep the existing View All Packages header action visible. */
+.home-showcase:has(.package-card) .section-heading .all-link {
+  display: inline-flex;
+}
+
+@media (max-width: 900px) {
+  .home-showcase:has(.package-card) .home-slider .swiper-wrapper {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .home-showcase:has(.package-card) .home-slider .swiper-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
