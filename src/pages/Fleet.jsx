@@ -21,23 +21,6 @@ export default function Fleet() {
       image={images.hero}
     >
       <section className="content" id="rentals">
-        <ScrollReveal direction="up">
-          <div className="fleet-intro">
-            <div>
-              <p className="eyebrow">OUR FLEET</p>
-              <h2>Comfort for small groups. Space for everyone.</h2>
-              <p className="fleet-subcopy">
-                Official fleet options cover local day rentals and outstation travel. Every quote is confirmed for your exact route and itinerary.
-              </p>
-            </div>
-            <div className="fleet-trust">
-              <span><ShieldCheck /> Professional drivers</span>
-              <span><Wind /> AC vehicles</span>
-              <span><Clock3 /> 24/7 support</span>
-            </div>
-          </div>
-        </ScrollReveal>
-
         <div className="fleet-pricing-strip">
           <div>
             <span>LOCAL DAY RENT</span>
@@ -52,8 +35,6 @@ export default function Fleet() {
             <strong>Up to <AnimatedCounter end={50} suffix=" seats" /></strong>
           </div>
         </div>
-
-        <StatsBanner title="Extensive Vehicle Availability" subtitle="FLEET ADVANTAGE" />
 
         {fleetCategories.slice(1).map(category => {
           const items = fleet.filter(v => category.ids.includes(v.id));
@@ -131,6 +112,25 @@ export default function Fleet() {
             </section>
           );
         })}
+
+        <ScrollReveal direction="up">
+          <div className="fleet-intro">
+            <div>
+              <p className="eyebrow">OUR FLEET</p>
+              <h2>Comfort for small groups. Space for everyone.</h2>
+              <p className="fleet-subcopy">
+                Official fleet options cover local day rentals and outstation travel. Every quote is confirmed for your exact route and itinerary.
+              </p>
+            </div>
+            <div className="fleet-trust">
+              <span><ShieldCheck /> Professional drivers</span>
+              <span><Wind /> AC vehicles</span>
+              <span><Clock3 /> 24/7 support</span>
+            </div>
+          </div>
+        </ScrollReveal>
+
+        <StatsBanner title="Extensive Vehicle Availability" subtitle="FLEET ADVANTAGE" />
 
         <div className="fleet-pricing-note" style={{ marginTop: '3rem' }}>
           <strong>Pricing note</strong>
