@@ -4,4 +4,6 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './style.css';
 import './home-card-alignment.css';
+import './package-showcase.css';
+import './site-interaction.css';
 createRoot(document.getElementById('root')).render(<BrowserRouter><App/></BrowserRouter>);
