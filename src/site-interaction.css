@@ -1,0 +1,6 @@
+/* Remove the browser's colored tap flash across the entire site. */
+*,
+*::before,
+*::after {
+  -webkit-tap-highlight-color: transparent;
+}
