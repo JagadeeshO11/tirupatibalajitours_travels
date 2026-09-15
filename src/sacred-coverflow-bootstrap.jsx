@@ -2,22 +2,38 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import SacredDestinationsCoverFlow from './SacredDestinationsCoverFlow';
 
+function readDestinationSlides(slider) {
+  return Array.from(slider.querySelectorAll('.swiper-slide'))
+    .map((slide) => {
+      const card = slide.querySelector('.destination-card');
+      if (!card) return null;
+      const image = card.querySelector('.slide-image img');
+      const title = card.querySelector('.card-body h3');
+      const link = card.querySelector('.card-action-btn');
+      if (!image || !title) return null;
+      return {
+        title: title.textContent.trim(),
+        image: image.currentSrc || image.src,
+        href: link?.href || '#'
+      };
+    })
+    .filter(Boolean);
+}
+
 function mountSacredCoverFlow() {
   const section = document.querySelector('.destinations-preview');
   const slider = section?.querySelector('.home-slider');
   if (!section || !slider || section.querySelector('.sacred-coverflow-mount')) return false;
 
-  const slides = Array.from(slider.querySelectorAll('.swiper-slide'))
-    .map((slide) => slide.innerHTML.trim())
-    .filter(Boolean);
-
+  const slides = readDestinationSlides(slider);
   if (!slides.length) return false;
 
   const mount = document.createElement('div');
   mount.className = 'sacred-coverflow-mount';
   slider.style.display = 'none';
   slider.setAttribute('aria-hidden', 'true');
-  slider.parentNode.insertBefore(mount, slider);
+  section.querySelector('.section-heading')?.setAttribute('aria-hidden', 'true');
+  section.parentNode.insertBefore(mount, section.nextSibling);
 
   createRoot(mount).render(<SacredDestinationsCoverFlow slides={slides} />);
   return true;
@@ -25,7 +41,6 @@ function mountSacredCoverFlow() {
 
 const start = () => {
   if (mountSacredCoverFlow()) return;
-
   const observer = new MutationObserver(() => {
     if (mountSacredCoverFlow()) observer.disconnect();
   });
