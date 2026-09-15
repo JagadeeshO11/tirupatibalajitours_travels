@@ -1,0 +1,91 @@
+/* Reference-style coverflow depth: narrower rear cards expose more of the 3D stack. */
+.sacred-coverflow-card[data-position="-1"],
+.sacred-coverflow-card[data-position="1"] {
+  width: min(440px, 38vw);
+  margin-left: min(-220px, -19vw);
+}
+
+.sacred-coverflow-card[data-position="-1"] {
+  transform: translate3d(-445px, 30px, -95px) rotateY(15deg) scale(.84);
+}
+
+.sacred-coverflow-card[data-position="1"] {
+  transform: translate3d(445px, 30px, -95px) rotateY(-15deg) scale(.84);
+}
+
+.sacred-coverflow-card[data-position="-2"],
+.sacred-coverflow-card[data-position="2"] {
+  width: min(360px, 31vw);
+  margin-left: min(-180px, -15.5vw);
+}
+
+.sacred-coverflow-card[data-position="-2"] {
+  transform: translate3d(-670px, 52px, -225px) rotateY(22deg) scale(.76);
+}
+
+.sacred-coverflow-card[data-position="2"] {
+  transform: translate3d(670px, 52px, -225px) rotateY(-22deg) scale(.76);
+}
+
+@media (max-width: 1200px) {
+  .sacred-coverflow-card[data-position="-1"],
+  .sacred-coverflow-card[data-position="1"] {
+    width: min(390px, 39vw);
+    margin-left: min(-195px, -19.5vw);
+  }
+
+  .sacred-coverflow-card[data-position="-1"] {
+    transform: translate3d(-385px, 24px, -85px) rotateY(14deg) scale(.82);
+  }
+
+  .sacred-coverflow-card[data-position="1"] {
+    transform: translate3d(385px, 24px, -85px) rotateY(-14deg) scale(.82);
+  }
+
+  .sacred-coverflow-card[data-position="-2"],
+  .sacred-coverflow-card[data-position="2"] {
+    width: min(315px, 30vw);
+    margin-left: min(-157.5px, -15vw);
+  }
+
+  .sacred-coverflow-card[data-position="-2"] {
+    transform: translate3d(-575px, 44px, -180px) rotateY(20deg) scale(.72);
+  }
+
+  .sacred-coverflow-card[data-position="2"] {
+    transform: translate3d(575px, 44px, -180px) rotateY(-20deg) scale(.72);
+  }
+}
+
+@media (max-width: 900px) {
+  .sacred-coverflow-card[data-position="-1"],
+  .sacred-coverflow-card[data-position="1"] {
+    width: min(360px, 52vw);
+    margin-left: min(-180px, -26vw);
+  }
+
+  .sacred-coverflow-card[data-position="-1"] {
+    transform: translate3d(-285px, 15px, -55px) rotateY(12deg) scale(.8);
+  }
+
+  .sacred-coverflow-card[data-position="1"] {
+    transform: translate3d(285px, 15px, -55px) rotateY(-12deg) scale(.8);
+  }
+}
+
+@media (max-width: 640px) {
+  /* Keep mobile readable while preserving the layered side-card effect. */
+  .sacred-coverflow-card[data-position="-1"],
+  .sacred-coverflow-card[data-position="1"] {
+    width: min(270px, 68vw);
+    margin-left: min(-135px, -34vw);
+  }
+
+  .sacred-coverflow-card[data-position="-1"] {
+    transform: translate3d(-145px, 10px, -42px) rotateY(10deg) scale(.78);
+  }
+
+  .sacred-coverflow-card[data-position="1"] {
+    transform: translate3d(145px, 10px, -42px) rotateY(-10deg) scale(.78);
+  }
+}
