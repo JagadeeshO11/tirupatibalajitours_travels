@@ -82,24 +82,70 @@
 }
 
 @media (max-width: 639px) {
-  /* Override the old global 90% rule so normal sliders use the available width. */
+  /* Give mobile headings the full row. The CTA no longer squeezes h2 into a narrow column. */
+  .home-showcase:has(.route-card),
+  .home-showcase:has(.vehicle-card) {
+    padding: 52px 20px 72px;
+  }
+
+  .home-showcase:has(.route-card) .section-heading.compact,
+  .home-showcase:has(.vehicle-card) .section-heading.compact {
+    display: block;
+    margin-bottom: 18px;
+  }
+
+  .home-showcase:has(.route-card) .section-heading.compact > div,
+  .home-showcase:has(.vehicle-card) .section-heading.compact > div {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .home-showcase:has(.route-card) .section-heading.compact .eyebrow,
+  .home-showcase:has(.vehicle-card) .section-heading.compact .eyebrow {
+    display: block;
+    max-width: 100%;
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+
+  .home-showcase:has(.route-card) .section-heading.compact h2,
+  .home-showcase:has(.vehicle-card) .section-heading.compact h2 {
+    width: 100%;
+    max-width: none;
+    margin: 0 0 12px;
+    font-size: clamp(2rem, 9vw, 2.7rem);
+    line-height: 1.08;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  .home-showcase:has(.route-card) .section-heading.compact .all-link,
+  .home-showcase:has(.vehicle-card) .section-heading.compact .all-link {
+    display: inline-flex;
+    width: auto;
+    margin: 0;
+  }
+
+  /* One strong card with a deliberate peek of the next card. */
   .home-showcase:has(.route-card) .home-slider,
   .home-showcase:has(.vehicle-card) .home-slider {
-    width: 100%;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+    width: calc(100% + 0px);
+    margin: 0;
     padding: 4px 0 40px !important;
     overflow: hidden;
   }
 
   .home-showcase:has(.route-card) .home-slider .swiper-slide,
   .home-showcase:has(.vehicle-card) .home-slider .swiper-slide {
-    padding: 0 1px;
+    width: calc(100% - 26px) !important;
+    max-width: calc(100% - 26px);
+    padding: 0;
   }
 
   .home-showcase:has(.route-card) .home-slider .home-slide-card,
   .home-showcase:has(.vehicle-card) .home-slider .home-slide-card {
-    border-radius: 18px;
+    width: 100%;
+    border-radius: 20px;
   }
 
   .home-showcase:has(.route-card) .home-slider .slide-image,
@@ -108,18 +154,19 @@
   }
 
   .home-showcase:has(.route-card) .home-slider .card-body {
-    min-height: 195px;
+    min-height: 190px;
     padding: 15px;
   }
 
   .home-showcase:has(.vehicle-card) .home-slider .card-body {
-    min-height: 225px;
+    min-height: 215px;
     padding: 15px;
   }
 
   .home-showcase:has(.route-card) .home-slider .card-body h3,
   .home-showcase:has(.vehicle-card) .home-slider .card-body h3 {
-    font-size: 16px;
+    font-size: 17px;
+    line-height: 1.25;
   }
 
   .home-showcase:has(.route-card) .home-slider .card-body p,
