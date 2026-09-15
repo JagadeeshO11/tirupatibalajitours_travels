@@ -36,8 +36,10 @@ const defaultStats = [
 ];
 
 export default function StatsBanner({ stats = defaultStats, title, subtitle, className = '' }) {
+  const milestoneClass = subtitle === 'OUR MILESTONES' ? ' home-milestones' : '';
+
   return (
-    <section className={`stats-banner-wrapper ${className}`}>
+    <section className={`stats-banner-wrapper${milestoneClass} ${className}`}>
       <div className="stats-banner-container">
         {(title || subtitle) && (
           <div className="stats-header">
