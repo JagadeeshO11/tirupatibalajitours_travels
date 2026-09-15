@@ -1,0 +1,71 @@
+/* Mobile navigation interaction fix. Loaded after the main layout styles. */
+
+@media (max-width: 980px) {
+  .sticky-header-wrapper,
+  .navbar,
+  .navbar .menu {
+    pointer-events: auto !important;
+  }
+
+  .navbar .menu {
+    position: relative !important;
+    z-index: 1002 !important;
+    display: inline-flex !important;
+    width: 46px !important;
+    min-width: 46px !important;
+    height: 46px !important;
+    padding: 0 !important;
+    margin-left: auto !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .navbar .menu svg {
+    pointer-events: none;
+  }
+
+  .overlay {
+    z-index: 9998 !important;
+  }
+
+  .executive-mobile-drawer {
+    z-index: 9999 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 96px !important;
+  }
+
+  .mobile-pop-bottom-nav {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    position: fixed !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: 12px !important;
+    transform: translateX(-50%) !important;
+    width: calc(100% - 20px) !important;
+    max-width: 420px !important;
+    min-height: 58px !important;
+    z-index: 9997 !important;
+    box-sizing: border-box !important;
+  }
+
+  .mobile-pop-bottom-nav .mob-pop-nav-item {
+    pointer-events: auto !important;
+    min-width: 0;
+  }
+
+  .floating-whatsapp-container {
+    bottom: 88px !important;
+    right: 16px !important;
+    z-index: 9996 !important;
+  }
+}
