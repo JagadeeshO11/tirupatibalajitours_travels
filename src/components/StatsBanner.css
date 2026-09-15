@@ -142,3 +142,48 @@
   margin: 0;
   font-weight: 500;
 }
+
+/* Home milestones: compact 2-column cards on mobile only. */
+@media (max-width: 640px) {
+  .home-milestones .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .home-milestones .stat-card {
+    padding: 1.25rem 0.65rem;
+    border-radius: 14px;
+  }
+
+  .home-milestones .stat-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0.7rem;
+    border-radius: 11px;
+  }
+
+  .home-milestones .stat-icon-wrapper svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .home-milestones .stat-number {
+    font-size: 1.55rem;
+  }
+
+  .home-milestones .stat-label {
+    font-size: 0.75rem;
+    line-height: 1.25;
+  }
+
+  .home-milestones .stat-subtext {
+    font-size: 0.65rem;
+    line-height: 1.35;
+  }
+}
+
+/* Center a milestone row automatically when it contains fewer than two cards. */
+.home-milestones .stats-grid:has(> :only-child) {
+  grid-template-columns: minmax(220px, 320px);
+  justify-content: center;
+}
