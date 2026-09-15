@@ -13,6 +13,7 @@ import { phone, whatsapp, email } from '../data/siteData';
 import { cabRoutes } from '../data/cabRoutes';
 import { serviceLinks } from '../data/servicePages';
 import './Layout.css';
+import './LayoutDropdownFix.css';
 
 const packageNavLinks = [
   { slug: 'local-packages', title: 'Local Packages' },
