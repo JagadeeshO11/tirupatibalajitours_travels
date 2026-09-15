@@ -7,6 +7,7 @@ import StatsBanner from '../components/StatsBanner';
 import ScrollReveal from '../components/ScrollReveal';
 import './Fleet.css';
 import './FleetOverride.css';
+import './FleetMobileOrder.css';
 import { Link } from 'react-router-dom';
 
 const categoryIcons = { cars: Car, tempo: Users, urbania: Sparkles, bus: BusFront };
@@ -72,7 +73,6 @@ export default function Fleet() {
           </div>
         </div>
 
-        {/* --- STATS COUNTER BANNER --- */}
         <StatsBanner title="Extensive Vehicle Availability" subtitle="FLEET ADVANTAGE" />
 
         {fleetCategories.slice(1).map(category => {
