@@ -1,4 +1,4 @@
-import { Luggage, Wind, ShieldCheck, Clock3, Fuel, Users, MapPin, Car, BusFront, Sparkles, ArrowRight } from 'lucide-react';
+import { Luggage, Wind, ShieldCheck, Clock3, Fuel, Users, MapPin, Car, BusFront, Sparkles } from 'lucide-react';
 import Page from './PageTemplate';
 import { images, whatsapp } from '../data/siteData';
 import { fleet, fleetCategories } from '../data/fleetData';
@@ -37,26 +37,6 @@ export default function Fleet() {
             </div>
           </div>
         </ScrollReveal>
-
-        <div className="fleet-chooser" aria-label="Choose vehicle">
-          <div className="fleet-chooser-copy">
-            <span className="eyebrow">CHOOSE VEHICLE</span>
-            <strong>What are you travelling with?</strong>
-            <small>Jump directly to the vehicle type that fits your group.</small>
-          </div>
-          <nav className="fleet-filter-row">
-            {fleetCategories.slice(1).map(c => {
-              const Icon = categoryIcons[c.key] || Car;
-              return (
-                <a className="fleet-choice" key={c.key} href={`#${c.key}`}>
-                  <span className="fleet-choice-icon"><Icon /></span>
-                  <span><b>{c.label}</b><small>{c.ids.length} options</small></span>
-                  <span className="fleet-choice-arrow"><ArrowRight /></span>
-                </a>
-              );
-            })}
-          </nav>
-        </div>
 
         <div className="fleet-pricing-strip">
           <div>
