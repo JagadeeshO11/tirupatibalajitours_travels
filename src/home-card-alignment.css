@@ -1,0 +1,52 @@
+/* Desktop-only centering for incomplete card rows on the home page. */
+@media (min-width: 1025px) {
+  /* Services use a 4-column desktop grid. Center a final row with 1, 2, or 3 cards. */
+  .services-cards-grid:has(> :nth-child(4n + 1):last-child) > :last-child {
+    grid-column: 2;
+  }
+
+  .services-cards-grid:has(> :nth-child(4n + 2):last-child) > :nth-last-child(2) {
+    grid-column: 2;
+  }
+
+  .services-cards-grid:has(> :nth-child(4n + 2):last-child) > :last-child {
+    grid-column: 3;
+  }
+
+  .services-cards-grid:has(> :nth-child(4n + 3):last-child) > :nth-last-child(3) {
+    grid-column: 1;
+  }
+
+  .services-cards-grid:has(> :nth-child(4n + 3):last-child) > :nth-last-child(2) {
+    grid-column: 2;
+  }
+
+  .services-cards-grid:has(> :nth-child(4n + 3):last-child) > :last-child {
+    grid-column: 3;
+  }
+
+  /* Milestones use a 4-column desktop grid. Apply the same visual centering. */
+  .home-milestones .stats-grid:has(> :nth-child(4n + 1):last-child) > :last-child {
+    grid-column: 2;
+  }
+
+  .home-milestones .stats-grid:has(> :nth-child(4n + 2):last-child) > :nth-last-child(2) {
+    grid-column: 2;
+  }
+
+  .home-milestones .stats-grid:has(> :nth-child(4n + 2):last-child) > :last-child {
+    grid-column: 3;
+  }
+
+  .home-milestones .stats-grid:has(> :nth-child(4n + 3):last-child) > :nth-last-child(3) {
+    grid-column: 1;
+  }
+
+  .home-milestones .stats-grid:has(> :nth-child(4n + 3):last-child) > :nth-last-child(2) {
+    grid-column: 2;
+  }
+
+  .home-milestones .stats-grid:has(> :nth-child(4n + 3):last-child) > :last-child {
+    grid-column: 3;
+  }
+}
