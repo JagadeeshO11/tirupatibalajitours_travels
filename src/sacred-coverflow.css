@@ -1,17 +1,17 @@
 .sacred-coverflow {
   position: relative;
   width: 100%;
-  min-height: 500px;
-  padding: 18px 70px 72px;
+  min-height: 555px;
+  padding: 10px 82px 78px;
   overflow: hidden;
 }
 
 .sacred-coverflow-stage {
   position: relative;
-  width: min(1120px, 100%);
-  height: 390px;
+  width: min(1540px, 100%);
+  height: 455px;
   margin: 0 auto;
-  perspective: 1500px;
+  perspective: 1700px;
   transform-style: preserve-3d;
 }
 
@@ -19,10 +19,10 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: min(620px, 56vw);
-  height: 360px;
-  margin: -180px 0 0 -310px;
-  border-radius: 24px;
+  width: min(780px, 62vw);
+  height: 455px;
+  margin: -227.5px 0 0 -390px;
+  border-radius: 28px;
   overflow: hidden;
   cursor: pointer;
   transform-origin: center center;
@@ -31,56 +31,56 @@
   pointer-events: none;
   z-index: 0;
   transition:
-    transform 0.65s cubic-bezier(.22, .72, .2, 1),
-    opacity 0.5s ease,
-    filter 0.5s ease,
-    box-shadow 0.5s ease;
-  will-change: transform, opacity;
+    transform 0.62s cubic-bezier(.22, .72, .2, 1),
+    opacity 0.48s ease,
+    filter 0.48s ease,
+    box-shadow 0.48s ease;
+  will-change: transform, opacity, filter;
 }
 
 .sacred-coverflow-card[data-position="0"] {
-  transform: translate3d(0, 0, 100px) scale(1);
+  transform: translate3d(0, 0, 120px) scale(1);
   opacity: 1;
   pointer-events: auto;
   z-index: 10;
   filter: none;
-  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.38);
+  box-shadow: 0 30px 72px rgba(17, 13, 45, 0.28);
 }
 
 .sacred-coverflow-card[data-position="-1"] {
-  transform: translate3d(-390px, 18px, -70px) rotateY(14deg) scale(.8);
-  opacity: .62;
+  transform: translate3d(-485px, 18px, -90px) rotateY(12deg) scale(.8);
+  opacity: .54;
   pointer-events: auto;
   z-index: 7;
-  filter: brightness(.7) saturate(.78);
+  filter: brightness(.68) saturate(.72);
 }
 
 .sacred-coverflow-card[data-position="1"] {
-  transform: translate3d(390px, 18px, -70px) rotateY(-14deg) scale(.8);
-  opacity: .62;
+  transform: translate3d(485px, 18px, -90px) rotateY(-12deg) scale(.8);
+  opacity: .54;
   pointer-events: auto;
   z-index: 7;
-  filter: brightness(.7) saturate(.78);
+  filter: brightness(.68) saturate(.72);
 }
 
 .sacred-coverflow-card[data-position="-2"] {
-  transform: translate3d(-650px, 38px, -180px) rotateY(21deg) scale(.68);
-  opacity: .3;
+  transform: translate3d(-735px, 38px, -210px) rotateY(19deg) scale(.69);
+  opacity: .28;
   pointer-events: auto;
   z-index: 4;
-  filter: brightness(.48) saturate(.65);
+  filter: brightness(.46) saturate(.58);
 }
 
 .sacred-coverflow-card[data-position="2"] {
-  transform: translate3d(650px, 38px, -180px) rotateY(-21deg) scale(.68);
-  opacity: .3;
+  transform: translate3d(735px, 38px, -210px) rotateY(-19deg) scale(.69);
+  opacity: .28;
   pointer-events: auto;
   z-index: 4;
-  filter: brightness(.48) saturate(.65);
+  filter: brightness(.46) saturate(.58);
 }
 
 .sacred-coverflow-card:not([data-position="0"]):not([data-position="-1"]):not([data-position="1"]):not([data-position="-2"]):not([data-position="2"]) {
-  transform: translate3d(0, 0, -400px) scale(.45);
+  transform: translate3d(0, 0, -450px) scale(.45);
   opacity: 0;
   pointer-events: none;
   z-index: 0;
@@ -94,14 +94,14 @@
 
 .sacred-coverflow-card-inner .home-slide-card {
   margin: 0;
-  border-radius: 24px;
+  border-radius: 28px;
   overflow: hidden;
   background: #fff;
   box-shadow: none;
 }
 
 .sacred-coverflow-card-inner .slide-image {
-  height: 205px;
+  height: 207px;
 }
 
 .sacred-coverflow-card-inner .slide-image img {
@@ -111,18 +111,20 @@
 }
 
 .sacred-coverflow-card-inner .card-body {
-  min-height: 155px;
-  padding: 17px 22px 19px;
+  min-height: 248px;
+  padding: 20px 28px 24px;
 }
 
 .sacred-coverflow-card-inner .card-body h3 {
-  margin: 6px 0 5px;
+  margin: 6px 0 6px;
   color: #17134e;
-  font-size: 21px;
+  font-size: 27px;
+  line-height: 1.15;
 }
 
 .sacred-coverflow-card-inner .card-body p {
-  margin: 0 0 12px;
+  margin: 0 0 16px;
+  font-size: 16px;
 }
 
 .sacred-coverflow-card-inner .card-action-btn {
@@ -133,54 +135,56 @@
   position: absolute;
   top: 50%;
   z-index: 20;
-  width: 58px;
-  height: 58px;
-  margin-top: -32px;
-  border: 2px solid rgba(255,255,255,.78);
+  width: 68px;
+  height: 68px;
+  margin-top: -34px;
+  border: 2px solid rgba(255,255,255,.86);
   border-radius: 50%;
-  background: rgba(35, 13, 75, .56);
+  background: rgba(62, 31, 102, .88);
   color: #fff;
-  font-size: 42px;
-  line-height: 45px;
+  font-size: 46px;
+  line-height: 50px;
   display: grid;
   place-items: center;
   cursor: pointer;
   backdrop-filter: blur(8px);
+  box-shadow: 0 10px 24px rgba(31, 16, 63, .18);
   transition: transform .25s ease, background .25s ease, border-color .25s ease;
 }
 
 .sacred-coverflow-arrow:hover {
   transform: scale(1.08);
-  background: rgba(255, 193, 7, .9);
+  background: rgba(255, 193, 7, .95);
   border-color: #ffc107;
   color: #24104e;
 }
 
-.sacred-coverflow-prev { left: 10px; }
-.sacred-coverflow-next { right: 10px; }
+.sacred-coverflow-prev { left: 8px; }
+.sacred-coverflow-next { right: 8px; }
 
 .sacred-coverflow-pagination {
   position: absolute;
-  bottom: 16px;
+  bottom: 12px;
   left: 50%;
   z-index: 22;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 16px;
+  padding: 10px 18px;
   border-radius: 999px;
-  background: rgba(83, 65, 128, .55);
+  background: rgba(108, 79, 153, .62);
   backdrop-filter: blur(10px);
+  box-shadow: 0 8px 22px rgba(52, 32, 86, .12);
 }
 
 .sacred-coverflow-dot {
-  width: 12px;
-  height: 12px;
+  width: 13px;
+  height: 13px;
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: rgba(255,255,255,.34);
+  background: rgba(255,255,255,.42);
   cursor: pointer;
   transition: transform .25s ease, background .25s ease;
 }
@@ -188,33 +192,60 @@
 .sacred-coverflow-dot:hover { transform: scale(1.2); }
 .sacred-coverflow-dot.is-active { background: #ffc107; transform: scale(1.35); }
 
+@media (max-width: 1200px) {
+  .sacred-coverflow { padding-left: 64px; padding-right: 64px; }
+  .sacred-coverflow-card { width: min(700px, 64vw); margin-left: -350px; }
+  .sacred-coverflow-card[data-position="-1"] { transform: translate3d(-400px, 18px, -80px) rotateY(11deg) scale(.8); }
+  .sacred-coverflow-card[data-position="1"] { transform: translate3d(400px, 18px, -80px) rotateY(-11deg) scale(.8); }
+  .sacred-coverflow-card[data-position="-2"] { transform: translate3d(-600px, 34px, -170px) rotateY(18deg) scale(.67); }
+  .sacred-coverflow-card[data-position="2"] { transform: translate3d(600px, 34px, -170px) rotateY(-18deg) scale(.67); }
+}
+
 @media (max-width: 900px) {
-  .sacred-coverflow { padding-left: 54px; padding-right: 54px; }
-  .sacred-coverflow-stage { height: 350px; }
-  .sacred-coverflow-card {
-    width: min(560px, 68vw);
-    height: 330px;
-    margin: -165px 0 0 -280px;
+  .sacred-coverflow {
+    min-height: 485px;
+    padding: 8px 54px 70px;
   }
-  .sacred-coverflow-card[data-position="-1"] { transform: translate3d(-270px, 20px, -60px) rotateY(12deg) scale(.8); }
-  .sacred-coverflow-card[data-position="1"] { transform: translate3d(270px, 20px, -60px) rotateY(-12deg) scale(.8); }
-  .sacred-coverflow-card[data-position="-2"] { transform: translate3d(-455px, 32px, -150px) rotateY(18deg) scale(.65); }
-  .sacred-coverflow-card[data-position="2"] { transform: translate3d(455px, 32px, -150px) rotateY(-18deg) scale(.65); }
+
+  .sacred-coverflow-stage { height: 390px; }
+
+  .sacred-coverflow-card {
+    width: min(580px, 70vw);
+    height: 390px;
+    margin: -195px 0 0 -290px;
+    border-radius: 24px;
+  }
+
+  .sacred-coverflow-card[data-position="0"] {
+    transform: translate3d(0, 0, 90px) scale(1);
+  }
+
+  .sacred-coverflow-card[data-position="-1"] { transform: translate3d(-315px, 18px, -65px) rotateY(11deg) scale(.8); }
+  .sacred-coverflow-card[data-position="1"] { transform: translate3d(315px, 18px, -65px) rotateY(-11deg) scale(.8); }
+  .sacred-coverflow-card[data-position="-2"] { transform: translate3d(-510px, 30px, -145px) rotateY(17deg) scale(.65); }
+  .sacred-coverflow-card[data-position="2"] { transform: translate3d(510px, 30px, -145px) rotateY(-17deg) scale(.65); }
+
+  .sacred-coverflow-card-inner .slide-image { height: 190px; }
+  .sacred-coverflow-card-inner .card-body { min-height: 200px; padding: 17px 22px 20px; }
+  .sacred-coverflow-card-inner .card-body h3 { font-size: 23px; }
 }
 
 @media (max-width: 640px) {
   .sacred-coverflow {
-    min-height: 405px;
-    padding: 4px 8px 60px;
+    min-height: 410px;
+    padding: 2px 8px 58px;
   }
 
-  .sacred-coverflow-stage { height: 300px; }
+  .sacred-coverflow-stage {
+    height: 300px;
+    overflow: visible;
+  }
 
   .sacred-coverflow-card {
     width: min(340px, 82vw);
-    height: 292px;
-    margin: -146px 0 0 -170px;
-    border-radius: 19px;
+    height: 300px;
+    margin: -150px 0 0 -170px;
+    border-radius: 20px;
   }
 
   .sacred-coverflow-card[data-position="0"] {
@@ -222,12 +253,12 @@
   }
 
   .sacred-coverflow-card[data-position="-1"] {
-    transform: translate3d(-142px, 14px, -45px) rotateY(10deg) scale(.8);
+    transform: translate3d(-145px, 13px, -45px) rotateY(10deg) scale(.8);
     opacity: .5;
   }
 
   .sacred-coverflow-card[data-position="1"] {
-    transform: translate3d(142px, 14px, -45px) rotateY(-10deg) scale(.8);
+    transform: translate3d(145px, 13px, -45px) rotateY(-10deg) scale(.8);
     opacity: .5;
   }
 
@@ -237,10 +268,10 @@
     pointer-events: none;
   }
 
-  .sacred-coverflow-card-inner .home-slide-card { border-radius: 19px; }
-  .sacred-coverflow-card-inner .slide-image { height: 168px; }
-  .sacred-coverflow-card-inner .card-body { min-height: 124px; padding: 12px 15px 14px; }
-  .sacred-coverflow-card-inner .card-body h3 { font-size: 18px; }
+  .sacred-coverflow-card-inner .home-slide-card { border-radius: 20px; }
+  .sacred-coverflow-card-inner .slide-image { height: 170px; }
+  .sacred-coverflow-card-inner .card-body { min-height: 130px; padding: 12px 15px 14px; }
+  .sacred-coverflow-card-inner .card-body h3 { font-size: 19px; }
   .sacred-coverflow-card-inner .card-body p { display: none; }
   .sacred-coverflow-card-inner .card-action-btn { font-size: 12px; padding: 8px 11px; }
 
@@ -254,4 +285,14 @@
 
   .sacred-coverflow-prev { left: 2px; }
   .sacred-coverflow-next { right: 2px; }
+
+  .sacred-coverflow-pagination {
+    gap: 8px;
+    padding: 9px 14px;
+  }
+
+  .sacred-coverflow-dot {
+    width: 10px;
+    height: 10px;
+  }
 }
