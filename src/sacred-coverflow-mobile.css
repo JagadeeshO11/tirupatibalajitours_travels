@@ -1,0 +1,129 @@
+/* Mobile-only coverflow correction: keep both sides symmetric and expose all rear layers. */
+@media (max-width: 640px) {
+  .sacred-coverflow-stage {
+    width: 100%;
+    height: 315px;
+    overflow: visible;
+    perspective: 1100px;
+  }
+
+  .sacred-coverflow-card[data-position="0"] {
+    width: min(320px, 82vw);
+    margin-left: min(-160px, -41vw);
+    transform: translate3d(0, 0, 80px) scale(.94);
+  }
+
+  .sacred-coverflow-card[data-position="-1"],
+  .sacred-coverflow-card[data-position="1"] {
+    width: min(205px, 52vw);
+    margin-left: min(-102.5px, -26vw);
+    pointer-events: auto;
+    opacity: .72;
+  }
+
+  .sacred-coverflow-card[data-position="-1"] {
+    transform: translate3d(-116px, 13px, -35px) rotateY(13deg) scale(.82);
+  }
+
+  .sacred-coverflow-card[data-position="1"] {
+    transform: translate3d(116px, 13px, -35px) rotateY(-13deg) scale(.82);
+  }
+
+  .sacred-coverflow-card[data-position="-2"],
+  .sacred-coverflow-card[data-position="2"] {
+    width: min(155px, 39vw);
+    margin-left: min(-77.5px, -19.5vw);
+    pointer-events: auto;
+    opacity: .42;
+    z-index: 4;
+  }
+
+  .sacred-coverflow-card[data-position="-2"] {
+    transform: translate3d(-208px, 30px, -125px) rotateY(20deg) scale(.78);
+  }
+
+  .sacred-coverflow-card[data-position="2"] {
+    transform: translate3d(208px, 30px, -125px) rotateY(-20deg) scale(.78);
+  }
+
+  .sacred-coverflow-card:not([data-position="0"]):not([data-position="-1"]):not([data-position="1"]):not([data-position="-2"]):not([data-position="2"]) {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .sacred-coverflow-card[data-position="-1"] .sacred-coverflow-image-wrap,
+  .sacred-coverflow-card[data-position="1"] .sacred-coverflow-image-wrap {
+    height: 215px;
+  }
+
+  .sacred-coverflow-card[data-position="-2"] .sacred-coverflow-image-wrap,
+  .sacred-coverflow-card[data-position="2"] .sacred-coverflow-image-wrap {
+    height: 180px;
+  }
+
+  .sacred-coverflow-card[data-position="-1"] .sacred-coverflow-card-body,
+  .sacred-coverflow-card[data-position="1"] .sacred-coverflow-card-body,
+  .sacred-coverflow-card[data-position="-2"] .sacred-coverflow-card-body,
+  .sacred-coverflow-card[data-position="2"] .sacred-coverflow-card-body {
+    height: 100px;
+    padding: 10px 12px;
+  }
+
+  .sacred-coverflow-card[data-position="-1"] .sacred-coverflow-card-body h3,
+  .sacred-coverflow-card[data-position="1"] .sacred-coverflow-card-body h3,
+  .sacred-coverflow-card[data-position="-2"] .sacred-coverflow-card-body h3,
+  .sacred-coverflow-card[data-position="2"] .sacred-coverflow-card-body h3 {
+    font-size: 17px;
+  }
+
+  .sacred-coverflow-card[data-position="-1"] .sacred-coverflow-meta,
+  .sacred-coverflow-card[data-position="1"] .sacred-coverflow-meta,
+  .sacred-coverflow-card[data-position="-2"] .sacred-coverflow-meta,
+  .sacred-coverflow-card[data-position="2"] .sacred-coverflow-meta,
+  .sacred-coverflow-card[data-position="-1"] .sacred-coverflow-details,
+  .sacred-coverflow-card[data-position="1"] .sacred-coverflow-details,
+  .sacred-coverflow-card[data-position="-2"] .sacred-coverflow-details,
+  .sacred-coverflow-card[data-position="2"] .sacred-coverflow-details {
+    display: none;
+  }
+
+  .sacred-coverflow-location {
+    top: 12px;
+    left: 12px;
+    padding: 7px 11px;
+    font-size: 11px;
+  }
+
+  .sacred-coverflow-arrow {
+    width: 42px;
+    height: 42px;
+    margin-top: 18px;
+    font-size: 30px;
+  }
+
+  .sacred-coverflow-prev { left: 2px; }
+  .sacred-coverflow-next { right: 2px; }
+}
+
+@media (max-width: 390px) {
+  .sacred-coverflow-card[data-position="0"] {
+    width: min(292px, 80vw);
+    margin-left: min(-146px, -40vw);
+  }
+
+  .sacred-coverflow-card[data-position="-1"] {
+    transform: translate3d(-105px, 14px, -35px) rotateY(13deg) scale(.8);
+  }
+
+  .sacred-coverflow-card[data-position="1"] {
+    transform: translate3d(105px, 14px, -35px) rotateY(-13deg) scale(.8);
+  }
+
+  .sacred-coverflow-card[data-position="-2"] {
+    transform: translate3d(-186px, 30px, -125px) rotateY(20deg) scale(.76);
+  }
+
+  .sacred-coverflow-card[data-position="2"] {
+    transform: translate3d(186px, 30px, -125px) rotateY(-20deg) scale(.76);
+  }
+}
