@@ -1,9 +1,15 @@
 import { images } from './siteData';
 
+const carImages = {
+  etios: 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto,w_800/v1789482140/tirupatibalaji/fleet/cars/etios-new.png',
+  ertiga: 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto,w_800/v1789482149/tirupatibalaji/fleet/cars/ertiga-new.png',
+  crysta: 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto,w_800/v1789482158/tirupatibalaji/fleet/cars/crysta-new.jpg'
+};
+
 export const fleet = [
-  { id:'etios', name:'Etios', category:'SEDAN', seats:'4+1', bags:'2', image:images.etios, local:'₹2,000/day', outstation:'₹15/km', minimum:'300 km/day', fuel:'10 km/l', features:['AC','Music','USB'], use:'Local rides, temple visits, airport transfers and economical outstation trips.', slug:'car-rentals-in-tirupati' },
-  { id:'ertiga', name:'Ertiga', category:'MUV', seats:'6+1', bags:'3', image:images.ertiga, local:'₹2,500/day', outstation:'₹20/km', minimum:'300 km/day', fuel:'10 km/l', features:['AC','Music','USB'], use:'Family trips, temple tours and comfortable group travel.', slug:'car-rentals-in-tirupati' },
-  { id:'innova-crysta', name:'Innova Crysta', category:'PREMIUM SUV', seats:'7+1', bags:'4', image:images.crysta, local:'₹3,000/day', outstation:'₹23/km', minimum:'300 km/day', fuel:'10 km/l', features:['AC','Music','USB'], use:'Premium family, corporate and long-distance travel.', slug:'car-rentals-in-tirupati' },
+  { id:'etios', name:'Etios', category:'SEDAN', seats:'4+1', bags:'2', image:carImages.etios, local:'₹2,000/day', outstation:'₹15/km', minimum:'300 km/day', fuel:'10 km/l', features:['AC','Music','USB'], use:'Local rides, temple visits, airport transfers and economical outstation trips.', slug:'car-rentals-in-tirupati' },
+  { id:'ertiga', name:'Ertiga', category:'MUV', seats:'6+1', bags:'3', image:carImages.ertiga, local:'₹2,500/day', outstation:'₹20/km', minimum:'300 km/day', fuel:'10 km/l', features:['AC','Music','USB'], use:'Family trips, temple tours and comfortable group travel.', slug:'car-rentals-in-tirupati' },
+  { id:'innova-crysta', name:'Innova Crysta', category:'PREMIUM SUV', seats:'7+1', bags:'4', image:carImages.crysta, local:'₹3,000/day', outstation:'₹23/km', minimum:'300 km/day', fuel:'10 km/l', features:['AC','Music','USB'], use:'Premium family, corporate and long-distance travel.', slug:'car-rentals-in-tirupati' },
   { id:'tempo-12', name:'Tempo Traveller 12', category:'TEMPO TRAVELLER', seats:'12+1', bags:'8', image:images.tempo12, local:'₹4,000/day', outstation:'₹25/km', minimum:'300 km/day', fuel:'7 km/l', features:['AC','TV','USB','Push-back'], use:'Small group pilgrimages, local sightseeing and airport transfers.', slug:'tempo-traveller-rental-in-tirupati' },
   { id:'tempo-17', name:'Tempo Traveller 17', category:'TEMPO TRAVELLER', seats:'17+1', bags:'10', image:images.tempo17, local:'₹5,500/day', outstation:'₹35/km', minimum:'300 km/day', fuel:'6 km/l', features:['AC','TV','USB','Push-back'], use:'Larger family groups, pilgrimages and South India tours.', slug:'tempo-traveller-rental-in-tirupati' },
   { id:'tempo-20', name:'Tempo Traveller 20', category:'TEMPO TRAVELLER', seats:'20+1', bags:'12', image:images.tempo20, local:'₹7,500/day', outstation:'₹45/km', minimum:'300 km/day', fuel:'4 km/l', features:['AC','TV','USB','Push-back'], use:'Large group travel, events and extended pilgrimage tours.', slug:'tempo-traveller-rental-in-tirupati' },
