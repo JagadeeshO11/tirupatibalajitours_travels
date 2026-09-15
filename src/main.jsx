@@ -6,5 +6,5 @@ import './style.css';
 import './home-card-alignment.css';
 import './package-showcase.css';
 import './site-interaction.css';
-import './home-3d-carousel.css';
+import './sacred-coverflow-bootstrap.jsx';
 createRoot(document.getElementById('root')).render(<BrowserRouter><App/></BrowserRouter>);
