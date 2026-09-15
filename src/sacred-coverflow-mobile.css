@@ -1,49 +1,54 @@
-/* Mobile-only coverflow correction: keep both sides symmetric and expose all rear layers. */
+/* MOBILE ONLY: equal card geometry with scale creating the 3D depth. */
 @media (max-width: 640px) {
   .sacred-coverflow-stage {
     width: 100%;
     height: 315px;
+    margin-top: 22px;
     overflow: visible;
     perspective: 1100px;
+    transform-style: preserve-3d;
+  }
+
+  /* Every card has the same base width. Side cards become smaller through scale(),
+     not a different width, so the carousel stays geometrically consistent. */
+  .sacred-coverflow-card,
+  .sacred-coverflow-card[data-position="0"],
+  .sacred-coverflow-card[data-position="-1"],
+  .sacred-coverflow-card[data-position="1"],
+  .sacred-coverflow-card[data-position="-2"],
+  .sacred-coverflow-card[data-position="2"] {
+    width: min(320px, 84vw);
+    margin-left: min(-160px, -42vw);
   }
 
   .sacred-coverflow-card[data-position="0"] {
-    width: min(320px, 82vw);
-    margin-left: min(-160px, -41vw);
-    transform: translate3d(0, 0, 80px) scale(.94);
-  }
-
-  .sacred-coverflow-card[data-position="-1"],
-  .sacred-coverflow-card[data-position="1"] {
-    width: min(205px, 52vw);
-    margin-left: min(-102.5px, -26vw);
-    pointer-events: auto;
-    opacity: .72;
+    transform: translate3d(0, 0, 70px) scale(1);
+    opacity: 1;
+    z-index: 10;
   }
 
   .sacred-coverflow-card[data-position="-1"] {
-    transform: translate3d(-116px, 13px, -35px) rotateY(13deg) scale(.82);
+    transform: translate3d(-124px, 12px, -40px) rotateY(13deg) scale(.78);
+    opacity: .58;
+    z-index: 7;
   }
 
   .sacred-coverflow-card[data-position="1"] {
-    transform: translate3d(116px, 13px, -35px) rotateY(-13deg) scale(.82);
-  }
-
-  .sacred-coverflow-card[data-position="-2"],
-  .sacred-coverflow-card[data-position="2"] {
-    width: min(155px, 39vw);
-    margin-left: min(-77.5px, -19.5vw);
-    pointer-events: auto;
-    opacity: .42;
-    z-index: 4;
+    transform: translate3d(124px, 12px, -40px) rotateY(-13deg) scale(.78);
+    opacity: .58;
+    z-index: 7;
   }
 
   .sacred-coverflow-card[data-position="-2"] {
-    transform: translate3d(-208px, 30px, -125px) rotateY(20deg) scale(.78);
+    transform: translate3d(-214px, 30px, -125px) rotateY(20deg) scale(.64);
+    opacity: .32;
+    z-index: 4;
   }
 
   .sacred-coverflow-card[data-position="2"] {
-    transform: translate3d(208px, 30px, -125px) rotateY(-20deg) scale(.78);
+    transform: translate3d(214px, 30px, -125px) rotateY(-20deg) scale(.64);
+    opacity: .32;
+    z-index: 4;
   }
 
   .sacred-coverflow-card:not([data-position="0"]):not([data-position="-1"]):not([data-position="1"]):not([data-position="-2"]):not([data-position="2"]) {
@@ -52,20 +57,17 @@
   }
 
   .sacred-coverflow-card[data-position="-1"] .sacred-coverflow-image-wrap,
-  .sacred-coverflow-card[data-position="1"] .sacred-coverflow-image-wrap {
-    height: 215px;
-  }
-
+  .sacred-coverflow-card[data-position="1"] .sacred-coverflow-image-wrap,
   .sacred-coverflow-card[data-position="-2"] .sacred-coverflow-image-wrap,
   .sacred-coverflow-card[data-position="2"] .sacred-coverflow-image-wrap {
-    height: 180px;
+    height: 245px;
   }
 
   .sacred-coverflow-card[data-position="-1"] .sacred-coverflow-card-body,
   .sacred-coverflow-card[data-position="1"] .sacred-coverflow-card-body,
   .sacred-coverflow-card[data-position="-2"] .sacred-coverflow-card-body,
   .sacred-coverflow-card[data-position="2"] .sacred-coverflow-card-body {
-    height: 100px;
+    height: 105px;
     padding: 10px 12px;
   }
 
@@ -106,24 +108,19 @@
 }
 
 @media (max-width: 390px) {
-  .sacred-coverflow-card[data-position="0"] {
+  .sacred-coverflow-card,
+  .sacred-coverflow-card[data-position="0"],
+  .sacred-coverflow-card[data-position="-1"],
+  .sacred-coverflow-card[data-position="1"],
+  .sacred-coverflow-card[data-position="-2"],
+  .sacred-coverflow-card[data-position="2"] {
     width: min(292px, 80vw);
     margin-left: min(-146px, -40vw);
   }
 
-  .sacred-coverflow-card[data-position="-1"] {
-    transform: translate3d(-105px, 14px, -35px) rotateY(13deg) scale(.8);
-  }
-
-  .sacred-coverflow-card[data-position="1"] {
-    transform: translate3d(105px, 14px, -35px) rotateY(-13deg) scale(.8);
-  }
-
-  .sacred-coverflow-card[data-position="-2"] {
-    transform: translate3d(-186px, 30px, -125px) rotateY(20deg) scale(.76);
-  }
-
-  .sacred-coverflow-card[data-position="2"] {
-    transform: translate3d(186px, 30px, -125px) rotateY(-20deg) scale(.76);
-  }
+  .sacred-coverflow-card[data-position="0"] { transform: translate3d(0, 0, 70px) scale(1); }
+  .sacred-coverflow-card[data-position="-1"] { transform: translate3d(-108px, 13px, -40px) rotateY(13deg) scale(.78); }
+  .sacred-coverflow-card[data-position="1"] { transform: translate3d(108px, 13px, -40px) rotateY(-13deg) scale(.78); }
+  .sacred-coverflow-card[data-position="-2"] { transform: translate3d(-184px, 30px, -125px) rotateY(20deg) scale(.64); }
+  .sacred-coverflow-card[data-position="2"] { transform: translate3d(184px, 30px, -125px) rotateY(-20deg) scale(.64); }
 }
