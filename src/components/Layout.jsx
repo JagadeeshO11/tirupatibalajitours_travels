@@ -129,6 +129,11 @@ export default function Layout() {
     }
   };
 
+  const toggleMobileMenu = () => {
+    setOpen(prev => !prev);
+    setActiveTab('cabs');
+  };
+
   return (
     <>
       <div className={`header-top-bar${scrolled ? ' is-hidden' : ''}`}>
@@ -144,14 +149,7 @@ export default function Layout() {
           <div className="top-bar-right">
             <span className="top-bar-social-label">Follow Us:</span>
             {socialLinks.map(({ name, url, Icon }) => (
-              <a
-                key={name}
-                href={url}
-                target="_blank"
-                rel="noreferrer"
-                className="top-social-icon"
-                title={name}
-              >
+              <a key={name} href={url} target="_blank" rel="noreferrer" className="top-social-icon" title={name}>
                 <Icon size={13} />
               </a>
             ))}
@@ -164,83 +162,36 @@ export default function Layout() {
           <Brand header />
           <nav>
             <div className="desktop-nav-links">
-              <NavLink to="/" onMouseEnter={() => handleDropdownLeave(true)}>
-                Home
-              </NavLink>
-              <HeaderDropdown
-                id="cabs"
-                activeDropdown={activeDropdown}
-                onEnter={handleDropdownEnter}
-                onLeave={handleDropdownLeave}
-                label="Tirupati Cabs"
-                links={cabRoutes}
-                getSlug={r => `/tirupati-cabs/${r.slug}`}
-              />
-              <HeaderDropdown
-                id="taxi"
-                activeDropdown={activeDropdown}
-                onEnter={handleDropdownEnter}
-                onLeave={handleDropdownLeave}
-                label="Taxi in Tirupati"
-                className="nav-taxi"
-                links={serviceLinks}
-                getSlug={r => `/${r.slug}`}
-              />
-              <HeaderDropdown
-                id="services"
-                activeDropdown={activeDropdown}
-                onEnter={handleDropdownEnter}
-                onLeave={handleDropdownLeave}
-                label="Services"
-                to="/services"
-                className="nav-services"
-                links={packageNavLinks}
-                getSlug={p => `/services/${p.slug}`}
-              />
-              <NavLink to="/fleet" onMouseEnter={() => handleDropdownLeave(true)}>
-                Fleet & Rentals
-              </NavLink>
-              <NavLink to="/tours" onMouseEnter={() => handleDropdownLeave(true)}>
-                Tours
-              </NavLink>
-              <NavLink to="/destinations" onMouseEnter={() => handleDropdownLeave(true)}>
-                Destinations
-              </NavLink>
-              <NavLink to="/blog" onMouseEnter={() => handleDropdownLeave(true)}>
-                Blog
-              </NavLink>
-              <HeaderDropdown
-                id="more"
-                activeDropdown={activeDropdown}
-                onEnter={handleDropdownEnter}
-                onLeave={handleDropdownLeave}
-                label="More"
-                isMore
-                className="nav-more"
-                links={moreNavLinks}
-              />
+              <NavLink to="/" onMouseEnter={() => handleDropdownLeave(true)}>Home</NavLink>
+              <HeaderDropdown id="cabs" activeDropdown={activeDropdown} onEnter={handleDropdownEnter} onLeave={handleDropdownLeave} label="Tirupati Cabs" links={cabRoutes} getSlug={r => `/tirupati-cabs/${r.slug}`} />
+              <HeaderDropdown id="taxi" activeDropdown={activeDropdown} onEnter={handleDropdownEnter} onLeave={handleDropdownLeave} label="Taxi in Tirupati" className="nav-taxi" links={serviceLinks} getSlug={r => `/${r.slug}`} />
+              <HeaderDropdown id="services" activeDropdown={activeDropdown} onEnter={handleDropdownEnter} onLeave={handleDropdownLeave} label="Services" to="/services" className="nav-services" links={packageNavLinks} getSlug={p => `/services/${p.slug}`} />
+              <NavLink to="/fleet" onMouseEnter={() => handleDropdownLeave(true)}>Fleet & Rentals</NavLink>
+              <NavLink to="/tours" onMouseEnter={() => handleDropdownLeave(true)}>Tours</NavLink>
+              <NavLink to="/destinations" onMouseEnter={() => handleDropdownLeave(true)}>Destinations</NavLink>
+              <NavLink to="/blog" onMouseEnter={() => handleDropdownLeave(true)}>Blog</NavLink>
+              <HeaderDropdown id="more" activeDropdown={activeDropdown} onEnter={handleDropdownEnter} onLeave={handleDropdownLeave} label="More" isMore className="nav-more" links={moreNavLinks} />
             </div>
           </nav>
           <a className="nav-wa" href={whatsapp} target="_blank" rel="noreferrer">
             <MessageCircle size={16} /> WhatsApp
           </a>
-          <button className="menu" onClick={() => { setOpen(true); setActiveTab('cabs'); }} aria-label="Toggle Menu">
-            <Menu />
+          <button
+            type="button"
+            className="menu"
+            onClick={toggleMobileMenu}
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+          >
+            {open ? <X size={24} /> : <Menu size={24} />}
           </button>
         </header>
       </div>
 
-      {/* --- EXECUTIVE MOBILE DRAWER MODAL --- */}
       <AnimatePresence>
         {open && (
           <>
-            <motion.div
-              className="overlay"
-              onClick={() => setOpen(false)}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            />
+            <motion.div className="overlay" onClick={() => setOpen(false)} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} />
             <motion.aside
               className="drawer executive-mobile-drawer"
               initial={{ x: '100%' }}
@@ -251,30 +202,20 @@ export default function Layout() {
               <div className="drawer-header-row">
                 <Brand logoOnly />
                 <div className="drawer-header-actions">
-                  <button className="drawer-x-icon-btn" onClick={() => setOpen(false)} aria-label="Close menu">
+                  <button type="button" className="drawer-x-icon-btn" onClick={() => setOpen(false)} aria-label="Close menu">
                     <X size={18} />
                   </button>
                 </div>
               </div>
 
-              {/* Drawer Category Tabs: Cabs is the primary mobile navigation tab */}
               <div className="mobile-drawer-tab-bar">
-                <button
-                  className={`drawer-tab drawer-tab-primary ${activeTab === 'cabs' ? 'is-active' : ''}`}
-                  onClick={() => setActiveTab('cabs')}
-                >
+                <button type="button" className={`drawer-tab drawer-tab-primary ${activeTab === 'cabs' ? 'is-active' : ''}`} onClick={() => setActiveTab('cabs')}>
                   <Car size={14} /> Cabs
                 </button>
-                <button
-                  className={`drawer-tab ${activeTab === 'more' ? 'is-active' : ''}`}
-                  onClick={() => setActiveTab('more')}
-                >
+                <button type="button" className={`drawer-tab ${activeTab === 'more' ? 'is-active' : ''}`} onClick={() => setActiveTab('more')}>
                   <Info size={14} /> More Info
                 </button>
-                <button
-                  className={`drawer-tab ${activeTab === 'packages' ? 'is-active' : ''}`}
-                  onClick={() => setActiveTab('packages')}
-                >
+                <button type="button" className={`drawer-tab ${activeTab === 'packages' ? 'is-active' : ''}`} onClick={() => setActiveTab('packages')}>
                   <Package size={14} /> Packages
                 </button>
               </div>
@@ -286,8 +227,7 @@ export default function Layout() {
                     <div className="drawer-link-card-grid">
                       {cabRoutes.map(r => (
                         <NavLink key={r.slug} onClick={() => setOpen(false)} to={`/tirupati-cabs/${r.slug}`} className="mob-link-card">
-                          <span>{r.shortTitle || r.title}</span>
-                          <ChevronRight size={14} />
+                          <span>{r.shortTitle || r.title}</span><ChevronRight size={14} />
                         </NavLink>
                       ))}
                     </div>
@@ -300,8 +240,7 @@ export default function Layout() {
                     <div className="drawer-link-card-grid">
                       {packageNavLinks.map(p => (
                         <NavLink key={p.slug} onClick={() => setOpen(false)} to={`/services/${p.slug}`} className="mob-link-card">
-                          <span>{p.title}</span>
-                          <ChevronRight size={14} />
+                          <span>{p.title}</span><ChevronRight size={14} />
                         </NavLink>
                       ))}
                     </div>
@@ -313,12 +252,11 @@ export default function Layout() {
                     <span className="drawer-badge-pill">Information & Pages</span>
                     <div className="drawer-link-card-grid">
                       <NavLink onClick={() => setOpen(false)} to="/blog" className="mob-link-card">
-                        <span>Travel Blog</span> <ChevronRight size={14} />
+                        <span>Travel Blog</span><ChevronRight size={14} />
                       </NavLink>
                       {moreNavLinks.map(m => (
                         <NavLink key={m.path} onClick={() => setOpen(false)} to={m.path} className="mob-link-card">
-                          <span>{m.title}</span>
-                          <ChevronRight size={14} />
+                          <span>{m.title}</span><ChevronRight size={14} />
                         </NavLink>
                       ))}
                     </div>
@@ -326,9 +264,7 @@ export default function Layout() {
                 )}
               </div>
 
-              <div className="drawer-footer-row">
-                <ShieldCheck size={16} /> 24/7 Verified Tirupati Taxi Service
-              </div>
+              <div className="drawer-footer-row"><ShieldCheck size={16} /> 24/7 Verified Tirupati Taxi Service</div>
             </motion.aside>
           </>
         )}
@@ -342,27 +278,17 @@ export default function Layout() {
           <p>Faithful journeys, comfortable miles, and memories that stay with you.</p>
           <div className="footer-social-row">
             {socialLinks.map(({ name, url, Icon }) => (
-              <a key={name} href={url} target="_blank" rel="noreferrer" className="footer-social-btn" title={name}>
-                <Icon size={14} />
-              </a>
+              <a key={name} href={url} target="_blank" rel="noreferrer" className="footer-social-btn" title={name}><Icon size={14} /></a>
             ))}
           </div>
         </div>
         <div>
           <h4>Services & Packages</h4>
-          {packageNavLinks.slice(0, 5).map(p => (
-            <Link key={p.slug} to={`/services/${p.slug}`}>
-              {p.title}
-            </Link>
-          ))}
+          {packageNavLinks.slice(0, 5).map(p => <Link key={p.slug} to={`/services/${p.slug}`}>{p.title}</Link>)}
         </div>
         <div>
           <h4>More Info</h4>
-          {moreNavLinks.map(m => (
-            <Link key={m.path} to={m.path}>
-              {m.title}
-            </Link>
-          ))}
+          {moreNavLinks.map(m => <Link key={m.path} to={m.path}>{m.title}</Link>)}
         </div>
         <div>
           <h4>Get in touch</h4>
@@ -373,39 +299,19 @@ export default function Layout() {
         </div>
       </footer>
 
-      {/* --- FLOATING WHATSAPP BUTTON --- */}
       <div className="floating-whatsapp-container">
-        <div className="whatsapp-tooltip">
-          <span className="online-dot" /> Need a Cab? <strong>Chat Now!</strong>
-        </div>
+        <div className="whatsapp-tooltip"><span className="online-dot" /> Need a Cab? <strong>Chat Now!</strong></div>
         <a className="whatsapp-pulse-btn" href={whatsapp} target="_blank" rel="noreferrer" title="Chat on WhatsApp">
-          <span className="pulse-ring" />
-          <span className="pulse-ring-outer" />
-          <FaWhatsapp size={26} />
+          <span className="pulse-ring" /><span className="pulse-ring-outer" /><FaWhatsapp size={26} />
         </a>
       </div>
 
-      {/* --- FLOATING ROUNDED-CORNER POP BOTTOM NAV (MOBILE ONLY) --- */}
       <nav className="mobile-pop-bottom-nav" aria-label="Mobile Quick Navigation">
-        <NavLink to="/" className={({ isActive }) => `mob-pop-nav-item ${isActive ? 'active' : ''}`}>
-          <HomeIcon size={18} />
-          <span>Home</span>
-        </NavLink>
-        <NavLink to="/fleet" className={({ isActive }) => `mob-pop-nav-item ${isActive ? 'active' : ''}`}>
-          <Car size={18} />
-          <span>Fleets</span>
-        </NavLink>
-        <NavLink to="/destinations" className={({ isActive }) => `mob-pop-nav-item ${isActive ? 'active' : ''}`}>
-          <MapPin size={18} />
-          <span>Destinations</span>
-        </NavLink>
-        <NavLink to="/tours" className={({ isActive }) => `mob-pop-nav-item ${isActive ? 'active' : ''}`}>
-          <Package size={18} />
-          <span>Tours</span>
-        </NavLink>
+        <NavLink to="/" className={({ isActive }) => `mob-pop-nav-item ${isActive ? 'active' : ''}`}><HomeIcon size={18} /><span>Home</span></NavLink>
+        <NavLink to="/fleet" className={({ isActive }) => `mob-pop-nav-item ${isActive ? 'active' : ''}`}><Car size={18} /><span>Fleets</span></NavLink>
+        <NavLink to="/destinations" className={({ isActive }) => `mob-pop-nav-item ${isActive ? 'active' : ''}`}><MapPin size={18} /><span>Destinations</span></NavLink>
+        <NavLink to="/tours" className={({ isActive }) => `mob-pop-nav-item ${isActive ? 'active' : ''}`}><Package size={18} /><span>Tours</span></NavLink>
       </nav>
     </>
   );
 }
-
-
