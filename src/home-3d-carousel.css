@@ -1,0 +1,269 @@
+/* Premium 3D carousel treatment for the Fleet and Sacred Destinations showcases. */
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)),
+.destinations-preview {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(80, 67, 180, 0.22), transparent 34%),
+    linear-gradient(135deg, #0b1238 0%, #151344 52%, #24133f 100%);
+  color: #fff;
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card))::before,
+.destinations-preview::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 8% 80%, rgba(244, 196, 0, 0.12), transparent 24%),
+    radial-gradient(circle at 92% 18%, rgba(92, 78, 220, 0.18), transparent 26%);
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .section-heading,
+.destinations-preview .section-heading {
+  position: relative;
+  z-index: 5;
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .section-heading h2,
+.destinations-preview .section-heading h2 {
+  color: #fff;
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .eyebrow,
+.destinations-preview .eyebrow {
+  color: #f4c400;
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .all-link,
+.destinations-preview .all-link {
+  color: #fff;
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider,
+.destinations-preview .home-slider {
+  position: relative;
+  z-index: 4;
+  width: min(1180px, 100%);
+  margin: 34px auto 0 !important;
+  padding: 26px 0 58px !important;
+  overflow: visible;
+  perspective: 1500px;
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .swiper-wrapper,
+.destinations-preview .home-slider .swiper-wrapper {
+  align-items: center;
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .swiper-slide,
+.destinations-preview .home-slider .swiper-slide {
+  position: relative;
+  z-index: 1;
+  height: auto;
+  transition:
+    transform 0.65s cubic-bezier(.22, .75, .2, 1),
+    opacity 0.5s ease,
+    filter 0.5s ease;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  filter: saturate(0.72) brightness(0.68);
+  opacity: 0.48;
+  will-change: transform, opacity, filter;
+}
+
+/* Active slide moves into the visual centre while keeping the existing Swiper flow. */
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .swiper-slide-active,
+.destinations-preview .home-slider .swiper-slide-active {
+  z-index: 8;
+  transform: translate3d(33.33%, -10px, 90px) scale(1.08);
+  filter: saturate(1) brightness(1);
+  opacity: 1;
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .swiper-slide-prev,
+.destinations-preview .home-slider .swiper-slide-prev {
+  z-index: 4;
+  transform: translate3d(-33.33%, 22px, -70px) rotateY(12deg) scale(0.82);
+  filter: saturate(0.82) brightness(0.74);
+  opacity: 0.72;
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .swiper-slide-next,
+.destinations-preview .home-slider .swiper-slide-next {
+  z-index: 4;
+  transform: translate3d(33.33%, 22px, -70px) rotateY(-12deg) scale(0.82);
+  filter: saturate(0.82) brightness(0.74);
+  opacity: 0.72;
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .swiper-slide-next + .swiper-slide,
+.destinations-preview .home-slider .swiper-slide-next + .swiper-slide {
+  z-index: 2;
+  transform: translate3d(42%, 42px, -170px) rotateY(-18deg) scale(0.7);
+  filter: saturate(0.65) brightness(0.55);
+  opacity: 0.42;
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .swiper-slide-prev + .swiper-slide,
+.destinations-preview .home-slider .swiper-slide-prev + .swiper-slide {
+  z-index: 6;
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .home-slide-card,
+.destinations-preview .home-slider .home-slide-card {
+  min-height: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+  transition: box-shadow 0.5s ease, border-color 0.5s ease;
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .swiper-slide-active .home-slide-card,
+.destinations-preview .home-slider .swiper-slide-active .home-slide-card {
+  border-color: rgba(244, 196, 0, 0.62);
+  box-shadow:
+    0 28px 70px rgba(0, 0, 0, 0.38),
+    0 0 0 1px rgba(244, 196, 0, 0.08);
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .home-slide-card:hover,
+.destinations-preview .home-slider .home-slide-card:hover {
+  transform: none;
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .home-slide-card img,
+.destinations-preview .home-slider .home-slide-card img {
+  height: 255px;
+  object-fit: cover;
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .swiper-slide-active .home-slide-card img,
+.destinations-preview .home-slider .swiper-slide-active .home-slide-card img {
+  height: 280px;
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .card-body,
+.destinations-preview .home-slider .card-body {
+  padding: 20px 22px 22px;
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .card-body h3,
+.destinations-preview .home-slider .card-body h3 {
+  color: #161548;
+  font-size: 20px;
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .card-body p,
+.destinations-preview .home-slider .card-body p {
+  color: #5d6177;
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .swiper-pagination,
+.destinations-preview .home-slider .swiper-pagination {
+  bottom: 10px;
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .swiper-pagination-bullet,
+.destinations-preview .home-slider .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.48);
+  opacity: 1;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .swiper-pagination-bullet-active,
+.destinations-preview .home-slider .swiper-pagination-bullet-active {
+  background: #f4c400;
+  transform: scale(1.45);
+}
+
+@media (max-width: 900px) {
+  .home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider,
+  .destinations-preview .home-slider {
+    width: 96%;
+    padding-top: 20px !important;
+  }
+
+  .home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .swiper-slide-active,
+  .destinations-preview .home-slider .swiper-slide-active {
+    transform: translate3d(25%, -6px, 50px) scale(1.045);
+  }
+
+  .home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .swiper-slide-prev,
+  .destinations-preview .home-slider .swiper-slide-prev {
+    transform: translate3d(-25%, 16px, -50px) rotateY(9deg) scale(0.86);
+  }
+
+  .home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .swiper-slide-next,
+  .destinations-preview .home-slider .swiper-slide-next {
+    transform: translate3d(25%, 16px, -50px) rotateY(-9deg) scale(0.86);
+  }
+
+  .home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .swiper-slide-next + .swiper-slide,
+  .destinations-preview .home-slider .swiper-slide-next + .swiper-slide {
+    opacity: 0.25;
+  }
+}
+
+@media (max-width: 560px) {
+  .home-showcase:not(:has(.route-card)):not(:has(.package-card)),
+  .destinations-preview {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider,
+  .destinations-preview .home-slider {
+    width: 100%;
+    padding: 18px 0 52px !important;
+  }
+
+  .home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .swiper-slide,
+  .destinations-preview .home-slider .swiper-slide {
+    opacity: 0.22;
+  }
+
+  .home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .swiper-slide-active,
+  .destinations-preview .home-slider .swiper-slide-active {
+    transform: translate3d(6%, -4px, 30px) scale(1.02);
+    opacity: 1;
+  }
+
+  .home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .swiper-slide-prev,
+  .destinations-preview .home-slider .swiper-slide-prev {
+    transform: translate3d(-30%, 18px, -45px) rotateY(8deg) scale(0.78);
+    opacity: 0.6;
+  }
+
+  .home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .swiper-slide-next,
+  .destinations-preview .home-slider .swiper-slide-next {
+    transform: translate3d(30%, 18px, -45px) rotateY(-8deg) scale(0.78);
+    opacity: 0.6;
+  }
+
+  .home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .swiper-slide-next + .swiper-slide,
+  .destinations-preview .home-slider .swiper-slide-next + .swiper-slide {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .home-slide-card,
+  .destinations-preview .home-slider .home-slide-card {
+    border-radius: 20px;
+  }
+
+  .home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .home-slide-card img,
+  .destinations-preview .home-slider .home-slide-card img,
+  .home-showcase:not(:has(.route-card)):not(:has(.package-card)) .home-slider .swiper-slide-active .home-slide-card img,
+  .destinations-preview .home-slider .swiper-slide-active .home-slide-card img {
+    height: 205px;
+  }
+}
