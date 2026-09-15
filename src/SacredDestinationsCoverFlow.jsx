@@ -4,10 +4,21 @@ import './sacred-coverflow.css';
 export default function SacredDestinationsCoverFlow({ slides }) {
   const items = useMemo(() => slides || [], [slides]);
   const [active, setActive] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
     if (active >= items.length) setActive(0);
   }, [active, items.length]);
+
+  useEffect(() => {
+    if (items.length < 2 || isPaused) return undefined;
+
+    const timer = window.setInterval(() => {
+      setActive((current) => (current + 1) % items.length);
+    }, 4000);
+
+    return () => window.clearInterval(timer);
+  }, [items.length, isPaused]);
 
   if (!items.length) return null;
 
@@ -24,7 +35,14 @@ export default function SacredDestinationsCoverFlow({ slides }) {
   };
 
   return (
-    <div className="sacred-coverflow" aria-label="Sacred destinations carousel">
+    <div
+      className="sacred-coverflow"
+      aria-label="Sacred destinations carousel"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onFocusCapture={() => setIsPaused(true)}
+      onBlurCapture={() => setIsPaused(false)}
+    >
       <button
         type="button"
         className="sacred-coverflow-arrow sacred-coverflow-prev"
