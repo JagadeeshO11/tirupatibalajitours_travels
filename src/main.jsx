@@ -8,4 +8,5 @@ import './package-showcase.css';
 import './site-interaction.css';
 import './sacred-coverflow-bootstrap.jsx';
 import './sacred-coverflow-depth.css';
+import './sacred-coverflow-alignment.css';
 createRoot(document.getElementById('root')).render(<BrowserRouter><App/></BrowserRouter>);
