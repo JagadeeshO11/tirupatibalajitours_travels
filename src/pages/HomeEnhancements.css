@@ -241,13 +241,9 @@
 /* Static 2x2 grid for tours (exactly 4 cards) */
 .tours-static-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   margin-top: 30px;
-}
-
-@media (max-width: 1024px) {
-  .tours-static-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 480px) {
