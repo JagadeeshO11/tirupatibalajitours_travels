@@ -7,4 +7,8 @@
   #rentals > .stats-banner-wrapper { order: 40; margin-top: 18px; }
   #rentals > .fleet-group { order: 10; }
   #rentals > .fleet-pricing-note { order: 50; }
+  .vehicle-price-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .vehicle-price-grid { grid-template-columns: 1fr; }
 }
