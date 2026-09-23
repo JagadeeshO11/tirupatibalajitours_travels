@@ -1,4 +1,4 @@
-import { Luggage, Wind, ShieldCheck, Clock3, Fuel, Users, MapPin, Car, BusFront, Sparkles } from 'lucide-react';
+import { Luggage, Wind, ShieldCheck, Clock3, Fuel, Users, MapPin } from 'lucide-react';
 import Page from './PageTemplate';
 import { images, whatsapp } from '../data/siteData';
 import { fleet, fleetCategories } from '../data/fleetData';
@@ -9,8 +9,6 @@ import './Fleet.css';
 import './FleetOverride.css';
 import './FleetMobileOrder.css';
 import { Link } from 'react-router-dom';
-
-const categoryIcons = { cars: Car, tempo: Users, urbania: Sparkles, bus: BusFront };
 
 export default function Fleet() {
   return (
@@ -23,16 +21,16 @@ export default function Fleet() {
       <section className="content" id="rentals">
         <div className="fleet-pricing-strip">
           <div>
-            <span>LOCAL DAY RENT</span>
-            <strong>From ₹2,000/day</strong>
+            <span>LOCAL • 8 HOURS / 80 KM</span>
+            <strong>From ₹2,880</strong>
+          </div>
+          <div>
+            <span>LOCAL • 12 HOURS / 150 KM</span>
+            <strong>From ₹3,650</strong>
           </div>
           <div>
             <span>OUTSTATION</span>
-            <strong>From ₹15/km</strong>
-          </div>
-          <div>
-            <span>GROUP OPTIONS</span>
-            <strong>Up to <AnimatedCounter end={50} suffix=" seats" /></strong>
+            <strong>From ₹15/km • 300 km/day min</strong>
           </div>
         </div>
 
@@ -54,12 +52,13 @@ export default function Fleet() {
                   <h3>{category.label}</h3>
                   {category.key === 'cars' && (
                     <p className="fleet-category-note">
-                      Available for local travel in Tirupati, Tirupati Airport transfers, and outstation trips.
+                      Local packages below are 8 hours / 80 km and 12 hours / 150 km. Outstation pricing is charged per km.
                     </p>
                   )}
                 </div>
                 <span>{items.length} options</span>
               </div>
+
               <div className="vehicle-slider">
                 {items.map((v, idx) => (
                   <ScrollReveal key={v.id} direction="up" delay={idx * 0.06}>
@@ -72,6 +71,7 @@ export default function Fleet() {
                           <span className="media-seats"><Users /> {v.seats}</span>
                         </div>
                       </div>
+
                       <div className="rental-info">
                         <div className="vehicle-heading">
                           <div>
@@ -80,7 +80,9 @@ export default function Fleet() {
                           </div>
                           <span className="vehicle-capacity">{v.seats} seats</span>
                         </div>
+
                         <p className="vehicle-summary">{v.use}</p>
+
                         <div className="vehicle-features">
                           {v.features.map(feature => (
                             <span key={feature}><Wind /> {feature}</span>
@@ -88,12 +90,18 @@ export default function Fleet() {
                           <span><Luggage /> {v.bags} bags</span>
                           <span><Fuel /> {v.fuel}</span>
                         </div>
+
                         <div className="vehicle-price-grid">
-                          <span><small>Local</small><b>{v.local}</b></span>
-                          <span><small>Outstation</small><b>{v.outstation}</b></span>
+                          <span><small>Local • 8 hrs / 80 km</small><b>{v.local}</b></span>
+                          <span><small>Local • 12 hrs / 150 km</small><b>{v.localLong}</b></span>
+                          <span><small>Outstation • Per km</small><b>{v.outstation}</b></span>
+                          <span><small>Minimum per day</small><b>{v.minimum}</b></span>
                         </div>
-                        <p className="vehicle-minimum"><MapPin /> Minimum {v.minimum}</p>
+
+                        <p className="vehicle-minimum"><MapPin /> Outstation minimum {v.minimum}</p>
+
                         <Link className="view-details" to={`/fleet/${v.id}`}>View Details</Link>
+
                         <div className="rent-actions">
                           <a
                             className="button"
@@ -119,7 +127,7 @@ export default function Fleet() {
               <p className="eyebrow">OUR FLEET</p>
               <h2>Comfort for small groups. Space for everyone.</h2>
               <p className="fleet-subcopy">
-                Official fleet options cover local day rentals and outstation travel. Every quote is confirmed for your exact route and itinerary.
+                Local rates are shown for 8-hour / 80-km and 12-hour / 150-km packages. Outstation travel uses the published per-kilometre rate with a 300 km/day minimum.
               </p>
             </div>
             <div className="fleet-trust">
@@ -135,7 +143,7 @@ export default function Fleet() {
         <div className="fleet-pricing-note" style={{ marginTop: '3rem' }}>
           <strong>Pricing note</strong>
           <span>
-            These are indicative figures published on the official service pages. Tolls, parking, permits, state taxes and other trip-specific charges may apply. Final pricing is confirmed on WhatsApp.
+            Rates are based on the supplied fleet rate sheet. Tolls, parking, permits, state taxes and other trip-specific charges may apply. Final pricing is confirmed on WhatsApp.
           </span>
         </div>
       </section>
