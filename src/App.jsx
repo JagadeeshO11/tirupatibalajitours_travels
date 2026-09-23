@@ -19,6 +19,23 @@ import TermsConditions from './pages/TermsConditions';
 import CabRoutePage from './pages/CabRoutePage';
 import { cabRoutes } from './data/cabRoutes';
 
+// Context Providers
+import { AuthProvider } from './context/AuthContext';
+import { DataProvider } from './context/DataContext';
+
+// Admin Panel Module
+import AdminProtectedRoute from './admin/AdminProtectedRoute';
+import AdminLogin from './admin/AdminLogin';
+import AdminLayout from './admin/AdminLayout';
+import AdminDashboard from './admin/AdminDashboard';
+import AdminFleets from './admin/AdminFleets';
+import AdminTours from './admin/AdminTours';
+import AdminDestinations from './admin/AdminDestinations';
+import AdminBlogs from './admin/AdminBlogs';
+import AdminQueries from './admin/AdminQueries';
+import AdminPayments from './admin/AdminPayments';
+import AdminSettings from './admin/AdminSettings';
+
 const serviceRouteAliases = [
   ['/car-rentals-in-tirupati', 'car-rentals-in-tirupati'],
   ['/tempo-traveller-rental-in-tirupati', 'tempo-traveller-rental-in-tirupati'],
@@ -64,60 +81,83 @@ export default function App() {
   }, []);
 
   return (
-    <Routes>
-      <Route element={<Layout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/cabs" element={<Navigate to="/tirupati-cabs/tirupati-to-srikalahasti" replace />} />
-        
-        {/* Fixed routes for exact cab slugs */}
-        {cabRoutes.map(route => (
-          <Fragment key={route.slug}>
-            <Route path={`/tirupati-cabs/${route.slug}`} element={<CabRoutePage route={route} />} />
-            <Route path={`/tirupati-cabs/${route.slug}-distance`} element={<CabRoutePage route={route} />} />
-            <Route path={`/cabs/${route.slug}`} element={<CabRoutePage route={route} />} />
-            <Route path={`/cabs/${route.slug}-distance`} element={<CabRoutePage route={route} />} />
-          </Fragment>
-        ))}
+    <AuthProvider>
+      <DataProvider>
+        <Routes>
+          {/* Admin Login */}
+          <Route path="/admin/login" element={<AdminLogin />} />
 
-        {/* Dynamic fallback for cab routes */}
-        <Route path="/tirupati-cabs/:slug" element={<CabRoutePage />} />
-        <Route path="/cabs/:slug" element={<CabRoutePage />} />
+          {/* Admin Protected Panel Routes */}
+          <Route element={<AdminProtectedRoute />}>
+            <Route element={<AdminLayout />}>
+              <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/admin/fleets" element={<AdminFleets />} />
+              <Route path="/admin/tours" element={<AdminTours />} />
+              <Route path="/admin/destinations" element={<AdminDestinations />} />
+              <Route path="/admin/blogs" element={<AdminBlogs />} />
+              <Route path="/admin/queries" element={<AdminQueries />} />
+              <Route path="/admin/payments" element={<AdminPayments />} />
+              <Route path="/admin/settings" element={<AdminSettings />} />
+            </Route>
+          </Route>
 
-        <Route path="/cabs/rentals" element={<Navigate to="/fleet#rentals" replace />} />
-        <Route path="/fleet" element={<Fleet />} />
-        <Route path="/fleet/:vehicleId" element={<VehicleDetails />} />
-        <Route path="/services" element={<Services />} />
+          {/* Public Website Routes */}
+          <Route element={<Layout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/cabs" element={<Navigate to="/tirupati-cabs/tirupati-to-srikalahasti" replace />} />
+            
+            {/* Fixed routes for exact cab slugs */}
+            {cabRoutes.map(route => (
+              <Fragment key={route.slug}>
+                <Route path={`/tirupati-cabs/${route.slug}`} element={<CabRoutePage route={route} />} />
+                <Route path={`/tirupati-cabs/${route.slug}-distance`} element={<CabRoutePage route={route} />} />
+                <Route path={`/cabs/${route.slug}`} element={<CabRoutePage route={route} />} />
+                <Route path={`/cabs/${route.slug}-distance`} element={<CabRoutePage route={route} />} />
+              </Fragment>
+            ))}
 
-        {/* Vehicle / Taxi Service Aliases */}
-        {serviceRouteAliases.map(([path, slug]) => (
-          <Route key={path} path={path} element={<ServiceLanding slug={slug} />} />
-        ))}
+            {/* Dynamic fallback for cab routes */}
+            <Route path="/tirupati-cabs/:slug" element={<CabRoutePage />} />
+            <Route path="/cabs/:slug" element={<CabRoutePage />} />
 
-        {/* 10 Package Routes under /services/ and root */}
-        {packageRouteSlugs.map(slug => (
-          <Fragment key={slug}>
-            <Route path={`/services/${slug}`} element={<ServiceLanding slug={slug} />} />
-            <Route path={`/${slug}`} element={<ServiceLanding slug={slug} />} />
-          </Fragment>
-        ))}
+            <Route path="/cabs/rentals" element={<Navigate to="/fleet#rentals" replace />} />
+            <Route path="/fleet" element={<Fleet />} />
+            <Route path="/fleet/:vehicleId" element={<VehicleDetails />} />
+            <Route path="/services" element={<Services />} />
 
-        {/* Dynamic fallback for services */}
-        <Route path="/services/:slug" element={<ServiceLanding />} />
+            {/* Vehicle / Taxi Service Aliases */}
+            {serviceRouteAliases.map(([path, slug]) => (
+              <Route key={path} path={path} element={<ServiceLanding slug={slug} />} />
+            ))}
 
-        <Route path="/tours" element={<Tours />} />
-        <Route path="/destinations" element={<Destinations />} />
-        <Route path="/destinations/:slug" element={<DestinationDetail />} />
-        <Route path="/blog" element={<Blog />} />
+            {/* 10 Package Routes under /services/ and root */}
+            {packageRouteSlugs.map(slug => (
+              <Fragment key={slug}>
+                <Route path={`/services/${slug}`} element={<ServiceLanding slug={slug} />} />
+                <Route path={`/${slug}`} element={<ServiceLanding slug={slug} />} />
+              </Fragment>
+            ))}
 
-        {/* More Dropdown Pages */}
-        <Route path="/about" element={<About />} />
-        <Route path="/about-us" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/contact-us" element={<Contact />} />
-        <Route path="/refund-and-cancellation-policy" element={<RefundPolicy />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/terms-and-conditions" element={<TermsConditions />} />
-      </Route>
-    </Routes>
+            {/* Dynamic fallback for services */}
+            <Route path="/services/:slug" element={<ServiceLanding />} />
+
+            <Route path="/tours" element={<Tours />} />
+            <Route path="/destinations" element={<Destinations />} />
+            <Route path="/destinations/:slug" element={<DestinationDetail />} />
+            <Route path="/blog" element={<Blog />} />
+
+            {/* More Dropdown Pages */}
+            <Route path="/about" element={<About />} />
+            <Route path="/about-us" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/contact-us" element={<Contact />} />
+            <Route path="/refund-and-cancellation-policy" element={<RefundPolicy />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-and-conditions" element={<TermsConditions />} />
+          </Route>
+        </Routes>
+      </DataProvider>
+    </AuthProvider>
   );
 }

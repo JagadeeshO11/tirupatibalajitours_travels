@@ -1,16 +1,21 @@
-import { Luggage, Wind, ShieldCheck, Clock3, Fuel, Users, MapPin } from 'lucide-react';
+import { useState } from 'react';
+import { Luggage, Wind, ShieldCheck, Clock3, Fuel, Users, MapPin, CreditCard } from 'lucide-react';
 import Page from './PageTemplate';
 import { images, whatsapp } from '../data/siteData';
-import { fleet, fleetCategories } from '../data/fleetData';
-import AnimatedCounter from '../components/AnimatedCounter';
+import { fleetCategories } from '../data/fleetData';
 import StatsBanner from '../components/StatsBanner';
 import ScrollReveal from '../components/ScrollReveal';
+import EasebuzzModal from '../components/EasebuzzModal';
+import { useData } from '../context/DataContext';
 import './Fleet.css';
 import './FleetOverride.css';
 import './FleetMobileOrder.css';
 import { Link } from 'react-router-dom';
 
 export default function Fleet() {
+  const { fleets } = useData();
+  const [selectedPayVehicle, setSelectedPayVehicle] = useState(null);
+
   return (
     <Page
       eyebrow="FLEET & RENTALS"
@@ -35,7 +40,9 @@ export default function Fleet() {
         </div>
 
         {fleetCategories.slice(1).map(category => {
-          const items = fleet.filter(v => category.ids.includes(v.id));
+          const items = fleets.filter(v => category.ids.includes(v.id));
+          if (items.length === 0) return null;
+
           return (
             <section className="fleet-group" id={category.key} key={category.key} style={{ marginTop: '2.5rem' }}>
               <div className="fleet-group-heading">
@@ -68,7 +75,7 @@ export default function Fleet() {
                         <span className="media-type">{v.category}</span>
                         <div className="media-bottom">
                           <span className="media-rate">{v.local}</span>
-                          <span className="media-seats"><Users /> {v.seats}</span>
+                          <span className="media-seats"><Users size={14} /> {v.seats}</span>
                         </div>
                       </div>
 
@@ -84,11 +91,15 @@ export default function Fleet() {
                         <p className="vehicle-summary">{v.use}</p>
 
                         <div className="vehicle-features">
-                          {v.features.map(feature => (
-                            <span key={feature}><Wind /> {feature}</span>
-                          ))}
-                          <span><Luggage /> {v.bags} bags</span>
-                          <span><Fuel /> {v.fuel}</span>
+                          {Array.isArray(v.features) ? (
+                            v.features.map(feature => (
+                              <span key={feature}><Wind size={13} /> {feature}</span>
+                            ))
+                          ) : (
+                            <span><Wind size={13} /> {v.features}</span>
+                          )}
+                          <span><Luggage size={13} /> {v.bags} bags</span>
+                          <span><Fuel size={13} /> {v.fuel}</span>
                         </div>
 
                         <div className="vehicle-price-grid">
@@ -98,19 +109,28 @@ export default function Fleet() {
                           <span><small>Minimum per day</small><b>{v.minimum}</b></span>
                         </div>
 
-                        <p className="vehicle-minimum"><MapPin /> Outstation minimum {v.minimum}</p>
+                        <p className="vehicle-minimum"><MapPin size={14} /> Outstation minimum {v.minimum}</p>
 
                         <Link className="view-details" to={`/fleet/${v.id}`}>View Details</Link>
 
-                        <div className="rent-actions">
+                        <div className="rent-actions" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                           <a
                             className="button"
-                            href={`${whatsapp}?text=${encodeURIComponent(`Hi, I want to book ${v.name} in Tirupati. Please share availability and the exact quote.`)}`}
+                            style={{ flex: 1 }}
+                            href={`${whatsapp}?text=${encodeURIComponent(`Hi, I want to book ${v.name} in Tirupati. Rates: Local 8h ₹${v.local}, 12h ₹${v.localLong}, Outstation ${v.outstation}. Please share availability.`)}`}
                             target="_blank"
                             rel="noreferrer"
                           >
                             Book on WhatsApp
                           </a>
+                          <button
+                            type="button"
+                            className="button"
+                            style={{ flex: 1, background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7' }}
+                            onClick={() => setSelectedPayVehicle(v)}
+                          >
+                            <CreditCard size={15} /> Pay Deposit (Easebuzz)
+                          </button>
                         </div>
                       </div>
                     </article>
@@ -147,6 +167,18 @@ export default function Fleet() {
           </span>
         </div>
       </section>
+
+      {/* Easebuzz Checkout Modal */}
+      {selectedPayVehicle && (
+        <EasebuzzModal 
+          isOpen={Boolean(selectedPayVehicle)}
+          onClose={() => setSelectedPayVehicle(null)}
+          initialData={{
+            service: `${selectedPayVehicle.name} Booking Advance Token`,
+            amount: '500'
+          }}
+        />
+      )}
     </Page>
   );
 }

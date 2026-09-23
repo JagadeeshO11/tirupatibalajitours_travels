@@ -29,9 +29,9 @@
 .vehicle-slider{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px!important;overflow:visible!important;padding:4px 2px 30px!important}
 .rental-card{min-width:0!important;max-width:none!important;border:1px solid var(--line)!important;border-radius:18px;overflow:hidden!important;background:var(--surface)!important;box-shadow:var(--shadow-sm);transition:none}
 .rental-card:hover{transform:none;box-shadow:var(--shadow-sm);border-color:var(--line)!important}
-.vehicle-media{height:245px;position:relative;overflow:hidden;background:#e8edf5;border-bottom:1px solid var(--line)}
-.vehicle-media img{width:100%;height:100%;object-fit:cover!important;padding:0!important;transform:scale(1.05);transition:transform .5s var(--ease)}
-.vehicle-media:hover img{transform:scale(1.11)}
+.vehicle-media{height:220px;position:relative;overflow:hidden;background:#e8edf5;border-bottom:1px solid var(--line)}
+.vehicle-media img{width:100%;height:100%;object-fit:cover!important;object-position:center!important;padding:0!important;transition:transform .4s ease}
+.vehicle-media:hover img{transform:scale(1.06)}
 .media-type{position:absolute;top:14px;left:14px;background:rgba(255,255,255,.9);color:var(--blue);border:1px solid rgba(17,27,94,.08);border-radius:999px;padding:7px 9px;font-size:9px;font-weight:850;letter-spacing:.04em}
 .media-bottom{position:absolute;left:14px;right:14px;bottom:14px;display:flex;justify-content:space-between;align-items:center}
 .media-rate{background:var(--blue);color:#fff;border-radius:8px;padding:8px 10px;font-size:12px;font-weight:850}
@@ -87,8 +87,8 @@
   .vehicle-slider{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;width:90%!important;max-width:90%;margin:0 auto!important;gap:12px!important;overflow:visible!important;padding:0 0 24px!important}
   .vehicle-slider>*{min-width:0!important;width:100%}
   .rental-card{width:100%!important;min-width:0!important;max-width:none!important;border-radius:14px;overflow:hidden!important}
-  .vehicle-media{height:130px!important;border-radius:14px 14px 0 0;overflow:hidden!important}
-  .vehicle-media img{object-fit:cover!important;padding:0!important;transform:scale(1)!important}
+  .vehicle-media{height:140px!important;border-radius:14px 14px 0 0;overflow:hidden!important;background:#e8edf5!important}
+  .vehicle-media img{object-fit:cover!important;object-position:center!important;padding:0!important;transform:scale(1)!important}
   .vehicle-media:hover img{transform:scale(1.04)!important}
   .media-type,.media-bottom,.vehicle-category,.vehicle-summary,.vehicle-features,.vehicle-price-grid,.vehicle-minimum,.rent-actions{display:none!important}
   .rental-info{padding:10px!important}

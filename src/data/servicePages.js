@@ -18,9 +18,11 @@ export const servicePages = {
     whyTitle: 'Your Reliable Partner for Every Trip',
     whyIntro: 'Choose from Etios, Ertiga and Innova Crysta with air conditioning, experienced drivers, flexible local and outstation plans and 24/7 booking support.',
     vehicles: [
-      ['Etios', 'Sedan • 4 persons • AC • 2 bags', 'Local ₹2,600 / 8h-80km • ₹3,000 / 12h-150km • ₹15/km outstation'],
-      ['Ertiga', 'MUV • 6 persons • AC • 3 bags', 'Local ₹3,000 / 8h-80km • ₹4,000 / 12h-150km • ₹19/km outstation'],
-      ['Innova Crysta', 'SUV • 7 persons • AC • 5 bags', 'Local ₹3,600 / 8h-80km • ₹4,500 / 12h-150km • ₹22/km outstation']
+      ['Sedan (Etios / Dzire)', 'Sedan • 4 persons • AC • 2 bags', 'Local ₹2,880 / 8h-80km • ₹3,650 / 12h-150km • ₹15/km outstation'],
+      ['Ertiga', 'MUV • 6 persons • AC • 3 bags', 'Local ₹3,380 / 8h-80km • ₹4,150 / 12h-150km • ₹19/km outstation'],
+      ['Innova Crysta', 'SUV • 7 persons • AC • 5 bags', 'Local ₹4,380 / 8h-80km • ₹5,150 / 12h-150km • ₹23/km outstation'],
+      ['Toyota Hycross', 'Premium SUV • 7 persons • AC • 4 bags', 'Local ₹6,100 / 8h-80km • ₹7,100 / 12h-150km • ₹32/km outstation'],
+      ['Toyota Fortuner', 'Executive SUV • 7 persons • AC • 4 bags', 'Local ₹8,800 / 8h-80km • ₹10,500 / 12h-150km • ₹43/km outstation']
     ],
     outstation: 'Published outstation tariffs use a 300 km/day minimum. Local and outstation packages are available for temple visits, city travel, airport transfers and longer routes.',
     highlights: ['Comfort & luxury AC cars', 'Experienced drivers familiar with Tirumala routes', 'Transparent pricing', '24/7 support', 'Customizable local and outstation packages', 'Clean and hygienic fleet'],
@@ -43,9 +45,9 @@ export const servicePages = {
     whyTitle: 'Comfortable Group Travel for Tirupati Journeys',
     whyIntro: 'The source page positions Tempo Travellers for families and groups visiting Tirumala, Padmavathi Temple and other local or outstation destinations.',
     vehicles: [
-      ['Tempo 12 Seater', 'Mini bus • 12 persons • AC • 5 bags', '₹4,500 / 8h-80km • ₹5,875 / 12h-150km • ₹25/km'],
-      ['Tempo 17 Seater', 'Mini bus • 17 persons • AC • 6 bags', '₹5,643 / 8h-80km • ₹7,143 / 12h-150km • ₹35/km'],
-      ['Tempo 20 Seater', 'Mini bus • 20 persons • AC • 8 bags', '₹7,834 / 8h-80km • ₹9,500 / 12h-150km • ₹45/km']
+      ['Tempo 12 Seater', 'Mini bus • 12 persons • AC • 8 bags', '₹5,100 / 8h-80km • ₹6,000 / 12h-150km • ₹26/km'],
+      ['Tempo 16 Seater', 'Mini bus • 16 persons • AC • 10 bags', '₹6,800 / 8h-80km • ₹7,800 / 12h-150km • ₹35/km'],
+      ['Tempo 20 Seater', 'Mini bus • 20 persons • AC • 12 bags', '₹9,000 / 8h-80km • ₹10,500 / 12h-150km • ₹45/km']
     ],
     outstation: 'Published tariffs use a 300 km/day minimum. Tolls, parking, permits and additional hours or kilometres can be charged separately.',
     highlights: ['Air-conditioned group vehicles', 'Experienced Tirumala-route drivers', 'Transparent rental communication', '24/7 support', 'Customizable packages', 'Clean and hygienic fleet'],
@@ -70,8 +72,8 @@ export const servicePages = {
     whyTitle: 'Premium Group Travel with More Cabin Comfort',
     whyIntro: 'Urbania is positioned as a premium traveller option for customers who want more space and a refined group-travel experience.',
     vehicles: [
-      ['Urbania 12 Seater', '12 persons • AC • premium group travel', 'Local from ₹7,500/day • Outstation from ₹45/km'],
-      ['Urbania 16 Seater', '16 persons • AC • premium group travel', 'Local from ₹9,000/day • Outstation from ₹55/km']
+      ['Urbania 12 Seater', '12 persons • AC • premium group travel', 'Local ₹10,000 / 8h-80km • ₹12,000 / 12h-150km • ₹45/km'],
+      ['Urbania 16 Seater', '16 persons • AC • premium group travel', 'Local ₹12,000 / 8h-80km • ₹15,000 / 12h-150km • ₹48/km']
     ],
     outstation: 'The published tariff uses a 300 km/day minimum for outstation Urbania trips. Confirm route-specific local pricing, tolls, parking and permits before booking.',
     highlights: ['Premium cabin', 'Air conditioning', 'More passenger space', 'Experienced drivers', 'Local and outstation plans', 'Suitable for family and corporate groups'],
@@ -94,9 +96,9 @@ export const servicePages = {
     whyTitle: 'Your Reliable Partner for Every Group Trip',
     whyIntro: 'The source page offers bus sizes from compact 27-seaters to larger 50-seaters, with experienced drivers, flexible rental plans and 24/7 support.',
     vehicles: [
-      ['Bus 27 Seater', 'Coach bus • 27 persons • AC • 12 bags', '₹10,100 / 8h-80km • ₹12,000 / 12h-150km • ₹55/km'],
-      ['Bus 40 Seater', 'Luxury coach • 40 persons • AC • 20 bags', '₹12,500 / 8h-80km • ₹14,750 / 12h-150km • ₹65/km'],
-      ['Bus 50 Seater', 'Luxury coach • 50 persons • AC • 25 bags', '₹15,167 / 8h-80km • ₹18,000 / 12h-150km • ₹75/km']
+      ['Bus 27 Seater', 'Coach bus • 27 persons • AC • 15 bags', '₹12,000 / 8h-80km • ₹13,500 / 12h-150km • ₹55/km'],
+      ['Bus 40 Seater', 'Luxury coach • 40 persons • AC • 20 bags', '₹15,200 / 8h-80km • ₹17,500 / 12h-150km • ₹65/km'],
+      ['Bus 45 Seater', 'Luxury coach • 45 persons • AC • 22 bags', '₹18,000 / 8h-80km • ₹20,500 / 12h-150km • ₹75/km']
     ],
     outstation: 'The published bus tariff uses a 350 km/day minimum for outstation travel. Applicable tolls, parking, state taxes and other route charges can be extra.',
     highlights: ['27 to 50 seat capacity', 'Clean and comfortable buses', 'Experienced professional drivers', 'Local and outstation rentals', 'Wedding and event travel', '24/7 customer support'],
@@ -119,12 +121,14 @@ export const servicePages = {
     whyTitle: 'Long-Distance Travel Made Easier',
     whyIntro: 'The source page presents a broad vehicle range and kilometre-based outstation packages for travel beyond Tirupati city limits.',
     vehicles: [
-      ['Etios', '4 persons • Sedan • AC', 'From ₹15/km • 300 km/day minimum'],
-      ['Ertiga', '6 persons • MUV • AC', 'From ₹20/km • 300 km/day minimum'],
+      ['Sedan (Etios / Dzire)', '4 persons • Sedan • AC', 'From ₹15/km • 300 km/day minimum'],
+      ['Ertiga', '6 persons • MUV • AC', 'From ₹19/km • 300 km/day minimum'],
       ['Innova Crysta', '7 persons • SUV • AC', 'From ₹23/km • 300 km/day minimum'],
-      ['Tempo 12/17/20', '12–20 persons • AC', 'From ₹25/₹35/₹45 per km'],
-      ['Urbania 12/16', '12–16 persons • AC', 'From ₹45/₹48 per km'],
-      ['Bus 27/30/40/50', '27–50 persons • AC', 'From ₹55 to ₹75 per km • 350 km/day minimum']
+      ['Toyota Hycross', '7 persons • Premium SUV • AC', 'From ₹32/km • 300 km/day minimum'],
+      ['Toyota Fortuner', '7 persons • Executive SUV • AC', 'From ₹43/km • 300 km/day minimum'],
+      ['Tempo 12/16/20', '12–20 persons • AC', 'From ₹26/₹35/₹45 per km • 300 km/day minimum'],
+      ['Urbania 12/16', '12–16 persons • AC', 'From ₹45/₹48 per km • 300 km/day minimum'],
+      ['Bus 27/40/45', '27–45 persons • AC', 'From ₹55 to ₹75 per km • 300 km/day minimum']
     ],
     outstation: 'The published service covers one-way and round-trip outstation travel. Exact pricing depends on vehicle, route, duration and applicable charges.',
     highlights: ['Wide fleet selection', 'Experienced route drivers', 'Customizable itineraries', '24/7 booking support', 'One-way and round-trip options', 'Family and group travel'],
@@ -147,12 +151,14 @@ export const servicePages = {
     whyTitle: 'Local & Outstation Cab Booking',
     whyIntro: 'The source page presents taxi services for pilgrims and travellers with multiple vehicle choices, professional drivers, comfortable rides and 24/7 availability.',
     vehicles: [
-      ['Etios', '4 persons', '₹2,000 local day rent • ₹15/km outstation'],
-      ['Ertiga', '6–7 persons', '₹2,500 local day rent • ₹20/km outstation'],
-      ['Innova Crysta', '6–7 persons', '₹3,000 local day rent • ₹23/km outstation'],
-      ['Tempo 12/17/20', '12–20 persons', '₹4,000/₹5,500/₹7,500 local • ₹25/₹35/₹45 per km'],
-      ['Urbania 12/16', '12–16 persons', '₹7,500/₹9,000 local • ₹45/₹55 per km'],
-      ['Bus 27–50', '27–50 persons', '₹10,000–₹16,000 local • ₹55–₹75 per km']
+      ['Sedan', '4 persons', '₹2,880 (8h/80km) • ₹3,650 (12h/150km) • ₹15/km outstation'],
+      ['Ertiga', '6–7 persons', '₹3,380 (8h/80km) • ₹4,150 (12h/150km) • ₹19/km outstation'],
+      ['Innova Crysta', '6–7 persons', '₹4,380 (8h/80km) • ₹5,150 (12h/150km) • ₹23/km outstation'],
+      ['Hycross', '7 persons', '₹6,100 (8h/80km) • ₹7,100 (12h/150km) • ₹32/km outstation'],
+      ['Fortuner', '7 persons', '₹8,800 (8h/80km) • ₹10,500 (12h/150km) • ₹43/km outstation'],
+      ['Tempo 12/16/20', '12–20 persons', '₹5,100/₹6,800/₹9,000 (8h) • ₹26/₹35/₹45 per km'],
+      ['Urbania 12/16', '12–16 persons', '₹10,000/₹12,000 (8h) • ₹45/₹48 per km'],
+      ['Bus 27–45', '27–45 persons', '₹12,000–₹18,000 (8h) • ₹55–₹75 per km']
     ],
     outstation: 'The service covers one-way, round-trip, premium/luxury, local sightseeing, outstation, airport, temple darshan and corporate/business travel.',
     highlights: ['One-way taxi services', 'Round-trip packages', 'Luxury and premium rentals', 'Local sightseeing', 'Outstation taxis', 'Airport pickup and drop', 'Temple darshan travel', 'Corporate travel'],
@@ -202,9 +208,11 @@ export const servicePages = {
     whyTitle: 'Flexible Car Rentals for Local & Outstation Travel',
     whyIntro: 'The published rental information separates local day-rental pricing from outstation kilometre pricing and lists fuel-efficiency information for the vehicles.',
     vehicles: [
-      ['Etios', '4 persons • AC', 'Local day rent ₹2,000 • ₹15/km outstation'],
-      ['Ertiga', '6–7 persons • AC', 'Local day rent ₹2,500 • ₹20/km outstation'],
-      ['Innova Crysta', '6–7 persons • AC', 'Local day rent ₹3,000 • ₹23/km outstation']
+      ['Sedan (Etios / Dzire)', '4 persons • AC', 'Local 8h/80km ₹2,880 • 12h/150km ₹3,650 • ₹15/km outstation'],
+      ['Ertiga', '6–7 persons • AC', 'Local 8h/80km ₹3,380 • 12h/150km ₹4,150 • ₹19/km outstation'],
+      ['Innova Crysta', '6–7 persons • AC', 'Local 8h/80km ₹4,380 • 12h/150km ₹5,150 • ₹23/km outstation'],
+      ['Hycross', '7 persons • AC', 'Local 8h/80km ₹6,100 • 12h/150km ₹7,100 • ₹32/km outstation'],
+      ['Fortuner', '7 persons • AC', 'Local 8h/80km ₹8,800 • 12h/150km ₹10,500 • ₹43/km outstation']
     ],
     outstation: 'Outstation rentals use a 300 km/day minimum on the published tariff. Local day rental and outstation kilometre pricing are quoted separately.',
     highlights: ['Local day hire', 'Outstation rentals', 'AC cars', 'Multiple vehicle choices', 'Airport/railway/hotel pickup options'],
@@ -227,10 +235,10 @@ export const servicePages = {
     whyTitle: 'Complete Local Temple & Sightseeing Packages',
     whyIntro: 'Choose from 8-Hour / 80 KMs or 12-Hour / 150 KMs local day rentals covering Tirumala, Tiruchanur, Srikalahasti, Kanipakam, Kapila Theertham & Govindaraja Swamy Temple.',
     vehicles: [
-      ['Swift Dzire / Etios', 'Sedan • 4 persons • AC', '8 Hours / 80 KMs: ₹2,600 • 12 Hours / 150 KMs: ₹3,000'],
-      ['Maruti Ertiga', 'MUV • 6 persons • AC', '8 Hours / 80 KMs: ₹3,000 • 12 Hours / 150 KMs: ₹4,000'],
-      ['Toyota Innova Crysta', 'SUV • 7 persons • AC', '8 Hours / 80 KMs: ₹3,600 • 12 Hours / 150 KMs: ₹4,500'],
-      ['Tempo Traveller', 'Minibus • 12 persons • AC', '8 Hours / 80 KMs: ₹4,500 • 12 Hours / 150 KMs: ₹5,875']
+      ['Swift Dzire / Sedan', 'Sedan • 4 persons • AC', '8 Hours / 80 KMs: ₹2,880 • 12 Hours / 150 KMs: ₹3,650'],
+      ['Maruti Ertiga', 'MUV • 6 persons • AC', '8 Hours / 80 KMs: ₹3,380 • 12 Hours / 150 KMs: ₹4,150'],
+      ['Toyota Innova Crysta', 'SUV • 7 persons • AC', '8 Hours / 80 KMs: ₹4,380 • 12 Hours / 150 KMs: ₹5,150'],
+      ['Tempo Traveller 12 Seater', 'Minibus • 12 persons • AC', '8 Hours / 80 KMs: ₹5,100 • 12 Hours / 150 KMs: ₹6,000']
     ],
     outstation: 'Packages cover doorstep pickup from Tirupati Airport, Railway Station, Hotels, or home address. Tolls, parking, and driver allowances are clearly detailed.',
     highlights: ['Tirumala Balaji Temple', 'Padmavathi Ammavari Temple (Tiruchanur)', 'Sri Kalahasteeswara Temple (Srikalahasti)', 'Kanipakam Vinayaka Temple', 'Kapila Theertham & Govindaraja Swamy', 'ISKCON Tirupati & Regional Science Centre'],
@@ -254,9 +262,9 @@ export const servicePages = {
     whyIntro: 'Hassle-free outstation trips with per-kilometre transparent pricing, interstate border permit management, and experienced highway drivers.',
     vehicles: [
       ['Etios / Dzire', 'Sedan • 4 persons • AC', 'Outstation from ₹15/km (min 300 km/day)'],
-      ['Maruti Ertiga', 'MUV • 6 persons • AC', 'Outstation from ₹20/km (min 300 km/day)'],
+      ['Maruti Ertiga', 'MUV • 6 persons • AC', 'Outstation from ₹19/km (min 300 km/day)'],
       ['Innova Crysta', 'SUV • 7 persons • AC', 'Outstation from ₹23/km (min 300 km/day)'],
-      ['Tempo Traveller', 'Minibus • 12/16 persons • AC', 'Outstation from ₹25 to ₹35 per km']
+      ['Tempo Traveller', 'Minibus • 12/16 persons • AC', 'Outstation from ₹26 to ₹35 per km (min 300 km/day)']
     ],
     outstation: 'Packages include 1-day, 2-day, 3-day, 4-day, and 5-day itineraries with round-trip options and flexible intermediate stops.',
     highlights: ['Vellore Sripuram Golden Temple (120 km)', 'Arunachalam Tiruvannamalai (190 km)', 'Kanchipuram Silk & Temple City (110 km)', 'Pondicherry French Quarter & Beach (250 km)', 'Srisailam Mallikarjuna Jyotirlinga (367 km)', 'Madurai Meenakshi & Rameshwaram Char Dham'],

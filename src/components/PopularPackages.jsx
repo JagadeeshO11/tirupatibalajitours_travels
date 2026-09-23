@@ -33,8 +33,12 @@ const packages = [
 ['7 Days Divine Tamil Nadu Temple Tour from Tirupati','7 Days','Tirupati → Vellore → Arunachalam → Srirangam → Madurai → Trivandrum → Kanyakumari → Rameswaram → Kumbakonam → Chidambaram → Kanchipuram → Tirupati','https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789291165/tamil-nadu-temple-tour-7-days.png','https://tirupatibalajitourstravels.com/tour/7-day-divine-tamil-nadu-temple-tour-from-tirupati/']
 ];
 
+import EasebuzzModal from './EasebuzzModal';
+import { CreditCard } from 'lucide-react';
+
 export default function PopularPackages() {
   const [selectedPanel, setSelectedPanel] = useState(null);
+  const [payPkg, setPayPkg] = useState(null);
   const openPanel = (name, type) => setSelectedPanel({ name, type });
   const closePanel = () => setSelectedPanel(null);
   const phone = 'tel:+918688624758';
@@ -43,7 +47,7 @@ export default function PopularPackages() {
   return <>
     <section className="popular-packages-section">
       <div className="popular-heading"><div><p className="eyebrow">🔥 MOST BOOKED PACKAGES</p><h2>Explore Our Popular Temple Tour Packages</h2><p>Safe, Comfortable & Memorable Journeys to Sacred Destinations</p></div><div className="popular-benefits"><span>🚕 Tolls Included</span><span>🅿️ Parkings Included</span><span>👨‍✈️ Driver Batta Included</span><span>🏛️ TN Border Tax Included</span><span>📞 24×7 Support</span><span>💰 Best Price Guaranteed</span></div></div>
-      <div className="popular-package-grid">{packages.map(([name,duration,route,image,details],i) => { const hasItinerary = Boolean(packageItineraries[name]); const data = packageDetails[name]; return <motion.article className="popular-package-card" key={name} initial={{opacity:0,y:24}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.1}} transition={{duration:.4,delay:(i%3)*.05}}><div className="popular-package-image"><img src={image} alt={name} loading="lazy"/><span className="popular-badge">★ Most Popular</span><span className="popular-duration">{duration}</span></div><div className="popular-package-content"><h3>{name}</h3>
+      <div className="popular-package-grid">{packages.map(([name,duration,route,image,details],i) => { const hasItinerary = Boolean(packageItineraries[name]); const data = packageDetails[name]; const startingPrice = data?.prices?.[0]?.[1] || '₹3,500'; return <motion.article className="popular-package-card" key={name} initial={{opacity:0,y:24}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.1}} transition={{duration:.4,delay:(i%3)*.05}}><div className="popular-package-image"><img src={image} alt={name} loading="lazy"/><span className="popular-badge">★ Most Popular</span><span className="popular-duration">{duration} · From {startingPrice}</span></div><div className="popular-package-content"><h3>{name}</h3>
         <details className="popular-route-details">
           <summary className="popular-route-summary">
             <span>Route Corridor</span>
@@ -55,12 +59,23 @@ export default function PopularPackages() {
         <button type="button" className="action-itinerary" onClick={() => openPanel(name,'itinerary')} disabled={!hasItinerary}><CalendarDays size={14}/><span>Itinerary</span></button>
         <button type="button" className="action-prices" onClick={() => openPanel(name,'prices')} disabled={!data}><CarFront size={14}/><span>Prices</span></button>
         <button type="button" className="action-inclusions" onClick={() => openPanel(name,'inclusions')} disabled={!data}><CheckCircle2 size={14}/><span>Inclusions</span></button>
-        <a href={phone}><Phone size={14}/><span>Call</span></a>
+        <button type="button" style={{ background: '#0284c7', color: '#fff', border: 'none', padding: '0.4rem 0.6rem', borderRadius: 6, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, fontWeight: 700, fontSize: '0.8rem' }} onClick={() => setPayPkg({ name, price: startingPrice })}><CreditCard size={13}/><span>Pay (Easebuzz)</span></button>
         <a href={whatsapp(name)} target="_blank" rel="noopener noreferrer" className="package-whatsapp"><MessageCircle size={14}/><span>WhatsApp</span></a>
         <Link to={details} className="details"><span>Details</span><ArrowRight size={14}/></Link>
       </div></div></motion.article>; })}</div>
     </section>
-    {selectedPanel && <div className="itinerary-overlay" role="presentation" onClick={closePanel}><div className="itinerary-modal package-info-modal" role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}><button type="button" className="itinerary-close" aria-label="Close" onClick={closePanel}><X size={20}/></button>{(() => { const {name,type}=selectedPanel; const data=packageDetails[name]; if(type==='itinerary'){ return <><div className="itinerary-modal-header"><span className="itinerary-icon"><CalendarDays size={20}/></span><div><p>PACKAGE ITINERARY</p><h3>{name}</h3></div></div><div className="itinerary-days">{packageItineraries[name]?.map(({day,places}) => <div className="itinerary-day" key={day}><div className="itinerary-day-label">{day}</div><p>{places}</p></div>)}</div></>; } if(type==='prices'){ return <><div className="itinerary-modal-header"><span className="itinerary-icon"><CarFront size={20}/></span><div><p>VEHICLE & PRICES</p><h3>{name}</h3></div></div><div className="vehicle-price-list">{data?.prices.map(([vehicle,price]) => <div className="vehicle-price-row" key={vehicle}><span>{vehicle}</span><strong>{price}</strong></div>)}</div></>; } return <><div className="itinerary-modal-header"><span className="itinerary-icon"><CheckCircle2 size={20}/></span><div><p>PACKAGE INCLUSIONS</p><h3>{name}</h3></div></div><div className="inclusion-box"><div><CheckCircle2 size={17}/><span>{data?.included}</span></div><div className="excluded"><X size={17}/><span>{data?.excluded}</span></div></div></>; })()}<a className="itinerary-book" href={whatsapp(selectedPanel.name)} target="_blank" rel="noopener noreferrer"><MessageCircle size={16}/> Enquire on WhatsApp</a></div></div>}
+    {selectedPanel && <div className="itinerary-overlay" role="presentation" onClick={closePanel}><div className="itinerary-modal package-info-modal" role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}><button type="button" className="itinerary-close" aria-label="Close" onClick={closePanel}><X size={20}/></button>{(() => { const {name,type}=selectedPanel; const data=packageDetails[name]; if(type==='itinerary'){ return <><div className="itinerary-modal-header"><span className="itinerary-icon"><CalendarDays size={20}/></span><div><p>PACKAGE ITINERARY</p><h3>{name}</h3></div></div><div className="itinerary-days">{packageItineraries[name]?.map(({day,places}) => <div className="itinerary-day" key={day}><div className="itinerary-day-label">{day}</div><p>{places}</p></div>)}</div></>; } if(type==='prices'){ return <><div className="itinerary-modal-header"><span className="itinerary-icon"><CarFront size={20}/></span><div><p>VEHICLE & PRICES</p><h3>{name}</h3></div></div><div className="vehicle-price-list">{data?.prices.map(([vehicle,price]) => <div className="vehicle-price-row" key={vehicle}><span>{vehicle}</span><strong>{price}</strong></div>)}</div></>; } return <><div className="itinerary-modal-header"><span className="itinerary-icon"><CheckCircle2 size={20}/></span><div><p>PACKAGE INCLUSIONS</p><h3>{name}</h3></div></div><div className="inclusion-box"><div><CheckCircle2 size={17}/><span>{data?.included}</span></div><div className="excluded"><X size={17}/><span>{data?.excluded}</span></div></div></>; })()}<div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem' }}><button type="button" className="button" style={{ flex: 1, background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7' }} onClick={() => { setPayPkg({ name: selectedPanel.name }); closePanel(); }}><CreditCard size={16}/> Pay Deposit (Easebuzz)</button><a className="itinerary-book" style={{ flex: 1 }} href={whatsapp(selectedPanel.name)} target="_blank" rel="noopener noreferrer"><MessageCircle size={16}/> WhatsApp</a></div></div></div>}
+
+    {payPkg && (
+      <EasebuzzModal 
+        isOpen={Boolean(payPkg)}
+        onClose={() => setPayPkg(null)}
+        initialData={{
+          service: `${payPkg.name} Advance Booking Token`,
+          amount: '1000'
+        }}
+      />
+    )}
   </>;
 }
 

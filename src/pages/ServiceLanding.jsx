@@ -4,11 +4,12 @@ import {
   ChevronDown, MessageCircle, ShieldCheck, Sparkles, Snowflake, MonitorPlay, 
   BatteryCharging, Armchair, Headphones, SprayCan, CalendarDays, Phone, MapPin, 
   Clock3, ArrowRight, CheckCircle2, CarFront, Luggage, Users, Route as RouteIcon, 
-  Car, Award, Navigation, Info, Fuel
+  Car, Award, Navigation, Info, Fuel, CreditCard
 } from 'lucide-react';
 import { servicePages } from '../data/servicePages';
 import { images, whatsapp, phone } from '../data/siteData';
 import StatsBanner from '../components/StatsBanner';
+import EasebuzzModal from '../components/EasebuzzModal';
 import './ServiceLanding.css';
 
 const featureIcons = [Snowflake, MonitorPlay, BatteryCharging, Armchair, Headphones, SprayCan];
@@ -87,6 +88,7 @@ export default function ServiceLanding({ slug: routeSlug }) {
   const slug = routeSlug || params.slug;
   const data = servicePages[slug];
   const [openFaq, setOpenFaq] = useState(null);
+  const [selectedPayVehicle, setSelectedPayVehicle] = useState(null);
 
   if (!data) {
     return (
@@ -139,13 +141,21 @@ export default function ServiceLanding({ slug: routeSlug }) {
             <span><CheckCircle2 size={15} /> Doorstep Pickup & Drop</span>
           </div>
 
-          <div className="service-actions">
+          <div className="service-actions" style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
             <a className="button hero-call-btn" href={`tel:${phone}`}>
               <Phone size={16} /> Call {phone}
             </a>
             <a className="button hero-wa-btn" href={booking} target="_blank" rel="noreferrer">
-              <MessageCircle size={16} /> Instant WhatsApp Quote
+              <MessageCircle size={16} /> WhatsApp Quote
             </a>
+            <button
+              type="button"
+              className="button hero-pay-btn"
+              style={{ background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
+              onClick={() => setSelectedPayVehicle({ name: data.title, price: '500', serviceTitle: data.title })}
+            >
+              <CreditCard size={16} /> Pay Deposit (Easebuzz)
+            </button>
           </div>
         </div>
 
@@ -293,14 +303,25 @@ export default function ServiceLanding({ slug: routeSlug }) {
                   <strong>{price}</strong>
                 </div>
 
-                <a 
-                  href={`${whatsapp}?text=${encodeURIComponent(`Hi, I would like to book/enquire about ${name} for ${data.title}. Please share availability and current fare.`)}`} 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="button vehicle-book-btn"
-                >
-                  <MessageCircle size={15} /> Book / Check Availability
-                </a>
+                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.75rem' }}>
+                  <a 
+                    href={`${whatsapp}?text=${encodeURIComponent(`Hi, I would like to book ${name} for ${data.title} at ${price}. Please share availability.`)}`} 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="button vehicle-book-btn"
+                    style={{ flex: 1, padding: '0.6rem 0.5rem', fontSize: '0.85rem' }}
+                  >
+                    <MessageCircle size={14} /> WhatsApp
+                  </a>
+                  <button 
+                    type="button"
+                    className="button vehicle-book-btn"
+                    style={{ flex: 1, padding: '0.6rem 0.5rem', fontSize: '0.85rem', background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7' }}
+                    onClick={() => setSelectedPayVehicle({ name, price, serviceTitle: data.title })}
+                  >
+                    <CreditCard size={14} /> Pay (Easebuzz)
+                  </button>
+                </div>
               </div>
             </article>
           ))}
@@ -478,15 +499,17 @@ export default function ServiceLanding({ slug: routeSlug }) {
         </div>
       </section>
 
-      {/* Mobile Sticky Bottom Action Bar */}
-      <div className="mobile-sticky-bar">
-        <a href={`tel:${phone}`} className="sticky-btn call">
-          <Phone size={16} /> Call Now
-        </a>
-        <a href={booking} target="_blank" rel="noreferrer" className="sticky-btn whatsapp">
-          <MessageCircle size={16} /> WhatsApp
-        </a>
-      </div>
+      {/* Easebuzz Checkout Modal */}
+      {selectedPayVehicle && (
+        <EasebuzzModal 
+          isOpen={Boolean(selectedPayVehicle)}
+          onClose={() => setSelectedPayVehicle(null)}
+          initialData={{
+            service: `${selectedPayVehicle.name} (${selectedPayVehicle.serviceTitle || 'Cab Booking'})`,
+            amount: '500'
+          }}
+        />
+      )}
     </main>
   );
 }

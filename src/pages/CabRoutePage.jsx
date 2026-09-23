@@ -3,19 +3,20 @@ import { Link, useParams } from 'react-router-dom';
 import { 
   ArrowRight, CheckCircle2, Clock3, MapPin, Phone, MessageCircle, 
   Route as RouteIcon, ShieldCheck, Landmark, Info, Sparkles, Car, 
-  Users, Fuel, ChevronDown, Award, Calendar, Navigation
+  Users, Fuel, ChevronDown, Award, Calendar, Navigation, CreditCard
 } from 'lucide-react';
 import { phone, whatsappBooking, vehicles } from '../data/siteData';
 import { getCabRoute } from '../data/cabRoutes';
 import { srikalahastiContent } from '../data/srikalahastiContent';
 import { cabRouteContent } from '../data/cabRouteContent';
 import StatsBanner from '../components/StatsBanner';
+import EasebuzzModal from '../components/EasebuzzModal';
 import './CabRoutePage.css';
 
-const ContentTable = ({ rows, headers, routeTitle }) => {
+const ContentTable = ({ rows, headers, routeTitle, onPayClick }) => {
   const isFourCol = headers.length === 3;
   const gridStyle = {
-    gridTemplateColumns: isFourCol ? '1.2fr 1.2fr 0.8fr 140px' : '1.4fr 1.1fr 140px'
+    gridTemplateColumns: isFourCol ? '1.2fr 1.2fr 0.8fr 160px' : '1.4fr 1.1fr 160px'
   };
 
   return (
@@ -32,7 +33,7 @@ const ContentTable = ({ rows, headers, routeTitle }) => {
       <div className="content-table">
         <div className="content-table-head" style={gridStyle}>
           {headers.map(h => <strong key={h}>{h}</strong>)}
-          <strong className="action-header">Book Taxi</strong>
+          <strong className="action-header">Book & Pay</strong>
         </div>
         {rows.map((row, i) => (
           <div className="content-table-row" key={i} style={gridStyle}>
@@ -41,15 +42,26 @@ const ContentTable = ({ rows, headers, routeTitle }) => {
                 {cell}
               </span>
             ))}
-            <div className="table-action-cell">
+            <div className="table-action-cell" style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
               <a 
                 className="table-book-btn" 
+                style={{ flex: 1, padding: '7px 8px', fontSize: '0.8rem' }}
                 href={whatsappBooking(`Hi, I would like to book ${row[0]} for ${routeTitle || 'cab service'}. Please share exact fare and availability.`)}
                 target="_blank" 
                 rel="noreferrer"
+                title="Book via WhatsApp"
               >
-                <MessageCircle size={13} /> Book Now
+                <MessageCircle size={14} /> WhatsApp
               </a>
+              <button
+                type="button"
+                className="table-book-btn"
+                style={{ background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7', padding: '7px 10px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
+                onClick={() => onPayClick && onPayClick({ name: row[0], price: row[1], title: routeTitle })}
+                title="Pay Advance Deposit (Easebuzz)"
+              >
+                <CreditCard size={15} />
+              </button>
             </div>
           </div>
         ))}
@@ -63,6 +75,7 @@ const ContentTable = ({ rows, headers, routeTitle }) => {
 
 function DetailedRouteContent({ content, route }) {
   const [activeTab, setActiveTab] = useState('vehicles');
+  const [payCar, setPayCar] = useState(null);
   const fleet = route.prices?.length ? route.prices : vehicles.slice(0, 5).map(v => [v[0], v[4]]);
   const stops = route.route.split('→').map(s => s.trim());
 
@@ -174,19 +187,30 @@ function DetailedRouteContent({ content, route }) {
                 <li><CheckCircle2 size={14} /> Clean & Sanitized Interior</li>
                 <li><CheckCircle2 size={14} /> Fuel & Driver Allowance Incl.</li>
               </ul>
-              <a 
-                href={whatsappBooking(`Hi, I would like to book a ${car.name} for ${route.title}. Please confirm exact fare and availability.`)}
-                target="_blank" 
-                rel="noreferrer" 
-                className="button full-width"
-              >
-                <MessageCircle size={15} /> Book {car.name}
-              </a>
+              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '1rem' }}>
+                <a 
+                  href={whatsappBooking(`Hi, I would like to book a ${car.name} for ${route.title} starting at ${car.price}. Please confirm exact fare.`)}
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="button"
+                  style={{ flex: 1, padding: '0.6rem', fontSize: '0.85rem' }}
+                >
+                  <MessageCircle size={14} /> WhatsApp
+                </a>
+                <button
+                  type="button"
+                  className="button"
+                  style={{ flex: 1, padding: '0.6rem', fontSize: '0.85rem', background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7' }}
+                  onClick={() => setPayCar({ name: car.name, price: car.price, title: route.title })}
+                >
+                  <CreditCard size={14} /> Pay Deposit (Easebuzz)
+                </button>
+              </div>
             </div>
           ))}
         </div>
 
-        <ContentTable headers={['Vehicle Category', 'Indicative Fare']} rows={fleet} routeTitle={route.title} />
+        <ContentTable headers={['Vehicle Category', 'Indicative Fare']} rows={fleet} routeTitle={route.title} onPayClick={setPayCar} />
       </section>
 
       {/* Visitor Guide & Guidelines */}
@@ -293,6 +317,17 @@ function DetailedRouteContent({ content, route }) {
           ))}
         </div>
       </section>
+
+      {payCar && (
+        <EasebuzzModal 
+          isOpen={Boolean(payCar)}
+          onClose={() => setPayCar(null)}
+          initialData={{
+            service: `${payCar.name} for ${payCar.title || 'Cab Route'}`,
+            amount: '500'
+          }}
+        />
+      )}
     </>
   );
 }
@@ -300,6 +335,7 @@ function DetailedRouteContent({ content, route }) {
 export default function CabRoutePage({ route: routeProp }) {
   const { slug } = useParams();
   const route = routeProp || getCabRoute(slug);
+  const [showHeroPayModal, setShowHeroPayModal] = useState(false);
 
   if (!route) {
     return (
@@ -392,7 +428,7 @@ export default function CabRoutePage({ route: routeProp }) {
             <span><CheckCircle2 size={14} /> Instant Confirmation</span>
           </div>
 
-          <div className="cab-route-actions">
+          <div className="cab-route-actions" style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
             <a className="button hero-call-btn" href={`tel:${phone}`}>
               <Phone size={16} /> Call {phone}
             </a>
@@ -402,8 +438,16 @@ export default function CabRoutePage({ route: routeProp }) {
               target="_blank" 
               rel="noreferrer"
             >
-              <MessageCircle size={16} /> WhatsApp Booking
+              <MessageCircle size={16} /> WhatsApp
             </a>
+            <button
+              type="button"
+              className="button"
+              style={{ background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
+              onClick={() => setShowHeroPayModal(true)}
+            >
+              <CreditCard size={16} /> Pay Deposit (Easebuzz)
+            </button>
           </div>
         </div>
 
@@ -489,6 +533,17 @@ export default function CabRoutePage({ route: routeProp }) {
           <MessageCircle size={16} /> WhatsApp
         </a>
       </div>
+      {/* Hero Easebuzz Payment Modal */}
+      {showHeroPayModal && (
+        <EasebuzzModal
+          isOpen={showHeroPayModal}
+          onClose={() => setShowHeroPayModal(false)}
+          initialData={{
+            service: `${route.title} Booking Token Deposit`,
+            amount: '500'
+          }}
+        />
+      )}
     </main>
   );
 }

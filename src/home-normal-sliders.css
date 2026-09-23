@@ -43,7 +43,7 @@
 .home-showcase:has(.route-card) .home-slider .slide-image { height: 225px; }
 .home-showcase:has(.route-card) .home-slider .card-body { min-height: 205px; }
 .home-showcase:has(.vehicle-card) .home-slider .vehicle-image-bg { height: 225px; }
-.home-showcase:has(.vehicle-card) .home-slider .vehicle-image-bg img { height: 100%; width: 100%; object-fit: contain; }
+.home-showcase:has(.vehicle-card) .home-slider .vehicle-image-bg img { height: 100%; width: 100%; object-fit: cover !important; object-position: center !important; padding: 0 !important; }
 .home-showcase:has(.vehicle-card) .home-slider .card-body { min-height: 245px; }
 
 @media (max-width: 1023px) {

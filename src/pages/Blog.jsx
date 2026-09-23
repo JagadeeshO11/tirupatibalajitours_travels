@@ -9,12 +9,14 @@ import {
 import Page from './PageTemplate';
 import { images, whatsappBooking, whatsapp } from '../data/siteData';
 import { blogPosts, blogCategories } from '../data/blogData';
+import { useData } from '../context/DataContext';
 import AnimatedCounter from '../components/AnimatedCounter';
 import StatsBanner from '../components/StatsBanner';
 import ScrollReveal from '../components/ScrollReveal';
 import './Blog.css';
 
 export default function Blog() {
+  const { blogs } = useData();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('All Guides');
   const [selectedPost, setSelectedPost] = useState(null);
@@ -24,20 +26,20 @@ export default function Blog() {
 
   // Filter posts based on category and search query
   const filteredPosts = useMemo(() => {
-    return blogPosts.filter(post => {
+    return blogs.filter(post => {
       const matchesCategory =
         activeCategory === 'All Guides' || post.category === activeCategory;
       const matchesSearch =
         post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         post.snippet.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+        (post.tags && post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())));
       return matchesCategory && matchesSearch;
     });
-  }, [searchQuery, activeCategory]);
+  }, [blogs, searchQuery, activeCategory]);
 
   const featuredPost = useMemo(() => {
-    return blogPosts.find(p => p.featured) || blogPosts[0];
-  }, []);
+    return blogs.find(p => p.featured) || blogs[0];
+  }, [blogs]);
 
   const handleSubscribe = (e) => {
     e.preventDefault();
