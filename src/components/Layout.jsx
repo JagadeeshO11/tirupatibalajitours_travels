@@ -3,7 +3,7 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   Menu, MessageCircle, X, ChevronDown, Phone, Mail,
-  Home as HomeIcon, Car, Package, Sparkles, Grid, Info, ChevronRight, MapPin, ShieldCheck
+  Home as HomeIcon, Car, Package, Sparkles, Grid, Info, ChevronRight, MapPin, ShieldCheck, CreditCard
 } from 'lucide-react';
 import {
   FaFacebookF, FaXTwitter, FaInstagram, FaYoutube,
@@ -12,6 +12,9 @@ import {
 import { phone, whatsapp, email } from '../data/siteData';
 import { cabRoutes } from '../data/cabRoutes';
 import { serviceLinks } from '../data/servicePages';
+import { blogPosts } from '../data/blogData';
+import { useData } from '../context/DataContext';
+import EasebuzzModal from './EasebuzzModal';
 import './Layout.css';
 import './LayoutDropdownFix.css';
 
@@ -97,10 +100,13 @@ function HeaderDropdown({ id, activeDropdown, onEnter, onLeave, label, to, links
 }
 
 export default function Layout() {
+  const { blogs } = useData();
+  const blogList = blogs && blogs.length > 0 ? blogs : blogPosts;
   const [open, setOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [activeTab, setActiveTab] = useState('cabs');
   const [scrolled, setScrolled] = useState(false);
+  const [headerPayModalOpen, setHeaderPayModalOpen] = useState(false);
   const timerRef = useRef(null);
   const location = useLocation();
 
@@ -170,13 +176,38 @@ export default function Layout() {
               <NavLink to="/fleet" onMouseEnter={() => handleDropdownLeave(true)}>Fleet & Rentals</NavLink>
               <NavLink to="/tours" onMouseEnter={() => handleDropdownLeave(true)}>Tours</NavLink>
               <NavLink to="/destinations" onMouseEnter={() => handleDropdownLeave(true)}>Destinations</NavLink>
-              <NavLink to="/blog" onMouseEnter={() => handleDropdownLeave(true)}>Blog</NavLink>
+              <HeaderDropdown id="blogs" activeDropdown={activeDropdown} onEnter={handleDropdownEnter} onLeave={handleDropdownLeave} label="Blogs" className="nav-blogs" links={blogList} getSlug={b => `/blog/${b.slug}`} />
               <HeaderDropdown id="more" activeDropdown={activeDropdown} onEnter={handleDropdownEnter} onLeave={handleDropdownLeave} label="More" isMore className="nav-more" links={moreNavLinks} />
             </div>
           </nav>
-          <a className="nav-wa" href={whatsapp} target="_blank" rel="noreferrer">
-            <MessageCircle size={16} /> WhatsApp
-          </a>
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            <button
+              type="button"
+              className="nav-book-btn"
+              onClick={() => setHeaderPayModalOpen(true)}
+              style={{
+                background: 'linear-gradient(135deg, #0284c7, #0369a1)',
+                color: '#ffffff',
+                border: '1px solid #0284c7',
+                padding: '8px 14px',
+                borderRadius: '7px',
+                display: 'inline-flex',
+                gap: '5px',
+                alignItems: 'center',
+                fontSize: '11px',
+                fontWeight: 800,
+                whiteSpace: 'nowrap',
+                cursor: 'pointer',
+                boxShadow: '0 2px 8px rgba(2, 132, 199, 0.3)',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              <CreditCard size={14} /> Book Cab 💳
+            </button>
+            <a className="nav-wa" href={whatsapp} target="_blank" rel="noreferrer">
+              <MessageCircle size={16} /> WhatsApp
+            </a>
+          </div>
           <button
             type="button"
             className="menu"
@@ -249,19 +280,28 @@ export default function Layout() {
                 )}
 
                 {activeTab === 'more' && (
-                  <div className="drawer-section-block">
-                    <span className="drawer-badge-pill">Information & Pages</span>
-                    <div className="drawer-link-card-grid">
-                      <NavLink onClick={() => setOpen(false)} to="/blog" className="mob-link-card">
-                        <span>Travel Blog</span><ChevronRight size={14} />
-                      </NavLink>
-                      {moreNavLinks.map(m => (
-                        <NavLink key={m.path} onClick={() => setOpen(false)} to={m.path} className="mob-link-card">
-                          <span>{m.title}</span><ChevronRight size={14} />
-                        </NavLink>
-                      ))}
+                  <>
+                    <div className="drawer-section-block">
+                      <span className="drawer-badge-pill">Travel Blogs</span>
+                      <div className="drawer-link-card-grid">
+                        {blogList.map(b => (
+                          <NavLink key={b.slug} onClick={() => setOpen(false)} to={`/blog/${b.slug}`} className="mob-link-card">
+                            <span>{b.shortTitle || b.title}</span><ChevronRight size={14} />
+                          </NavLink>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                    <div className="drawer-section-block" style={{ marginTop: '1.5rem' }}>
+                      <span className="drawer-badge-pill">Information & Pages</span>
+                      <div className="drawer-link-card-grid">
+                        {moreNavLinks.map(m => (
+                          <NavLink key={m.path} onClick={() => setOpen(false)} to={m.path} className="mob-link-card">
+                            <span>{m.title}</span><ChevronRight size={14} />
+                          </NavLink>
+                        ))}
+                      </div>
+                    </div>
+                  </>
                 )}
               </div>
 
@@ -313,6 +353,18 @@ export default function Layout() {
         <NavLink to="/destinations" className={({ isActive }) => `mob-pop-nav-item ${isActive ? 'active' : ''}`}><MapPin size={18} /><span>Destinations</span></NavLink>
         <NavLink to="/tours" className={({ isActive }) => `mob-pop-nav-item ${isActive ? 'active' : ''}`}><Package size={18} /><span>Tours</span></NavLink>
       </nav>
+
+      {/* Header Pay & Book Modal */}
+      {headerPayModalOpen && (
+        <EasebuzzModal
+          isOpen={headerPayModalOpen}
+          onClose={() => setHeaderPayModalOpen(false)}
+          initialData={{
+            service: 'Tirupati Cab & Tour Booking',
+            amount: '500'
+          }}
+        />
+      )}
     </>
   );
 }

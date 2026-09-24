@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, MessageCircle, CreditCard, ArrowRight } from 'lucide-react';
+import { MessageCircle, CreditCard, ArrowRight, Compass } from 'lucide-react';
 import Page from './PageTemplate';
 import { images, whatsapp } from '../data/siteData';
 import EasebuzzModal from '../components/EasebuzzModal';
 import { useData } from '../context/DataContext';
+import ScrollReveal from '../components/ScrollReveal';
+import './Destinations.css';
 
 export default function Destinations() {
   const { destinations } = useData();
@@ -12,50 +14,63 @@ export default function Destinations() {
 
   return (
     <Page 
-      eyebrow="TEMPLE DESTINATIONS" 
+      eyebrow="TEMPLE DESTINATIONS & TOUR ROUTES" 
       title="Every stop tells a sacred story." 
-      text="Explore our handpicked temple and pilgrimage routes from Tirupati." 
+      text="Explore handpicked temple circuits, historical landmarks, and outstation pilgrimage destinations from Tirupati." 
       image={images.place}
     >
-      <div className="content destination-list">
-        {destinations.map((d, i) => (
-          <article key={d[0]} style={{ display: 'flex', flexDirection: 'column' }}>
-            <div style={{ position: 'relative' }}>
-              <img src={d[3]} alt={d[1]} />
-              <span className="popular-duration" style={{ position: 'absolute', top: 12, right: 12, background: 'rgba(15,23,42,0.85)', color: '#34d399', fontWeight: 800, padding: '0.25rem 0.65rem', borderRadius: 6 }}>
-                From {d[4]}
-              </span>
-            </div>
-            <div style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
-              <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#d97706' }}>0{i + 1} · SACRED ROUTE</span>
-              <h3 style={{ fontSize: '1.25rem', margin: '0.25rem 0 0.5rem 0' }}>{d[1]}</h3>
-              <p style={{ fontSize: '0.9rem', color: '#475569', marginBottom: '1rem', flex: 1 }}>{d[2]}</p>
+      <div className="destinations-page-section">
+        <div className="destinations-grid-container">
+          {destinations.map((d, i) => (
+            <ScrollReveal key={d[0]} direction="up" delay={i * 0.05}>
+              <article className="dest-card">
+                <div className="dest-card-image-wrapper">
+                  <img src={d[3]} alt={d[1]} className="dest-card-img" />
+                  <span className="dest-price-badge">
+                    From {d[4]}
+                  </span>
+                  <span className="dest-number-chip">
+                    0{i + 1}
+                  </span>
+                </div>
 
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: 'auto' }}>
-                <Link to={`/destinations/${d[0]}`} className="button secondary" style={{ flex: 1, padding: '0.6rem', textAlign: 'center', fontSize: '0.85rem' }}>
-                  Read Guide
-                </Link>
-                <a
-                  href={`${whatsapp}?text=${encodeURIComponent(`Hi, I want to book a cab for ${d[1]} Tour starting at ${d[4]}. Please share availability.`)}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="button"
-                  style={{ flex: 1, padding: '0.6rem', textAlign: 'center', fontSize: '0.85rem' }}
-                >
-                  Book WhatsApp
-                </a>
-                <button
-                  type="button"
-                  className="button"
-                  style={{ width: '100%', background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7', padding: '0.6rem', fontSize: '0.85rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', marginTop: '0.35rem' }}
-                  onClick={() => setSelectedPayDest(d)}
-                >
-                  <CreditCard size={14} /> Pay Advance Token (Easebuzz)
-                </button>
-              </div>
-            </div>
-          </article>
-        ))}
+                <div className="dest-card-content">
+                  <div className="dest-card-header">
+                    <span className="dest-route-eyebrow">
+                      <Compass size={12} /> SACRED PILGRIMAGE ROUTE
+                    </span>
+                    <h3 className="dest-title">{d[1]}</h3>
+                  </div>
+
+                  <p className="dest-description">{d[2]}</p>
+
+                  <div className="dest-card-actions">
+                    <div className="dest-btn-row">
+                      <Link to={`/destinations/${d[0]}`} className="dest-btn dest-btn-guide">
+                        Read Guide <ArrowRight size={14} />
+                      </Link>
+                      <a
+                        href={`${whatsapp}?text=${encodeURIComponent(`Hi, I want to book a cab for ${d[1]} Tour starting at ${d[4]}. Please share vehicle options and availability.`)}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="dest-btn dest-btn-wa"
+                      >
+                        <MessageCircle size={15} /> Book WhatsApp
+                      </a>
+                    </div>
+                    <button
+                      type="button"
+                      className="dest-btn dest-btn-pay"
+                      onClick={() => setSelectedPayDest(d)}
+                    >
+                      Pay 💳
+                    </button>
+                  </div>
+                </div>
+              </article>
+            </ScrollReveal>
+          ))}
+        </div>
       </div>
 
       {/* Easebuzz Checkout Modal */}
@@ -64,8 +79,9 @@ export default function Destinations() {
           isOpen={Boolean(selectedPayDest)}
           onClose={() => setSelectedPayDest(null)}
           initialData={{
-            service: `${selectedPayDest[1]} Tour Advance Token`,
-            amount: '500'
+            service: `${selectedPayDest[1]} Tour`,
+            amount: '500',
+            fullAmount: selectedPayDest[4] || '2499'
           }}
         />
       )}

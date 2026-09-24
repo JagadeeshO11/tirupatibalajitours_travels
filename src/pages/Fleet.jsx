@@ -129,7 +129,7 @@ export default function Fleet() {
                             style={{ flex: 1, background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7' }}
                             onClick={() => setSelectedPayVehicle(v)}
                           >
-                            <CreditCard size={15} /> Pay Deposit (Easebuzz)
+                            Pay 💳
                           </button>
                         </div>
                       </div>
@@ -174,8 +174,9 @@ export default function Fleet() {
           isOpen={Boolean(selectedPayVehicle)}
           onClose={() => setSelectedPayVehicle(null)}
           initialData={{
-            service: `${selectedPayVehicle.name} Booking Advance Token`,
-            amount: '500'
+            service: `${selectedPayVehicle.name} Booking`,
+            amount: '500',
+            fullAmount: selectedPayVehicle.local || '2880'
           }}
         />
       )}

@@ -58,7 +58,7 @@ const ContentTable = ({ rows, headers, routeTitle, onPayClick }) => {
                 className="table-book-btn"
                 style={{ background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7', padding: '7px 10px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
                 onClick={() => onPayClick && onPayClick({ name: row[0], price: row[1], title: routeTitle })}
-                title="Pay Advance Deposit (Easebuzz)"
+                title="Pay 💳"
               >
                 <CreditCard size={15} />
               </button>
@@ -203,7 +203,7 @@ function DetailedRouteContent({ content, route }) {
                   style={{ flex: 1, padding: '0.6rem', fontSize: '0.85rem', background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7' }}
                   onClick={() => setPayCar({ name: car.name, price: car.price, title: route.title })}
                 >
-                  <CreditCard size={14} /> Pay Deposit (Easebuzz)
+                  <CreditCard size={14} /> Pay 💳
                 </button>
               </div>
             </div>
@@ -446,7 +446,7 @@ export default function CabRoutePage({ route: routeProp }) {
               style={{ background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
               onClick={() => setShowHeroPayModal(true)}
             >
-              <CreditCard size={16} /> Pay Deposit (Easebuzz)
+              <CreditCard size={16} /> Pay 💳
             </button>
           </div>
         </div>
@@ -540,7 +540,8 @@ export default function CabRoutePage({ route: routeProp }) {
           onClose={() => setShowHeroPayModal(false)}
           initialData={{
             service: `${route.title} Booking Token Deposit`,
-            amount: '500'
+            amount: '500',
+            fullAmount: route.starting
           }}
         />
       )}

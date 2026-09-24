@@ -29,7 +29,7 @@ export default function VehicleDetails(){
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginTop: '1rem' }}>
             <a className="button" style={{ flex: 1 }} href={`${whatsapp}?text=${encodeURIComponent(message)}`} target="_blank" rel="noreferrer">Rent on WhatsApp</a>
             <button type="button" className="button" style={{ flex: 1, background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7' }} onClick={() => setShowPayModal(true)}>
-              <CreditCard size={15}/> Pay Deposit (Easebuzz)
+              Pay 💳
             </button>
           </div>
         </div>
@@ -42,8 +42,9 @@ export default function VehicleDetails(){
         isOpen={showPayModal}
         onClose={() => setShowPayModal(false)}
         initialData={{
-          service: `${name} Booking Token Deposit`,
-          amount: '500'
+          service: `${name} Booking`,
+          amount: '500',
+          fullAmount: local || '2880'
         }}
       />
     )}

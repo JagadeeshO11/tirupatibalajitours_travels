@@ -152,9 +152,9 @@ export default function ServiceLanding({ slug: routeSlug }) {
               type="button"
               className="button hero-pay-btn"
               style={{ background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
-              onClick={() => setSelectedPayVehicle({ name: data.title, price: '500', serviceTitle: data.title })}
+              onClick={() => setSelectedPayVehicle({ name: data.title, price: '2500', serviceTitle: data.title })}
             >
-              <CreditCard size={16} /> Pay Deposit (Easebuzz)
+              <CreditCard size={16} /> Pay 💳
             </button>
           </div>
         </div>
@@ -319,7 +319,7 @@ export default function ServiceLanding({ slug: routeSlug }) {
                     style={{ flex: 1, padding: '0.6rem 0.5rem', fontSize: '0.85rem', background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7' }}
                     onClick={() => setSelectedPayVehicle({ name, price, serviceTitle: data.title })}
                   >
-                    <CreditCard size={14} /> Pay (Easebuzz)
+                    <CreditCard size={14} /> Pay 💳
                   </button>
                 </div>
               </div>
@@ -506,7 +506,8 @@ export default function ServiceLanding({ slug: routeSlug }) {
           onClose={() => setSelectedPayVehicle(null)}
           initialData={{
             service: `${selectedPayVehicle.name} (${selectedPayVehicle.serviceTitle || 'Cab Booking'})`,
-            amount: '500'
+            amount: '500',
+            fullAmount: selectedPayVehicle.price
           }}
         />
       )}

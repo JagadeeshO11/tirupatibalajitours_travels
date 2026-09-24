@@ -144,8 +144,10 @@ export default function App() {
 
             <Route path="/tours" element={<Tours />} />
             <Route path="/destinations" element={<Destinations />} />
-            <Route path="/destinations/:slug" element={<DestinationDetail />} />
-            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog" element={<Navigate to="/blog/tirupati-to-coimbatore-distance" replace />} />
+            <Route path="/blogs" element={<Navigate to="/blog/tirupati-to-coimbatore-distance" replace />} />
+            <Route path="/blog/:slug" element={<Blog />} />
+            <Route path="/blogs/:slug" element={<Blog />} />
 
             {/* More Dropdown Pages */}
             <Route path="/about" element={<About />} />

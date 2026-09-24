@@ -92,15 +92,7 @@ h3 { letter-spacing: -.01em; font-weight: 700; }
 .page-hero .secondary:hover { background: #ffffff; color: var(--blue-950); }
 .result { padding: 18px; background: #fffbeb; border: 1.5px solid rgba(245,158,11,.4); border-radius: var(--radius-sm); color: #92400e; font-weight: 600; }
 .result a { color: var(--blue); font-weight: 800; }
-.destination-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-.destination-list article { height: 250px; position: relative; overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 2px solid rgba(255,255,255,0.8); min-width: 0; }
-.destination-list img { height: 100%; width: 100%; object-fit: cover; transition: transform .65s var(--ease); display: block; }
-.destination-list article:hover img { transform: scale(1.08); }
-.destination-list article:after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(6,12,44,.95), rgba(6,12,44,0.1)); }
-.destination-list div { position: absolute; z-index: 1; bottom: 20px; left: 18px; right: 18px; color: white; min-width: 0; }
-.destination-list span { font-size: 11px; color: var(--gold-bright); font-weight: 800; letter-spacing: 1px; }
-.destination-list h3 { margin: 4px 0; font-size: 18px; overflow-wrap: anywhere; }
-.destination-list a { font-size: 12px; color: #fef08a; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+
 .blog-list { display: grid; gap: 22px; }
 .blog-list article { background: var(--surface); display: grid; grid-template-columns: 260px 1fr; border: 1.5px solid var(--line); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s ease; }
 .blog-list article:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: rgba(245,158,11,.4); }

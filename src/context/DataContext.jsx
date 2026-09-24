@@ -90,7 +90,15 @@ export function DataProvider({ children }) {
   const [blogs, setBlogs] = useState(() => {
     try {
       const saved = localStorage.getItem('app_blogs');
-      return saved ? JSON.parse(saved) : initialBlogs;
+      if (!saved) return initialBlogs;
+      const parsed = JSON.parse(saved);
+      const merged = initialBlogs.map(ib => {
+        const matching = parsed.find(b => b.id === ib.id || b.slug === ib.slug);
+        return matching ? { ...ib, ...matching, image: ib.image, fullContent: ib.fullContent } : ib;
+      });
+      // Also include any user-created blogs from admin panel
+      const customBlogs = parsed.filter(p => !initialBlogs.some(ib => ib.id === p.id || ib.slug === p.slug));
+      return [...merged, ...customBlogs];
     } catch {
       return initialBlogs;
     }

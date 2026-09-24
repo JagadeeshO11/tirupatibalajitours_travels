@@ -1,395 +1,278 @@
 import { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useParams, Link, Navigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import {
-  Search, X, ArrowRight, BookOpen, Clock, Eye, User, Sparkles,
-  CheckCircle2, ChevronRight, MessageCircle, Star, ShieldCheck,
-  Calendar, Tag, Share2, HelpCircle, ChevronDown
+  Calendar, Clock, User, Eye, CheckCircle2, MessageCircle, Phone,
+  ArrowRight, ChevronRight, Sparkles, ChevronDown, Share2, Tag, Home, Bookmark
 } from 'lucide-react';
 import Page from './PageTemplate';
-import { images, whatsappBooking, whatsapp } from '../data/siteData';
-import { blogPosts, blogCategories } from '../data/blogData';
+import { images, whatsappBooking, phone } from '../data/siteData';
+import { blogPosts } from '../data/blogData';
 import { useData } from '../context/DataContext';
-import AnimatedCounter from '../components/AnimatedCounter';
 import StatsBanner from '../components/StatsBanner';
 import ScrollReveal from '../components/ScrollReveal';
 import './Blog.css';
 
 export default function Blog() {
+  const { slug } = useParams();
   const { blogs } = useData();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activeCategory, setActiveCategory] = useState('All Guides');
-  const [selectedPost, setSelectedPost] = useState(null);
-  const [subscribed, setSubscribed] = useState(false);
-  const [emailInput, setEmailInput] = useState('');
   const [openFaq, setOpenFaq] = useState(null);
+  const [copied, setCopied] = useState(false);
 
-  // Filter posts based on category and search query
-  const filteredPosts = useMemo(() => {
-    return blogs.filter(post => {
-      const matchesCategory =
-        activeCategory === 'All Guides' || post.category === activeCategory;
-      const matchesSearch =
-        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.snippet.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (post.tags && post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())));
-      return matchesCategory && matchesSearch;
-    });
-  }, [blogs, searchQuery, activeCategory]);
-
-  const featuredPost = useMemo(() => {
-    return blogs.find(p => p.featured) || blogs[0];
+  // Available blog posts list
+  const allBlogs = useMemo(() => {
+    return blogs && blogs.length > 0 ? blogs : blogPosts;
   }, [blogs]);
 
-  const handleSubscribe = (e) => {
-    e.preventDefault();
-    if (emailInput.trim()) {
-      setSubscribed(true);
-      setEmailInput('');
+  // If no slug is provided in URL, redirect to first blog
+  if (!slug) {
+    const targetSlug = allBlogs[0]?.slug || 'tirupati-to-coimbatore-distance';
+    return <Navigate to={`/blog/${targetSlug}`} replace />;
+  }
+
+  // Find target post by slug or id
+  const currentPost = allBlogs.find(
+    p => p.slug === slug || p.id === slug
+  ) || allBlogs[0];
+
+  // Related posts (excluding current post)
+  const relatedPosts = allBlogs.filter(
+    p => (p.slug !== currentPost.slug && p.id !== currentPost.id)
+  ).slice(0, 6);
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: currentPost.title,
+        url: window.location.href,
+      }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
     }
   };
 
   return (
     <Page
-      eyebrow="TRAVEL & PILGRIMAGE JOURNAL"
-      title="Sacred Journey Guides & Travel Insights"
-      text="Expert guidance for your Tirumala Balaji Darshan, local temple circuits, outstation taxi packages, and South India tours."
-      image={images.temple}
+      eyebrow="TIRUPATI BALAJI TRAVEL JOURNAL"
+      title={currentPost.shortTitle || currentPost.title}
+      text="Comprehensive pilgrimage insights, road distance guides, and taxi service packages."
+      image={currentPost.image || images.temple}
     >
-      {/* --- HERO COUNTER STATS BAR --- */}
-      <section className="blog-hero-section">
-        <div className="blog-hero-container">
-          <ScrollReveal direction="zoom">
-            <span className="blog-hero-badge">
-              <Sparkles size={14} /> OFFICIAL TIRUPATI TRAVEL JOURNAL
-            </span>
-            <h1 className="blog-hero-title">
-              Insights for your <em>sacred journey.</em>
-            </h1>
-            <p className="blog-hero-lead">
-              Verified darshan timing tips, temple dress codes, ghat road cab guidelines, and comprehensive travel itineraries written by local pilgrimage experts.
-            </p>
-          </ScrollReveal>
+      <div className="single-blog-page-wrapper">
+        <article className="single-blog-article">
+        {/* --- BREADCRUMBS --- */}
+        <div className="single-blog-breadcrumbs">
+          <Link to="/"><Home size={14} /> Home</Link>
+          <ChevronRight size={13} />
+          <span className="crumb-active">{currentPost.category}</span>
+          <ChevronRight size={13} />
+          <span className="crumb-title">{currentPost.shortTitle || currentPost.title}</span>
+        </div>
 
-          {/* HERO ANIMATED COUNTERS */}
-          <div className="blog-hero-stats">
-            <div className="blog-stat-item">
-              <span className="stat-num">
-                <AnimatedCounter end={120} suffix="+" />
-              </span>
-              <span className="stat-txt">Verified Guides</span>
+        {/* --- ARTICLE HEADER --- */}
+        <header className="single-blog-header">
+          <div className="single-blog-meta-top">
+            <span className="single-category-badge">
+              <Bookmark size={12} /> {currentPost.category}
+            </span>
+            <span className="single-read-time">
+              <Clock size={13} /> {currentPost.readTime}
+            </span>
+          </div>
+
+          <h1 className="single-blog-title">{currentPost.title}</h1>
+
+          <div className="single-blog-author-bar">
+            <div className="single-author-info">
+              <div className="author-avatar-icon">
+                <User size={16} />
+              </div>
+              <div className="author-details">
+                <span className="author-name">{currentPost.author}</span>
+                <span className="author-role">Updated on {currentPost.date}</span>
+              </div>
             </div>
-            <div className="blog-stat-item">
-              <span className="stat-num">
-                <AnimatedCounter end={50000} suffix="+" />
+
+            <div className="single-header-actions">
+              <span className="views-count">
+                <Eye size={14} /> {currentPost.views || '12,500+ Devotee Reads'}
               </span>
-              <span className="stat-txt">Happy Pilgrims</span>
-            </div>
-            <div className="blog-stat-item">
-              <span className="stat-num">
-                <AnimatedCounter end={15} suffix="+ Yrs" />
-              </span>
-              <span className="stat-txt">Local Expertise</span>
-            </div>
-            <div className="blog-stat-item">
-              <span className="stat-num">
-                <AnimatedCounter end={4.9} decimals={1} suffix=" / 5" />
-              </span>
-              <span className="stat-txt">Devotee Rating</span>
+              <button type="button" className="share-btn" onClick={handleShare}>
+                <Share2 size={15} /> {copied ? 'Link Copied!' : 'Share Guide'}
+              </button>
             </div>
           </div>
-        </div>
-      </section>
+        </header>
 
-      {/* --- SEARCH & CATEGORY CONTROLS --- */}
-      <div className="blog-controls-wrapper">
-        <div className="blog-search-box">
-          <Search size={18} className="blog-search-icon" />
-          <input
-            type="text"
-            placeholder="Search guides by temple, keyword, or topic..."
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
+        {/* --- HERO CLOUDINARY IMAGE --- */}
+        <div className="single-blog-featured-image-wrapper">
+          <img
+            src={currentPost.image}
+            alt={currentPost.title}
+            className="single-blog-featured-img"
           />
-          {searchQuery && (
-            <button className="blog-search-clear" onClick={() => setSearchQuery('')}>
-              <X size={14} />
-            </button>
+        </div>
+
+        {/* --- KEY HIGHLIGHTS CHECKLIST BOX --- */}
+        {currentPost.highlights && currentPost.highlights.length > 0 && (
+          <ScrollReveal direction="up">
+            <div className="single-highlights-card">
+              <div className="highlights-header">
+                <Sparkles size={18} className="sparkle-gold" />
+                <h3>Key Travel Highlights & Essential Takeaways</h3>
+              </div>
+              <ul className="highlights-list">
+                {currentPost.highlights.map((hl, idx) => (
+                  <li key={idx}>
+                    <CheckCircle2 size={18} className="check-icon" />
+                    <span>{hl}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </ScrollReveal>
+        )}
+
+        {/* --- ARTICLE FULL CONTENT SECTIONS --- */}
+        <div className="single-article-body">
+          {currentPost.fullContent?.intro && (
+            <p className="article-intro-lead">
+              "{currentPost.fullContent.intro}"
+            </p>
+          )}
+
+          {currentPost.fullContent?.sections ? (
+            currentPost.fullContent.sections.map((sec, idx) => (
+              <section key={idx} className="article-section">
+                <h2>{sec.heading}</h2>
+                <p>{sec.text}</p>
+              </section>
+            ))
+          ) : (
+            <section className="article-section">
+              <p>{currentPost.snippet}</p>
+            </section>
+          )}
+
+          {/* TAGS ROW */}
+          {currentPost.tags && currentPost.tags.length > 0 && (
+            <div className="article-tags-wrapper">
+              <span className="tags-label"><Tag size={14} /> Related Topics:</span>
+              <div className="tags-chips">
+                {currentPost.tags.map((t, idx) => (
+                  <span key={idx} className="single-tag-chip">#{t}</span>
+                ))}
+              </div>
+            </div>
           )}
         </div>
 
-        <div className="blog-category-tabs">
-          {blogCategories.map(cat => (
-            <button
-              key={cat}
-              className={`category-tab-btn ${activeCategory === cat ? 'active' : ''}`}
-              onClick={() => setActiveCategory(cat)}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* --- FEATURED ARTICLE BANNER (SHOW IF NO SEARCH QUERY & IN ALL GUIDES) --- */}
-      {!searchQuery && activeCategory === 'All Guides' && featuredPost && (
-        <ScrollReveal direction="up" delay={0.1}>
-          <div className="blog-featured-card">
-            <div className="blog-featured-image">
-              <img src={featuredPost.image} alt={featuredPost.title} />
-              <span className="blog-featured-badge">FEATURED GUIDE</span>
-            </div>
-            <div className="blog-featured-content">
-              <div className="blog-featured-meta">
-                <span>{featuredPost.category}</span>
-                <span>•</span>
-                <span><Clock size={13} style={{ display: 'inline', marginRight: 4 }} />{featuredPost.readTime}</span>
+        {/* --- CAB BOOKING CALL TO ACTION BOX --- */}
+        <ScrollReveal direction="zoom">
+          <div className="single-blog-cta-card">
+            <div className="cta-content">
+              <span className="cta-badge"><Sparkles size={13} /> 24/7 TAXI & TOUR PACKAGES</span>
+              <h2>Planning Your Trip for this Route?</h2>
+              <p>
+                Book clean AC Sedans (Dzire/Etios), Executive Innova Crysta, or Luxury 12/17-Seater Tempo Travellers with experienced local drivers for a hassle-free journey.
+              </p>
+              <div className="cta-buttons-row">
+                <a
+                  href={whatsappBooking(`Hi! I read your blog "${currentPost.title}" and would like to inquire about cab fare packages and availability.`)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="cta-btn cta-whatsapp"
+                >
+                  <MessageCircle size={18} /> Inquire on WhatsApp
+                </a>
+                <a href={`tel:${phone}`} className="cta-btn cta-call">
+                  <Phone size={18} /> Call +91 8688624758
+                </a>
               </div>
-              <h2>{featuredPost.title}</h2>
-              <p>{featuredPost.snippet}</p>
-              
-              <div className="blog-tags-row">
-                {featuredPost.tags.map(t => (
-                  <span key={t} className="tag-chip">#{t}</span>
-                ))}
-              </div>
-
-              <button
-                className="blog-read-btn"
-                onClick={() => setSelectedPost(featuredPost)}
-              >
-                Read Full Guide <ArrowRight size={16} />
-              </button>
             </div>
           </div>
         </ScrollReveal>
-      )}
 
-      {/* --- BLOG GRID --- */}
-      <section className="blog-grid-section">
-        {filteredPosts.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '4rem 1rem', color: '#94a3b8' }}>
-            <h3>No guides found matching "{searchQuery}"</h3>
-            <p>Try searching for Tirumala, Srikalahasti, Cab, or Darshan.</p>
-            <button
-              className="blog-read-btn"
-              style={{ margin: '1.5rem auto 0' }}
-              onClick={() => { setSearchQuery(''); setActiveCategory('All Guides'); }}
-            >
-              View All Travel Guides
-            </button>
+        {/* --- FAQ SECTION --- */}
+        <section className="single-faq-section">
+          <div className="faq-header">
+            <p className="faq-eyebrow">HELPFUL TRAVEL TIPS</p>
+            <h2>Devotee Frequently Asked Questions</h2>
           </div>
-        ) : (
-          <div className="blog-grid">
-            {filteredPosts.map((post, i) => (
-              <ScrollReveal key={post.id} direction="up" delay={i * 0.08}>
-                <article className="blog-card">
-                  <div className="blog-card-image">
-                    <img src={post.image} alt={post.title} />
-                    <span className="blog-category-tag">{post.category}</span>
-                  </div>
-                  <div className="blog-card-body">
-                    <div className="blog-card-meta">
-                      <span><Calendar size={12} style={{ display: 'inline', marginRight: 4 }} />{post.date}</span>
-                      <span><Clock size={12} style={{ display: 'inline', marginRight: 4 }} />{post.readTime}</span>
-                    </div>
-                    <h3>{post.title}</h3>
-                    <p>{post.snippet}</p>
-                    <div className="blog-card-footer">
-                      <div className="blog-author-info">
-                        <User size={13} style={{ color: '#ffd700' }} />
-                        <span>{post.author.split(' ')[0]}</span>
-                      </div>
-                      <button
-                        className="blog-card-link-btn"
-                        onClick={() => setSelectedPost(post)}
-                      >
-                        Read Guide <ArrowRight size={14} />
-                      </button>
-                    </div>
-                  </div>
-                </article>
-              </ScrollReveal>
+
+          <div className="faq-accordion-list">
+            {[
+              {
+                q: `What is the best vehicle for traveling on the ${currentPost.shortTitle || 'Tirupati'} route?`,
+                a: 'For 1-4 passengers with moderate luggage, an AC Sedan (Dzire/Etios) is economical and comfortable. For families of 5-7 or elderly pilgrims requiring extra legroom and suspension comfort, Toyota Innova Crysta is highly recommended.'
+              },
+              {
+                q: 'Are driver bata, tolls, and state permits included in your taxi package quotes?',
+                a: 'Yes, all quotes provided by Tirupati Balaji Tours & Travels are 100% all-inclusive (covering driver bata, highway tolls, parking fees, and AP state entry permits where applicable).'
+              },
+              {
+                q: 'Can we customize our route to include nearby temple visits?',
+                a: 'Absolutely! Our drivers are local experts who can seamlessly add temple halts (such as Srikalahasti, Kanipakam, Tiruchanur, or Thiruttani) to your itinerary.'
+              }
+            ].map((faq, idx) => (
+              <div
+                key={idx}
+                className={`single-faq-item ${openFaq === idx ? 'is-open' : ''}`}
+                onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+              >
+                <div className="faq-question-row">
+                  <h3>{faq.q}</h3>
+                  <ChevronDown size={18} className="faq-chevron" />
+                </div>
+                {openFaq === idx && (
+                  <p className="faq-answer-text">{faq.a}</p>
+                )}
+              </div>
             ))}
           </div>
-        )}
-      </section>
+        </section>
 
-      {/* --- LIVE STATS BANNER COMPONENT --- */}
-      <StatsBanner
-        title="Trusted Pilgrimage & Outstation Taxi Service"
-        subtitle="WHY DEVOTEES CHOOSE US"
-      />
+        {/* --- STATS BANNER --- */}
+        <StatsBanner
+          title="Trusted Tirupati Cab & Tour Service"
+          subtitle="DEVOTEE SATISFACTION GUARANTEED"
+        />
 
-      {/* --- DEVOTEE FAQ & TRAVEL TIPS SECTION --- */}
-      <section className="section" style={{ maxWidth: 900, margin: '3rem auto' }}>
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">PILGRIM FREQUENTLY ASKED QUESTIONS</p>
-            <h2>Essential Tips for Tirupati & Tirumala Travel</h2>
-          </div>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '2rem' }}>
-          {[
-            {
-              q: 'What is the best way to travel from Tirupati Railway Station to Tirumala Uphill?',
-              a: 'Hiring a dedicated yellow-plate AC taxi is the fastest and most convenient method. The distance is 22 km via Alipiri Tollgate taking around 45 to 50 minutes.'
-            },
-            {
-              q: 'Are cab services available 24/7 at Tirupati Airport (TIR)?',
-              a: 'Yes, Tirupati Balaji Tours & Travels provides guaranteed 24/7 airport pickups and drops with driver track links and fixed transparent fares.'
-            },
-            {
-              q: 'Can we book a single cab for Tirupati, Srikalahasti, and Kanipakam temple tour?',
-              a: 'Absolutely! Our 1-Day and 2-Day custom package cabs cover all major temples seamlessly with experienced local drivers.'
-            }
-          ].map((item, idx) => (
-            <div
-              key={item.q}
-              style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '14px', boxShadow: 'var(--shadow-sm)', padding: '1.25rem 1.5rem', cursor: 'pointer' }}
-              onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
-                <h3 style={{ color: 'var(--blue-950, #060c2c)', fontSize: '1.05rem', margin: 0, fontWeight: 700 }}>{item.q}</h3>
-                <ChevronDown
-                  size={18}
-                  style={{
-                    color: 'var(--gold-dark, #d97706)',
-                    transform: openFaq === idx ? 'rotate(180deg)' : 'rotate(0deg)',
-                    transition: 'transform 0.3s ease',
-                    flexShrink: 0
-                  }}
-                />
-              </div>
-              {openFaq === idx && (
-                <p style={{ color: 'var(--muted, #334155)', fontSize: '0.95rem', marginTop: '0.85rem', lineHeight: '1.65', margin: '0.85rem 0 0' }}>
-                  {item.a}
-                </p>
-              )}
+        {/* --- OTHER INDIVIDUAL BLOGS DROPDOWN / GRID SECTION --- */}
+        <section className="related-blogs-section">
+          <div className="related-header">
+            <div>
+              <span className="related-eyebrow">EXPLORE MORE GUIDES</span>
+              <h2>Other Recommended Travel Blogs</h2>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* --- NEWSLETTER SECTION --- */}
-      <section className="blog-newsletter-section">
-        <ScrollReveal direction="zoom">
-          <div className="blog-newsletter-card">
-            <h3>Subscribe for Darshan Updates & Travel Tips</h3>
-            <p>Get instant updates on TTD ticket releases, temple festival schedules, and exclusive taxi package discounts delivered to your inbox.</p>
-            {subscribed ? (
-              <div style={{ color: '#ffd700', fontWeight: 700, fontSize: '1.1rem' }}>
-                <CheckCircle2 style={{ display: 'inline', marginRight: 8, verticalAlign: 'middle' }} />
-                Thank you for subscribing! We will keep you updated.
-              </div>
-            ) : (
-              <form className="blog-newsletter-form" onSubmit={handleSubscribe}>
-                <input
-                  type="email"
-                  required
-                  placeholder="Enter your email address..."
-                  value={emailInput}
-                  onChange={e => setEmailInput(e.target.value)}
-                />
-                <button type="submit">Subscribe Now</button>
-              </form>
-            )}
           </div>
-        </ScrollReveal>
-      </section>
 
-      {/* --- FULL ARTICLE INTERACTIVE MODAL --- */}
-      <AnimatePresence>
-        {selectedPost && (
-          <div className="blog-modal-backdrop" onClick={() => setSelectedPost(null)}>
-            <motion.div
-              className="blog-modal-container"
-              onClick={e => e.stopPropagation()}
-              initial={{ opacity: 0, y: 50, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 50, scale: 0.95 }}
-              transition={{ duration: 0.3 }}
-            >
-              <button
-                className="blog-modal-close"
-                onClick={() => setSelectedPost(null)}
-                aria-label="Close guide"
-              >
-                <X size={20} />
-              </button>
-
-              <img
-                src={selectedPost.image}
-                alt={selectedPost.title}
-                className="blog-modal-header-img"
-              />
-
-              <div className="blog-modal-body">
-                <span className="blog-category-tag" style={{ position: 'static', marginBottom: '0.75rem', display: 'inline-block' }}>
-                  {selectedPost.category}
-                </span>
-
-                <h2 className="blog-modal-title">{selectedPost.title}</h2>
-
-                <div className="blog-modal-meta">
-                  <span>By <strong>{selectedPost.author}</strong></span>
-                  <span>•</span>
-                  <span>{selectedPost.date}</span>
-                  <span>•</span>
-                  <span>{selectedPost.readTime}</span>
+          <div className="related-blogs-grid">
+            {relatedPosts.map(post => (
+              <Link key={post.slug} to={`/blog/${post.slug}`} className="related-blog-card">
+                <div className="related-card-img">
+                  <img src={post.image} alt={post.title} />
+                  <span className="related-cat-chip">{post.category}</span>
                 </div>
-
-                {/* KEY HIGHLIGHTS CHECKLIST */}
-                {selectedPost.highlights && (
-                  <div className="blog-highlights-box">
-                    <h4>Key Takeaways & Travel Highlights:</h4>
-                    <ul>
-                      {selectedPost.highlights.map(hl => (
-                        <li key={hl}>
-                          <CheckCircle2 size={16} />
-                          <span>{hl}</span>
-                        </li>
-                      ))}
-                    </ul>
+                <div className="related-card-body">
+                  <div className="related-meta">
+                    <span><Calendar size={12} /> {post.date}</span>
+                    <span><Clock size={12} /> {post.readTime}</span>
                   </div>
-                )}
-
-                {/* FULL CONTENT SECTIONS */}
-                {selectedPost.fullContent && (
-                  <div>
-                    <p style={{ fontSize: '1.05rem', color: '#e2e8f0', lineHeight: '1.65', marginBottom: '2rem', fontStyle: 'italic' }}>
-                      "{selectedPost.fullContent.intro}"
-                    </p>
-
-                    {selectedPost.fullContent.sections.map(sec => (
-                      <div key={sec.heading} className="blog-section-block">
-                        <h3>{sec.heading}</h3>
-                        <p>{sec.text}</p>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* CALL TO ACTION BOX INSIDE MODAL */}
-                <div className="blog-cta-box">
-                  <h4>Need a Reliable Cab for this Journey?</h4>
-                  <p>Book an AC Sedan, Innova Crysta, or Tempo Traveller with experienced local drivers for a peaceful trip.</p>
-                  <a
-                    href={whatsappBooking(`Hi, I read your guide "${selectedPost.title}" and would like to enquire about cab package options for my travel.`)}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="button"
-                    style={{ background: 'linear-gradient(135deg, #ffd700 0%, #ff9900 100%)', color: '#0f172a', fontWeight: 800 }}
-                  >
-                    Enquire on WhatsApp <MessageCircle size={16} />
-                  </a>
+                  <h3>{post.shortTitle || post.title}</h3>
+                  <p>{post.snippet}</p>
+                  <span className="related-read-link">
+                    Read Guide <ArrowRight size={14} />
+                  </span>
                 </div>
-              </div>
-            </motion.div>
+              </Link>
+            ))}
           </div>
-        )}
-      </AnimatePresence>
-    </Page>
-  );
+        </section>
+      </article>
+    </div>
+  </Page>
+);
 }

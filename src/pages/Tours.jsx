@@ -120,7 +120,7 @@ export default function Tours() {
                       style={{ flex: 1, background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7' }}
                       onClick={() => setSelectedPayTour({ title, price })}
                     >
-                      <CreditCard size={15} /> Pay Deposit (Easebuzz)
+                      Pay 💳
                     </button>
                   </div>
                 </div>
@@ -161,8 +161,9 @@ export default function Tours() {
           isOpen={Boolean(selectedPayTour)}
           onClose={() => setSelectedPayTour(null)}
           initialData={{
-            service: `${selectedPayTour.title} Advance Deposit`,
-            amount: '1000'
+            service: `${selectedPayTour.title} Tour`,
+            amount: '1000',
+            fullAmount: selectedPayTour.price || '2500'
           }}
         />
       )}
