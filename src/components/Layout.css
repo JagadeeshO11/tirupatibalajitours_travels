@@ -406,9 +406,11 @@ body {
 }
 
 .nav-more .nav-cabs-menu {
-  left: auto;
-  right: 0;
-  transform: translateY(8px);
+  left: auto !important;
+  right: 0 !important;
+  transform: translateY(8px) !important;
+  width: 230px !important;
+  max-width: 230px !important;
 }
 
 .nav-cabs.is-open .nav-cabs-menu,
@@ -426,7 +428,12 @@ body {
 
 .nav-more.is-open .nav-cabs-menu,
 .nav-more .nav-cabs-menu.is-open {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
   transform: translateY(0) !important;
+  left: auto !important;
+  right: 0 !important;
   transition-delay: 0s !important;
 }
 

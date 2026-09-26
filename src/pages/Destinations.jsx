@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MessageCircle, CreditCard, ArrowRight, Compass } from 'lucide-react';
+import { ArrowRight, Compass } from 'lucide-react';
 import Page from './PageTemplate';
-import { images, whatsapp } from '../data/siteData';
+import { images } from '../data/siteData';
 import EasebuzzModal from '../components/EasebuzzModal';
 import { useData } from '../context/DataContext';
 import ScrollReveal from '../components/ScrollReveal';
@@ -44,27 +44,18 @@ export default function Destinations() {
 
                   <p className="dest-description">{d[2]}</p>
 
-                  <div className="dest-card-actions">
-                    <div className="dest-btn-row">
-                      <Link to={`/destinations/${d[0]}`} className="dest-btn dest-btn-guide">
-                        Read Guide <ArrowRight size={14} />
-                      </Link>
-                      <a
-                        href={`${whatsapp}?text=${encodeURIComponent(`Hi, I want to book a cab for ${d[1]} Tour starting at ${d[4]}. Please share vehicle options and availability.`)}`}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="dest-btn dest-btn-wa"
-                      >
-                        <MessageCircle size={15} /> Book WhatsApp
-                      </a>
-                    </div>
+                  <div className="dest-actions-two">
                     <button
                       type="button"
-                      className="dest-btn dest-btn-pay"
+                      className="dest-btn-pay"
                       onClick={() => setSelectedPayDest(d)}
                     >
-                      Pay 💳
+                      <span>Pay 💳</span>
                     </button>
+                    <Link to={`/destinations/${d[0]}`} className="dest-btn-details">
+                      <span>Read Guide</span>
+                      <ArrowRight size={14} />
+                    </Link>
                   </div>
                 </div>
               </article>

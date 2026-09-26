@@ -58,3 +58,201 @@
   .home-steps-grid, .home-reviews-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 1.25rem; }
   .home-steps-grid > div, .home-reviews-grid > div { padding: 1.25rem 0.9rem !important; border-radius: 14px !important; }
 }
+
+/* Home Hero Layout with Increased Height & Content Scale */
+.home-hero {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  padding: 115px clamp(20px, 5vw, 110px) 65px !important;
+  min-height: 540px !important;
+  gap: 28px !important;
+  box-sizing: border-box !important;
+}
+
+.hero-top-booking {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 20;
+}
+
+.hero-top-booking .enhanced-booking-container {
+  margin: 0 auto !important;
+  padding: 0 !important;
+  max-width: 100% !important;
+}
+
+.hero-main-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 36px;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.home-hero .type-title,
+.home-hero h1 {
+  font-size: clamp(2rem, 3.5vw, 3.2rem) !important;
+  line-height: 1.12 !important;
+  margin: 10px 0 16px !important;
+}
+
+.home-hero .eyebrow {
+  font-size: 11.5px !important;
+  letter-spacing: 2px !important;
+}
+
+.home-hero .hero-lead {
+  font-size: 14.5px !important;
+  line-height: 1.65 !important;
+  max-width: 520px !important;
+  margin-bottom: 20px !important;
+  color: #e2e8f0 !important;
+}
+
+.home-hero .actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.home-hero .actions .button {
+  padding: 11px 22px !important;
+  min-height: 44px !important;
+  font-size: 12.5px !important;
+}
+
+.home-hero .hero-trust-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 11.5px;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.home-hero .hero-trust-row span {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Glassmorphism Action Card in Hero Column 2 */
+.hero-action-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  border-radius: 20px;
+  padding: 26px 28px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 175px;
+}
+
+.hero-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hero-action-card .actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+.hero-action-card .actions .button {
+  padding: 12px 24px !important;
+  min-height: 46px !important;
+  font-size: 13px !important;
+  border-radius: 10px !important;
+}
+
+.hero-action-card .hero-trust-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 11.5px;
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+.hero-action-card .hero-trust-row span {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  background: rgba(6, 12, 44, 0.7);
+  padding: 6px 14px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  color: #ffffff;
+}
+
+@media (max-width: 900px) {
+  .home-hero {
+    padding: 85px 14px 28px !important;
+    min-height: auto !important;
+    gap: 18px !important;
+  }
+  .hero-main-grid {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+  }
+  .home-hero .type-title,
+  .home-hero h1 {
+    font-size: clamp(1.65rem, 6.5vw, 2.3rem) !important;
+    line-height: 1.15 !important;
+    margin: 6px 0 10px !important;
+  }
+  .home-hero .hero-lead {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 14px !important;
+  }
+  .hero-action-card {
+    padding: 20px 18px !important;
+    border-radius: 16px !important;
+  }
+  .hero-action-card .actions {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+  .hero-action-card .actions .button {
+    padding: 10px 12px !important;
+    min-height: 42px !important;
+    font-size: 11.5px !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+  .hero-action-card .hero-trust-row {
+    gap: 6px !important;
+    margin-top: 8px !important;
+  }
+  .hero-action-card .hero-trust-row span {
+    padding: 4px 10px !important;
+    font-size: 10.5px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-hero {
+    padding: 80px 12px 24px !important;
+    gap: 14px !important;
+  }
+  .hero-action-card .actions {
+    grid-template-columns: 1fr !important;
+  }
+}

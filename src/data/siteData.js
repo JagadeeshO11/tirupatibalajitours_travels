@@ -30,7 +30,12 @@ export const images = {
   tempo17: 'https://res.cloudinary.com/znbhjevm/image/upload/v1790145996/tirupatibalaji/fleet/tempo-16.png',
   tempo20: 'https://res.cloudinary.com/znbhjevm/image/upload/v1790146003/tirupatibalaji/fleet/tempo-20.png',
   urbania16: 'https://res.cloudinary.com/znbhjevm/image/upload/v1790146009/tirupatibalaji/fleet/urbania-16.png',
+  urbania12: 'https://res.cloudinary.com/dwmjz9csc/image/upload/v1790433309/c1596832-8c82-4746-bb2f-92d4ab2ad812.png',
   bus27: 'https://res.cloudinary.com/znbhjevm/image/upload/v1790146017/tirupatibalaji/fleet/bus-27.png',
+  bus40: 'https://res.cloudinary.com/dwmjz9csc/image/upload/v1790433812/8e4ec778-70b3-4210-bb11-1076e16f4d9d.png',
+  bus45: 'https://res.cloudinary.com/znbhjevm/image/upload/v1790142111/tirupatibalaji/fleet/bus-45.jpg',
+  hycross: 'https://res.cloudinary.com/dwmjz9csc/image/upload/v1790433054/ee040d23-3f76-4aba-aa1a-0ea6cee4ce2a.png',
+  fortuner: 'https://res.cloudinary.com/dwmjz9csc/image/upload/v1790433147/fcf15e93-d12b-4bf4-a54f-d8dd4f425802.png',
   carRental2: 'https://res.cloudinary.com/znbhjevm/image/upload/v1790146024/tirupatibalaji/fleet/car-rental-2.png',
   carRental3: 'https://res.cloudinary.com/znbhjevm/image/upload/v1790146030/tirupatibalaji/fleet/car-rental-3.png',
   tempoGeneric: 'https://res.cloudinary.com/znbhjevm/image/upload/v1790146039/tirupatibalaji/fleet/tempo-generic.png',
@@ -53,16 +58,16 @@ export const vehicles = [
   ['Sedan (Etios / Dzire)', '4+1 Seats', '2 Bags', images.etios, '₹15/km', 'AC · WITH DRIVER', 'SEDAN', 'Economical local and outstation travel for small groups.', '300 km minimum/day'],
   ['Maruti Ertiga', '6+1 Seats', '3 Bags', images.ertiga, '₹19/km', 'AC · WITH DRIVER', 'MUV', 'Comfortable family travel, temple visits and group trips.', '300 km minimum/day'],
   ['Toyota Innova Crysta', '7+1 Seats', '4 Bags', images.crysta, '₹23/km', 'AC · WITH DRIVER', 'PREMIUM SUV', 'Premium family, corporate and long-distance travel.', '300 km minimum/day'],
-  ['Toyota Hycross', '7+1 Seats', '4 Bags', images.crystaAlt, '₹32/km', 'AC · WITH DRIVER', 'PREMIUM SUV', 'Premium comfort for family, corporate and outstation journeys.', '300 km minimum/day'],
-  ['Toyota Fortuner', '7+1 Seats', '4 Bags', images.carRental2, '₹43/km', 'AC · WITH DRIVER', 'PREMIUM SUV', 'Executive premium SUV travel for special and long-distance trips.', '300 km minimum/day'],
+  ['Toyota Hycross', '7+1 Seats', '4 Bags', images.hycross, '₹32/km', 'AC · WITH DRIVER', 'PREMIUM SUV', 'Premium comfort for family, corporate and outstation journeys.', '300 km minimum/day'],
+  ['Toyota Fortuner', '7+1 Seats', '4 Bags', images.fortuner, '₹43/km', 'AC · WITH DRIVER', 'PREMIUM SUV', 'Executive premium SUV travel for special and long-distance trips.', '300 km minimum/day'],
   ['Tempo Traveller 12', '12 Seats', '8 Bags', images.tempo12, '₹26/km', 'AC · WITH DRIVER', 'TEMPO TRAVELLER', 'Small group pilgrimages, local sightseeing and airport transfers.', '300 km minimum/day'],
-  ['Urbania 12 Seater', '12 Seats', '8 Bags', images.urbania16, '₹45/km', 'AC · WITH DRIVER', 'PREMIUM URBANIA', 'Premium group travel with a modern cabin and enhanced comfort.', '300 km minimum/day'],
+  ['Urbania 12 Seater', '12 Seats', '8 Bags', images.urbania12, '₹45/km', 'AC · WITH DRIVER', 'PREMIUM URBANIA', 'Premium group travel with a modern cabin and enhanced comfort.', '300 km minimum/day'],
   ['Tempo Traveller 16', '16 Seats', '10 Bags', images.tempo17, '₹35/km', 'AC · WITH DRIVER', 'TEMPO TRAVELLER', 'Larger family groups, pilgrimages and South India tours.', '300 km minimum/day'],
   ['Urbania 16 Seater', '16 Seats', '10 Bags', images.urbania16, '₹48/km', 'AC · WITH DRIVER', 'PREMIUM URBANIA', 'Premium larger-group journeys, corporate travel and long-distance trips.', '300 km minimum/day'],
   ['Tempo Traveller 20', '20 Seats', '12 Bags', images.tempo20, '₹45/km', 'AC · WITH DRIVER', 'TEMPO TRAVELLER', 'Large group travel, events and extended pilgrimage tours.', '300 km minimum/day'],
   ['Mini Bus 27 Seater', '27 Seats', '15 Bags', images.bus27, '₹55/km', 'AC · WITH DRIVER', 'MINI BUS', 'Group pilgrimages, events, family outings and organized tours.', '300 km minimum/day'],
-  ['Bus 40 Seater', '40 Seats', '20 Bags', images.bus27, '₹65/km', 'AC · WITH DRIVER', 'BUS', 'Large pilgrimages, institutions, corporate groups and events.', '300 km minimum/day'],
-  ['Bus 45 Seater', '45 Seats', '22 Bags', images.bus27, '₹75/km', 'AC · WITH DRIVER', 'BUS', 'Maximum-capacity group tours, events and large pilgrimages.', '300 km minimum/day']
+  ['Bus 40 Seater', '40 Seats', '20 Bags', images.bus40, '₹65/km', 'AC · WITH DRIVER', 'BUS', 'Large pilgrimages, institutions, corporate groups and events.', '300 km minimum/day'],
+  ['Bus 45 Seater', '45 Seats', '22 Bags', images.bus45, '₹75/km', 'AC · WITH DRIVER', 'BUS', 'Maximum-capacity group tours, events and large pilgrimages.', '300 km minimum/day']
 ];
 
 export const destinations = [

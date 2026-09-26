@@ -15,24 +15,36 @@ const popularRoutes = [
   { from: 'Tirupati', to: 'Bangalore', price: '₹5,500' }
 ];
 
-export default function BookingForm() {
+export default function BookingForm({ showPackages = true }) {
   const { addQuery } = useData();
   const [f, setF] = useState({ 
     from: 'Tirupati', 
     to: 'Tirumala', 
     date: '', 
     trip: 'One Way', 
-    vehicle: 'Swift Dzire / Etios (Sedan)',
+    vehicle: 'Swift Dzire / Etios (Sedan 4-Seater)',
     name: '', 
     phone: '' 
   });
   const [isPayModalOpen, setIsPayModalOpen] = useState(false);
 
-  // Find estimated price for current selection if available
+  // Dynamic Fare Estimation
   const matchedRoute = popularRoutes.find(
     r => r.from.toLowerCase() === f.from.trim().toLowerCase() && r.to.toLowerCase() === f.to.trim().toLowerCase()
   );
-  const estimatedPrice = matchedRoute ? matchedRoute.price : '₹2,500';
+
+  const getVehicleBaseRate = (vehicleName) => {
+    if (vehicleName.includes('Ertiga')) return '₹1,500';
+    if (vehicleName.includes('Innova')) return '₹2,200';
+    if (vehicleName.includes('Hycross')) return '₹3,200';
+    if (vehicleName.includes('Fortuner')) return '₹4,500';
+    if (vehicleName.includes('Tempo')) return '₹3,500';
+    if (vehicleName.includes('Urbania')) return '₹4,000';
+    if (vehicleName.includes('Bus')) return '₹7,500';
+    return '₹900';
+  };
+
+  const estimatedPrice = matchedRoute ? matchedRoute.price : getVehicleBaseRate(f.vehicle);
 
   function submit(e) {
     e.preventDefault();
@@ -51,6 +63,15 @@ export default function BookingForm() {
     window.open(whatsappBooking(message), '_blank', 'noopener,noreferrer');
   }
 
+  const handleTripChange = (type) => {
+    let defaultTo = f.to;
+    if (type === 'Local Sightseeing') defaultTo = 'Tirupati Local Sightseeing (8h / 80km)';
+    else if (type === 'Outstation Tour') defaultTo = 'Arunachalam & Golden Temple';
+    else if (type === 'One Way' && f.to.includes('Sightseeing')) defaultTo = 'Tirumala';
+    
+    setF(prev => ({ ...prev, trip: type, to: defaultTo }));
+  };
+
   const handleSelectQuickRoute = (routeItem) => {
     setF(prev => ({ ...prev, from: routeItem.from, to: routeItem.to }));
   };
@@ -58,6 +79,8 @@ export default function BookingForm() {
   const swapLocations = () => {
     setF(prev => ({ ...prev, from: prev.to, to: prev.from }));
   };
+
+  const todayStr = new Date().toISOString().split('T')[0];
 
   return (
     <>
@@ -70,7 +93,7 @@ export default function BookingForm() {
                 key={type}
                 type="button"
                 className={`trip-pill ${f.trip === type ? 'active' : ''}`}
-                onClick={() => setF({ ...f, trip: type })}
+                onClick={() => handleTripChange(type)}
               >
                 {type}
               </button>
@@ -92,6 +115,26 @@ export default function BookingForm() {
           </div>
         </div>
 
+        {/* Datalists for Pickup & Drop Suggestions */}
+        <datalist id="pickup-suggestions">
+          <option value="Tirupati Railway Station" />
+          <option value="Tirupati Central Bus Stand" />
+          <option value="Tirupati Airport (TIR)" />
+          <option value="Renigunta Junction" />
+          <option value="Hotel / Residence in Tirupati" />
+        </datalist>
+
+        <datalist id="drop-suggestions">
+          <option value="Tirumala Temple" />
+          <option value="Srikalahasti Temple" />
+          <option value="Kanipakam Temple" />
+          <option value="Vellore Golden Temple" />
+          <option value="Arunachalam (Tiruvannamalai)" />
+          <option value="Chennai Airport (MAA)" />
+          <option value="Bangalore Airport (BLR)" />
+          <option value="Kanchipuram Temples" />
+        </datalist>
+
         {/* Main Booking Form Card */}
         <form className="enhanced-booking-card" onSubmit={submit}>
           <div className="booking-fields-grid">
@@ -104,6 +147,7 @@ export default function BookingForm() {
                   type="text"
                   value={f.from} 
                   onChange={e => setF({ ...f, from: e.target.value })} 
+                  list="pickup-suggestions"
                   placeholder="e.g. Tirupati Airport / Hotel"
                   required
                 />
@@ -124,6 +168,7 @@ export default function BookingForm() {
                   type="text"
                   value={f.to} 
                   onChange={e => setF({ ...f, to: e.target.value })} 
+                  list="drop-suggestions"
                   placeholder="e.g. Tirumala / Srikalahasti"
                   required
                 />
@@ -138,6 +183,7 @@ export default function BookingForm() {
                 <input 
                   type="date" 
                   value={f.date} 
+                  min={todayStr}
                   onChange={e => setF({ ...f, date: e.target.value })} 
                 />
               </div>
@@ -149,12 +195,14 @@ export default function BookingForm() {
               <div className="field-input-wrap">
                 <Car className="field-icon gold" size={17} />
                 <select value={f.vehicle} onChange={e => setF({ ...f, vehicle: e.target.value })}>
-                  <option>Swift Dzire / Etios (Sedan)</option>
-                  <option>Maruti Ertiga (MUV)</option>
-                  <option>Toyota Innova Crysta (SUV)</option>
-                  <option>Tempo Traveller (12/17 Seater)</option>
-                  <option>Force Urbania (12/16 Seater)</option>
-                  <option>Luxury Bus (27/40/50 Seater)</option>
+                  <option>Swift Dzire / Etios (Sedan 4-Seater)</option>
+                  <option>Maruti Ertiga (MUV 6-Seater)</option>
+                  <option>Toyota Innova Crysta (SUV 7-Seater)</option>
+                  <option>Toyota Hycross (Hybrid MUV 7-Seater)</option>
+                  <option>Toyota Fortuner (Luxury SUV 7-Seater)</option>
+                  <option>Tempo Traveller (12 / 17 Seater)</option>
+                  <option>Force Urbania (12 / 16 Seater)</option>
+                  <option>Luxury Bus (27 / 40 / 50 Seater)</option>
                 </select>
                 <ChevronDown className="select-arrow" size={14} />
               </div>
@@ -184,7 +232,7 @@ export default function BookingForm() {
         </form>
       </div>
 
-      <PopularPackages />
+      {showPackages && <PopularPackages />}
 
       <EasebuzzModal 
         isOpen={isPayModalOpen} 

@@ -73,6 +73,9 @@ export default function Fleet() {
                       <div className="vehicle-media">
                         <img src={v.image} alt={`${v.name} rental in Tirupati`} loading="lazy" />
                         <span className="media-type">{v.category}</span>
+                        <div className="vehicle-logo-tag" title="Tirupati Balaji Tours & Travels">
+                          <img src="https://res.cloudinary.com/znbhjevm/image/upload/v1786735614/6a36504b-4108-47ac-8a09-34f153b10f97.png" alt="TBTT Logo" />
+                        </div>
                         <div className="media-bottom">
                           <span className="media-rate">{v.local}</span>
                           <span className="media-seats"><Users size={14} /> {v.seats}</span>

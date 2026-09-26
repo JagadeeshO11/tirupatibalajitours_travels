@@ -7,6 +7,7 @@ import Fleet from './pages/Fleet';
 import VehicleDetails from './pages/VehicleDetails';
 import ServiceLanding from './pages/ServiceLanding';
 import Tours from './pages/Tours';
+import TourDetail from './pages/TourDetail';
 import Destinations from './pages/Destinations';
 import DestinationDetail from './pages/DestinationDetail';
 import Services from './pages/Services';
@@ -143,7 +144,11 @@ export default function App() {
             <Route path="/services/:slug" element={<ServiceLanding />} />
 
             <Route path="/tours" element={<Tours />} />
+            <Route path="/tour/:slug" element={<TourDetail />} />
+            <Route path="/tours/:slug" element={<TourDetail />} />
             <Route path="/destinations" element={<Destinations />} />
+            <Route path="/destination/:slug" element={<DestinationDetail />} />
+            <Route path="/destinations/:slug" element={<DestinationDetail />} />
             <Route path="/blog" element={<Navigate to="/blog/tirupati-to-coimbatore-distance" replace />} />
             <Route path="/blogs" element={<Navigate to="/blog/tirupati-to-coimbatore-distance" replace />} />
             <Route path="/blog/:slug" element={<Blog />} />

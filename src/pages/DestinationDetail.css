@@ -1,1 +1,167 @@
-.detail-hero{min-height:480px;padding:150px clamp(20px,13vw,210px) 80px;color:#fff;background-size:cover;background-position:center}.detail-hero p:not(.eyebrow){max-width:600px;line-height:1.7;color:#e7eafe}.detail-hero>div{display:flex;gap:17px;flex-wrap:wrap;font-size:12px}.detail-hero span{display:flex;gap:6px;align-items:center}.detail-hero svg{width:16px;color:#f4c400}.detail-content{display:grid;grid-template-columns:1.2fr .8fr;gap:70px}.detail-content p{color:#667085;line-height:1.75;font-size:14px}.detail-content h3{margin-top:31px}.included{list-style:none;padding:0}.included li{display:flex;gap:8px;align-items:center;font-size:13px;margin:10px 0}.included svg{width:17px;color:#169657}.price-card{height:max-content;padding:29px;background:#fff;border-top:4px solid #f4c400;box-shadow:0 10px 30px #111b5e14;display:grid;gap:12px}.price-card small{font-size:10px;color:#667085;font-weight:700}.price-card>b{font:700 37px 'Playfair Display';color:#111b5e}.price-card span{font-size:11px;color:#667085}.price-card>a:last-child{text-align:center;font-size:11px;font-weight:700;color:#111b5e}.available{background:#edf1fa}.detail-assurance{background:#111b5e;color:#fff;padding:19px;text-align:center;font-weight:700;font-size:12px;display:flex;justify-content:center;gap:8px;align-items:center}.detail-assurance svg{width:17px;color:#f4c400}@media(max-width:800px){.detail-hero{padding:125px 20px 65px}.detail-content{grid-template-columns:1fr;gap:28px}}
+/* Destination Detail Page Styling */
+.dest-detail-page {
+  background-color: #f8fafc;
+  color: #1e293b;
+  font-family: inherit;
+  padding-bottom: 4rem;
+}
+
+.dest-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* Breadcrumb */
+.dest-breadcrumb {
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0.85rem 0;
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.dest-breadcrumb .dest-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.dest-breadcrumb a {
+  color: #0284c7;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.dest-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.dest-breadcrumb span {
+  color: #334155;
+  font-weight: 600;
+}
+
+/* Hero Section */
+.dest-hero-section {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #ffffff;
+  padding: 3.5rem 0;
+}
+
+.dest-hero-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.dest-eyebrow-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(2, 132, 199, 0.25);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.dest-hero-content h1 {
+  font-size: 2.2rem;
+  line-height: 1.25;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.dest-key-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.dest-hero-desc {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #94a3b8;
+  margin-bottom: 1.5rem;
+}
+
+.dest-route-corridor {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.dest-hero-actions {
+  display: flex;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+/* Pricing Section */
+.dest-pricing-section {
+  padding: 4rem 0 2rem;
+}
+
+/* Main Grid: Itinerary + Sidebar */
+.dest-details-main {
+  padding: 2.5rem 0;
+}
+
+/* FAQ Section */
+.dest-faq-section {
+  padding: 3rem 0;
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+  margin-top: 2rem;
+}
+
+.vehicle-logo-tag {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(2, 132, 199, 0.3);
+  border-radius: 6px;
+  padding: 3px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  z-index: 5;
+}
+
+.vehicle-logo-tag img {
+  height: 20px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 992px) {
+  .dest-hero-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .vehicle-tariff-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

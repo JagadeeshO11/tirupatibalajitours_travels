@@ -14,6 +14,7 @@ import {
 import { destinations, images, services, tours, vehicles, whatsapp, phone } from '../data/siteData';
 import { cabRoutes } from '../data/cabRoutes';
 import BookingForm from '../components/BookingForm';
+import PopularPackages from '../components/PopularPackages';
 import AnimatedCounter from '../components/AnimatedCounter';
 import StatsBanner from '../components/StatsBanner';
 import ScrollReveal from '../components/ScrollReveal';
@@ -99,69 +100,71 @@ export default function Home() {
   return (
     <main>
       {/* --- HERO SECTION --- */}
-      <section className="hero home-hero">
-        <div className="hero-copy">
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65 }}
-          >
-            <p className="eyebrow">NO. 1 TAXI & TOUR AGENCY IN TIRUPATI</p>
-            <h1 className="type-title">
-              Travel with <em>trust.</em>
-              <br />
-              Journey with <em>blessings.</em>
-            </h1>
-            <p className="hero-lead">
-              Book Tirupati to Tirumala, Srikalahasti, Kanipakam, Golden Temple, Arunachalam & South India temple cab packages. Safe rides, flexible itineraries, and 24/7 support.
-            </p>
-            <p className="actions">
-              <a className="button" href={whatsapp} target="_blank" rel="noreferrer">
-                Book Cab on WhatsApp <FaArrowRight size={14} />
-              </a>
-              <Link className="button secondary" to="/tours">
-                Explore Packages <FaChevronRight size={14} />
-              </Link>
-            </p>
-          </motion.div>
-
-          <div className="hero-trust-row">
-            <span>
-              <FaShieldHalved /> Verified Drivers
-            </span>
-            <span>
-              <FaClock /> 24×7 Service
-            </span>
-            <span>
-              <FaStar /> <AnimatedCounter end={4.9} decimals={1} suffix="★" /> Rated
-            </span>
-          </div>
+      <section 
+        className="hero home-hero"
+        style={{
+          backgroundImage: `linear-gradient(135deg, rgba(6, 12, 44, 0.88) 0%, rgba(8, 19, 74, 0.82) 50%, rgba(18, 34, 122, 0.78) 100%), url(${images.hero})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      >
+        <div className="hero-top-booking">
+          <BookingForm showPackages={false} />
         </div>
 
-        <motion.div
-          className="hero-visual"
-          initial={{ opacity: 0, x: 55, scale: 0.97 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-        >
-          <img src={images.hero} alt="Tirupati Balaji luxury vehicle fleet" />
-          <div className="hero-location">
-            <FaLocationDot size={15} />
-            <div>
-              <strong>Tirupati & Tirumala</strong>
-              <small>Andhra Pradesh · India</small>
+        <div className="hero-main-grid">
+          <div className="hero-copy">
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65 }}
+            >
+              <p className="eyebrow">NO. 1 TAXI & TOUR AGENCY IN TIRUPATI</p>
+              <h1 className="type-title">
+                Travel with <em>trust.</em>
+                <br />
+                Journey with <em>blessings.</em>
+              </h1>
+              <p className="hero-lead">
+                Book Tirupati to Tirumala, Srikalahasti, Kanipakam, Golden Temple, Arunachalam & South India temple cab packages. Safe rides, flexible itineraries, and 24/7 support.
+              </p>
+            </motion.div>
+          </div>
+
+          <motion.div
+            className="hero-action-card"
+            initial={{ opacity: 0, x: 35, scale: 0.98 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+          >
+            <div className="hero-card-content">
+              <div className="actions">
+                <a className="button" href={whatsapp} target="_blank" rel="noreferrer">
+                  Book Cab on WhatsApp <FaArrowRight size={14} />
+                </a>
+                <Link className="button secondary" to="/tours">
+                  Explore Packages <FaChevronRight size={14} />
+                </Link>
+              </div>
+
+              <div className="hero-trust-row">
+                <span>
+                  <FaShieldHalved /> Verified Drivers
+                </span>
+                <span>
+                  <FaClock /> 24×7 Service
+                </span>
+                <span>
+                  <FaStar /> <AnimatedCounter end={4.9} decimals={1} suffix="★" /> Rated
+                </span>
+              </div>
             </div>
-          </div>
-          <div className="hero-rating">
-            <FaStar size={14} fill="currentColor" />
-            <strong><AnimatedCounter end={4.9} decimals={1} /></strong>
-            <span>trusted journeys</span>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </section>
 
-      {/* --- BOOKING FORM WIDGET --- */}
-      <BookingForm />
+      {/* --- POPULAR TEMPLE TOUR PACKAGES --- */}
+      <PopularPackages />
 
       {/* --- OUR TAXI & PACKAGE SERVICES SECTION --- */}
       <section className="services-section-wrapper">
