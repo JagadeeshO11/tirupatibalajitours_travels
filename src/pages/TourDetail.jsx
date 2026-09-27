@@ -113,7 +113,7 @@ export default function TourDetail() {
                 className="btn-hero-pay"
                 onClick={() => setPayModalData({ name: tour.name, price: tour.startingPrice })}
               >
-                <CreditCard size={18} /> Pay ₹1,000 Advance 💳
+                <CreditCard size={18} /> Book ₹1,000 Advance 💳
               </button>
               <a href={`tel:${phone}`} className="btn-hero-call">
                 <Phone size={16} /> Call Now
@@ -192,7 +192,7 @@ export default function TourDetail() {
                         className="tariff-book-btn"
                         onClick={() => setPayModalData({ name: `${tour.name} (${vehicle})`, price })}
                       >
-                        Pay ₹1,000 Token 💳
+                        Book ₹1,000 Token 💳
                       </button>
                       <a 
                         href={`https://wa.me/918688624758?text=${encodeURIComponent(`Hi, I want to book ${tour.name} with ${vehicle} at ${price}.`)}`}
@@ -273,7 +273,7 @@ export default function TourDetail() {
                   className="sidebar-pay-btn"
                   onClick={() => setPayModalData({ name: tour.name, price: tour.startingPrice })}
                 >
-                  <CreditCard size={18} /> Pay ₹1,000 Advance Token 💳
+                  <CreditCard size={18} /> Book ₹1,000 Advance Token 💳
                 </button>
                 <a href={`tel:${phone}`} className="sidebar-call-btn">
                   <Phone size={16} /> Call Driver/Manager: {phone}

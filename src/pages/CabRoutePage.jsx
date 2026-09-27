@@ -58,7 +58,7 @@ const ContentTable = ({ rows, headers, routeTitle, onPayClick }) => {
                 className="table-book-btn"
                 style={{ background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7', padding: '7px 10px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
                 onClick={() => onPayClick && onPayClick({ name: row[0], price: row[1], title: routeTitle })}
-                title="Pay 💳"
+                title="Book 💳"
               >
                 <CreditCard size={15} />
               </button>
@@ -158,7 +158,7 @@ function DetailedRouteContent({ content, route }) {
       {/* Vehicle Fleet & Tariff Section */}
       <section className="section longform-section" id="tariff">
         <div className="section-header-centered">
-          <span className="badge-pill"><Car size={13} /> OUTSTATION FLEET & FARES</span>
+          <span className="badge-pill no-box"><Car size={13} /> OUTSTATION FLEET & FARES</span>
           <h2>Select Your Preferred Vehicle</h2>
           <p>Clean, sanitized, comfortable AC cabs with professional drivers</p>
         </div>
@@ -203,7 +203,7 @@ function DetailedRouteContent({ content, route }) {
                   style={{ flex: 1, padding: '0.6rem', fontSize: '0.85rem', background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7' }}
                   onClick={() => setPayCar({ name: car.name, price: car.price, title: route.title })}
                 >
-                  <CreditCard size={14} /> Pay 💳
+                  <CreditCard size={14} /> Book 💳
                 </button>
               </div>
             </div>
@@ -446,7 +446,7 @@ export default function CabRoutePage({ route: routeProp }) {
               style={{ background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
               onClick={() => setShowHeroPayModal(true)}
             >
-              <CreditCard size={16} /> Pay 💳
+              <CreditCard size={16} /> Book 💳
             </button>
           </div>
         </div>

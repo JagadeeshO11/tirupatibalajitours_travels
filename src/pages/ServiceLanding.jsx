@@ -154,7 +154,7 @@ export default function ServiceLanding({ slug: routeSlug }) {
               style={{ background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
               onClick={() => setSelectedPayVehicle({ name: data.title, price: '2500', serviceTitle: data.title })}
             >
-              <CreditCard size={16} /> Pay 💳
+              <CreditCard size={16} /> Book 💳
             </button>
           </div>
         </div>
@@ -319,7 +319,7 @@ export default function ServiceLanding({ slug: routeSlug }) {
                     style={{ flex: 1, padding: '0.6rem 0.5rem', fontSize: '0.85rem', background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7' }}
                     onClick={() => setSelectedPayVehicle({ name, price, serviceTitle: data.title })}
                   >
-                    <CreditCard size={14} /> Pay 💳
+                    <CreditCard size={14} /> Book 💳
                   </button>
                 </div>
               </div>

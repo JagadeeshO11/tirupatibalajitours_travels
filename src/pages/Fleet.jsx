@@ -132,7 +132,7 @@ export default function Fleet() {
                             style={{ flex: 1, background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7' }}
                             onClick={() => setSelectedPayVehicle(v)}
                           >
-                            Pay 💳
+                            Book 💳
                           </button>
                         </div>
                       </div>

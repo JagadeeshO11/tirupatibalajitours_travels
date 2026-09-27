@@ -50,7 +50,7 @@ export default function Destinations() {
                       className="dest-btn-pay"
                       onClick={() => setSelectedPayDest(d)}
                     >
-                      <span>Pay 💳</span>
+                      <span>Book 💳</span>
                     </button>
                     <Link to={`/destinations/${d[0]}`} className="dest-btn-details">
                       <span>Read Guide</span>

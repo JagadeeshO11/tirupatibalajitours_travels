@@ -221,6 +221,19 @@
   border-color: var(--blue);
 }
 
+/* Longform & Pale Section Spacing */
+.longform-section {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.longform-section.pale {
+  padding-top: 65px;
+  padding-bottom: 65px;
+}
+
 /* Service About Section */
 .service-about-section {
   max-width: 1280px;

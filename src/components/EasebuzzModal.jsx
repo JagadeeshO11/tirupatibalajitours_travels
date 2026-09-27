@@ -344,7 +344,7 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {} }) {
                   </>
                 ) : (
                   <>
-                    Pay ₹{formData.amount} 💳 <ArrowRight size={18} />
+                    Book & Pay ₹{formData.amount} 💳 <ArrowRight size={18} />
                   </>
                 )}
               </button>

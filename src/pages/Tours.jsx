@@ -120,7 +120,7 @@ export default function Tours() {
                       style={{ flex: 1, background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7' }}
                       onClick={() => setSelectedPayTour({ title, price })}
                     >
-                      Pay 💳
+                      Book 💳
                     </button>
                   </div>
                 </div>

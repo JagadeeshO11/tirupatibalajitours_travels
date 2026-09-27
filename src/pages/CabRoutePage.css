@@ -28,6 +28,13 @@
   color: #8f6c00;
   border-color: rgba(244, 196, 0, 0.35);
 }
+.badge-pill.no-box {
+  background: transparent;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
 
 /* Section Header Styles */
 .section-header {
@@ -260,15 +267,32 @@
   margin-top: 4px;
 }
 
-/* Longform & Timeline Section */
+/* Longform, Pale & Tariff Section Spacing System */
 .longform-section {
   max-width: 1280px;
   margin: 0 auto;
+  padding-top: 60px;
+  padding-bottom: 60px;
 }
+
+.longform-section.pale {
+  padding-top: 65px;
+  padding-bottom: 65px;
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  border-top: 1px solid rgba(17, 27, 94, 0.08);
+  border-bottom: 1px solid rgba(17, 27, 94, 0.08);
+}
+
+#tariff {
+  padding-top: 65px;
+  padding-bottom: 65px;
+}
+
 .route-timeline-section {
   max-width: 1280px;
   margin: 0 auto;
-  padding-top: 40px;
+  padding-top: 50px;
+  padding-bottom: 60px;
 }
 
 .route-guide-grid {
@@ -424,13 +448,13 @@
   line-height: 1.55;
 }
 
-/* Temple Experience Card */
+/* Temple Experience Content Wrapper */
 .temple-experience-card {
-  background: #ffffff;
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  padding: 40px;
-  box-shadow: var(--shadow-sm);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
 }
 .lead-text {
   font-size: 16px;
@@ -1246,6 +1270,7 @@
     overflow-x: hidden;
     padding-bottom: 90px;
   }
+
 
   .route-container,
   .cab-route-page .container {

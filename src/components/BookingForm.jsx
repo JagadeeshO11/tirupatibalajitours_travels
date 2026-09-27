@@ -225,7 +225,7 @@ export default function BookingForm({ showPackages = true }) {
                 type="button" 
                 onClick={() => setIsPayModalOpen(true)}
               >
-                <CreditCard size={16} /> Pay & Book 💳
+                <CreditCard size={16} /> Book Cab 💳
               </button>
             </div>
           </div>
