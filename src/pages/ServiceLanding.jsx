@@ -7,7 +7,7 @@ import {
   Car, Award, Navigation, Info, Fuel, CreditCard
 } from 'lucide-react';
 import { servicePages } from '../data/servicePages';
-import { images, whatsapp, phone } from '../data/siteData';
+import { images, destinations, whatsapp, phone } from '../data/siteData';
 import StatsBanner from '../components/StatsBanner';
 import EasebuzzModal from '../components/EasebuzzModal';
 import './ServiceLanding.css';
@@ -69,6 +69,34 @@ const carRoutes = [
   ['Tirupati → Coimbatore', '470 km', '~9–10 hrs'],
   ['Tirupati → Trichy', '390 km', '~7.5–8 hrs']
 ];
+
+const tripImage = (title = '', route = '') => {
+  const text = `${title} ${route}`.toLowerCase();
+
+  const keywordImages = [
+    [['tirumala', 'balaji', 'venkateswara'], images.tirumala],
+    [['srikalahasti', 'kalahasti'], images.srikalahasti],
+    [['kanipakam'], images.kanipakam],
+    [['golden temple', 'vellore', 'sripuram'], images.goldentemple],
+    [['arunachalam', 'tiruvannamalai'], images.arunachalam],
+    [['kanchipuram'], images.kanchipuram],
+    [['pondicherry', 'puducherry'], images.pondicherry],
+    [['srisailam'], images.srisailam],
+    [['tiruchanur', 'padmavathi'], images.tiruchanur],
+  ];
+
+  const matched = keywordImages.find(([keywords]) =>
+    keywords.some(keyword => text.includes(keyword))
+  );
+  if (matched) return matched[1];
+
+  const destinationMatch = destinations.find(([, name, , image]) =>
+    text.includes(name.toLowerCase())
+  );
+  if (destinationMatch?.[3]) return destinationMatch[3];
+
+  return images.temple;
+};
 
 const vehicleImage = (name) => {
   const n = name.toLowerCase();
@@ -404,7 +432,7 @@ export default function ServiceLanding({ slug: routeSlug }) {
           {trips.map(([title, route, meta]) => (
             <article key={title} className="trip-card">
               <div className="trip-image-wrap">
-                <img src={data.image || images.taxi} alt={title} />
+                <img src={tripImage(title, route)} alt={title} />
               </div>
               <div className="trip-card-content">
                 <small className="trip-meta-tag">{meta}</small>
