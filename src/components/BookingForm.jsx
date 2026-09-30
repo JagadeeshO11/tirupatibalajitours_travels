@@ -235,6 +235,7 @@ export default function BookingForm({ showPackages = true }) {
       {showPackages && <PopularPackages />}
 
       <EasebuzzModal 
+        modalClassName="home-hero-booking-modal"
         isOpen={isPayModalOpen} 
         onClose={() => setIsPayModalOpen(false)}
         initialData={{
