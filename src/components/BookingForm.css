@@ -411,3 +411,14 @@
     border-radius: 8px !important;
   }
 }
+
+/* Home hero payment modal: keep the popup above the sticky header and hero layers.
+   This class is intentionally scoped to BookingForm so other payment modals keep
+   their existing stacking behavior. */
+.home-hero-booking-modal {
+  z-index: 10000 !important;
+}
+
+.home-hero-booking-modal .itinerary-modal {
+  z-index: 10001;
+}
