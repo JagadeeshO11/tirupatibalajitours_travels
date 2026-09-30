@@ -404,7 +404,7 @@ export default function ServiceLanding({ slug: routeSlug }) {
           {trips.map(([title, route, meta]) => (
             <article key={title} className="trip-card">
               <div className="trip-image-wrap">
-                <img src={slug === 'car-rentals-in-tirupati' ? images.tirumala : data.image} alt={title} />
+                <img src={data.image || images.taxi} alt={title} />
               </div>
               <div className="trip-card-content">
                 <small className="trip-meta-tag">{meta}</small>
