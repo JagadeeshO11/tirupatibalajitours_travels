@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { servicePages } from '../data/servicePages';
 import { images, destinations, whatsapp, phone } from '../data/siteData';
+import { fleet } from '../data/fleetData';
 import StatsBanner from '../components/StatsBanner';
 import EasebuzzModal from '../components/EasebuzzModal';
 import './ServiceLanding.css';
@@ -98,17 +99,29 @@ const tripImage = (title = '', route = '') => {
   return images.temple;
 };
 
-const vehicleImage = (name) => {
-  const n = name.toLowerCase();
-  if (n.includes('etios')) return images.etios;
-  if (n.includes('ertiga')) return images.ertiga;
-  if (n.includes('crysta')) return images.crysta;
-  if (n.includes('urbania')) return images.urbania16;
-  if (n.includes('tempo')) return images.tempo12;
-  if (n.includes('27')) return images.bus27;
-  if (n.includes('40')) return images.bus40;
-  if (n.includes('50')) return images.bus50;
-  return images.taxi;
+const vehicleImage = (name = '') => {
+  const n = name.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+
+  const matchers = [
+    [['fortuner'], 'fortuner'],
+    [['hycross'], 'hycross'],
+    [['innova crysta', 'crysta'], 'innova-crysta'],
+    [['urbania 16', 'urbania (16'], 'urbania-16'],
+    [['urbania 12', 'urbania'], 'urbania-12'],
+    [['tempo traveller 20', '20 seater', '20-seater'], 'tempo-20'],
+    [['tempo traveller 16', '16 seater', '16-seater'], 'tempo-16'],
+    [['tempo traveller 12', '12 seater', '12-seater'], 'tempo-12'],
+    [['bus 45', '45 seater', '45-seater'], 'bus-45'],
+    [['bus 40', '40 seater', '40-seater'], 'bus-40'],
+    [['bus 27', '27 seater', '27-seater', 'mini bus'], 'bus-27'],
+    [['ertiga'], 'ertiga'],
+    [['sedan', 'etios', 'dzire'], 'sedan']
+  ];
+
+  const match = matchers.find(([keywords]) => keywords.some(keyword => n.includes(keyword)));
+  const vehicle = match ? fleet.find(item => item.id === match[1]) : null;
+
+  return vehicle?.image || images.taxi;
 };
 
 export default function ServiceLanding({ slug: routeSlug }) {
