@@ -5,7 +5,7 @@ import { useData } from '../context/DataContext';
 import { getEasebuzzConfig, generateTransactionId, calculateEasebuzzHash } from '../services/easebuzzService';
 import './BookingForm.css';
 
-export default function EasebuzzModal({ isOpen, onClose, initialData = {} }) {
+export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modalClassName = '' }) {
   const { recordPayment, addQuery } = useData();
 
   // Extract base amounts from initialData
@@ -145,7 +145,7 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {} }) {
   };
 
   return createPortal(
-    <div className="itinerary-overlay booking-payment-overlay" role="presentation" onClick={handleClose}>
+    <div className={`itinerary-overlay booking-payment-overlay ${modalClassName}`.trim()} role="presentation" onClick={handleClose}>
       <div 
         className="itinerary-modal package-info-modal" 
         style={{ maxWidth: 540, padding: '2rem', borderRadius: 24 }}
