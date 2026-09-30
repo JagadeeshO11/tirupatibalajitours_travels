@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { X, CreditCard, CheckCircle2, Lock, ArrowRight, Loader2, Sparkles, Wallet, Check } from 'lucide-react';
 import { useData } from '../context/DataContext';
 import { getEasebuzzConfig, generateTransactionId, calculateEasebuzzHash } from '../services/easebuzzService';
@@ -42,6 +43,17 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {} }) {
       setIsProcessing(false);
     }
   }, [isOpen, initialData]);
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -132,8 +144,8 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {} }) {
     onClose();
   };
 
-  return (
-    <div className="itinerary-overlay" role="presentation" onClick={handleClose}>
+  return createPortal(
+    <div className="itinerary-overlay booking-payment-overlay" role="presentation" onClick={handleClose}>
       <div 
         className="itinerary-modal package-info-modal" 
         style={{ maxWidth: 540, padding: '2rem', borderRadius: 24 }}
@@ -397,6 +409,7 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {} }) {
           </div>
         )}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
