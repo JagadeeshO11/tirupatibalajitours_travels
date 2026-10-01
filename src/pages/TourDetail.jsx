@@ -181,7 +181,7 @@ export default function TourDetail() {
                         <strong>{vInfo.localLong}</strong>
                       </div>
                       <div className="rate-row highlight-rate">
-                        <span>Outstation Tariff:</span>
+                        <span>Outstation Tariff (Min 300km/day):</span>
                         <strong>{vInfo.outstation} <small>(Min {vInfo.minimum})</small></strong>
                       </div>
                     </div>

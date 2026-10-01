@@ -1,5 +1,5 @@
 import { useEffect, Fragment } from 'react';
-import { Navigate, Routes, Route } from 'react-router-dom';
+import { Navigate, Routes, Route, useParams } from 'react-router-dom';
 import Lenis from 'lenis';
 import Layout from './components/Layout';
 import Home from './pages/Home';
@@ -12,6 +12,7 @@ import Destinations from './pages/Destinations';
 import DestinationDetail from './pages/DestinationDetail';
 import Services from './pages/Services';
 import Blog from './pages/Blog';
+import BlogIndex from './pages/BlogIndex';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import RefundPolicy from './pages/RefundPolicy';
@@ -19,6 +20,12 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsConditions from './pages/TermsConditions';
 import CabRoutePage from './pages/CabRoutePage';
 import { cabRoutes } from './data/cabRoutes';
+import { blogPosts } from './data/blogData';
+
+function BlogRedirect() {
+  const { slug } = useParams();
+  return <Navigate to={`/${slug}`} replace />;
+}
 
 // Context Providers
 import { AuthProvider } from './context/AuthContext';
@@ -106,17 +113,20 @@ export default function App() {
           {/* Public Website Routes */}
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/cabs" element={<Navigate to="/tirupati-cabs/tirupati-to-srikalahasti" replace />} />
+            <Route path="/cabs" element={<Navigate to="/tirupati-cabs/tirupati-to-srikalahasti-distance" replace />} />
             
             {/* Fixed routes for exact cab slugs */}
-            {cabRoutes.map(route => (
-              <Fragment key={route.slug}>
-                <Route path={`/tirupati-cabs/${route.slug}`} element={<CabRoutePage route={route} />} />
-                <Route path={`/tirupati-cabs/${route.slug}-distance`} element={<CabRoutePage route={route} />} />
-                <Route path={`/cabs/${route.slug}`} element={<CabRoutePage route={route} />} />
-                <Route path={`/cabs/${route.slug}-distance`} element={<CabRoutePage route={route} />} />
-              </Fragment>
-            ))}
+            {cabRoutes.map(route => {
+              const baseSlug = route.slug.replace(/-distance$/, '');
+              return (
+                <Fragment key={route.slug}>
+                  <Route path={`/tirupati-cabs/${route.slug}`} element={<CabRoutePage route={route} />} />
+                  <Route path={`/tirupati-cabs/${baseSlug}`} element={<CabRoutePage route={route} />} />
+                  <Route path={`/cabs/${route.slug}`} element={<CabRoutePage route={route} />} />
+                  <Route path={`/cabs/${baseSlug}`} element={<CabRoutePage route={route} />} />
+                </Fragment>
+              );
+            })}
 
             {/* Dynamic fallback for cab routes */}
             <Route path="/tirupati-cabs/:slug" element={<CabRoutePage />} />
@@ -149,10 +159,15 @@ export default function App() {
             <Route path="/destinations" element={<Destinations />} />
             <Route path="/destination/:slug" element={<DestinationDetail />} />
             <Route path="/destinations/:slug" element={<DestinationDetail />} />
-            <Route path="/blog" element={<Navigate to="/blog/tirupati-to-coimbatore-distance" replace />} />
-            <Route path="/blogs" element={<Navigate to="/blog/tirupati-to-coimbatore-distance" replace />} />
-            <Route path="/blog/:slug" element={<Blog />} />
-            <Route path="/blogs/:slug" element={<Blog />} />
+            <Route path="/blog" element={<BlogIndex />} />
+            <Route path="/blogs" element={<BlogIndex />} />
+            <Route path="/blog/:slug" element={<BlogRedirect />} />
+            <Route path="/blogs/:slug" element={<BlogRedirect />} />
+
+            {/* Direct Root Blog Post Slugs */}
+            {blogPosts.map(post => (
+              <Route key={post.slug} path={`/${post.slug}`} element={<Blog post={post} />} />
+            ))}
 
             {/* More Dropdown Pages */}
             <Route path="/about" element={<About />} />

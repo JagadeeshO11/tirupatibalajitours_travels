@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { 
   ChevronDown, MessageCircle, ShieldCheck, Sparkles, Snowflake, MonitorPlay, 
@@ -25,35 +25,70 @@ const defaultTrips = [
 ];
 
 const tripMap = {
-  'car-rentals-in-tirupati': defaultTrips,
-  'tempo-traveller-rental-in-tirupati': defaultTrips,
-  'urbania-traveller-rental-in-tirupati': defaultTrips,
+  'car-rentals-in-tirupati': [
+    ['Tirupati Local Temple Tour', 'Tirumala • Tiruchanur • Kapila Theertham', 'Local 8h/80km • Same day'],
+    ['Srikalahasti Rahu-Ketu', 'Tirupati → Srikalahasti (36 km)', 'Pilgrimage • Same day'],
+    ['Kanipakam Varasiddhi Vinayaka', 'Tirupati → Kanipakam (72 km)', 'Pilgrimage • Same day'],
+    ['Vellore Sripuram Golden Temple', 'Tirupati → Vellore (110 km)', 'Temple tour • Same day'],
+    ['Kanchipuram Silk & Temples', 'Tirupati → Kanchipuram (110 km)', 'Temple circuit • Same day'],
+    ['Horsley Hills Scenic Tour', 'Tirupati → Horsley Hills (130 km)', 'Hill station • 1 day']
+  ],
+  'tempo-traveller-rental-in-tirupati': [
+    ['Joint Family Tirumala Tour', 'Tirupati → Tirumala Hill', '12–20 Seater AC • Same day'],
+    ['Srikalahasti & Kanipakam Group', 'Tirupati → Srikalahasti → Kanipakam', 'Group pilgrimage • 1 day'],
+    ['Vellore & Kanchipuram Circuit', 'Tirupati → Vellore → Kanchipuram', 'Temple circuit • 1 day'],
+    ['Arunachalam Agni Lingam Tour', 'Tirupati → Arunachalam', 'Pilgrimage • 2 days'],
+    ['Pondicherry Group Sightseeing', 'Tirupati → Pondicherry', 'Coastal tour • 2 days'],
+    ['Srisailam Jyotirlinga Yatra', 'Tirupati → Srisailam', 'Group yatra • 3 days']
+  ],
+  'urbania-traveller-rental-in-tirupati': [
+    ['VIP Tirumala Balaji Pilgrimage', 'Tirupati → Tirumala', 'Ultra luxury Force Urbania'],
+    ['Corporate Retreat: Pondicherry', 'Tirupati → Pondicherry', 'Executive group tour'],
+    ['VIP Temple Circuit', 'Srikalahasti • Kanipakam • Vellore', 'Luxury group travel'],
+    ['Executive Bangalore Connection', 'Tirupati → Bangalore City/Airport', 'VIP transfer'],
+    ['Chennai Luxury Airport Transfer', 'Tirupati → Chennai Airport', 'Corporate transfer'],
+    ['South India Heritage Circuit', 'Multi-city VIP route', 'Custom luxury tour']
+  ],
   'bus-rental-in-tirupati': [
-    ['Tirupati Temple Circuit', 'Tirupati → Tirumala', 'Group pilgrimage • 1 day'],
-    ['Srikalahasti & Kanipakam', 'Tirupati → Srikalahasti → Kanipakam', 'Temple tour • 1 day'],
-    ['Kanchipuram Tour', 'Tirupati → Kanchipuram', 'Group pilgrimage • 1 day'],
-    ['Arunachalam Tour', 'Tirupati → Arunachalam', 'Pilgrimage • 2 days'],
-    ['Pondicherry Tour', 'Tirupati → Pondicherry', 'Group sightseeing • 2 days'],
-    ['South India Temple Tour', 'Multi-city route', 'Custom multi-day group trip']
+    ['Marriage & Wedding Guest Shuttles', 'Tirupati City & Venues', '27 to 50 Seater Coaches'],
+    ['Large Group Tirumala Pilgrimage', 'Tirupati → Tirumala Hill', 'AC Coach Bus • 1 day'],
+    ['School & College Excursions', 'Chandragiri • Science Centre • Srikalahasti', 'Educational tour'],
+    ['Corporate Seminar Transportation', 'Hotel → Venue → Airport Shuttles', 'Event logistics'],
+    ['Arunachalam Bus Pilgrimage', 'Tirupati → Arunachalam', 'Group pilgrimage • 2 days'],
+    ['Grand Tamil Nadu Temple Tour', 'Tirupati → Madurai → Rameshwaram', 'Multi-day bus circuit']
   ],
   'outstation-taxi-in-tirupati': [
-    ['Srikalahasti', 'Tirupati → Srikalahasti', 'Temple trip • Same day'],
-    ['Kanipakam', 'Tirupati → Kanipakam', 'Temple trip • Same day'],
-    ['Golden Temple', 'Tirupati → Vellore', 'Temple trip • Same day'],
-    ['Kanchipuram', 'Tirupati → Kanchipuram', 'Temple circuit • Same day'],
-    ['Madurai', 'Tirupati → Madurai', 'Pilgrimage • Multi-day'],
-    ['Srisailam', 'Tirupati → Srisailam', 'Pilgrimage • Multi-day']
+    ['Tirupati → Chennai (MAA)', '135 km • ~3 hrs', 'One-way / Round trip'],
+    ['Tirupati → Bangalore (BLR)', '250 km • ~5.5 hrs', 'One-way / Round trip'],
+    ['Tirupati → Vellore Golden Temple', '110 km • ~2.5 hrs', 'Same-day return'],
+    ['Tirupati → Arunachalam', '200 km • ~5 hrs', 'Pilgrimage circuit'],
+    ['Tirupati → Pondicherry', '200 km • ~5 hrs', 'Weekend retreat'],
+    ['Tirupati → Srisailam Jyotirlinga', '370 km • ~7.5 hrs', 'Multi-day yatra']
   ],
-  'taxi-in-tirupati': defaultTrips,
+  'taxi-in-tirupati': [
+    ['One-Way Point to Point Cab', 'City Drop • Railway Station Drop', 'Instant 24x7 Cab'],
+    ['Full Day Local Tirupati Cab', '8 Hours / 80 KMs City Package', 'Temple & Sightseeing'],
+    ['Tirumala Express Taxi', 'Tirupati → Tirumala Hill', 'Up & Down Express'],
+    ['Airport Transfer Taxi', 'Tirupati Airport (TIR) Transfer', 'Doorstep pickup'],
+    ['Outstation Round Trip Cab', 'Flexible interstate mileage', 'Km-based tariff'],
+    ['24/7 Night & Emergency Taxi', 'Round-the-clock availability', 'Immediate dispatch']
+  ],
   'tirupati-airport-taxi': [
-    ['Tirupati Airport → Tirupati', 'Airport → Hotel / City', 'Pickup • 30–40 min'],
-    ['Tirupati Airport → Tirumala', 'Airport → Tirumala', 'Temple transfer'],
-    ['Airport → Railway Station', 'Airport → Tirupati Railway Station', 'Transfer service'],
-    ['Airport → Srikalahasti', 'Airport → Srikalahasti', 'Temple transfer'],
-    ['Airport → Kanipakam', 'Airport → Kanipakam', 'Temple transfer'],
-    ['Airport → Vellore', 'Airport → Golden Temple', 'Outstation transfer']
+    ['TIR Airport → Tirupati Hotel', '15 km • ~25 min', 'Doorstep hotel transfer'],
+    ['TIR Airport → Tirumala Hill', '38 km • ~1 hr', 'Direct temple transfer'],
+    ['TIR Airport → Srikalahasti', '30 km • ~40 min', 'Express temple pickup'],
+    ['TIR Airport → Kanipakam', '85 km • ~1.5 hrs', 'Direct cab transfer'],
+    ['TIR Airport → Chennai City/MAA', '135 km • ~3 hrs', 'Intercity airport transfer'],
+    ['TIR Airport → Bangalore (BLR)', '250 km • ~5.5 hrs', 'Interstate connection']
   ],
-  'car-for-rent-in-tirupati-day-rentals': defaultTrips
+  'car-for-rent-in-tirupati-day-rentals': [
+    ['Full Day City Hire (8h / 80km)', 'Tirupati City & Temples', 'Flat package tariff'],
+    ['Extended Day Hire (12h / 150km)', 'Tirupati + Srikalahasti', 'Extended mileage package'],
+    ['Tirumala Hill Half-Day Hire', 'Tirupati → Tirumala Hill', 'Express hill rental'],
+    ['Dual Temple Day Hire', 'Srikalahasti & Kanipakam', 'Full day pilgrimage hire'],
+    ['Golden Temple Day Trip', 'Tirupati → Vellore', 'Outstation day hire'],
+    ['Custom Hourly Rental', 'Flexible hours & distance', 'Tailor-made day plan']
+  ]
 };
 
 const carRoutes = [
@@ -124,6 +159,104 @@ const vehicleImage = (name = '') => {
   return vehicle?.image || images.taxi;
 };
 
+function TaxiVehicleCard({ vehicle, onBook }) {
+  const [selectedRate, setSelectedRate] = useState('local');
+
+  const rateOptions = [
+    { key: 'local', label: 'Local 8h / 80km', price: vehicle.local },
+    { key: 'localLong', label: 'Local 12h / 150km', price: vehicle.localLong },
+    { key: 'outstation', label: 'Outstation (Min 300km/day)', price: vehicle.outstation }
+  ];
+
+  const currentOption = rateOptions.find(r => r.key === selectedRate) || rateOptions[0];
+
+  const waMessage = `Hi, I want to book ${vehicle.name} in Tirupati for ${currentOption.label} (${currentOption.price}). Please share availability.`;
+
+  return (
+    <article className="vehicle-card" key={vehicle.id}>
+      <div className="vehicle-photo-wrap">
+        <img src={vehicle.image} alt={vehicle.name} />
+        <span className="vehicle-driver-tag">WITH EXPERIENCED DRIVER</span>
+      </div>
+      <div className="vehicle-card-content">
+        <div className="vehicle-top-badge">
+          <Sparkles size={14} />
+          <span>{vehicle.category}</span>
+        </div>
+        <h3>{vehicle.name}</h3>
+        <p className="vehicle-capacity">{vehicle.seats} Seats • {vehicle.bags} Bags</p>
+
+        <div className="vehicle-specs-pills">
+          <span><Users size={13} /> {vehicle.seats} Seats</span>
+          <span><Luggage size={13} /> {vehicle.bags} Bags</span>
+          <span><Snowflake size={13} /> Air Conditioned</span>
+        </div>
+
+        {/* SELECTABLE RATES SECTION */}
+        <div className="selectable-rates-container" style={{ marginTop: '0.75rem', marginBottom: '0.75rem' }}>
+          <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#64748b', display: 'block', marginBottom: '0.35rem', letterSpacing: '0.04em' }}>
+            SELECT RATE PLAN:
+          </span>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.35rem' }}>
+            {rateOptions.map(opt => (
+              <button
+                key={opt.key}
+                type="button"
+                onClick={() => setSelectedRate(opt.key)}
+                style={{
+                  padding: '0.5rem 0.2rem',
+                  borderRadius: 8,
+                  border: selectedRate === opt.key ? '2px solid #d97706' : '1.5px solid #cbd5e1',
+                  background: selectedRate === opt.key ? '#fffdf5' : '#f8fafc',
+                  cursor: 'pointer',
+                  textAlign: 'center',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: '2px',
+                  boxShadow: selectedRate === opt.key ? '0 4px 10px rgba(217, 119, 6, 0.15)' : 'none',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                <small style={{ fontSize: '0.6rem', fontWeight: 800, color: selectedRate === opt.key ? '#d97706' : '#64748b', textTransform: 'uppercase' }}>
+                  {opt.label}
+                </small>
+                <b style={{ fontSize: '0.76rem', fontWeight: 800, color: '#060c2c', whiteSpace: 'nowrap' }}>
+                  {opt.price}
+                </b>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: 'auto', paddingTop: '0.5rem' }}>
+          <a 
+            href={`${whatsapp}?text=${encodeURIComponent(waMessage)}`} 
+            target="_blank" 
+            rel="noreferrer"
+            className="button vehicle-book-btn"
+            style={{ flex: 1, padding: '0.6rem 0.4rem', fontSize: '0.82rem' }}
+          >
+            <MessageCircle size={14} /> WhatsApp
+          </a>
+          <button 
+            type="button"
+            className="button vehicle-book-btn"
+            style={{ flex: 1, padding: '0.6rem 0.4rem', fontSize: '0.82rem', background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7' }}
+            onClick={() => onBook({
+              name: vehicle.name,
+              service: `${vehicle.name} - ${currentOption.label} (${currentOption.price})`,
+              price: currentOption.price
+            })}
+          >
+            <CreditCard size={14} /> Book 💳
+          </button>
+        </div>
+      </div>
+    </article>
+  );
+}
+
 export default function ServiceLanding({ slug: routeSlug }) {
   const params = useParams();
   const slug = routeSlug || params.slug;
@@ -147,6 +280,42 @@ export default function ServiceLanding({ slug: routeSlug }) {
     `Hi, I am interested in ${data.title}. Please share vehicle availability and exact trip fare.`
   )}`;
   
+  const initialCategory = 
+    slug === 'tempo-traveller-rental-in-tirupati' ? 'tempo' :
+    slug === 'urbania-traveller-rental-in-tirupati' ? 'urbania' :
+    slug === 'bus-rental-in-tirupati' ? 'bus' :
+    (slug === 'car-rentals-in-tirupati' || slug === 'car-for-rent-in-tirupati-day-rentals') ? 'cars' :
+    'all';
+
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+
+  useEffect(() => {
+    setSelectedCategory(initialCategory);
+  }, [slug]);
+
+  const carsCount = fleet.filter(v => ['sedan', 'ertiga', 'innova-crysta', 'hycross', 'fortuner'].includes(v.id)).length;
+  const tempoCount = fleet.filter(v => ['tempo-12', 'tempo-16', 'tempo-20'].includes(v.id)).length;
+  const urbaniaCount = fleet.filter(v => ['urbania-12', 'urbania-16'].includes(v.id)).length;
+  const busCount = fleet.filter(v => ['bus-27', 'bus-40', 'bus-45'].includes(v.id)).length;
+
+  const fleetCategories = [
+    { key: 'all', label: `All Vehicles (${fleet.length})` },
+    { key: 'cars', label: `Cars (${carsCount})` },
+    { key: 'tempo', label: `Tempo Travellers (${tempoCount})` },
+    { key: 'urbania', label: `Urbania (${urbaniaCount})` },
+    { key: 'bus', label: `Buses (${busCount})` }
+  ];
+
+  const displayedVehicles = selectedCategory === 'all' 
+    ? fleet 
+    : fleet.filter(v => {
+        if (selectedCategory === 'cars') return ['sedan', 'ertiga', 'innova-crysta', 'hycross', 'fortuner'].includes(v.id);
+        if (selectedCategory === 'tempo') return ['tempo-12', 'tempo-16', 'tempo-20'].includes(v.id);
+        if (selectedCategory === 'urbania') return ['urbania-12', 'urbania-16'].includes(v.id);
+        if (selectedCategory === 'bus') return ['bus-27', 'bus-40', 'bus-45'].includes(v.id);
+        return false;
+      });
+
   const trips = tripMap[slug] || defaultTrips;
   const isPackagePage = [
     'local-packages', 'outstation-packages', 'balaji-darshan-packages',
@@ -177,9 +346,43 @@ export default function ServiceLanding({ slug: routeSlug }) {
           <p className="hero-description">{data.intro}</p>
 
           <div className="hero-trust-badges">
-            <span><CheckCircle2 size={15} /> Verified Local Drivers</span>
-            <span><CheckCircle2 size={15} /> Clean Sanitized AC Fleet</span>
-            <span><CheckCircle2 size={15} /> Doorstep Pickup & Drop</span>
+            {slug === 'tirupati-airport-taxi' ? (
+              <>
+                <span><CheckCircle2 size={15} /> 24/7 Flight Tracking</span>
+                <span><CheckCircle2 size={15} /> Zero Surge Pricing</span>
+                <span><CheckCircle2 size={15} /> Direct Hotel & Temple Drop</span>
+              </>
+            ) : slug === 'tempo-traveller-rental-in-tirupati' ? (
+              <>
+                <span><CheckCircle2 size={15} /> Reclining Push-Back Seats</span>
+                <span><CheckCircle2 size={15} /> TV & USB Charging Ports</span>
+                <span><CheckCircle2 size={15} /> Ample Luggage Boot</span>
+              </>
+            ) : slug === 'urbania-traveller-rental-in-tirupati' ? (
+              <>
+                <span><CheckCircle2 size={15} /> Ultra Luxury Recliner Cabin</span>
+                <span><CheckCircle2 size={15} /> Executive Corporate Comfort</span>
+                <span><CheckCircle2 size={15} /> Air Suspension Smooth Ride</span>
+              </>
+            ) : slug === 'bus-rental-in-tirupati' ? (
+              <>
+                <span><CheckCircle2 size={15} /> 27 to 50 Seater Coaches</span>
+                <span><CheckCircle2 size={15} /> Wedding & Event Shuttles</span>
+                <span><CheckCircle2 size={15} /> Experienced Highway Drivers</span>
+              </>
+            ) : slug === 'outstation-taxi-in-tirupati' ? (
+              <>
+                <span><CheckCircle2 size={15} /> Interstate Border Permits</span>
+                <span><CheckCircle2 size={15} /> Per KM Transparent Rates</span>
+                <span><CheckCircle2 size={15} /> One-Way & Round Trips</span>
+              </>
+            ) : (
+              <>
+                <span><CheckCircle2 size={15} /> Verified Local Drivers</span>
+                <span><CheckCircle2 size={15} /> Clean Sanitized AC Fleet</span>
+                <span><CheckCircle2 size={15} /> Doorstep Pickup & Drop</span>
+              </>
+            )}
           </div>
 
           <div className="service-actions" style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
@@ -193,7 +396,13 @@ export default function ServiceLanding({ slug: routeSlug }) {
               type="button"
               className="button hero-pay-btn"
               style={{ background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
-              onClick={() => setSelectedPayVehicle({ name: data.title, price: '2500', serviceTitle: data.title })}
+              onClick={() => setSelectedPayVehicle({ 
+                service: data.title,
+                price: '2500', 
+                isHero: true,
+                slug,
+                category: selectedCategory || initialCategory
+              })}
             >
               <CreditCard size={16} /> Book 💳
             </button>
@@ -215,27 +424,97 @@ export default function ServiceLanding({ slug: routeSlug }) {
       {/* Quick Specs Container */}
       <section className="section service-quick-container">
         <div className="service-quick-grid">
-          <div className="quick-item">
-            <MapPin size={22} />
-            <div>
-              <b>Local & Outstation</b>
-              <small>Flexible pickup from airport, station, hotel</small>
-            </div>
-          </div>
-          <div className="quick-item">
-            <Clock3 size={22} />
-            <div>
-              <b>24×7 Instant Booking</b>
-              <small>Round-the-clock driver & vehicle assistance</small>
-            </div>
-          </div>
-          <div className="quick-item">
-            <ShieldCheck size={22} />
-            <div>
-              <b>Experienced Drivers</b>
-              <small>Familiar with Tirumala & South India routes</small>
-            </div>
-          </div>
+          {slug === 'tirupati-airport-taxi' ? (
+            <>
+              <div className="quick-item">
+                <Clock3 size={22} />
+                <div><b>24×7 Flight Tracking</b><small>Pickup matched to your flight schedule</small></div>
+              </div>
+              <div className="quick-item">
+                <CreditCard size={22} />
+                <div><b>Fixed Airport Rates</b><small>TIR, Chennai & Bangalore transfers</small></div>
+              </div>
+              <div className="quick-item">
+                <MapPin size={22} />
+                <div><b>Direct Hotel Drop</b><small>Doorstep service from airport</small></div>
+              </div>
+            </>
+          ) : slug === 'tempo-traveller-rental-in-tirupati' ? (
+            <>
+              <div className="quick-item">
+                <Users size={22} />
+                <div><b>12 to 20 Seater Fleet</b><small>Push-back seats & spacious interior</small></div>
+              </div>
+              <div className="quick-item">
+                <Luggage size={22} />
+                <div><b>Luggage & Media Amenities</b><small>Boot space, TV screen & USB ports</small></div>
+              </div>
+              <div className="quick-item">
+                <ShieldCheck size={22} />
+                <div><b>Hill Route Drivers</b><small>Expert drivers for Tirumala ghat road</small></div>
+              </div>
+            </>
+          ) : slug === 'urbania-traveller-rental-in-tirupati' ? (
+            <>
+              <div className="quick-item">
+                <Sparkles size={22} />
+                <div><b>Ultra Luxury Cabin</b><small>Plush recliners & quiet ride</small></div>
+              </div>
+              <div className="quick-item">
+                <Award size={22} />
+                <div><b>Executive & Family Use</b><small>Ideal for VIPs & corporate travel</small></div>
+              </div>
+              <div className="quick-item">
+                <Clock3 size={22} />
+                <div><b>24/7 Dedicated Support</b><small>Personal trip coordinator</small></div>
+              </div>
+            </>
+          ) : slug === 'bus-rental-in-tirupati' ? (
+            <>
+              <div className="quick-item">
+                <CarFront size={22} />
+                <div><b>27 to 50 Seater Coaches</b><small>High capacity AC buses</small></div>
+              </div>
+              <div className="quick-item">
+                <Users size={22} />
+                <div><b>Event & Marriage Fleet</b><small>Coordinated guest transportation</small></div>
+              </div>
+              <div className="quick-item">
+                <Navigation size={22} />
+                <div><b>Interstate Permits</b><small>Managed state border permits</small></div>
+              </div>
+            </>
+          ) : slug === 'outstation-taxi-in-tirupati' ? (
+            <>
+              <div className="quick-item">
+                <Fuel size={22} />
+                <div><b>Per-KM Transparent Rates</b><small>300 km/day standard minimum</small></div>
+              </div>
+              <div className="quick-item">
+                <ShieldCheck size={22} />
+                <div><b>Interstate Permits Handled</b><small>Hassle-free border crossing</small></div>
+              </div>
+              <div className="quick-item">
+                <RouteIcon size={22} />
+                <div><b>One-Way & Round Trips</b><small>Routes across AP, TN, KA & TS</small></div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="quick-item">
+                <MapPin size={22} />
+                <div><b>Local & Outstation</b><small>Flexible pickup from airport, station, hotel</small></div>
+              </div>
+              <div className="quick-item">
+                <Clock3 size={22} />
+                <div><b>24×7 Instant Booking</b><small>Round-the-clock driver & vehicle assistance</small></div>
+              </div>
+              <div className="quick-item">
+                <ShieldCheck size={22} />
+                <div><b>Experienced Drivers</b><small>Familiar with Tirumala & South India routes</small></div>
+              </div>
+            </>
+          )}
           <div className="quick-action-box">
             <a href={booking} target="_blank" rel="noreferrer" className="button quick-book-btn">
               Get Trip Quote <ArrowRight size={15} />
@@ -281,10 +560,10 @@ export default function ServiceLanding({ slug: routeSlug }) {
         </div>
       </section>
 
-      {/* Simple 3-Step Booking Process */}
+      {/* 4-Step Booking Process */}
       <section className="section longform-section pale">
         <div className="section-header-centered">
-          <span className="badge-pill"><Navigation size={13} /> EASY 3-STEP BOOKING</span>
+          <span className="badge-pill"><Navigation size={13} /> EASY 4-STEP BOOKING</span>
           <h2>Simple Booking. Exceptional Travel.</h2>
           <p>Book your preferred vehicle in under two minutes with zero hassle</p>
         </div>
@@ -292,25 +571,31 @@ export default function ServiceLanding({ slug: routeSlug }) {
         <div className="booking-steps-grid">
           <div className="step-card">
             <div className="step-number">01</div>
-            <h3>Share Your Plan</h3>
-            <p>Call or WhatsApp us your travel date, pickup location, destination, and passenger count.</p>
+            <h3>Choose Package Tour or Fleet</h3>
+            <p>Select your desired tour package, cab route, or vehicle rental based on your travel needs.</p>
           </div>
 
           <div className="step-card">
             <div className="step-number">02</div>
-            <h3>Select Vehicle</h3>
-            <p>Choose from our wide fleet of Sedans, SUVs, Tempo Travellers, or Buses matching your group size.</p>
+            <h3>Select That</h3>
+            <p>Choose your preferred rate plan (Local 8h, Local 12h, or Outstation) and click Book 💳 or WhatsApp.</p>
           </div>
 
           <div className="step-card">
             <div className="step-number">03</div>
-            <h3>Travel comfortably</h3>
-            <p>Confirm availability and quote. Your driver arrives punctually at your chosen pickup spot.</p>
+            <h3>Fill the Information</h3>
+            <p>Enter your details including Name, Phone, Vehicle, Date, and Pickup Point.</p>
+          </div>
+
+          <div className="step-card">
+            <div className="step-number">04</div>
+            <h3>Adv ₹1,000 Payment</h3>
+            <p>Pay only ₹1,000 advance to instantly lock your booking & vehicle with 100% confirmation.</p>
           </div>
         </div>
       </section>
 
-      {/* Vehicle Options & Pricing Grid */}
+      {/* Vehicle Options & Pricing Grid (ALL 13 VEHICLES WITH CATEGORY FILTER) */}
       <section className="section longform-section" id="vehicles">
         <div className="section-header">
           <span className="badge-pill gold"><Car size={13} /> {slug === 'car-rentals-in-tirupati' ? 'OUR CAR RENTAL PACKAGES' : 'VEHICLE OPTIONS & TARIFFS'}</span>
@@ -318,57 +603,52 @@ export default function ServiceLanding({ slug: routeSlug }) {
           <p>{data.outstation}</p>
         </div>
 
-        <div className="service-vehicles-grid">
-          {data.vehicles.map(([name, capacity, price]) => (
-            <article key={name} className="vehicle-card">
-              <div className="vehicle-photo-wrap">
-                <img src={vehicleImage(name)} alt={name} />
-                <span className="vehicle-driver-tag">WITH EXPERIENCED DRIVER</span>
-              </div>
-              <div className="vehicle-card-content">
-                <div className="vehicle-top-badge">
-                  <Sparkles size={14} />
-                  <span>{name.toUpperCase()}</span>
-                </div>
-                <h3>{name}</h3>
-                <p className="vehicle-capacity">{capacity}</p>
-
-                <div className="vehicle-specs-pills">
-                  <span><Users size={13} /> Group Friendly</span>
-                  <span><Luggage size={13} /> Ample Luggage</span>
-                  <span><Snowflake size={13} /> Air Conditioned</span>
-                </div>
-
-                <div className="vehicle-price-box">
-                  <small>Indicative Tariff</small>
-                  <strong>{price}</strong>
-                </div>
-
-                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.75rem' }}>
-                  <a 
-                    href={`${whatsapp}?text=${encodeURIComponent(`Hi, I would like to book ${name} for ${data.title} at ${price}. Please share availability.`)}`} 
-                    target="_blank" 
-                    rel="noreferrer"
-                    className="button vehicle-book-btn"
-                    style={{ flex: 1, padding: '0.6rem 0.5rem', fontSize: '0.85rem' }}
-                  >
-                    <MessageCircle size={14} /> WhatsApp
-                  </a>
-                  <button 
-                    type="button"
-                    className="button vehicle-book-btn"
-                    style={{ flex: 1, padding: '0.6rem 0.5rem', fontSize: '0.85rem', background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7' }}
-                    onClick={() => setSelectedPayVehicle({ name, price, serviceTitle: data.title })}
-                  >
-                    <CreditCard size={14} /> Book 💳
-                  </button>
-                </div>
-              </div>
-            </article>
+        {/* Category Filter Tabs */}
+        <div className="fleet-filter-tabs" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1.5rem', justifyContent: 'center' }}>
+          {fleetCategories.map(cat => (
+            <button
+              key={cat.key}
+              type="button"
+              onClick={() => {
+                setSelectedCategory(cat.key);
+                const el = document.getElementById('service-vehicles-grid');
+                if (el) {
+                  const rect = el.getBoundingClientRect();
+                  if (rect.top < 120) {
+                    const y = window.pageYOffset + rect.top - 130;
+                    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+                  }
+                }
+              }}
+              style={{
+                padding: '0.5rem 1.1rem',
+                borderRadius: '999px',
+                border: selectedCategory === cat.key ? '2px solid #0284c7' : '1.5px solid #cbd5e1',
+                background: selectedCategory === cat.key ? '#0284c7' : '#ffffff',
+                color: selectedCategory === cat.key ? '#ffffff' : '#334155',
+                fontWeight: 700,
+                fontSize: '0.82rem',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                boxShadow: selectedCategory === cat.key ? '0 4px 12px rgba(2, 132, 199, 0.25)' : 'none'
+              }}
+            >
+              {cat.label}
+            </button>
           ))}
         </div>
 
-        {slug === 'car-rentals-in-tirupati' && (
+        <div className="service-vehicles-grid" id="service-vehicles-grid">
+          {displayedVehicles.map(vehicle => (
+            <TaxiVehicleCard 
+              key={vehicle.id} 
+              vehicle={vehicle} 
+              onBook={(payload) => setSelectedPayVehicle(payload)} 
+            />
+          ))}
+        </div>
+
+        {(slug === 'car-rentals-in-tirupati' || isTaxiServicePage) && (
           <div className="fare-note-box">
             <Info size={18} />
             <p>
@@ -546,9 +826,10 @@ export default function ServiceLanding({ slug: routeSlug }) {
           isOpen={Boolean(selectedPayVehicle)}
           onClose={() => setSelectedPayVehicle(null)}
           initialData={{
-            service: `${selectedPayVehicle.name} (${selectedPayVehicle.serviceTitle || 'Cab Booking'})`,
-            amount: '500',
-            fullAmount: selectedPayVehicle.price
+            service: selectedPayVehicle.service || `${selectedPayVehicle.name} (${selectedPayVehicle.serviceTitle || 'Cab Booking'})`,
+            vehicle: selectedPayVehicle.name,
+            amount: '1000',
+            fullAmount: selectedPayVehicle.price || '2880'
           }}
         />
       )}

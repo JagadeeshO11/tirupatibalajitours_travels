@@ -93,9 +93,10 @@
 /* --- STICKY CATEGORY FILTER BAR --- */
 .tours-sticky-filter-wrapper {
   position: sticky;
-  top: 126px;
-  z-index: 80;
-  margin: 0;
+  top: 76px;
+  z-index: 90;
+  margin: 0 0 8px 0;
+  padding: 4px 0;
 }
 
 .tours-filter-bar {
@@ -146,7 +147,8 @@
 
 /* --- TOUR PACKAGES GRID --- */
 .tours-section {
-  margin-top: 10px;
+  margin-top: 0;
+  scroll-margin-top: 140px;
 }
 
 .tours-grid {
@@ -465,7 +467,7 @@
     gap: 20px;
   }
   .tours-sticky-filter-wrapper {
-    top: 114px;
+    top: 72px;
   }
 }
 
@@ -499,7 +501,7 @@
 
   /* sticky filter */
   .tours-sticky-filter-wrapper {
-    top: 88px;
+    top: 70px;
   }
   .tours-filter-bar {
     justify-content: flex-start;

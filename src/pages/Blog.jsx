@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { useParams, Link, Navigate } from 'react-router-dom';
+import { useParams, Link, Navigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   Calendar, Clock, User, Eye, CheckCircle2, MessageCircle, Phone,
@@ -13,8 +13,9 @@ import StatsBanner from '../components/StatsBanner';
 import ScrollReveal from '../components/ScrollReveal';
 import './Blog.css';
 
-export default function Blog() {
-  const { slug } = useParams();
+export default function Blog({ post: propPost, slug: propSlug }) {
+  const params = useParams();
+  const location = useLocation();
   const { blogs } = useData();
   const [openFaq, setOpenFaq] = useState(null);
   const [copied, setCopied] = useState(false);
@@ -24,16 +25,23 @@ export default function Blog() {
     return blogs && blogs.length > 0 ? blogs : blogPosts;
   }, [blogs]);
 
-  // If no slug is provided in URL, redirect to first blog
-  if (!slug) {
-    const targetSlug = allBlogs[0]?.slug || 'tirupati-to-coimbatore-distance';
-    return <Navigate to={`/blog/${targetSlug}`} replace />;
-  }
+  // Derive target slug from props, params, or location pathname
+  const currentPathSlug = location.pathname.replace(/^\//, '');
+  const targetSlug = propSlug || propPost?.slug || params.slug || currentPathSlug;
 
   // Find target post by slug or id
-  const currentPost = allBlogs.find(
-    p => p.slug === slug || p.id === slug
-  ) || allBlogs[0];
+  const currentPost = propPost || allBlogs.find(
+    p => p.slug === targetSlug || p.id === targetSlug
+  ) || allBlogs.find(
+    p => p.slug === currentPathSlug || p.id === currentPathSlug
+  );
+
+  // If no matching post is found, redirect to first blog post or home
+  if (!currentPost) {
+    const fallbackPost = allBlogs[0];
+    if (!fallbackPost) return <Navigate to="/" replace />;
+    return <Navigate to={`/${fallbackPost.slug}`} replace />;
+  }
 
   // Related posts (excluding current post)
   const relatedPosts = allBlogs.filter(
@@ -65,6 +73,8 @@ export default function Blog() {
         {/* --- BREADCRUMBS --- */}
         <div className="single-blog-breadcrumbs">
           <Link to="/"><Home size={14} /> Home</Link>
+          <ChevronRight size={13} />
+          <Link to="/blog">Blog</Link>
           <ChevronRight size={13} />
           <span className="crumb-active">{currentPost.category}</span>
           <ChevronRight size={13} />
@@ -135,6 +145,26 @@ export default function Blog() {
           </ScrollReveal>
         )}
 
+        {/* --- UNIQUE ROUTE & TRIP SPECIFICATIONS CARD --- */}
+        {currentPost.quickFacts && (
+          <ScrollReveal direction="up">
+            <div className="single-quickfacts-card">
+              <div className="quickfacts-header">
+                <Sparkles size={16} className="sparkle-gold" />
+                <h3>Quick Specifications & Route Details</h3>
+              </div>
+              <div className="quickfacts-grid">
+                {Object.entries(currentPost.quickFacts).map(([key, val], fIdx) => (
+                  <div className="quickfact-item" key={fIdx}>
+                    <span className="quickfact-label">{key}:</span>
+                    <strong className="quickfact-value">{val}</strong>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
+        )}
+
         {/* --- ARTICLE FULL CONTENT SECTIONS --- */}
         <div className="single-article-body">
           {currentPost.fullContent?.intro && (
@@ -195,7 +225,7 @@ export default function Blog() {
           </div>
         </ScrollReveal>
 
-        {/* --- FAQ SECTION --- */}
+        {/* --- DYNAMIC UNIQUE FAQ SECTION --- */}
         <section className="single-faq-section">
           <div className="faq-header">
             <p className="faq-eyebrow">HELPFUL TRAVEL TIPS</p>
@@ -203,20 +233,20 @@ export default function Blog() {
           </div>
 
           <div className="faq-accordion-list">
-            {[
+            {(currentPost.faqs || [
               {
                 q: `What is the best vehicle for traveling on the ${currentPost.shortTitle || 'Tirupati'} route?`,
-                a: 'For 1-4 passengers with moderate luggage, an AC Sedan (Dzire/Etios) is economical and comfortable. For families of 5-7 or elderly pilgrims requiring extra legroom and suspension comfort, Toyota Innova Crysta is highly recommended.'
+                a: 'For 1-4 passengers with moderate luggage, an AC Sedan (Dzire/Etios) is economical and comfortable. For families of 5-7 or elderly pilgrims, Toyota Innova Crysta is highly recommended.'
               },
               {
                 q: 'Are driver bata, tolls, and state permits included in your taxi package quotes?',
-                a: 'Yes, all quotes provided by Tirupati Balaji Tours & Travels are 100% all-inclusive (covering driver bata, highway tolls, parking fees, and AP state entry permits where applicable).'
+                a: 'Yes, all quotes provided by Tirupati Balaji Tours & Travels are 100% all-inclusive.'
               },
               {
                 q: 'Can we customize our route to include nearby temple visits?',
-                a: 'Absolutely! Our drivers are local experts who can seamlessly add temple halts (such as Srikalahasti, Kanipakam, Tiruchanur, or Thiruttani) to your itinerary.'
+                a: 'Absolutely! Our drivers are local experts who can seamlessly add temple halts to your itinerary.'
               }
-            ].map((faq, idx) => (
+            ]).map((faq, idx) => (
               <div
                 key={idx}
                 className={`single-faq-item ${openFaq === idx ? 'is-open' : ''}`}
@@ -251,7 +281,7 @@ export default function Blog() {
 
           <div className="related-blogs-grid">
             {relatedPosts.map(post => (
-              <Link key={post.slug} to={`/blog/${post.slug}`} className="related-blog-card">
+              <Link key={post.slug} to={`/${post.slug}`} className="related-blog-card">
                 <div className="related-card-img">
                   <img src={post.image} alt={post.title} />
                   <span className="related-cat-chip">{post.category}</span>

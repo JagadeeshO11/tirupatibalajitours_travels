@@ -120,6 +120,18 @@ export default function Layout() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    if (open || headerPayModalOpen) {
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      document.body.classList.add('modal-open');
+      return () => {
+        document.body.style.overflow = prevOverflow;
+        document.body.classList.remove('modal-open');
+      };
+    }
+  }, [open, headerPayModalOpen]);
+
   const handleDropdownEnter = id => {
     if (timerRef.current) clearTimeout(timerRef.current);
     setActiveDropdown(id);
@@ -176,11 +188,11 @@ export default function Layout() {
               <NavLink to="/fleet" onMouseEnter={() => handleDropdownLeave(true)}>Fleet & Rentals</NavLink>
               <NavLink to="/tours" onMouseEnter={() => handleDropdownLeave(true)}>Tours</NavLink>
               <NavLink to="/destinations" onMouseEnter={() => handleDropdownLeave(true)}>Destinations</NavLink>
-              <HeaderDropdown id="blogs" activeDropdown={activeDropdown} onEnter={handleDropdownEnter} onLeave={handleDropdownLeave} label="Blogs" className="nav-blogs" links={blogList} getSlug={b => `/blog/${b.slug}`} />
+              <NavLink to="/blog" onMouseEnter={() => handleDropdownLeave(true)}>Blog</NavLink>
               <HeaderDropdown id="more" activeDropdown={activeDropdown} onEnter={handleDropdownEnter} onLeave={handleDropdownLeave} label="More" isMore className="nav-more" links={moreNavLinks} />
             </div>
           </nav>
-          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <div className="nav-right-controls" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
             <button
               type="button"
               className="nav-book-btn"
@@ -207,16 +219,16 @@ export default function Layout() {
             <a className="nav-wa" href={whatsapp} target="_blank" rel="noreferrer">
               <MessageCircle size={16} /> WhatsApp
             </a>
+            <button
+              type="button"
+              className="menu"
+              onClick={toggleMobileMenu}
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+            >
+              {open ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
-          <button
-            type="button"
-            className="menu"
-            onClick={toggleMobileMenu}
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            aria-expanded={open}
-          >
-            {open ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </header>
       </div>
 
@@ -232,7 +244,7 @@ export default function Layout() {
               transition={{ type: 'spring', damping: 25, stiffness: 220 }}
             >
               <div className="drawer-header-row">
-                <Brand logoOnly />
+                <Brand header />
                 <div className="drawer-header-actions">
                   <button type="button" className="drawer-x-icon-btn" onClick={() => setOpen(false)} aria-label="Close menu">
                     <X size={18} />
@@ -244,11 +256,11 @@ export default function Layout() {
                 <button type="button" className={`drawer-tab drawer-tab-primary ${activeTab === 'cabs' ? 'is-active' : ''}`} onClick={() => setActiveTab('cabs')}>
                   <Car size={14} /> Cabs
                 </button>
-                <button type="button" className={`drawer-tab ${activeTab === 'more' ? 'is-active' : ''}`} onClick={() => setActiveTab('more')}>
-                  <Info size={14} /> More Info
-                </button>
                 <button type="button" className={`drawer-tab ${activeTab === 'packages' ? 'is-active' : ''}`} onClick={() => setActiveTab('packages')}>
                   <Package size={14} /> Packages
+                </button>
+                <button type="button" className={`drawer-tab ${activeTab === 'more' ? 'is-active' : ''}`} onClick={() => setActiveTab('more')}>
+                  <Info size={14} /> More Info
                 </button>
               </div>
 
@@ -280,28 +292,19 @@ export default function Layout() {
                 )}
 
                 {activeTab === 'more' && (
-                  <>
-                    <div className="drawer-section-block">
-                      <span className="drawer-badge-pill">Travel Blogs</span>
-                      <div className="drawer-link-card-grid">
-                        {blogList.map(b => (
-                          <NavLink key={b.slug} onClick={() => setOpen(false)} to={`/blog/${b.slug}`} className="mob-link-card">
-                            <span>{b.shortTitle || b.title}</span><ChevronRight size={14} />
-                          </NavLink>
-                        ))}
-                      </div>
+                  <div className="drawer-section-block">
+                    <span className="drawer-badge-pill">Information & Pages</span>
+                    <div className="drawer-link-card-grid">
+                      <NavLink onClick={() => setOpen(false)} to="/blog" className="mob-link-card">
+                        <span>📰 Travel Blogs & Guides</span><ChevronRight size={14} />
+                      </NavLink>
+                      {moreNavLinks.map(m => (
+                        <NavLink key={m.path} onClick={() => setOpen(false)} to={m.path} className="mob-link-card">
+                          <span>{m.title}</span><ChevronRight size={14} />
+                        </NavLink>
+                      ))}
                     </div>
-                    <div className="drawer-section-block" style={{ marginTop: '1.5rem' }}>
-                      <span className="drawer-badge-pill">Information & Pages</span>
-                      <div className="drawer-link-card-grid">
-                        {moreNavLinks.map(m => (
-                          <NavLink key={m.path} onClick={() => setOpen(false)} to={m.path} className="mob-link-card">
-                            <span>{m.title}</span><ChevronRight size={14} />
-                          </NavLink>
-                        ))}
-                      </div>
-                    </div>
-                  </>
+                  </div>
                 )}
               </div>
 

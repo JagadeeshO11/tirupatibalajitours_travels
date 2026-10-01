@@ -70,7 +70,9 @@ export function DataProvider({ children }) {
   const [tours, setTours] = useState(() => {
     try {
       const saved = localStorage.getItem('app_tours');
-      return saved ? JSON.parse(saved) : initialTours;
+      if (!saved) return initialTours;
+      const parsed = JSON.parse(saved);
+      return parsed.length < initialTours.length ? initialTours : parsed;
     } catch {
       return initialTours;
     }

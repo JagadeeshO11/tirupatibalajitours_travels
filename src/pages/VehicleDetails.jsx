@@ -24,7 +24,7 @@ export default function VehicleDetails(){
         <div className="vehicle-detail-copy">
           <span className="vehicle-detail-category">{category}</span><h2>{name}</h2><p>{use}</p>
           <div className="vehicle-spec-grid"><span><Users/><b>{seats}</b><small>Capacity</small></span><span><Luggage/><b>{bags}</b><small>Luggage</small></span><span><Wind/><b>AC</b><small>Air conditioned</small></span><span><ShieldCheck/><b>Driver</b><small>Professional service</small></span></div>
-          <div className="vehicle-detail-rate"><div><small>Local • 8 hrs / 80 km</small><strong>{local}</strong></div><div><small>Local • 12 hrs / 150 km</small><strong>{localLong}</strong></div><div><small>Outstation</small><strong>{outstation}</strong></div><span><Clock3/> {minimum}</span></div>
+          <div className="vehicle-detail-rate"><div><small>Local • 8 hrs / 80 km</small><strong>{local}</strong></div><div><small>Local • 12 hrs / 150 km</small><strong>{localLong}</strong></div><div><small>Outstation (Min 300km/day)</small><strong>{outstation}</strong></div><span><Clock3/> {minimum}</span></div>
           <div className="vehicle-detail-feature-list">{features.map(feature=><span key={feature}><Check/> {feature}</span>)}<span><Fuel/> {fuel}</span></div>
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginTop: '1rem' }}>
             <a className="button" style={{ flex: 1 }} href={`${whatsapp}?text=${encodeURIComponent(message)}`} target="_blank" rel="noreferrer">Rent on WhatsApp</a>

@@ -13,65 +13,7 @@ import StatsBanner from '../components/StatsBanner';
 import EasebuzzModal from '../components/EasebuzzModal';
 import './CabRoutePage.css';
 
-const ContentTable = ({ rows, headers, routeTitle, onPayClick }) => {
-  const isFourCol = headers.length === 3;
-  const gridStyle = {
-    gridTemplateColumns: isFourCol ? '1.2fr 1.2fr 0.8fr 160px' : '1.4fr 1.1fr 160px'
-  };
 
-  return (
-    <div className="content-table-card">
-      <div className="content-table-header-strip">
-        <div className="table-title">
-          <Car className="table-title-icon" size={18} />
-          <div>
-            <h3>Vehicle Tariff & Fare Chart</h3>
-            <p>Transparent pricing for {routeTitle || 'your journey'}</p>
-          </div>
-        </div>
-      </div>
-      <div className="content-table">
-        <div className="content-table-head" style={gridStyle}>
-          {headers.map(h => <strong key={h}>{h}</strong>)}
-          <strong className="action-header">Book & Pay</strong>
-        </div>
-        {rows.map((row, i) => (
-          <div className="content-table-row" key={i} style={gridStyle}>
-            {row.map((cell, j) => (
-              <span key={j} className={j === 1 ? 'fare-cell' : 'vehicle-cell'}>
-                {cell}
-              </span>
-            ))}
-            <div className="table-action-cell" style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-              <a 
-                className="table-book-btn" 
-                style={{ flex: 1, padding: '7px 8px', fontSize: '0.8rem' }}
-                href={whatsappBooking(`Hi, I would like to book ${row[0]} for ${routeTitle || 'cab service'}. Please share exact fare and availability.`)}
-                target="_blank" 
-                rel="noreferrer"
-                title="Book via WhatsApp"
-              >
-                <MessageCircle size={14} /> WhatsApp
-              </a>
-              <button
-                type="button"
-                className="table-book-btn"
-                style={{ background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7', padding: '7px 10px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
-                onClick={() => onPayClick && onPayClick({ name: row[0], price: row[1], title: routeTitle })}
-                title="Book 💳"
-              >
-                <CreditCard size={15} />
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-      <p className="table-note">
-        <Info size={13} /> Rates are indicative starting fares. Final pricing may vary based on exact pickup point, toll gates, state permits, parking fees, and seasonal demand.
-      </p>
-    </div>
-  );
-};
 
 function DetailedRouteContent({ content, route }) {
   const [activeTab, setActiveTab] = useState('vehicles');
@@ -209,8 +151,6 @@ function DetailedRouteContent({ content, route }) {
             </div>
           ))}
         </div>
-
-        <ContentTable headers={['Vehicle Category', 'Indicative Fare']} rows={fleet} routeTitle={route.title} onPayClick={setPayCar} />
       </section>
 
       {/* Visitor Guide & Guidelines */}
@@ -234,36 +174,69 @@ function DetailedRouteContent({ content, route }) {
         </div>
       </section>
 
-      {/* Tour Packages Section */}
+      {/* Tour Packages Section: ENHANCED RECOMMENDED CIRCUITS */}
       <section className="section longform-section">
         <div className="section-header">
           <span className="badge-pill gold"><Calendar size={13} /> RECOMMENDED CIRCUITS</span>
           <h2>Popular Tour & Pilgrimage Packages</h2>
-          <p>Combine multiple temples and sightseeing spots in one customized itinerary</p>
+          <p>Combine multiple temples and sacred destinations into one seamless, custom itinerary</p>
         </div>
 
         <div className="package-grid">
-          {content.packages.map(([title, duration, routeText, price]) => (
-            <article key={title} className="package-card">
-              <div className="package-card-badge">{duration}</div>
-              <h3>{title}</h3>
-              <p className="package-route-text">{routeText}</p>
-              <div className="package-footer">
-                <div className="package-price">
-                  <small>Starting from</small>
-                  <strong>{price}</strong>
+          {content.packages.map(([title, duration, routeText, price]) => {
+            const placesArr = routeText ? routeText.split(/→|->/).map(s => s.trim()) : [];
+            return (
+              <article key={title} className="package-card enhanced-circuit-card">
+                <div className="package-card-header-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                  <span className="package-card-badge" style={{ margin: 0 }}>{duration} · ★ Recommended</span>
+                  <span style={{ fontSize: '10px', fontWeight: 800, color: '#15803d', background: '#dcfce7', padding: '3px 8px', borderRadius: 12 }}>
+                    🚕 Tolls Included
+                  </span>
                 </div>
-                <a 
-                  href={whatsappBooking(`Hi, I would like to enquire about the package: ${title}.`)} 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="package-btn"
-                >
-                  Enquire Now <ArrowRight size={14} />
-                </a>
-              </div>
-            </article>
-          ))}
+                <h3>{title}</h3>
+                
+                {/* 2-COLUMN PLACES VISIT GRID */}
+                <div className="popular-places-box" style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: 12, border: '1px solid #e2e8f0', margin: '10px 0 16px 0' }}>
+                  <h4 style={{ margin: '0 0 6px 0', fontSize: '11px', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                    Places Visit
+                  </h4>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '4px 8px' }}>
+                    {placesArr.map((place, idx) => (
+                      <span key={idx} style={{ fontSize: '10.5px', fontWeight: 600, color: '#334155', display: 'flex', alignItems: 'center', gap: '3px' }}>
+                        📍 {place}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="package-footer" style={{ marginTop: 'auto' }}>
+                  <div className="package-price">
+                    <small>Starting from</small>
+                    <strong>{price}</strong>
+                  </div>
+                  <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                    <a 
+                      href={whatsappBooking(`Hi, I would like to enquire about the package: ${title}.`)} 
+                      target="_blank" 
+                      rel="noreferrer"
+                      className="package-btn secondary"
+                      style={{ padding: '7px 10px', fontSize: '0.8rem', background: '#f1f5f9', color: '#0284c7', borderRadius: 8, textDecoration: 'none', fontWeight: 800, display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                    >
+                      <MessageCircle size={14} /> WhatsApp
+                    </a>
+                    <button
+                      type="button"
+                      className="button"
+                      style={{ background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7', padding: '7px 12px', fontSize: '0.8rem', fontWeight: 800, display: 'inline-flex', alignItems: 'center', gap: '4px', borderRadius: 8, cursor: 'pointer' }}
+                      onClick={() => setPayCar({ name: `${title} (${duration})`, price, title: 'Recommended Circuit' })}
+                    >
+                      Book 💳
+                    </button>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
 
@@ -343,7 +316,7 @@ export default function CabRoutePage({ route: routeProp }) {
         <section className="section not-found-section">
           <h1>Cab Route Not Found</h1>
           <p>We couldn't find the specific cab route you were looking for.</p>
-          <Link className="button" to="/tirupati-cabs/tirupati-to-srikalahasti">
+          <Link className="button" to="/tirupati-cabs/tirupati-to-srikalahasti-distance">
             Browse Tirupati Cab Routes
           </Link>
         </section>
@@ -351,7 +324,7 @@ export default function CabRoutePage({ route: routeProp }) {
     );
   }
 
-  const isSrikalahasti = route.slug === 'tirupati-to-srikalahasti';
+  const isSrikalahasti = route.slug.includes('tirupati-to-srikalahasti');
   const srikalahastiStandardContent = isSrikalahasti ? {
     eyebrow: 'SRIKALAHASTI PILGRIMAGE CAB',
     intro: srikalahastiContent.intro,

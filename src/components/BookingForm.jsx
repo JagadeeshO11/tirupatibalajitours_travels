@@ -8,7 +8,7 @@ import './BookingForm.css';
 
 const popularRoutes = [
   { from: 'Tirupati', to: 'Tirumala', price: '₹900' },
-  { from: 'Tirupati', to: 'Srikalahasti', price: '₹1,500' },
+  { from: 'Tirupati', to: 'Arunachalam', price: '₹4,500' },
   { from: 'Tirupati', to: 'Kanipakam', price: '₹1,800' },
   { from: 'Tirupati', to: 'Vellore Golden Temple', price: '₹3,200' },
   { from: 'Tirupati', to: 'Chennai Airport', price: '₹3,500' },
@@ -239,11 +239,14 @@ export default function BookingForm({ showPackages = true }) {
         isOpen={isPayModalOpen} 
         onClose={() => setIsPayModalOpen(false)}
         initialData={{
-          service: `${f.from} to ${f.to} (${f.vehicle} - ${f.trip})`,
-          amount: '500',
+          service: `${f.from} to ${f.to} (${f.trip})`,
+          vehicle: f.vehicle,
+          amount: '1000',
           fullAmount: estimatedPrice,
           name: f.name,
-          phone: f.phone
+          phone: f.phone,
+          date: f.date,
+          pickup: f.from
         }}
       />
     </>

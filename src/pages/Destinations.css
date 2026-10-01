@@ -1,15 +1,155 @@
 /* ==========================================================================
-   DESTINATIONS PAGE & COMPACT CARDS STYLES
+   DESTINATIONS HERO & COMPACT CARDS STYLES
    ========================================================================== */
 
-.page:has(.destinations-page-section) {
-  padding-bottom: 0 !important;
+.destinations-main-page {
+  padding-top: 0 !important;
+}
+
+.destinations-hero-section {
+  background-size: cover;
+  background-position: center;
+  padding: 56px 24px;
+  color: #ffffff;
+  text-align: center;
+  position: relative;
+  border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.dest-hero-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dest-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: rgba(255, 215, 0, 0.15);
+  color: #ffd700;
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.dest-hero-inner h1 {
+  font-size: clamp(2rem, 3.8vw, 3.2rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.dest-hero-inner p {
+  font-size: 15px;
+  color: #cbd5e1;
+  max-width: 720px;
+  margin: 0 auto 28px;
+  line-height: 1.6;
+}
+
+/* DESTINATION SELECTION & BOOKING BAR IN HERO */
+.dest-hero-booking-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 700px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+.dest-select-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.dest-select-group label {
+  font-size: 11px;
+  font-weight: 800;
+  color: #ffd700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dest-select-field {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: #ffffff;
+  color: #060c2c;
+  font-size: 13.5px;
+  font-weight: 700;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dest-hero-book-btn {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #ffffff !important;
+  border: 1px solid #0284c7;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 44px;
+  align-self: flex-end;
+}
+
+.dest-hero-book-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.55);
+}
+
+@media (max-width: 680px) {
+  .destinations-hero-section {
+    padding: 32px 16px;
+  }
+  .dest-hero-booking-card {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 14px;
+    gap: 12px;
+  }
+  .dest-hero-book-btn {
+    width: 100%;
+    justify-content: center;
+    align-self: auto;
+  }
 }
 
 .destinations-page-section {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1.5rem 1rem 1.5rem; /* Compact top & bottom padding */
+  padding: 2rem 1rem 3rem;
 }
 
 .destinations-grid-container {
@@ -27,10 +167,10 @@
 
 @media (max-width: 580px) {
   .destinations-page-section {
-    padding: 1rem 0.75rem 1rem; /* Compact mobile padding */
+    padding: 1.25rem 0.75rem 2rem;
   }
   .destinations-grid-container {
-    grid-template-columns: repeat(2, minmax(0, 1fr)); /* Compact 2-column mobile grid */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.75rem;
   }
 }
@@ -175,34 +315,10 @@
   }
 }
 
-.dest-actions-two {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
+.dest-actions-single {
   margin-top: auto;
   padding-top: 0.75rem;
   border-top: 1px solid rgba(11, 24, 84, 0.08);
-}
-
-.dest-btn-pay {
-  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-  color: #ffffff;
-  border: none;
-  padding: 0.65rem 0.75rem;
-  border-radius: 8px;
-  font-size: 0.825rem;
-  font-weight: 800;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  transition: transform 0.2s, opacity 0.2s;
-}
-
-.dest-btn-pay:hover {
-  opacity: 0.95;
-  transform: translateY(-1px);
 }
 
 .dest-btn-details {
@@ -217,12 +333,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 6px;
+  width: 100%;
   transition: background-color 0.2s, transform 0.2s;
 }
 
 .dest-btn-details:hover {
-  background: #e2e8f0;
-  color: #0369a1;
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
   transform: translateY(-1px);
 }

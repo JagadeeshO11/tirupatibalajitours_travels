@@ -422,3 +422,20 @@
 .home-hero-booking-modal .itinerary-modal {
   z-index: 10001;
 }
+
+/* Invisible scrollbar for popup booking panel modal while remaining functional */
+.itinerary-modal,
+.package-info-modal,
+.booking-payment-overlay .itinerary-modal {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.itinerary-modal::-webkit-scrollbar,
+.package-info-modal::-webkit-scrollbar,
+.booking-payment-overlay .itinerary-modal::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+

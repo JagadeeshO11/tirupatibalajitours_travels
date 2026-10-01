@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Plus, Edit2, Trash2, X, FileText } from 'lucide-react';
+import { Plus, Edit2, Trash2, X, ExternalLink } from 'lucide-react';
 import { useData } from '../context/DataContext';
 import './Admin.css';
 
@@ -15,19 +15,31 @@ const emptyBlog = {
   snippet: ''
 };
 
+function slugify(text) {
+  return (text || '')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+}
+
 export default function AdminBlogs() {
   const { blogs, addBlog, updateBlog, deleteBlog } = useData();
   const [modalOpen, setModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState(emptyBlog);
+  const [userEditedSlug, setUserEditedSlug] = useState(false);
 
   const handleOpenAdd = () => {
     setEditingId(null);
+    setUserEditedSlug(false);
+    const defaultTitle = 'Tirumala Balaji Darshan Travel Tips 2026';
     setFormData({
       ...emptyBlog,
       id: String(Date.now()),
-      title: 'Tirumala Balaji Darshan Travel Tips 2026',
-      slug: `blog-${Date.now()}`,
+      title: defaultTitle,
+      slug: slugify(defaultTitle),
       snippet: 'Complete guide for pilgrims visiting Tirumala including queue timings and cab advice.'
     });
     setModalOpen(true);
@@ -35,7 +47,8 @@ export default function AdminBlogs() {
 
   const handleOpenEdit = (b) => {
     setEditingId(b.id);
-    setFormData({ ...b });
+    setUserEditedSlug(true);
+    setFormData({ ...b, slug: b.slug || slugify(b.title) });
     setModalOpen(true);
   };
 
@@ -45,12 +58,30 @@ export default function AdminBlogs() {
     }
   };
 
+  const handleTitleChange = (e) => {
+    const val = e.target.value;
+    if (!userEditedSlug && !editingId) {
+      setFormData(prev => ({
+        ...prev,
+        title: val,
+        slug: slugify(val)
+      }));
+    } else {
+      setFormData(prev => ({ ...prev, title: val }));
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    const finalData = {
+      ...formData,
+      slug: formData.slug || slugify(formData.title)
+    };
+
     if (editingId) {
-      updateBlog(editingId, formData);
+      updateBlog(editingId, finalData);
     } else {
-      addBlog(formData);
+      addBlog(finalData);
     }
     setModalOpen(false);
   };
@@ -75,6 +106,7 @@ export default function AdminBlogs() {
             <thead>
               <tr>
                 <th>Article Title</th>
+                <th>URL Slug</th>
                 <th>Category</th>
                 <th>Author</th>
                 <th>Read Time</th>
@@ -95,6 +127,9 @@ export default function AdminBlogs() {
                     </div>
                   </td>
                   <td>
+                    <code style={{ color: '#38bdf8', fontSize: '0.8rem' }}>/{b.slug}</code>
+                  </td>
+                  <td>
                     <span className="status-badge info">{b.category}</span>
                   </td>
                   <td>{b.author}</td>
@@ -102,6 +137,16 @@ export default function AdminBlogs() {
                   <td>{b.date}</td>
                   <td>
                     <div className="action-btns">
+                      <a
+                        href={`/${b.slug}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn-icon-admin"
+                        title="View Live Article"
+                        style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}
+                      >
+                        <ExternalLink size={14} />
+                      </a>
                       <button type="button" onClick={() => handleOpenEdit(b)} className="btn-icon-admin" title="Edit Article">
                         <Edit2 size={14} />
                       </button>
@@ -135,8 +180,24 @@ export default function AdminBlogs() {
                   type="text" 
                   required 
                   value={formData.title}
-                  onChange={e => setFormData({ ...formData, title: e.target.value })}
+                  onChange={handleTitleChange}
                 />
+              </div>
+
+              <div className="modal-form-full">
+                <label>URL Slug * (Root Link)</label>
+                <input 
+                  type="text" 
+                  required 
+                  value={formData.slug}
+                  onChange={e => {
+                    setUserEditedSlug(true);
+                    setFormData({ ...formData, slug: slugify(e.target.value) });
+                  }}
+                />
+                <small style={{ color: '#38bdf8', marginTop: '0.25rem', display: 'block' }}>
+                  Live Article Path: <strong>/{formData.slug || 'slug'}</strong>
+                </small>
               </div>
 
               <div>

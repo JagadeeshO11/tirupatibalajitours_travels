@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Luggage, Wind, ShieldCheck, Clock3, Fuel, Users, MapPin, CreditCard } from 'lucide-react';
+import { Luggage, Wind, ShieldCheck, Clock3, Fuel, Users, MapPin, CreditCard, Check } from 'lucide-react';
 import Page from './PageTemplate';
 import { images, whatsapp } from '../data/siteData';
 import { fleetCategories } from '../data/fleetData';
@@ -10,7 +10,125 @@ import { useData } from '../context/DataContext';
 import './Fleet.css';
 import './FleetOverride.css';
 import './FleetMobileOrder.css';
-import { Link } from 'react-router-dom';
+
+function FleetCardItem({ vehicle, onBook }) {
+  const [selectedRate, setSelectedRate] = useState('local'); // 'local' | 'localLong' | 'outstation'
+
+  const rateOptions = [
+    { key: 'local', label: 'Local 8h / 80km', price: vehicle.local },
+    { key: 'localLong', label: 'Local 12h / 150km', price: vehicle.localLong },
+    { key: 'outstation', label: 'Outstation (Min 300km/day)', price: vehicle.outstation }
+  ];
+
+  const currentOption = rateOptions.find(r => r.key === selectedRate) || rateOptions[0];
+
+  const waMessage = `Hi, I want to book ${vehicle.name} in Tirupati for ${currentOption.label} (${currentOption.price}). Please share availability.`;
+
+  return (
+    <article className="rental-card">
+      <div className="vehicle-media">
+        <img src={vehicle.image} alt={`${vehicle.name} rental in Tirupati`} loading="lazy" />
+        <span className="media-type">{vehicle.category}</span>
+        <div className="vehicle-logo-tag" title="Tirupati Balaji Tours & Travels">
+          <img src="https://res.cloudinary.com/znbhjevm/image/upload/v1786735614/6a36504b-4108-47ac-8a09-34f153b10f97.png" alt="TBTT Logo" />
+        </div>
+        <div className="media-bottom">
+          <span className="media-rate">{currentOption.price}</span>
+          <span className="media-seats"><Users size={14} /> {vehicle.seats}</span>
+        </div>
+      </div>
+
+      <div className="rental-info">
+        <div className="vehicle-heading">
+          <div>
+            <span className="vehicle-category">{vehicle.category}</span>
+            <h3>{vehicle.name}</h3>
+          </div>
+          <span className="vehicle-capacity">{vehicle.seats} seats</span>
+        </div>
+
+        <p className="vehicle-summary">{vehicle.use}</p>
+
+        <div className="vehicle-features">
+          {Array.isArray(vehicle.features) ? (
+            vehicle.features.map(feature => (
+              <span key={feature}><Wind size={13} /> {feature}</span>
+            ))
+          ) : (
+            <span><Wind size={13} /> {vehicle.features}</span>
+          )}
+          <span><Luggage size={13} /> {vehicle.bags} bags</span>
+          <span><Fuel size={13} /> {vehicle.fuel}</span>
+        </div>
+
+        {/* SELECTABLE RATES SECTION */}
+        <div className="selectable-rates-container" style={{ marginTop: '0.85rem', marginBottom: '0.85rem' }}>
+          <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#64748b', display: 'block', marginBottom: '0.35rem', letterSpacing: '0.04em' }}>
+            SELECT RATE PLAN:
+          </span>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.4rem' }}>
+            {rateOptions.map(opt => (
+              <button
+                key={opt.key}
+                type="button"
+                onClick={() => setSelectedRate(opt.key)}
+                style={{
+                  padding: '0.55rem 0.35rem',
+                  borderRadius: 10,
+                  border: selectedRate === opt.key ? '2px solid #d97706' : '1.5px solid #cbd5e1',
+                  background: selectedRate === opt.key ? '#fffdf5' : '#f8fafc',
+                  cursor: 'pointer',
+                  textAlign: 'center',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: '2px',
+                  boxShadow: selectedRate === opt.key ? '0 4px 12px rgba(217, 119, 6, 0.2)' : 'none',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                <small style={{ fontSize: '0.65rem', fontWeight: 800, color: selectedRate === opt.key ? '#d97706' : '#64748b', textTransform: 'uppercase' }}>
+                  {opt.label}
+                </small>
+                <b style={{ fontSize: '0.82rem', fontWeight: 800, color: '#060c2c', whiteSpace: 'nowrap' }}>
+                  {opt.price}
+                </b>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <p className="vehicle-minimum"><MapPin size={14} /> Outstation minimum {vehicle.minimum}</p>
+
+        {/* Note: "View Details" button removed as requested */}
+
+        <div className="rent-actions" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.85rem' }}>
+          <a
+            className="button"
+            style={{ flex: 1 }}
+            href={`${whatsapp}?text=${encodeURIComponent(waMessage)}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Book on WhatsApp
+          </a>
+          <button
+            type="button"
+            className="button"
+            style={{ flex: 1, background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7' }}
+            onClick={() => onBook({ 
+              name: vehicle.name, 
+              service: `${vehicle.name} - ${currentOption.label} (${currentOption.price})`, 
+              price: currentOption.price 
+            })}
+          >
+            Book 💳
+          </button>
+        </div>
+      </div>
+    </article>
+  );
+}
 
 export default function Fleet() {
   const { fleets } = useData();
@@ -69,74 +187,10 @@ export default function Fleet() {
               <div className="vehicle-slider">
                 {items.map((v, idx) => (
                   <ScrollReveal key={v.id} direction="up" delay={idx * 0.06}>
-                    <article className="rental-card">
-                      <div className="vehicle-media">
-                        <img src={v.image} alt={`${v.name} rental in Tirupati`} loading="lazy" />
-                        <span className="media-type">{v.category}</span>
-                        <div className="vehicle-logo-tag" title="Tirupati Balaji Tours & Travels">
-                          <img src="https://res.cloudinary.com/znbhjevm/image/upload/v1786735614/6a36504b-4108-47ac-8a09-34f153b10f97.png" alt="TBTT Logo" />
-                        </div>
-                        <div className="media-bottom">
-                          <span className="media-rate">{v.local}</span>
-                          <span className="media-seats"><Users size={14} /> {v.seats}</span>
-                        </div>
-                      </div>
-
-                      <div className="rental-info">
-                        <div className="vehicle-heading">
-                          <div>
-                            <span className="vehicle-category">{v.category}</span>
-                            <h3>{v.name}</h3>
-                          </div>
-                          <span className="vehicle-capacity">{v.seats} seats</span>
-                        </div>
-
-                        <p className="vehicle-summary">{v.use}</p>
-
-                        <div className="vehicle-features">
-                          {Array.isArray(v.features) ? (
-                            v.features.map(feature => (
-                              <span key={feature}><Wind size={13} /> {feature}</span>
-                            ))
-                          ) : (
-                            <span><Wind size={13} /> {v.features}</span>
-                          )}
-                          <span><Luggage size={13} /> {v.bags} bags</span>
-                          <span><Fuel size={13} /> {v.fuel}</span>
-                        </div>
-
-                        <div className="vehicle-price-grid">
-                          <span><small>Local • 8 hrs / 80 km</small><b>{v.local}</b></span>
-                          <span><small>Local • 12 hrs / 150 km</small><b>{v.localLong}</b></span>
-                          <span><small>Outstation • Per km</small><b>{v.outstation}</b></span>
-                          <span><small>Minimum per day</small><b>{v.minimum}</b></span>
-                        </div>
-
-                        <p className="vehicle-minimum"><MapPin size={14} /> Outstation minimum {v.minimum}</p>
-
-                        <Link className="view-details" to={`/fleet/${v.id}`}>View Details</Link>
-
-                        <div className="rent-actions" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                          <a
-                            className="button"
-                            style={{ flex: 1 }}
-                            href={`${whatsapp}?text=${encodeURIComponent(`Hi, I want to book ${v.name} in Tirupati. Rates: Local 8h ₹${v.local}, 12h ₹${v.localLong}, Outstation ${v.outstation}. Please share availability.`)}`}
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            Book on WhatsApp
-                          </a>
-                          <button
-                            type="button"
-                            className="button"
-                            style={{ flex: 1, background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7' }}
-                            onClick={() => setSelectedPayVehicle(v)}
-                          >
-                            Book 💳
-                          </button>
-                        </div>
-                      </div>
-                    </article>
+                    <FleetCardItem 
+                      vehicle={v} 
+                      onBook={(payload) => setSelectedPayVehicle(payload)} 
+                    />
                   </ScrollReveal>
                 ))}
               </div>
@@ -177,9 +231,10 @@ export default function Fleet() {
           isOpen={Boolean(selectedPayVehicle)}
           onClose={() => setSelectedPayVehicle(null)}
           initialData={{
-            service: `${selectedPayVehicle.name} Booking`,
-            amount: '500',
-            fullAmount: selectedPayVehicle.local || '2880'
+            service: selectedPayVehicle.service || `${selectedPayVehicle.name} Booking`,
+            vehicle: selectedPayVehicle.name,
+            amount: '1000',
+            fullAmount: selectedPayVehicle.price || '2880'
           }}
         />
       )}

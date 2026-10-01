@@ -211,7 +211,41 @@
   font-size: 12px;
   line-height: 1.5;
   color: var(--muted, #666);
-  margin-bottom: 16px;
+  margin-bottom: 8px;
+}
+
+.vehicle-pricing-static-box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin: 8px 0 14px 0;
+  padding: 8px 10px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.vehicle-rate-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vehicle-rate-item small {
+  font-size: 9px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.vehicle-rate-item strong {
+  font-size: 11px;
+  font-weight: 800;
+  color: #0284c7;
+  white-space: nowrap;
 }
 
 .package-route-pill {

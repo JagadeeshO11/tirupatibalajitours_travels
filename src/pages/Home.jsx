@@ -12,9 +12,11 @@ import {
   FaCircleCheck, FaRoute, FaLandmark, FaPlane, FaWandMagicSparkles
 } from 'react-icons/fa6';
 import { destinations, images, services, tours, vehicles, whatsapp, phone } from '../data/siteData';
+import { fleet } from '../data/fleetData';
 import { cabRoutes } from '../data/cabRoutes';
 import BookingForm from '../components/BookingForm';
 import PopularPackages from '../components/PopularPackages';
+import EasebuzzModal from '../components/EasebuzzModal';
 import AnimatedCounter from '../components/AnimatedCounter';
 import StatsBanner from '../components/StatsBanner';
 import ScrollReveal from '../components/ScrollReveal';
@@ -90,8 +92,44 @@ const Slider = ({ children }) => (
   </Swiper>
 );
 
+function HomeFleetSlideCard({ v, onBook }) {
+  const startingPrice = v.local || v.price || '₹2,000';
+
+  return (
+    <article className="home-slide-card vehicle-card">
+      <div className="slide-image vehicle-image-bg">
+        <img src={v.image} alt={v.name} />
+        <span className="vehicle-ac-badge">AC · WITH DRIVER</span>
+      </div>
+      <div className="card-body">
+        <div className="card-tag-row">
+          <small className="category-tag">{v.category}</small>
+          <span className="rate-badge">From {startingPrice}</span>
+        </div>
+        <h3>{v.name}</h3>
+        <div className="vehicle-specs-row">
+          <span>👥 {v.seats} Seats</span>
+          <span>🧳 {v.bags} Bags</span>
+        </div>
+
+        <p className="vehicle-desc">{v.use}</p>
+
+        <button
+          type="button"
+          className="button"
+          style={{ width: '100%', marginTop: 'auto', background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7', fontSize: '0.85rem', padding: '0.6rem 0.75rem', borderRadius: '8px', fontWeight: 800 }}
+          onClick={() => onBook({ name: v.name, vehicle: v.name, service: `${v.name} Rental`, price: startingPrice })}
+        >
+          Book {v.name} 💳
+        </button>
+      </div>
+    </article>
+  );
+}
+
 export default function Home() {
   const [openFaq, setOpenFaq] = useState(null);
+  const [homePayVehicle, setHomePayVehicle] = useState(null);
 
   const toggleFaq = index => {
     setOpenFaq(openFaq === index ? null : index);
@@ -231,7 +269,7 @@ export default function Home() {
             <p className="eyebrow">POPULAR OUTSTATION CAB ROUTES</p>
             <h2>Top Temple & City Routes from Tirupati</h2>
           </div>
-          <Link className="all-link" to="/tirupati-cabs/tirupati-to-srikalahasti">
+          <Link className="all-link" to="/tirupati-cabs/tirupati-to-srikalahasti-distance">
             All Cab Routes <FaArrowRight size={14} />
           </Link>
         </div>
@@ -274,29 +312,12 @@ export default function Home() {
         </div>
 
         <Slider>
-          {vehicles.map(v => (
-            <SwiperSlide key={v[0]}>
-              <article className="home-slide-card vehicle-card">
-                <div className="slide-image vehicle-image-bg">
-                  <img src={v[3]} alt={v[0]} />
-                  <span className="vehicle-ac-badge">{v[5]}</span>
-                </div>
-                <div className="card-body">
-                  <div className="card-tag-row">
-                    <small className="category-tag">{v[6]}</small>
-                    <span className="rate-badge">From {v[4]}</span>
-                  </div>
-                  <h3>{v[0]}</h3>
-                  <div className="vehicle-specs-row">
-                    <span>👥 {v[1]}</span>
-                    <span>🧳 {v[2]}</span>
-                  </div>
-                  <p className="vehicle-desc">{v[7] || v[2]}</p>
-                  <Link to="/fleet#rentals" className="card-action-btn vehicle-btn">
-                    View Specs & Rates <FaArrowRight size={14} />
-                  </Link>
-                </div>
-              </article>
+          {fleet.map(v => (
+            <SwiperSlide key={v.id}>
+              <HomeFleetSlideCard 
+                v={v} 
+                onBook={(payload) => setHomePayVehicle(payload)} 
+              />
             </SwiperSlide>
           ))}
         </Slider>
@@ -371,7 +392,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- 3-STEP EASY BOOKING FLOW --- */}
+      {/* --- 4-STEP EASY BOOKING FLOW --- */}
       <section className="section home-booking-steps">
         <div className="section-heading">
           <div>
@@ -381,22 +402,28 @@ export default function Home() {
         </div>
 
         <div className="card-grid home-steps-grid">
-          <div style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '16px', boxShadow: 'var(--shadow-sm)', textAlign: 'center', padding: '2rem 1.5rem' }}>
-            <span style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--gold-dark, #d97706)', display: 'block', marginBottom: '0.5rem' }}>01</span>
-            <h3 style={{ color: 'var(--blue-950, #060c2c)', fontSize: '1.25rem', marginBottom: '0.5rem', fontWeight: 800 }}>Share Travel Details</h3>
-            <p style={{ color: 'var(--muted, #334155)', fontSize: '0.95rem', lineHeight: '1.6', margin: 0 }}>Tell us your travel dates, pickup point, destination, passenger count, and preferred vehicle class.</p>
+          <div style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '16px', boxShadow: 'var(--shadow-sm)', textAlign: 'center', padding: '1.75rem 1.25rem' }}>
+            <span style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--gold-dark, #d97706)', display: 'block', marginBottom: '0.4rem' }}>01</span>
+            <h3 style={{ color: 'var(--blue-950, #060c2c)', fontSize: '1.15rem', marginBottom: '0.4rem', fontWeight: 800 }}>Choose Package Tour or Fleet</h3>
+            <p style={{ color: 'var(--muted, #334155)', fontSize: '0.9rem', lineHeight: '1.5', margin: 0 }}>Browse and choose the correct package tour or vehicle fleet for your travel.</p>
           </div>
 
-          <div style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '16px', boxShadow: 'var(--shadow-sm)', textAlign: 'center', padding: '2rem 1.5rem' }}>
-            <span style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--gold-dark, #d97706)', display: 'block', marginBottom: '0.5rem' }}>02</span>
-            <h3 style={{ color: 'var(--blue-950, #060c2c)', fontSize: '1.25rem', marginBottom: '0.5rem', fontWeight: 800 }}>Receive Instant Quote</h3>
-            <p style={{ color: 'var(--muted, #334155)', fontSize: '0.95rem', lineHeight: '1.6', margin: 0 }}>Get transparent fare details with verified driver assignment, AC status, and toll inclusions.</p>
+          <div style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '16px', boxShadow: 'var(--shadow-sm)', textAlign: 'center', padding: '1.75rem 1.25rem' }}>
+            <span style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--gold-dark, #d97706)', display: 'block', marginBottom: '0.4rem' }}>02</span>
+            <h3 style={{ color: 'var(--blue-950, #060c2c)', fontSize: '1.15rem', marginBottom: '0.4rem', fontWeight: 800 }}>Select That</h3>
+            <p style={{ color: 'var(--muted, #334155)', fontSize: '0.9rem', lineHeight: '1.5', margin: 0 }}>Click to select your chosen package tour or cab option.</p>
           </div>
 
-          <div style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '16px', boxShadow: 'var(--shadow-sm)', textAlign: 'center', padding: '2rem 1.5rem' }}>
-            <span style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--gold-dark, #d97706)', display: 'block', marginBottom: '0.5rem' }}>03</span>
-            <h3 style={{ color: 'var(--blue-950, #060c2c)', fontSize: '1.25rem', marginBottom: '0.5rem', fontWeight: 800 }}>Travel Comfortably</h3>
-            <p style={{ color: 'var(--muted, #334155)', fontSize: '0.95rem', lineHeight: '1.6', margin: 0 }}>Your driver greets you on time at your hotel, airport, or railway station for a safe journey.</p>
+          <div style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '16px', boxShadow: 'var(--shadow-sm)', textAlign: 'center', padding: '1.75rem 1.25rem' }}>
+            <span style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--gold-dark, #d97706)', display: 'block', marginBottom: '0.4rem' }}>03</span>
+            <h3 style={{ color: 'var(--blue-950, #060c2c)', fontSize: '1.15rem', marginBottom: '0.4rem', fontWeight: 800 }}>Fill the Information</h3>
+            <p style={{ color: 'var(--muted, #334155)', fontSize: '0.9rem', lineHeight: '1.5', margin: 0 }}>Provide your Name, Phone Number, Vehicle choice, Travel Date, and Pickup Point.</p>
+          </div>
+
+          <div style={{ background: '#ffffff', border: '1px solid var(--line)', borderRadius: '16px', boxShadow: 'var(--shadow-sm)', textAlign: 'center', padding: '1.75rem 1.25rem' }}>
+            <span style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--gold-dark, #d97706)', display: 'block', marginBottom: '0.4rem' }}>04</span>
+            <h3 style={{ color: 'var(--blue-950, #060c2c)', fontSize: '1.15rem', marginBottom: '0.4rem', fontWeight: 800 }}>Adv ₹1000 Payment</h3>
+            <p style={{ color: 'var(--muted, #334155)', fontSize: '0.9rem', lineHeight: '1.5', margin: 0 }}>Pay ₹1,000 advance payment to confirm your cab booking instantly.</p>
           </div>
         </div>
       </section>
@@ -514,6 +541,20 @@ export default function Home() {
           </span>
         </div>
       </section>
+
+      {/* Vehicle Booking Modal */}
+      {homePayVehicle && (
+        <EasebuzzModal 
+          isOpen={Boolean(homePayVehicle)}
+          onClose={() => setHomePayVehicle(null)}
+          initialData={{
+            service: homePayVehicle.service || `${homePayVehicle.name} Booking`,
+            vehicle: homePayVehicle.name,
+            amount: '1000',
+            fullAmount: homePayVehicle.price || '2880'
+          }}
+        />
+      )}
     </main>
   );
 }

@@ -12,10 +12,31 @@ export default function Tours() {
   const [filter, setFilter] = useState('All');
   const [selectedPayTour, setSelectedPayTour] = useState(null);
 
+  const durationOptions = [
+    { key: 'All', label: 'All Packages' },
+    { key: '1-Day', label: '1 Day' },
+    { key: '2-Days', label: '2 Days' },
+    { key: '3-Days', label: '3 Days' },
+    { key: '4-Days', label: '4 Days' },
+    { key: '5+Days', label: '5+ Days' }
+  ];
+
+  const parseDurationDays = (dStr) => {
+    if (!dStr) return 1;
+    const match = dStr.match(/(\d+)\s*Days?/i);
+    if (match) return parseInt(match[1], 10);
+    if (dStr.toLowerCase().includes('full day') || dStr.toLowerCase().includes('1 day')) return 1;
+    return 1;
+  };
+
   const filteredPackages = tours.filter(t => {
+    const days = parseDurationDays(t[1]);
     if (filter === 'All') return true;
-    if (filter === '1-Day') return t[1].includes('1 Day');
-    if (filter === '2-Day') return t[1].includes('2 Day') || t[1].includes('Full Day');
+    if (filter === '1-Day') return days === 1;
+    if (filter === '2-Days') return days === 2;
+    if (filter === '3-Days') return days === 3;
+    if (filter === '4-Days') return days === 4;
+    if (filter === '5+Days') return days >= 5;
     return true;
   });
 
@@ -39,23 +60,50 @@ export default function Tours() {
         </div>
       </section>
 
-      {/* --- STICKY CATEGORY FILTER BAR --- */}
+      {/* --- STICKY CATEGORY & DURATION FILTER BAR --- */}
       <div className="tours-sticky-filter-wrapper">
-        <div className="tours-filter-bar">
-          <button className={`tours-filter-btn ${filter === 'All' ? 'active' : ''}`} onClick={() => setFilter('All')}>
-            All Packages ({tours.length})
-          </button>
-          <button className={`tours-filter-btn ${filter === '1-Day' ? 'active' : ''}`} onClick={() => setFilter('1-Day')}>
-            1-Day Tours
-          </button>
-          <button className={`tours-filter-btn ${filter === '2-Day' ? 'active' : ''}`} onClick={() => setFilter('2-Day')}>
-            Multi-Day & Full Day
-          </button>
+        <div className="tours-filter-bar" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.4rem', overflowX: 'auto', flexWrap: 'nowrap' }}>
+          {durationOptions.map(opt => {
+            const count = opt.key === 'All' 
+              ? tours.length 
+              : tours.filter(t => {
+                  const d = parseDurationDays(t[1]);
+                  if (opt.key === '1-Day') return d === 1;
+                  if (opt.key === '2-Days') return d === 2;
+                  if (opt.key === '3-Days') return d === 3;
+                  if (opt.key === '4-Days') return d === 4;
+                  if (opt.key === '5+Days') return d >= 5;
+                  return false;
+                }).length;
+
+            if (opt.key !== 'All' && count === 0) return null;
+
+            return (
+              <button
+                key={opt.key}
+                type="button"
+                className={`tours-filter-btn ${filter === opt.key ? 'active' : ''}`}
+                onClick={() => {
+                  setFilter(opt.key);
+                  const el = document.getElementById('tours-cards-section');
+                  if (el) {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < 130) {
+                      const y = window.pageYOffset + rect.top - 140;
+                      window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+                    }
+                  }
+                }}
+              >
+                {opt.label} ({count})
+              </button>
+            );
+          })}
         </div>
       </div>
 
       {/* --- TOUR PACKAGES GRID --- */}
-      <section className="tours-section">
+      <section className="tours-section" id="tours-cards-section">
         <div className="tours-grid">
           {filteredPackages.map((pkg, idx) => {
             const title = pkg[0];
@@ -82,23 +130,39 @@ export default function Tours() {
                   <p className="tour-category-tag">PILGRIMAGE PACKAGE</p>
                   <h3>{title}</h3>
 
-                  <details className="tour-route-details">
-                    <summary className="tour-route-summary">
-                      <span>Route Corridor</span>
-                      <ChevronDown size={12} className="summary-chevron" />
-                    </summary>
-                    <p className="tour-route-full">{route}</p>
-                  </details>
-
-                  <div className="tour-pricing-grid">
-                    <span className="grid-label">INDICATIVE TARIFFS</span>
-                    {details.prices.slice(0, 3).map(([vehicle, pVal]) => (
-                      <div key={vehicle} className="tour-price-row">
-                        <span>{vehicle}</span>
-                        <strong>{pVal}</strong>
-                      </div>
-                    ))}
+                  <div className="tour-route-details-box" style={{ margin: '0.75rem 0', padding: '0.6rem 0.75rem', background: '#f8fafc', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
+                    <span style={{ fontSize: '0.68rem', fontWeight: 800, color: '#64748b', display: 'block', marginBottom: '0.35rem', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+                      Places Visited / Route Corridor:
+                    </span>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.35rem 0.5rem' }}>
+                      {route.split(/·|→|\s\s+/).map(p => p.trim()).filter(Boolean).map((place, pIdx) => (
+                        <span key={pIdx} style={{ fontSize: '0.75rem', fontWeight: 700, color: '#1e293b', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          <MapPin size={11} style={{ color: '#0284c7', flexShrink: 0 }} /> {place}
+                        </span>
+                      ))}
+                    </div>
                   </div>
+
+                  {/* FLEET FARES PREVIEW CHIPS */}
+                  {details.prices && details.prices.length > 0 && (
+                    <div style={{ margin: '0.5rem 0 0.75rem 0', padding: '0.5rem 0.75rem', background: '#f1f5f9', borderRadius: '8px', border: '1px solid #cbd5e1' }}>
+                      <span style={{ fontSize: '0.65rem', fontWeight: 800, color: '#475569', display: 'block', marginBottom: '0.3rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                        🚗 Vehicle Fleet Pricing:
+                      </span>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                        {details.prices.slice(0, 4).map(([vName, vFare]) => (
+                          <span key={vName} style={{ fontSize: '0.72rem', background: '#ffffff', border: '1px solid #cbd5e1', padding: '2px 6px', borderRadius: '4px', color: '#1e293b' }}>
+                            <small style={{ color: '#64748b', fontWeight: 600 }}>{vName.split(' ')[0]}:</small> <strong style={{ color: '#0284c7' }}>{vFare}</strong>
+                          </span>
+                        ))}
+                        {details.prices.length > 4 && (
+                          <span style={{ fontSize: '0.72rem', color: '#0284c7', fontWeight: 700, alignSelf: 'center' }}>
+                            +{details.prices.length - 4} more
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  )}
 
                   <div className="tour-inclusions-summary">
                     <CheckCircle2 size={13} /> Includes Tolls, Parking, Driver Batta
@@ -118,7 +182,7 @@ export default function Tours() {
                       type="button"
                       className="tour-book-btn"
                       style={{ flex: 1, background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7' }}
-                      onClick={() => setSelectedPayTour({ title, price })}
+                      onClick={() => setSelectedPayTour({ title, price, duration, prices: details.prices })}
                     >
                       Book 💳
                     </button>
@@ -161,7 +225,9 @@ export default function Tours() {
           isOpen={Boolean(selectedPayTour)}
           onClose={() => setSelectedPayTour(null)}
           initialData={{
-            service: `${selectedPayTour.title} Tour`,
+            service: selectedPayTour.title,
+            duration: selectedPayTour.duration,
+            prices: selectedPayTour.prices,
             amount: '1000',
             fullAmount: selectedPayTour.price || '2500'
           }}

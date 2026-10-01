@@ -226,7 +226,7 @@
   border: 2px solid #f59e0b;
   border-radius: 20px;
   padding: 2rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   box-shadow: 0 10px 30px rgba(245, 158, 11, 0.12);
 }
 
@@ -271,6 +271,69 @@
   color: #d97706;
   flex-shrink: 0;
   margin-top: 0.2rem;
+}
+
+/* QUICK FACTS & SPECIFICATIONS CARD */
+.single-quickfacts-card {
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1.5px solid #0284c7;
+  border-radius: 20px;
+  padding: 1.75rem 2rem;
+  margin-bottom: 3rem;
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.1);
+}
+
+.quickfacts-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1.5px dashed #cbd5e1;
+}
+
+.quickfacts-header h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #060c2c;
+  margin: 0;
+}
+
+.quickfacts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .quickfacts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.quickfact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  background: #ffffff;
+  padding: 0.85rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid #cbd5e1;
+}
+
+.quickfact-label {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #0284c7;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.quickfact-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.4;
 }
 
 /* ARTICLE BODY */

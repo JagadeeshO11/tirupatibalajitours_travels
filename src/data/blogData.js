@@ -26,6 +26,13 @@ export const blogPosts = [
     featured: true,
     image: 'https://res.cloudinary.com/znbhjevm/image/upload/v1790210382/tirupatibalaji/blog/Tirupati-to-Coimbatore-Distance-860x510_u1tzcv.webp',
     tags: ['Coimbatore', 'Tirupati Cabs', 'Road Trip', 'Distance Guide', 'Taxi in Tirupati'],
+    quickFacts: {
+      'Total Road Distance': '495 km to 503 km (via NH44 Highway)',
+      'Estimated Driving Time': '9.5 to 10 Hours (with food breaks)',
+      'Recommended Driving Route': 'Tirupati → Chittoor → Hosur → Salem → Erode → Coimbatore',
+      'Best Vehicle Options': 'AC Sedan (1-4 Pax) | Innova Crysta (5-7 Pax) | 12-17 Seater Tempo',
+      'Tolls & Permit Status': '100% All-Inclusive (AP & TN Permit Taxes Included)'
+    },
     highlights: [
       'Total Road Distance: 495 km to 503 km depending on NH44 vs NH48 route',
       'Average Driving Duration: 9 to 10 hours in a comfortable AC Outstation Taxi',
@@ -53,7 +60,21 @@ export const blogPosts = [
           text: 'For 1 to 4 passengers, a comfortable AC Swift Dzire or Toyota Etios is ideal. For families with luggage (5-7 passengers), Toyota Innova Crysta provides unmatched suspension and legroom. Large tour groups can opt for 12 to 17 seater AC Tempo Travellers.'
         }
       ]
-    }
+    },
+    faqs: [
+      {
+        q: 'What is the best road route from Tirupati to Coimbatore?',
+        a: 'The recommended route is via Chittoor, Hosur bypass, and the NH44 4-lane highway passing through Salem and Erode (approx. 495 km, 9.5 hours).'
+      },
+      {
+        q: 'How much does a private taxi from Tirupati to Coimbatore cost?',
+        a: 'Fares start at budget-friendly rates for an AC Sedan and transparent all-inclusive quotes for Toyota Innova Crysta. All charges include driver batta, state permit taxes, and toll fees.'
+      },
+      {
+        q: 'Are there good family restaurants along the NH44 highway?',
+        a: 'Yes! Major highway food plazas like A2B (Adyar Ananda Bhavan), Saravana Bhavan, and McDonald’s are located at Hosur, Dharmapuri, and Salem.'
+      }
+    ]
   },
   {
     id: 'corporate-cab-services-in-tirupati',
@@ -69,6 +90,13 @@ export const blogPosts = [
     featured: false,
     image: 'https://res.cloudinary.com/znbhjevm/image/upload/v1790210391/tirupatibalaji/blog/Corporate-Cab-Services-860x510.webp',
     tags: ['Corporate Cabs', 'Sri City SEZ', 'Renigunta Airport', 'IIT Tirupati', 'Business Travel'],
+    quickFacts: {
+      'Key Industrial Hubs': 'Sri City SEZ (Tada), EMC Electronics Park, IIT Tirupati (Yerpedu)',
+      'Airport Connectivity': '24/7 Flight Transfers at Renigunta Tirupati Airport (TIR)',
+      'Billing & Accounting': 'Monthly Corporate Credit Accounts with GST Tax Invoices',
+      'Chauffeur Standards': 'Punctual, Uniformed, GPS-Tracked Executive Drivers',
+      'Executive Fleet': 'Dzire/Etios, Toyota Innova Crysta, & Force Urbania Luxury Vans'
+    },
     highlights: [
       'Serving Sri City SEZ, EMC Clusters, and IIT Tirupati corporate corridors',
       '24/7 airport pickup & drop at Renigunta Tirupati Airport (TIR)',
@@ -96,7 +124,21 @@ export const blogPosts = [
           text: 'Simplify your company accounts with centralized monthly billing, itemized trip logs, digital receipts, and dedicated account management.'
         }
       ]
-    }
+    },
+    faqs: [
+      {
+        q: 'How do corporate accounts work with Tirupati Balaji Tours?',
+        a: 'We set up customized monthly credit terms for registered businesses, providing itemized trip log sheets, GST-compliant tax invoices, and dedicated corporate account support.'
+      },
+      {
+        q: 'Can you handle executive airport pickup at Renigunta Airport (TIR)?',
+        a: 'Yes! We offer 24/7 airport transfers with real-time flight tracking, flight delay monitoring, and professional driver meet-and-greet services.'
+      },
+      {
+        q: 'Are your corporate vehicles sanitized and equipped with chargers?',
+        a: 'Every vehicle undergoes strict interior sanitation before pickup and comes equipped with mobile phone chargers, bottled water, and GPS tracking.'
+      }
+    ]
   },
   {
     id: 'mysore-to-tirupati-taxi-tour-packages',
@@ -112,6 +154,13 @@ export const blogPosts = [
     featured: false,
     image: 'https://res.cloudinary.com/znbhjevm/image/upload/v1790210399/tirupatibalaji/blog/mysore-to-tirupati-860x510.webp',
     tags: ['Mysore', 'Tirupati Cabs', 'Travel Guide', 'Outstation Tour', 'Pilgrimage'],
+    quickFacts: {
+      'Total Distance': '420 km from Mysore to Tirupati',
+      'Average Drive Time': '7.5 to 8.5 Hours via Bangalore NICE Road bypass',
+      'Optimal Itinerary': '2-Day or 3-Day Relaxed Family Pilgrimage Tour',
+      'Key Sightseeing': 'Mysore Palace, Tirumala Balaji Temple, Tiruchanur Padmavathi Temple',
+      'All-Inclusive Package': 'Covers Driver Batta, Toll Plazas, & AP/KA Permit Taxes'
+    },
     highlights: [
       'Distance: 420 km from Mysore to Tirupati via Bangalore outer bypass',
       'Travel Duration: Approx. 7.5 to 8.5 hours in an AC cab',
@@ -135,7 +184,21 @@ export const blogPosts = [
           text: 'Choose between AC Dzire/Etios sedans, 6-seater Ertiga, 7-seater Innova Crysta, or 12/17-seater Tempo Travellers. All quotes include driver bata, state permit fees, tolls, and parking charges.'
         }
       ]
-    }
+    },
+    faqs: [
+      {
+        q: 'Can we stop in Bangalore on the way from Mysore to Tirupati?',
+        a: 'Yes! We bypass city traffic using the NICE Road expressway, but can schedule meal breaks or short family stops as requested.'
+      },
+      {
+        q: 'Do you assist with TTD ₹300 Special Entry Darshan tokens?',
+        a: 'We guide devotees step-by-step on booking TTD tickets online and align our pickup times to match your darshan token slot.'
+      },
+      {
+        q: 'Which vehicle is recommended for seniors on an 8-hour drive?',
+        a: 'Toyota Innova Crysta is the top choice for long-distance comfort, offering premium captain seats and superior rear shock absorption.'
+      }
+    ]
   },
   {
     id: 'tirupati-to-mahabalipuram-car-rental',
@@ -151,6 +214,13 @@ export const blogPosts = [
     featured: false,
     image: 'https://res.cloudinary.com/znbhjevm/image/upload/v1790210407/tirupatibalaji/blog/Mahabalipuram-860x510.webp',
     tags: ['Mahabalipuram', 'Kanchipuram', 'UNESCO Site', 'Beach Trip', 'Car Rental'],
+    quickFacts: {
+      'Road Distance': '190 km from Tirupati to Mahabalipuram',
+      'Driving Time': 'Approx. 4.5 Hours via Kanchipuram corridor',
+      'Monuments Hours': '6:00 AM to 6:00 PM (Shore Temple, Pancha Rathas)',
+      'Recommended Duration': '2 Days / 1 Night Beach & Heritage Package',
+      'En-Route Stop': 'Kanchipuram Silk Handloom Societies & Temples'
+    },
     highlights: [
       'Distance: 190 km from Tirupati to Mahabalipuram (approx 4.5 hours drive)',
       'En-route halt at Kanchipuram famous Kamakshi Amman temple & silk saree shopping',
@@ -174,7 +244,21 @@ export const blogPosts = [
           text: 'Our 2-day rental packages provide unlimited kilometer flexibility within the tour itinerary. AC Sedans start at budget-friendly rates, with MUVs available for group comfort.'
         }
       ]
-    }
+    },
+    faqs: [
+      {
+        q: 'Can we stop in Kanchipuram for silk saree shopping en-route?',
+        a: 'Yes! Kanchipuram is directly on the driving route. Our driver will guide you to authentic weavers’ cooperative societies and famous temples.'
+      },
+      {
+        q: 'What are the opening hours for UNESCO monuments in Mahabalipuram?',
+        a: 'Monuments like the Shore Temple and Pancha Rathas are open daily from 6:00 AM to 6:00 PM.'
+      },
+      {
+        q: 'Are driver overnight charges included in the 2-day package?',
+        a: 'Yes, driver night batta, toll charges, and vehicle parking fees are fully included in our 2-day rental quote.'
+      }
+    ]
   },
   {
     id: 'best-travel-agency-in-tirupati',
@@ -190,6 +274,13 @@ export const blogPosts = [
     featured: false,
     image: 'https://res.cloudinary.com/znbhjevm/image/upload/v1790210415/tirupatibalaji/blog/Tirupati-Travel-Package-860x510.webp',
     tags: ['Best Travel Agency', 'Tirupati Travel Package', 'Balaji Tours', 'Taxi Operator'],
+    quickFacts: {
+      'Industry Experience': '15+ Years Serving Pilgrims in Tirupati',
+      'Satisfied Pilgrims': '50,000+ Happy Devotees & 4.9/5 Rating',
+      'Services Offered': 'Balaji Darshan Cabs, Outstation Tours, Airport Drops',
+      'Fleet Standard': '100% Commercial Yellow-Plate Insured Cabs',
+      'Customer Support': '24/7 Dedicated Phone & WhatsApp Desk (+91 8688624758)'
+    },
     highlights: [
       '15+ Years of trusted pilgrimage travel service in Tirupati & Tirumala',
       'Over 50,000 satisfied devotees served with 4.9/5 star ratings',
@@ -217,7 +308,21 @@ export const blogPosts = [
           text: 'Book instantly over phone (+91 8688624758) or WhatsApp with zero hassle and instant driver allocation.'
         }
       ]
-    }
+    },
+    faqs: [
+      {
+        q: 'Why should I choose Tirupati Balaji Tours over generic cab aggregators?',
+        a: 'We are local Tirupati travel specialists with 15+ years experience. We own our fleet, guarantee zero cancellations, and employ drivers certified for Tirumala mountain ghat roads.'
+      },
+      {
+        q: 'What family tour packages do you provide?',
+        a: 'We offer 1-Day Balaji Darshan, 2-Day Temple Circuit Tours, and custom packages to Kanipakam, Srikalahasti, and Vellore Golden Temple.'
+      },
+      {
+        q: 'How far in advance should I book my Tirupati tour cab?',
+        a: 'We recommend booking 3 to 7 days in advance to secure your preferred vehicle model, especially during peak weekends and festival seasons.'
+      }
+    ]
   },
   {
     id: 'bangalore-to-tirupati-car-rental-package',
@@ -233,6 +338,13 @@ export const blogPosts = [
     featured: false,
     image: 'https://res.cloudinary.com/znbhjevm/image/upload/v1790210425/tirupatibalaji/blog/Bangalore-to-Tirupati-860x510.png',
     tags: ['Bangalore to Tirupati', 'Car Rental Package', 'Pilgrimage Drive', 'Outstation Cab'],
+    quickFacts: {
+      'Highway Distance': '250 km from Bangalore city center to Tirupati',
+      'Driving Time': '4.5 Hours via NH75 & NH140 4-Lane Expressways',
+      'Breakfast Halt': 'Mulbagal (Famous for Authentic Crispy Dosa & Tiffins)',
+      'Permit Taxes': 'Andhra Pradesh Commercial State Permit Included',
+      'Popular Option': '1-Day Same Day Roundtrip or 2-Day Overnight Package'
+    },
     highlights: [
       'Distance: 250 km from Bangalore to Tirupati via NH75 & NH140 highway',
       'Driving Time: 4.5 to 5 hours with doorstep pickup anywhere in Bangalore',
@@ -256,7 +368,21 @@ export const blogPosts = [
           text: 'Our quotes include fuel, AP state permits, toll plaza charges, and driver bata. No hidden fees or unexpected extras upon arrival.'
         }
       ]
-    }
+    },
+    faqs: [
+      {
+        q: 'How long does it take to drive from Bangalore to Tirupati by cab?',
+        a: 'It takes approximately 4.5 hours via the smooth 4-lane NH75 highway via Kolar and Mulbagal.'
+      },
+      {
+        q: 'Does your cab fare include Andhra Pradesh state border tax?',
+        a: 'Yes! All Bangalore to Tirupati cab quotes provided by us include AP commercial state permit tax, highway tolls, and driver bata.'
+      },
+      {
+        q: 'What time should we depart Bangalore for a 9:00 AM darshan slot?',
+        a: 'We recommend starting from Bangalore by 3:30 AM or 4:00 AM to comfortably reach Tirupati by 8:00 AM, refresh, and proceed up the hills.'
+      }
+    ]
   },
   {
     id: 'thiruttani-murugan-temple-guide',
@@ -272,6 +398,13 @@ export const blogPosts = [
     featured: false,
     image: 'https://res.cloudinary.com/znbhjevm/image/upload/v1790210434/tirupatibalaji/blog/Thiruttani-860x510.png',
     tags: ['Thiruttani', 'Lord Murugan', 'Arupadai Veedu', 'Temple Guide', 'Tirupati Day Trip'],
+    quickFacts: {
+      'Distance from Tirupati': '65 km (Approx. 1.5 Hours Drive)',
+      'Shrine Classification': 'Fifth Abode among Lord Murugan’s 6 Arupadai Veedu',
+      'Hill Access': '365 Steps or Motorable Hill Road Direct to Gate',
+      'Darshan Timings': '6:00 AM to 9:00 PM Daily',
+      'Combinable With': 'Tiruchanur Padmavathi Temple & Nagari'
+    },
     highlights: [
       'Distance: 65 km from Tirupati city (approx. 1.5 hours drive)',
       'Sacred Shrine: Fifth abode among Lord Murugan’s six Arupadai Veedu temples',
@@ -295,7 +428,21 @@ export const blogPosts = [
           text: 'Located just 65 km away via Nagari and Puttur, Thiruttani is easily accessible in 90 minutes. A roundtrip cab from Tirupati allows comfortable darshan without waiting for public buses.'
         }
       ]
-    }
+    },
+    faqs: [
+      {
+        q: 'Can elderly pilgrims reach Thiruttani temple without climbing steps?',
+        a: 'Yes! Our cabs can drive directly up the motorable hill road to the top temple entrance gate.'
+      },
+      {
+        q: 'What are the daily darshan timings at Thiruttani Murugan Temple?',
+        a: 'The temple is open daily from 6:00 AM to 9:00 PM for darshan, abhishekam, and special poojas.'
+      },
+      {
+        q: 'Can we combine Thiruttani with Tiruchanur in a half-day tour?',
+        a: 'Yes, a private cab from Tirupati easily covers Thiruttani Murugan Temple and Tiruchanur Padmavathi Temple in 6 hours.'
+      }
+    ]
   },
   {
     id: 'srinivasa-mangapuram-temple-guide',
@@ -311,6 +458,13 @@ export const blogPosts = [
     featured: false,
     image: 'https://res.cloudinary.com/znbhjevm/image/upload/v1790210443/tirupatibalaji/blog/sri-govindaraja-swamy-temple-860x510.png',
     tags: ['Srinivasa Mangapuram', 'Kalyana Venkateswara', 'Tirupati Shrines', 'Local Taxi'],
+    quickFacts: {
+      'Location': '12 km West of Tirupati City (20 Mins Drive)',
+      'Primary Deity': 'Sri Kalyana Venkateswara Swami',
+      'Special Ritual': 'Daily Kalyana Utsavam for Marital Bliss & Harmony',
+      'Darshan Queue': '15-30 Minutes Peaceful Queue',
+      'Nearby Attractions': 'Chandragiri Fort & Agastheshwara Temple'
+    },
     highlights: [
       'Distance: 12 km west of Tirupati city (20 minutes drive)',
       'Significance: Divine site where Lord Venkateswara stayed after marriage with Goddess Padmavathi',
@@ -334,7 +488,21 @@ export const blogPosts = [
           text: 'Include Srinivasa Mangapuram in a half-day city temple tour along with Chandragiri Fort, Kapila Theertham, and Tiruchanur.'
         }
       ]
-    }
+    },
+    faqs: [
+      {
+        q: 'What is the legend behind Srinivasa Mangapuram temple?',
+        a: 'It is believed Lord Venkateswara resided here for six months after His divine marriage to Goddess Padmavathi before ascending Tirumala.'
+      },
+      {
+        q: 'How far is Srinivasa Mangapuram from Tirupati Railway Station?',
+        a: 'It is just 12 km away (approx. 20 minutes by cab) on the Madanapalle highway corridor.'
+      },
+      {
+        q: 'Which temples can be visited along with Srinivasa Mangapuram?',
+        a: 'You can combine it with Chandragiri Fort, Agastheshwara Temple, and Kapila Theertham in a 4-hour local cab tour.'
+      }
+    ]
   },
   {
     id: 'sri-govindaraja-swamy-temple-tirupati',
@@ -350,6 +518,13 @@ export const blogPosts = [
     featured: false,
     image: 'https://res.cloudinary.com/znbhjevm/image/upload/v1790210443/tirupatibalaji/blog/sri-govindaraja-swamy-temple-860x510.png',
     tags: ['Govindaraja Swamy', 'City Temple', 'Tirupati Heritage', 'Ramanujacharya', 'Tirupati Cabs'],
+    quickFacts: {
+      'Location': 'Heart of Tirupati Town (500m from Railway Station)',
+      'Consecration Year': '1130 AD by Saint Sri Ramanujacharya',
+      'Architecture': 'Towering 7-Tiered Dravidian Raja Gopuram',
+      'Deity Posture': 'Sayana Murti (Reclining Posture on Adisesha)',
+      'Opening Hours': '5:00 AM to 9:00 PM Daily'
+    },
     highlights: [
       'Location: Heart of Tirupati city, 500 meters from Tirupati Railway Station',
       'History: Consecrated in 1130 AD by Vaishnavite saint Sri Ramanujacharya',
@@ -373,7 +548,21 @@ export const blogPosts = [
           text: 'Being situated right next to the Tirupati railway station and main bus stand, pilgrims can easily visit the temple upon arrival before checking into their hotel.'
         }
       ]
-    }
+    },
+    faqs: [
+      {
+        q: 'Where is Sri Govindaraja Swamy Temple located?',
+        a: 'It is located right in the center of Tirupati town, just 500 meters walking distance from Tirupati Main Railway Station.'
+      },
+      {
+        q: 'What are the daily visiting hours for Govindaraja Swamy Temple?',
+        a: 'The temple opens at 5:00 AM for Viswaroopa Seva and remains open until 9:00 PM.'
+      },
+      {
+        q: 'Who consecrated the Sri Govindaraja Swamy Temple?',
+        a: 'The temple was consecrated in 1130 AD by the legendary Vaishnavite saint Sri Ramanujacharya.'
+      }
+    ]
   },
   {
     id: 'ooty-tourist-places-travel-guide',
@@ -389,6 +578,13 @@ export const blogPosts = [
     featured: false,
     image: 'https://res.cloudinary.com/znbhjevm/image/upload/v1790210452/tirupatibalaji/blog/ooty-tourist-places-860x510.png',
     tags: ['Ooty', 'Nilgiris', 'Queen of Hill Stations', 'Travel Guide', 'Outstation Cab'],
+    quickFacts: {
+      'Elevation': '2,240 Meters in the Nilgiri Hills',
+      'Distance from Tirupati': '460 km (Approx. 9.5 to 10.5 Hours Drive)',
+      'Top Attractions': 'Botanical Garden, Ooty Lake, Doddabetta Peak, Tea Museum',
+      'UNESCO Heritage': 'Nilgiri Mountain Railway Toy Train',
+      'Best Travel Season': 'October to May (Pleasant Cool Weather)'
+    },
     highlights: [
       'Elevation: 2,240 meters above sea level in the Nilgiri Hills',
       'Top Places: Ooty Lake, Botanical Garden, Rose Garden, Doddabetta Peak, Tea Factory',
@@ -412,6 +608,20 @@ export const blogPosts = [
           text: 'Our outstation SUVs (Innova Crysta, Ertiga) and Tempo Travellers are driven by drivers accustomed to navigating the 36 hairpin bends on the Mettupalayam-Ooty ghat road.'
         }
       ]
-    }
+    },
+    faqs: [
+      {
+        q: 'What is the best route from Tirupati to Ooty by road?',
+        a: 'The recommended route is Tirupati -> Chittoor -> Hosur -> Salem -> Avinashi -> Mettupalayam -> Coonoor -> Ooty.'
+      },
+      {
+        q: 'Are your drivers trained for mountain hairpin bends?',
+        a: 'Yes, our outstation drivers are certified for Nilgiri hill roads and navigating the 36 hairpin bends safely.'
+      },
+      {
+        q: 'Can we book a 3-Day or 4-Day Ooty package from Tirupati?',
+        a: 'Yes! We offer 3-Day and 4-Day customized hill station tour packages with hotel pickup, local sightseeing, and return drop.'
+      }
+    ]
   }
 ];

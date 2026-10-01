@@ -216,3 +216,16 @@ h3 { letter-spacing: -.01em; font-weight: 700; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+
+/* Prevent background page scroll when any popup or modal overlay is open */
+html.modal-open,
+body.modal-open,
+body:has(.itinerary-overlay),
+body:has(.admin-modal-overlay) {
+  overflow: hidden !important;
+  height: 100vh !important;
+  touch-action: none !important;
+  overscroll-behavior: none !important;
+}
+
+
