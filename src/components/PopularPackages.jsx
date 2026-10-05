@@ -168,26 +168,27 @@ export default function PopularPackages() {
                       </div>
                     )}
 
-                    {/* 3. ITINERARY */}
-                    {itinerary && itinerary.length > 0 && (
-                      <div className="compact-section">
-                        <span className="compact-label">🗓️ Itinerary Summary:</span>
-                        <div className="compact-itinerary-list">
-                          {itinerary.map(({ day, places }) => (
-                            <div className="compact-day-item" key={day}>
-                              <strong>{day}:</strong> <span>{places}</span>
-                            </div>
-                          ))}
+                    {/* 3 & 4. ITINERARY + RULES / INCLUSIONS */}
+                    <div className="compact-info-grid">
+                      {itinerary && itinerary.length > 0 && (
+                        <div className="compact-section compact-itinerary-section">
+                          <span className="compact-label">🗓️ Itinerary Summary:</span>
+                          <div className="compact-itinerary-list">
+                            {itinerary.map(({ day, places }) => (
+                              <div className="compact-day-item" key={day}>
+                                <strong>{day}:</strong> <span>{places}</span>
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
 
-                    {/* 4. RULES & INCLUSIONS */}
-                    <div className="compact-section">
-                      <span className="compact-label">📋 Rules & Inclusions:</span>
-                      <div className="compact-rules-box">
-                        <div className="rule-inc">✔ {data?.included || 'Includes Tolls, Parking Charges, Driver Batta & AC Cab Transport'}</div>
-                        {data?.excluded && <div className="rule-exc">✖ {data.excluded}</div>}
+                      <div className="compact-section compact-rules-section">
+                        <span className="compact-label">📋 Rules & Inclusions:</span>
+                        <div className="compact-rules-box">
+                          <div className="rule-inc">✔ {data?.included || 'Includes Tolls, Parking Charges, Driver Batta & AC Cab Transport'}</div>
+                          {data?.excluded && <div className="rule-exc">✖ {data.excluded}</div>}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -212,6 +213,13 @@ export default function PopularPackages() {
                     >
                       <MessageCircle size={15}/> WhatsApp Inquiry
                     </a>
+                    <Link
+                      className="compact-read-more"
+                      to={`/tour/${selectedDetailPkg.slug}`}
+                      onClick={() => setSelectedDetailPkg(null)}
+                    >
+                      <ArrowRight size={15}/> Read More
+                    </Link>
                   </div>
                 </>
               );

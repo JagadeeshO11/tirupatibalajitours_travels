@@ -587,3 +587,75 @@
   gap: 5px !important;
   box-shadow: 0 3px 10px rgba(37, 211, 102, 0.25) !important;
 }
+
+
+/* DETAIL POPUP REFINEMENTS */
+.compact-modal-header {
+  position: relative !important;
+  padding-right: 58px !important;
+  min-width: 0 !important;
+}
+.compact-modal-header > div:first-child { min-width: 0 !important; }
+.compact-modal-header h3 { overflow-wrap: anywhere !important; }
+.compact-price-tag {
+  max-width: 42% !important;
+  min-width: 86px !important;
+  margin-right: 0 !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+.compact-modal-shell .itinerary-close {
+  top: 9px !important;
+  right: 9px !important;
+  z-index: 30 !important;
+}
+.compact-info-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+  align-items: stretch !important;
+}
+.compact-info-grid > .compact-section { min-width: 0 !important; height: 100% !important; }
+.compact-itinerary-list, .compact-rules-box { height: 100% !important; }
+.compact-modal-footer {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  align-items: stretch !important;
+}
+.compact-modal-footer > * {
+  min-width: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+.compact-read-more {
+  background: #f1f5f9 !important;
+  color: #0284c7 !important;
+  border: 1px solid #cbd5e1 !important;
+  padding: 9px !important;
+  border-radius: 8px !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 5px !important;
+}
+.compact-read-more:hover { background: #e2e8f0 !important; color: #0369a1 !important; transform: translateY(-1px) !important; }
+
+@media (max-width: 640px) {
+  .compact-modal-header { padding-right: 50px !important; gap: 7px !important; }
+  .compact-price-tag { max-width: 38% !important; min-width: 78px !important; padding: 4px 7px !important; }
+  .compact-price-tag strong { font-size: 13px !important; }
+  .compact-info-grid { grid-template-columns: 1fr !important; }
+  .compact-modal-footer { grid-template-columns: 1fr 1fr !important; }
+  .compact-book-btn { grid-column: 1 / -1 !important; }
+}
+@media (max-width: 390px) {
+  .compact-modal-header { padding-right: 46px !important; }
+  .compact-price-tag { min-width: 72px !important; }
+  .compact-price-tag small { font-size: 7.5px !important; }
+  .compact-price-tag strong { font-size: 12px !important; }
+  .compact-modal-footer { gap: 6px !important; }
+  .compact-modal-footer > * { font-size: 11px !important; padding: 8px 5px !important; }
+}
