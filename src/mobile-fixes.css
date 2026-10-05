@@ -768,3 +768,31 @@
     max-width: 42% !important;
   }
 }
+
+
+/* FINAL MOBILE CARD NORMALIZATION */
+@media (max-width: 768px) {
+  .card-grid, .grid-2, .grid-3, .grid-4, .fleet-grid, .vehicles-grid,
+  .destination-grid, .destinations-grid, .packages-grid, .package-grid,
+  .tour-grid, .tours-card-grid, .blog-grid, .blogs-grid {
+    grid-template-columns: 1fr !important; width: 100% !important; min-width: 0 !important; gap: 14px !important;
+  }
+  .card-grid > *, .grid-2 > *, .grid-3 > *, .grid-4 > *, .fleet-grid > *, .vehicles-grid > *,
+  .destination-grid > *, .destinations-grid > *, .packages-grid > *, .package-grid > *,
+  .tour-grid > *, .tours-card-grid > *, .blog-grid > *, .blogs-grid > * {
+    width: 100% !important; min-width: 0 !important; max-width: 100% !important; box-sizing: border-box !important;
+  }
+  .card-grid *, .grid-2 *, .grid-3 *, .grid-4 *, .fleet-grid *, .vehicles-grid *,
+  .destination-grid *, .destinations-grid *, .packages-grid *, .package-grid *,
+  .tour-grid *, .tours-card-grid *, .blog-grid *, .blogs-grid * {
+    max-width: 100%; box-sizing: border-box; overflow-wrap: anywhere;
+  }
+  .card-grid img, .grid-2 img, .grid-3 img, .grid-4 img, .fleet-grid img, .vehicles-grid img,
+  .destination-grid img, .destinations-grid img, .packages-grid img, .package-grid img,
+  .tour-grid img, .tours-card-grid img, .blog-grid img, .blogs-grid img { max-width: 100% !important; }
+}
+@media (max-width: 420px) {
+  .card-grid, .grid-2, .grid-3, .grid-4, .fleet-grid, .vehicles-grid, .destination-grid,
+  .destinations-grid, .packages-grid, .package-grid, .tour-grid, .tours-card-grid,
+  .blog-grid, .blogs-grid { gap: 12px !important; }
+}
