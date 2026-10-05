@@ -66,6 +66,12 @@ const homeTestimonials = [
     location: 'Hyderabad',
     comment: 'Punctual airport pickup from Tirupati Airport to hotel and Tirumala. Very reliable cab service with instant WhatsApp communication.',
     rating: 5
+  },
+  {
+    name: 'Sahithi M',
+    location: 'Google Review',
+    comment: 'Excellent experience with a well-planned trip, clean and comfortable vehicle, and a polite, calm, professional driver who made the journey smooth and enjoyable.',
+    rating: 5
   }
 ];
 
