@@ -297,6 +297,7 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
                   </div>
 
                   {/* RATE PLAN / TRIP TYPE SELECTOR */}
+                  {!hasFixedTotalPrice && (
                   <div>
                     <label style={{ fontSize: '0.82rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '0.35rem' }}>
                       Select Trip / Rate Plan *
@@ -326,6 +327,16 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
                       ))}
                     </div>
                   </div>
+
+                  )}
+
+                  {hasFixedTotalPrice && (
+                    <div className="booking-fixed-total">
+                      <span>FIXED TOTAL COST</span>
+                      <strong>{fixedTotalPrice}</strong>
+                      <small>Fixed package/vehicle price. Local / Outstation selection is not required.</small>
+                    </div>
+                  )}
 
                   {/* FULL NAME */}
                   <div>

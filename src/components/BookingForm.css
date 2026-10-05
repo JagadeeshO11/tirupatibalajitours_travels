@@ -630,3 +630,60 @@
     font-size: 0.62rem !important;
   }
 }
+
+
+/* Booking modal progress and fixed-price refinements */
+.booking-payment-overlay .booking-step-progress {
+  position: relative !important;
+  z-index: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: calc(100% - 54px) !important;
+  margin: 0 42px 1.25rem 0 !important;
+  padding-top: 2px !important;
+}
+.booking-payment-overlay .booking-step-progress-bar {
+  flex: 1 1 0 !important;
+  height: 6px !important;
+  min-width: 0 !important;
+  border-radius: 999px !important;
+  background: #e2e8f0 !important;
+}
+.booking-payment-overlay .booking-step-progress-bar.active {
+  background: linear-gradient(90deg, #0284c7, #0369a1) !important;
+}
+.booking-payment-overlay .booking-step-progress-bar.active.second {
+  background: linear-gradient(90deg, #d97706, #f59e0b) !important;
+}
+.booking-payment-overlay .booking-fixed-total {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 3px !important;
+  padding: 12px 14px !important;
+  border: 1.5px solid #16a34a !important;
+  border-radius: 12px !important;
+  background: #f0fdf4 !important;
+}
+.booking-payment-overlay .booking-fixed-total span {
+  font-size: 0.7rem !important;
+  font-weight: 900 !important;
+  letter-spacing: .08em !important;
+  color: #15803d !important;
+}
+.booking-payment-overlay .booking-fixed-total strong {
+  font-size: 1.35rem !important;
+  color: #166534 !important;
+}
+.booking-payment-overlay .booking-fixed-total small {
+  font-size: 0.72rem !important;
+  line-height: 1.35 !important;
+  color: #475569 !important;
+}
+@media (max-width: 640px) {
+  .booking-payment-overlay .booking-step-progress {
+    width: calc(100% - 46px) !important;
+    margin-right: 38px !important;
+    margin-bottom: 1rem !important;
+  }
+}
