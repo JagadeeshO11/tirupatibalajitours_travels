@@ -57,6 +57,20 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
   const packagePrices = initialData.prices || packageDetails[initialData.service]?.prices || packageDetails[initialData.name]?.prices || [];
   const durationText = initialData.duration || packageDetails[initialData.service]?.duration || (initialData.service?.includes('Days') || initialData.service?.includes('Day') ? initialData.service.match(/\d+\s*Days?/i)?.[0] : null);
 
+  // Fixed-price bookings do not need a Local / Outstation choice.
+  const selectedPackageEntry = packagePrices.find(([vehicleName]) =>
+    String(vehicleName).toLowerCase() === String(initialData.vehicle || '').split(' — ')[0].trim().toLowerCase()
+  );
+  const fixedTotalPrice =
+    initialData.fullAmount ||
+    initialData.totalCost ||
+    initialData.fixedAmount ||
+    selectedPackageEntry?.[1] ||
+    null;
+  const hasFixedTotalPrice = Boolean(fixedTotalPrice);
+  const isFixedPackageBooking = hasFixedTotalPrice && !initialData.vehicle && !initialData.prices?.length;
+  const isTourPackageContext = packagePrices.length > 0 || Boolean(durationText) || isFixedPackageBooking;
+
   const activeCategory = initialData.category || 
     (initialData.slug === 'tempo-traveller-rental-in-tirupati' ? 'tempo' :
      initialData.slug === 'urbania-traveller-rental-in-tirupati' ? 'urbania' :
@@ -256,7 +270,9 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
                   </span>
                   <div>
                     <p style={{ color: '#0284c7', fontWeight: 800, fontSize: '0.75rem', letterSpacing: '1px' }}>STEP 1 OF 2 · BOOKING DETAILS</p>
-                    <h3 style={{ fontSize: '1.3rem', color: '#060c2c', margin: 0 }}>Select Vehicle & Trip Type</h3>
+                    <h3 style={{ fontSize: '1.3rem', color: '#060c2c', margin: 0 }}>
+                      {isTourPackageContext ? 'Tour Package Details' : 'Select Vehicle & Trip Type'}
+                    </h3>
                   </div>
                 </div>
 
@@ -273,6 +289,7 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
 
                 <form onSubmit={handleNextToStep2} style={{ display: 'flex', flexDirection: 'column', gap: '0.95rem' }}>
                   {/* VEHICLE SELECTION */}
+                  {!isFixedPackageBooking && (
                   <div>
                     <label style={{ fontSize: '0.82rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '0.35rem' }}>
                       {packagePrices.length > 0 ? 'Select Vehicle & Package Tariff *' : 'Select Vehicle *'}
@@ -295,6 +312,7 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
                       </select>
                     )}
                   </div>
+                  )}
 
                   {/* RATE PLAN / TRIP TYPE SELECTOR */}
                   {!hasFixedTotalPrice && (
