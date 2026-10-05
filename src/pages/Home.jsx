@@ -397,7 +397,7 @@ export default function Home() {
         <div className="section-heading">
           <div>
             <p className="eyebrow">HOW IT WORKS</p>
-            <h2>3 Easy Steps to Book Your Tirupati Cab</h2>
+            <h2>4 Easy Steps to Book Your Tirupati Cab</h2>
           </div>
         </div>
 
