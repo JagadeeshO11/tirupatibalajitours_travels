@@ -284,6 +284,12 @@ body {
   .top-bar-tagline {
     display: none;
   }
+
+  /* Mobile top bar: show only the new contact number, hide email. */
+  .top-bar-email {
+    display: none !important;
+  }
+
   .header-top-bar {
     padding: 5px 16px;
   }
