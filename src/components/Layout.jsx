@@ -161,6 +161,9 @@ export default function Layout() {
             <a href="tel:+916303524758" className="top-bar-link top-bar-phone">
               <Phone size={13} /> +91 63035 24758
             </a>
+            <a href={`tel:${phone}`} className="top-bar-link top-bar-phone">
+              <Phone size={13} /> +91 86886 24758
+            </a>
             <a href={`mailto:${email}`} className="top-bar-link top-bar-email">
               <Mail size={13} /> {email}
             </a>
