@@ -8,7 +8,7 @@ import { useData } from '../context/DataContext';
 import './Tours.css';
 
 export default function Tours() {
-  const { tours } = useData();
+  const { tours, selectBooking } = useData();
   const [filter, setFilter] = useState('All');
   const [selectedPayTour, setSelectedPayTour] = useState(null);
 
@@ -29,7 +29,9 @@ export default function Tours() {
     return 1;
   };
 
-  const filteredPackages = tours.filter(t => {
+  const sortedPackages = [...tours].sort((a, b) => parseDurationDays(a[1]) - parseDurationDays(b[1]));
+
+  const filteredPackages = sortedPackages.filter(t => {
     const days = parseDurationDays(t[1]);
     if (filter === 'All') return true;
     if (filter === '1-Day') return days === 1;
@@ -182,7 +184,15 @@ export default function Tours() {
                       type="button"
                       className="tour-book-btn"
                       style={{ flex: 1, background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7' }}
-                      onClick={() => setSelectedPayTour({ title, price, duration, prices: details.prices })}
+                      onClick={() => {
+                        selectBooking({
+                          to: title,
+                          trip: 'Outstation Tour',
+                          vehicle: 'Swift Dzire / Etios (Sedan 4-Seater)',
+                          price: price
+                        });
+                        setSelectedPayTour({ type: 'tour', title, price, duration, prices: details.prices, route });
+                      }}
                     >
                       Book 💳
                     </button>

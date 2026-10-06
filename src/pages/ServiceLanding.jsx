@@ -6,9 +6,9 @@ import {
   Clock3, ArrowRight, CheckCircle2, CarFront, Luggage, Users, Route as RouteIcon, 
   Car, Award, Navigation, Info, Fuel, CreditCard
 } from 'lucide-react';
-import { servicePages } from '../data/servicePages';
 import { images, destinations, whatsapp, phone } from '../data/siteData';
 import { fleet } from '../data/fleetData';
+import { useData } from '../context/DataContext';
 import StatsBanner from '../components/StatsBanner';
 import EasebuzzModal from '../components/EasebuzzModal';
 import './ServiceLanding.css';
@@ -160,6 +160,7 @@ const vehicleImage = (name = '') => {
 };
 
 function TaxiVehicleCard({ vehicle, onBook }) {
+  const { selectBooking } = useData();
   const [selectedRate, setSelectedRate] = useState('local');
 
   const rateOptions = [
@@ -171,6 +172,25 @@ function TaxiVehicleCard({ vehicle, onBook }) {
   const currentOption = rateOptions.find(r => r.key === selectedRate) || rateOptions[0];
 
   const waMessage = `Hi, I want to book ${vehicle.name} in Tirupati for ${currentOption.label} (${currentOption.price}). Please share availability.`;
+
+  const handleBookClick = () => {
+    const isOutstation = selectedRate === 'outstation';
+    const tripType = isOutstation ? 'Outstation Tour' : 'Local Sightseeing';
+    const defaultDest = isOutstation ? 'Outstation Tour (Arunachalam / Vellore)' : 'Tirupati Local Sightseeing (8h / 80km)';
+
+    selectBooking({
+      vehicle: vehicle.name,
+      trip: tripType,
+      to: defaultDest,
+      price: currentOption.price
+    });
+
+    onBook({
+      name: vehicle.name,
+      service: `${vehicle.name} - ${currentOption.label} (${currentOption.price})`,
+      price: currentOption.price
+    });
+  };
 
   return (
     <article className="vehicle-card" key={vehicle.id}>
@@ -243,11 +263,7 @@ function TaxiVehicleCard({ vehicle, onBook }) {
             type="button"
             className="button vehicle-book-btn"
             style={{ flex: 1, padding: '0.6rem 0.4rem', fontSize: '0.82rem', background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7' }}
-            onClick={() => onBook({
-              name: vehicle.name,
-              service: `${vehicle.name} - ${currentOption.label} (${currentOption.price})`,
-              price: currentOption.price
-            })}
+            onClick={handleBookClick}
           >
             <CreditCard size={14} /> Book 💳
           </button>

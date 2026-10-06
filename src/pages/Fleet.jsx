@@ -12,6 +12,7 @@ import './FleetOverride.css';
 import './FleetMobileOrder.css';
 
 function FleetCardItem({ vehicle, onBook }) {
+  const { selectBooking } = useData();
   const [selectedRate, setSelectedRate] = useState('local'); // 'local' | 'localLong' | 'outstation'
 
   const rateOptions = [
@@ -23,6 +24,25 @@ function FleetCardItem({ vehicle, onBook }) {
   const currentOption = rateOptions.find(r => r.key === selectedRate) || rateOptions[0];
 
   const waMessage = `Hi, I want to book ${vehicle.name} in Tirupati for ${currentOption.label} (${currentOption.price}). Please share availability.`;
+
+  const handleBookClick = () => {
+    const isOutstation = selectedRate === 'outstation';
+    const tripType = isOutstation ? 'Outstation Tour' : 'Local Sightseeing';
+    const defaultDest = isOutstation ? 'Outstation Tour (Arunachalam / Vellore)' : 'Tirupati Local Sightseeing (8h / 80km)';
+
+    selectBooking({
+      vehicle: vehicle.name,
+      trip: tripType,
+      to: defaultDest,
+      price: currentOption.price
+    });
+
+    onBook({ 
+      name: vehicle.name, 
+      service: `${vehicle.name} - ${currentOption.label} (${currentOption.price})`, 
+      price: currentOption.price 
+    });
+  };
 
   return (
     <article className="rental-card">
@@ -97,8 +117,6 @@ function FleetCardItem({ vehicle, onBook }) {
 
         <p className="vehicle-minimum"><MapPin size={14} /> Outstation minimum {vehicle.minimum}</p>
 
-        {/* Note: "View Details" button removed as requested */}
-
         <div className="rent-actions" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.85rem' }}>
           <a
             className="button"
@@ -113,11 +131,7 @@ function FleetCardItem({ vehicle, onBook }) {
             type="button"
             className="button"
             style={{ flex: 1, background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7' }}
-            onClick={() => onBook({ 
-              name: vehicle.name, 
-              service: `${vehicle.name} - ${currentOption.label} (${currentOption.price})`, 
-              price: currentOption.price 
-            })}
+            onClick={handleBookClick}
           >
             Book 💳
           </button>

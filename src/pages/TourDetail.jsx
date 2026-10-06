@@ -7,15 +7,27 @@ import {
   CreditCard, Navigation, ChevronDown, Award, HelpCircle, Users
 } from 'lucide-react';
 import { getTourBySlug, packagesData, getVehicleInfo } from '../data/packageData';
+import { useData } from '../context/DataContext';
 import EasebuzzModal from '../components/EasebuzzModal';
 import './TourDetail.css';
 
 export default function TourDetail() {
+  const { selectBooking } = useData();
   const { slug } = useParams();
   const navigate = useNavigate();
   const tour = getTourBySlug(slug);
   const [payModalData, setPayModalData] = useState(null);
   const [activeFaq, setActiveFaq] = useState(null);
+
+  const handleBookTour = (name, price, vehicleName) => {
+    selectBooking({
+      to: tour?.name || name,
+      trip: 'Outstation Tour',
+      vehicle: vehicleName || 'Swift Dzire / Etios (Sedan 4-Seater)',
+      price: price
+    });
+    setPayModalData({ name, price });
+  };
 
   if (!tour) {
     return (
@@ -111,7 +123,7 @@ export default function TourDetail() {
               <button 
                 type="button"
                 className="btn-hero-pay"
-                onClick={() => setPayModalData({ name: tour.name, price: tour.startingPrice })}
+                onClick={() => handleBookTour(tour.name, tour.startingPrice)}
               >
                 <CreditCard size={18} /> Book ₹1,000 Advance 💳
               </button>
@@ -190,7 +202,7 @@ export default function TourDetail() {
                       <button 
                         type="button" 
                         className="tariff-book-btn"
-                        onClick={() => setPayModalData({ name: `${tour.name} (${vehicle})`, price })}
+                        onClick={() => handleBookTour(`${tour.name} (${vehicle})`, price, vehicle)}
                       >
                         Book ₹1,000 Token 💳
                       </button>
@@ -271,7 +283,7 @@ export default function TourDetail() {
                 <button 
                   type="button" 
                   className="sidebar-pay-btn"
-                  onClick={() => setPayModalData({ name: tour.name, price: tour.startingPrice })}
+                  onClick={() => handleBookTour(tour.name, tour.startingPrice)}
                 >
                   <CreditCard size={18} /> Book ₹1,000 Advance Token 💳
                 </button>

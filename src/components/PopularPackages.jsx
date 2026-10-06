@@ -5,13 +5,25 @@ import { Link } from 'react-router-dom';
 import { packageItineraries } from '../data/packageItineraries';
 import { packageDetails } from '../data/packageDetails';
 import { packagesData, getVehicleInfo } from '../data/packageData';
+import { useData } from '../context/DataContext';
 import EasebuzzModal from './EasebuzzModal';
 import './PopularPackages.css';
 
 export default function PopularPackages() {
+  const { selectBooking } = useData();
   const [selectedDetailPkg, setSelectedDetailPkg] = useState(null);
   const [payPkg, setPayPkg] = useState(null);
   const whatsapp = (name) => `https://wa.me/918688624758?text=${encodeURIComponent(`Hi, I want to inquire about ${name}`)}`;
+
+  const handleBookPackage = (pkgName, pkgPrice) => {
+    selectBooking({
+      to: pkgName,
+      trip: 'Outstation Tour',
+      vehicle: 'Swift Dzire / Etios (Sedan 4-Seater)',
+      price: pkgPrice
+    });
+    setPayPkg({ name: pkgName, price: pkgPrice });
+  };
 
   useEffect(() => {
     if (selectedDetailPkg || payPkg) {
@@ -87,7 +99,7 @@ export default function PopularPackages() {
                     <button 
                       type="button" 
                       className="popular-btn-pay"
-                      onClick={() => setPayPkg({ name, price: startingPrice })}
+                      onClick={() => handleBookPackage(name, startingPrice)}
                     >
                       <span>Book 💳</span>
                     </button>
@@ -199,7 +211,7 @@ export default function PopularPackages() {
                       type="button" 
                       className="compact-book-btn" 
                       onClick={() => { 
-                        setPayPkg({ name, price: startingPrice }); 
+                        handleBookPackage(name, startingPrice); 
                         setSelectedDetailPkg(null); 
                       }}
                     >

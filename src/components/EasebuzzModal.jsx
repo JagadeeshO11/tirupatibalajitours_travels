@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { X, CreditCard, CheckCircle2, Lock, ArrowRight, Loader2, Car, Calendar, MapPin, User, Phone as PhoneIcon, Mail, ArrowLeft, Tag } from 'lucide-react';
+import { X, CreditCard, CheckCircle2, Lock, ArrowRight, Loader2, Car, Calendar, MapPin, Route, Tag, ArrowLeft } from 'lucide-react';
 import { useData } from '../context/DataContext';
 import { getEasebuzzConfig, generateTransactionId, calculateEasebuzzHash } from '../services/easebuzzService';
 import { packageDetails } from '../data/packageDetails';
+import { getVehicleInfo } from '../data/packageData';
 import './BookingForm.css';
 
 const vehicleOptionsList = [
@@ -12,121 +13,165 @@ const vehicleOptionsList = [
   'Toyota Innova Crysta (SUV 7-Seater)',
   'Toyota Hycross (Hybrid MUV 7-Seater)',
   'Toyota Fortuner (Luxury SUV 7-Seater)',
-  'Tempo Traveller (12 / 17 Seater)',
-  'Force Urbania (12 / 16 Seater)',
-  'Luxury Bus (27 / 40 / 50 Seater)'
+  'Tempo Traveller 12 Seater (12-Seater AC)',
+  'Urbania 12 Seater (Luxury 12-Seater AC)',
+  'Tempo Traveller 16 Seater (16-Seater AC)',
+  'Urbania 16 Seater (Luxury 16-Seater AC)',
+  'Tempo Traveller 20 Seater (20-Seater AC)',
+  'Mini Bus 27 Seater (27-Seater AC Coach)',
+  'Bus 40 Seater (40-Seater Tourist Coach)',
+  'Bus 45 Seater (45-Seater Volvo/Deluxe Bus)'
 ];
 
-const categoryVehiclesMap = {
-  tempo: [
-    'Tempo Traveller 12 Seater (AC)',
-    'Tempo Traveller 16 Seater (AC)',
-    'Tempo Traveller 20 Seater (AC)'
-  ],
-  urbania: [
-    'Force Urbania Luxury (12-Seater AC)',
-    'Force Urbania Executive (16-Seater AC)'
-  ],
-  bus: [
-    'Mini Bus Coach (27-Seater AC)',
-    'Deluxe Tourist Bus (40-Seater AC)',
-    'Volvo Multi-Axle Bus (45-Seater AC)'
-  ],
-  cars: [
-    'Swift Dzire / Etios (Sedan 4-Seater)',
-    'Maruti Ertiga (MUV 6-Seater)',
-    'Toyota Innova Crysta (SUV 7-Seater)',
-    'Toyota Hycross (Hybrid MUV 7-Seater)',
-    'Toyota Fortuner (Luxury SUV 7-Seater)'
-  ]
-};
+export function getBestMatchingVehicleOption(inputStr, availableOptions) {
+  if (!inputStr || !availableOptions || availableOptions.length === 0) {
+    return availableOptions?.[0] || '';
+  }
 
-const ratePlanOptions = [
-  { key: 'Local 8h / 80km', label: 'Local 8 Hours / 80 Km' },
-  { key: 'Local 12h / 150km', label: 'Local 12 Hours / 150 Km' },
-  { key: 'Outstation', label: 'Outstation (Min 300km/day)' }
-];
+  const exact = availableOptions.find(opt => opt === inputStr);
+  if (exact) return exact;
+
+  const cleanInput = inputStr.toLowerCase();
+
+  const inclusion = availableOptions.find(opt => {
+    const cleanOpt = opt.toLowerCase();
+    return cleanOpt.includes(cleanInput) || cleanInput.includes(cleanOpt);
+  });
+  if (inclusion) return inclusion;
+
+  if (cleanInput.includes('fortuner')) {
+    return availableOptions.find(o => o.toLowerCase().includes('fortuner')) || availableOptions[0];
+  }
+  if (cleanInput.includes('hycross')) {
+    return availableOptions.find(o => o.toLowerCase().includes('hycross')) || availableOptions[0];
+  }
+  if (cleanInput.includes('crysta') || cleanInput.includes('innova')) {
+    return availableOptions.find(o => o.toLowerCase().includes('crysta') || o.toLowerCase().includes('innova')) || availableOptions[0];
+  }
+  if (cleanInput.includes('ertiga')) {
+    return availableOptions.find(o => o.toLowerCase().includes('ertiga')) || availableOptions[0];
+  }
+  if (cleanInput.includes('urbania 16') || cleanInput.includes('urbania (16') || cleanInput.includes('16-seater urbania')) {
+    return availableOptions.find(o => o.toLowerCase().includes('urbania 16') || o.toLowerCase().includes('urbania (16')) || availableOptions[0];
+  }
+  if (cleanInput.includes('urbania')) {
+    return availableOptions.find(o => o.toLowerCase().includes('urbania 12') || o.toLowerCase().includes('urbania')) || availableOptions[0];
+  }
+  if (cleanInput.includes('20 seater') || cleanInput.includes('20-seater')) {
+    return availableOptions.find(o => o.toLowerCase().includes('20 seater') || o.toLowerCase().includes('20-seater')) || availableOptions[0];
+  }
+  if (cleanInput.includes('16 seater') || cleanInput.includes('16-seater')) {
+    return availableOptions.find(o => o.toLowerCase().includes('16 seater') || o.toLowerCase().includes('16-seater')) || availableOptions[0];
+  }
+  if (cleanInput.includes('12 seater') || cleanInput.includes('12-seater')) {
+    return availableOptions.find(o => o.toLowerCase().includes('12 seater') || o.toLowerCase().includes('12-seater')) || availableOptions[0];
+  }
+  if (cleanInput.includes('45 seater') || cleanInput.includes('45-seater')) {
+    return availableOptions.find(o => o.toLowerCase().includes('45 seater') || o.toLowerCase().includes('45-seater')) || availableOptions[0];
+  }
+  if (cleanInput.includes('40 seater') || cleanInput.includes('40-seater')) {
+    return availableOptions.find(o => o.toLowerCase().includes('40 seater') || o.toLowerCase().includes('40-seater')) || availableOptions[0];
+  }
+  if (cleanInput.includes('27 seater') || cleanInput.includes('mini bus')) {
+    return availableOptions.find(o => o.toLowerCase().includes('27 seater') || o.toLowerCase().includes('mini bus')) || availableOptions[0];
+  }
+  if (cleanInput.includes('sedan') || cleanInput.includes('etios') || cleanInput.includes('dzire')) {
+    return availableOptions.find(o => o.toLowerCase().includes('dzire') || o.toLowerCase().includes('etios') || o.toLowerCase().includes('sedan')) || availableOptions[0];
+  }
+
+  return availableOptions[0];
+}
 
 export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modalClassName = '' }) {
   const { recordPayment, addQuery } = useData();
 
   const fixedAdvanceAmount = '1000';
-
   const [step, setStep] = useState(1);
 
-  const packagePrices = initialData.prices || packageDetails[initialData.service]?.prices || packageDetails[initialData.name]?.prices || [];
-  const durationText = initialData.duration || packageDetails[initialData.service]?.duration || (initialData.service?.includes('Days') || initialData.service?.includes('Day') ? initialData.service.match(/\d+\s*Days?/i)?.[0] : null);
+  // Identify booking context type: 'tour' | 'vehicle' | 'route' | 'general'
+  const serviceName = initialData.service || initialData.name || initialData.title || '';
+  const matchedPkg = packageDetails[serviceName] || packageDetails[initialData.name];
 
-  // Fixed-price bookings do not need a Local / Outstation choice.
-  const selectedPackageEntry = packagePrices.find(([vehicleName]) =>
-    String(vehicleName).toLowerCase() === String(initialData.vehicle || '').split(' — ')[0].trim().toLowerCase()
+  const tourPrices = initialData.prices || matchedPkg?.prices || [];
+  const durationText = initialData.duration || (serviceName.includes('Days') || serviceName.includes('Day') ? serviceName.match(/\d+\s*Days?/i)?.[0] : null);
+  const routeText = initialData.route || initialData.routeCorridor;
+
+  const isTourBooking = initialData.type === 'tour' || (tourPrices.length > 0 && !initialData.local && !initialData.outstation);
+  const isVehicleBooking = initialData.type === 'vehicle' || Boolean(initialData.local || initialData.outstation || initialData.localLong);
+  const isRouteBooking = initialData.type === 'route' || Boolean(initialData.routeName || (initialData.from && initialData.to));
+
+  const bookingType = initialData.type || (
+    isTourBooking ? 'tour' :
+    isVehicleBooking ? 'vehicle' :
+    isRouteBooking ? 'route' :
+    'general'
   );
-  const fixedTotalPrice =
-    initialData.fullAmount ||
-    initialData.totalCost ||
-    initialData.fixedAmount ||
-    selectedPackageEntry?.[1] ||
-    null;
-  const hasFixedTotalPrice = Boolean(fixedTotalPrice);
-  const isFixedPackageBooking = hasFixedTotalPrice && !initialData.vehicle && !initialData.prices?.length;
-  const isTourPackageContext = packagePrices.length > 0 || Boolean(durationText) || isFixedPackageBooking;
 
-  const activeCategory = initialData.category || 
-    (initialData.slug === 'tempo-traveller-rental-in-tirupati' ? 'tempo' :
-     initialData.slug === 'urbania-traveller-rental-in-tirupati' ? 'urbania' :
-     initialData.slug === 'bus-rental-in-tirupati' ? 'bus' :
-     (initialData.slug === 'car-rentals-in-tirupati' || initialData.slug === 'car-for-rent-in-tirupati-day-rentals') ? 'cars' :
-     (initialData.service || initialData.name || '').toLowerCase().includes('tempo') ? 'tempo' :
-     (initialData.service || initialData.name || '').toLowerCase().includes('urbania') ? 'urbania' :
-     (initialData.service || initialData.name || '').toLowerCase().includes('bus') ? 'bus' :
-     (initialData.service || initialData.name || '').toLowerCase().includes('car') ? 'cars' : null);
+  // Vehicle options computation
+  const vehicleOptions = tourPrices.length > 0
+    ? tourPrices.map(([vName, vPrice]) => `${vName} — ${vPrice}`)
+    : (initialData.vehicleOptions || vehicleOptionsList);
 
-  const customVehicleOptions = initialData.vehicleOptions ||
-    (activeCategory && categoryVehiclesMap[activeCategory] ? categoryVehiclesMap[activeCategory] :
-     packagePrices.length > 0 ? packagePrices.map(([vName, vPrice]) => `${vName} — ${vPrice}`) :
-     vehicleOptionsList);
+  const rawVehicleStr = initialData.vehicle || initialData.service || initialData.name || '';
+  const initialVehicle = tourPrices.length > 0
+    ? (initialData.vehicle && !initialData.vehicle.includes('—')
+        ? (tourPrices.find(([v]) => v.toLowerCase().includes(initialData.vehicle.toLowerCase()))
+            ? `${tourPrices.find(([v]) => v.toLowerCase().includes(initialData.vehicle.toLowerCase()))[0]} — ${tourPrices.find(([v]) => v.toLowerCase().includes(initialData.vehicle.toLowerCase()))[1]}`
+            : vehicleOptions[0])
+        : (initialData.vehicle || vehicleOptions[0]))
+    : getBestMatchingVehicleOption(rawVehicleStr, vehicleOptions);
 
-  const initialVehicle = initialData.vehicle || customVehicleOptions[0];
+  const [selectedRateKey, setSelectedRateKey] = useState('local');
 
   const [formData, setFormData] = useState({
     firstname: initialData.name || '',
     email: initialData.email || '',
     phone: initialData.phone || '',
-    service: initialData.service || 'Tirupati Cab Booking',
+    service: serviceName || 'Tirupati Cab Service',
     vehicle: initialVehicle,
-    ratePlan: initialData.ratePlan || (initialData.service?.includes('12h') ? 'Local 12 Hours / 150 Km' : initialData.service?.includes('Outstation') ? 'Outstation Trip' : 'Local 8 Hours / 80 Km'),
     date: initialData.date || new Date().toISOString().split('T')[0],
     pickup: initialData.pickup || initialData.from || 'Tirupati',
+    tripType: initialData.tripType || 'One Way',
     amount: fixedAdvanceAmount
   });
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [receipt, setReceipt] = useState(null);
 
-  const isVehicleCardContext = Boolean(
-    initialData.vehicle && !initialData.isHero
-  );
-
   useEffect(() => {
     if (isOpen) {
       setStep(1);
-      const detectedRatePlan = initialData.ratePlan || (
-        initialData.service?.toLowerCase().includes('12h') || initialData.service?.toLowerCase().includes('12 hrs') ? 'Local 12 Hours / 150 Km' :
-        initialData.service?.toLowerCase().includes('outstation') ? 'Outstation Trip' :
-        'Local 8 Hours / 80 Km'
-      );
+      const rawVeh = initialData.vehicle || initialData.service || initialData.name || '';
+      const computedVehicle = tourPrices.length > 0
+        ? (initialData.vehicle && !initialData.vehicle.includes('—')
+            ? (tourPrices.find(([v]) => v.toLowerCase().includes(initialData.vehicle.toLowerCase()))
+                ? `${tourPrices.find(([v]) => v.toLowerCase().includes(initialData.vehicle.toLowerCase()))[0]} — ${tourPrices.find(([v]) => v.toLowerCase().includes(initialData.vehicle.toLowerCase()))[1]}`
+                : vehicleOptions[0])
+            : (initialData.vehicle || vehicleOptions[0]))
+        : getBestMatchingVehicleOption(rawVeh, vehicleOptions);
 
-      const computedVehicle = initialData.vehicle || customVehicleOptions[0];
+      let initialRateKey = 'local';
+      if (initialData.selectedRateKey) {
+        initialRateKey = initialData.selectedRateKey;
+      } else if (initialData.ratePlan) {
+        const rpLower = initialData.ratePlan.toLowerCase();
+        if (rpLower.includes('12 h') || rpLower.includes('12-hour') || rpLower.includes('150')) {
+          initialRateKey = 'localLong';
+        } else if (rpLower.includes('outstation')) {
+          initialRateKey = 'outstation';
+        }
+      }
+      setSelectedRateKey(initialRateKey);
 
       setFormData({
         firstname: initialData.name || '',
         email: initialData.email || '',
         phone: initialData.phone || '',
-        service: initialData.service || 'Tirupati Cab Booking',
+        service: serviceName || 'Tirupati Cab Service',
         vehicle: computedVehicle,
-        ratePlan: detectedRatePlan,
         date: initialData.date || new Date().toISOString().split('T')[0],
         pickup: initialData.pickup || initialData.from || 'Tirupati',
+        tripType: initialData.tripType || 'One Way',
         amount: fixedAdvanceAmount
       });
       setReceipt(null);
@@ -134,14 +179,35 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
     }
   }, [isOpen, initialData]);
 
-  useEffect(() => {
-    if (!isOpen) return undefined;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [isOpen]);
+  // Dynamic vehicle lookup for current selected vehicle in dropdown
+  const currentVehicleObj = getVehicleInfo(formData.vehicle);
+
+  const vehicleLocalRate = currentVehicleObj?.local 
+    ? currentVehicleObj.local.split('/')[0].trim() 
+    : (initialData.local || '₹2,880');
+
+  const vehicleLocalLongRate = currentVehicleObj?.localLong 
+    ? currentVehicleObj.localLong.split('/')[0].trim() 
+    : (initialData.localLong || '₹3,650');
+
+  const vehicleOutstationRate = currentVehicleObj?.outstation 
+    ? currentVehicleObj.outstation 
+    : (initialData.outstation || '₹15/km');
+
+  const rawMin = currentVehicleObj?.minimum || initialData.minimum || '300 km/day';
+  const vehicleMinKm = rawMin.toLowerCase().startsWith('min') ? rawMin : `Min ${rawMin}`;
+
+  const ratePlanOptions = [
+    { key: 'local', label: `Local 8 Hours / 80 Km (${vehicleLocalRate})`, val: `Local 8 Hours / 80 Km (${vehicleLocalRate})` },
+    { key: 'localLong', label: `Local 12 Hours / 150 Km (${vehicleLocalLongRate})`, val: `Local 12 Hours / 150 Km (${vehicleLocalLongRate})` },
+    { key: 'outstation', label: `Outstation Trip (${vehicleOutstationRate} • ${vehicleMinKm})`, val: `Outstation Trip (${vehicleOutstationRate} • ${vehicleMinKm})` }
+  ];
+
+  const activeRateOption = ratePlanOptions.find(opt => opt.key === selectedRateKey) || ratePlanOptions[0];
+
+  const dynamicRatePlan = bookingType === 'tour' 
+    ? 'Fixed Tour Package Tariff' 
+    : (bookingType === 'vehicle' ? activeRateOption.val : 'Standard Trip Tariff');
 
   if (!isOpen) return null;
 
@@ -165,7 +231,7 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
       key: config.merchantKey,
       txnid,
       amount: fixedAdvanceAmount,
-      productinfo: `${formData.service} (${formData.vehicle} - ${formData.ratePlan})`,
+      productinfo: `${formData.service} (${formData.vehicle} - ${dynamicRatePlan})`,
       firstname: formData.firstname,
       email: formData.email || 'customer@tirupatibalajitours.com',
       salt: config.salt
@@ -179,7 +245,7 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
         email: formData.email || 'customer@tirupatibalajitours.com',
         phone: formData.phone,
         amount: Number(fixedAdvanceAmount),
-        productinfo: `${formData.service} - ${formData.vehicle} [${formData.ratePlan}]`,
+        productinfo: `${formData.service} - ${formData.vehicle} [${dynamicRatePlan}]`,
         mode: 'Online (₹1,000 Advance Token)',
         hash
       });
@@ -190,7 +256,7 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
         from: formData.pickup,
         to: formData.service,
         date: formData.date,
-        trip: `₹1,000 ADVANCE PAYMENT (${formData.ratePlan})`,
+        trip: `₹1,000 ADVANCE (${dynamicRatePlan})`,
         vehicle: formData.vehicle,
         status: 'Confirmed'
       });
@@ -202,7 +268,7 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
         amount: fixedAdvanceAmount,
         service: formData.service,
         vehicle: formData.vehicle,
-        ratePlan: formData.ratePlan,
+        ratePlan: dynamicRatePlan,
         name: formData.firstname,
         phone: formData.phone,
         pickup: formData.pickup,
@@ -224,13 +290,11 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
   return createPortal(
     <div 
       className={`itinerary-overlay booking-payment-overlay ${modalClassName}`.trim()} 
-      style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', overflowY: 'auto', padding: '20px 12px' }} 
       role="presentation" 
       onClick={handleClose}
     >
       <div 
         className="itinerary-modal package-info-modal" 
-        style={{ maxWidth: 540, width: '100%', padding: '1.5rem', borderRadius: 24, margin: 'auto', maxHeight: '92vh', overflowY: 'auto' }}
         role="dialog" 
         aria-modal="true" 
         onClick={e => e.stopPropagation()}
@@ -242,121 +306,67 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
         {!receipt ? (
           <>
             {/* STEP PROGRESS BAR */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1.25rem' }}>
-              <div 
-                style={{ 
-                  flex: 1, 
-                  height: 6, 
-                  borderRadius: 4, 
-                  background: step >= 1 ? 'linear-gradient(90deg, #0284c7, #0369a1)' : '#e2e8f0' 
-                }} 
-              />
-              <div 
-                style={{ 
-                  flex: 1, 
-                  height: 6, 
-                  borderRadius: 4, 
-                  background: step >= 2 ? 'linear-gradient(90deg, #d97706, #f59e0b)' : '#e2e8f0' 
-                }} 
-              />
+            <div className="booking-step-progress">
+              <div className={`booking-step-progress-bar ${step >= 1 ? 'active' : ''}`} />
+              <div className={`booking-step-progress-bar ${step >= 2 ? 'active second' : ''}`} />
             </div>
 
             {step === 1 && (
-              /* STEP 1: VEHICLE SELECTION, TRIP TYPE & CONTACT DETAILS */
               <div>
+                {/* STEP HEADER BASED ON BOOKING TYPE */}
                 <div className="itinerary-modal-header" style={{ marginBottom: '1.1rem' }}>
-                  <span className="itinerary-icon" style={{ background: '#e0f2fe', color: '#0284c7' }}>
-                    <Car size={22} />
-                  </span>
                   <div>
-                    <p style={{ color: '#0284c7', fontWeight: 800, fontSize: '0.75rem', letterSpacing: '1px' }}>STEP 1 OF 2 · BOOKING DETAILS</p>
-                    <h3 style={{ fontSize: '1.3rem', color: '#060c2c', margin: 0 }}>
-                      {isTourPackageContext ? 'Tour Package Details' : 'Select Vehicle & Trip Type'}
+                    <p style={{ color: '#0284c7', fontWeight: 800, fontSize: '0.72rem', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                      {bookingType === 'tour' ? 'TOUR PACKAGE BOOKING' : bookingType === 'vehicle' ? 'VEHICLE RENTAL' : bookingType === 'route' ? 'OUTSTATION CAB ROUTE' : 'CAB BOOKING'}
+                    </p>
+                    <h3 style={{ fontSize: '1.25rem', color: '#060c2c', margin: 0, fontWeight: 800 }}>
+                      {bookingType === 'vehicle' ? `${currentVehicleObj?.name || formData.vehicle} Rental` : formData.service}
                     </h3>
                   </div>
                 </div>
 
-                {durationText && (
-                  <div style={{ background: '#f0f9ff', padding: '0.65rem 1rem', borderRadius: 12, border: '1.5px solid #0284c7', display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                    <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#0369a1', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <Calendar size={16} /> Total Duration: <strong style={{ color: '#060c2c', fontSize: '0.95rem' }}>{durationText}</strong>
-                    </span>
-                    <span style={{ fontSize: '0.7rem', background: '#0284c7', color: '#ffffff', padding: '3px 10px', borderRadius: 12, fontWeight: 800, letterSpacing: '0.5px' }}>
-                      TOUR PACKAGE
+                {/* CONTEXT 1: TOUR PACKAGE DETAILS BANNER */}
+                {bookingType === 'tour' && (
+                  <div style={{ background: '#f0f9ff', padding: '0.75rem 1rem', borderRadius: 14, border: '1.5px solid #0284c7', marginBottom: '1rem', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#0369a1', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <Calendar size={15} /> Tour Duration: <strong style={{ color: '#060c2c' }}>{durationText || '1 Day'}</strong>
+                      </span>
+                      <span style={{ fontSize: '0.68rem', background: '#0284c7', color: '#ffffff', padding: '3px 9px', borderRadius: 12, fontWeight: 800 }}>
+                        FIXED TOUR TARIFF
+                      </span>
+                    </div>
+                    {routeText && (
+                      <p style={{ fontSize: '0.78rem', color: '#334155', margin: '3px 0 0 0', lineHeight: 1.35 }}>
+                        <strong>📍 Corridor:</strong> {routeText}
+                      </p>
+                    )}
+                    <span style={{ fontSize: '0.72rem', color: '#166534', background: '#dcfce7', padding: '3px 8px', borderRadius: 6, fontWeight: 700, marginTop: '4px', display: 'inline-block', width: 'fit-content' }}>
+                      ✔ Tolls, Parking, State Permits & Driver Batta Included
                     </span>
                   </div>
                 )}
 
                 <form onSubmit={handleNextToStep2} style={{ display: 'flex', flexDirection: 'column', gap: '0.95rem' }}>
-                  {/* VEHICLE SELECTION */}
-                  {!isFixedPackageBooking && (
-                  <div>
-                    <label style={{ fontSize: '0.82rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '0.35rem' }}>
-                      {packagePrices.length > 0 ? 'Select Vehicle & Package Tariff *' : 'Select Vehicle *'}
-                    </label>
-                    {isVehicleCardContext ? (
-                      <div style={{ background: '#f8fafc', padding: '0.75rem 1rem', borderRadius: 10, border: '1.5px solid #0284c7', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <Car size={18} color="#0284c7" />
-                        <span style={{ fontSize: '0.95rem', fontWeight: 800, color: '#060c2c' }}>{formData.vehicle}</span>
-                        <span style={{ marginLeft: 'auto', fontSize: '0.7rem', background: '#e0f2fe', color: '#0369a1', padding: '2px 8px', borderRadius: 12, fontWeight: 800 }}>Pre-selected</span>
-                      </div>
-                    ) : (
+                  {/* VEHICLE / TARIFF SELECTION (Only shown when booking general cabs or tour packages where vehicle is not fixed) */}
+                  {bookingType !== 'vehicle' && !initialData.vehicle && (
+                    <div>
+                      <label style={{ fontSize: '0.82rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '0.35rem' }}>
+                        {bookingType === 'tour' ? 'Select Vehicle & Fixed Package Tariff *' : 'Select Vehicle Category *'}
+                      </label>
                       <select 
                         value={formData.vehicle}
                         onChange={e => setFormData({ ...formData, vehicle: e.target.value })}
                         style={{ width: '100%', padding: '0.75rem 1rem', borderRadius: 10, border: '1.5px solid #0284c7', fontSize: '0.9rem', fontWeight: 700, color: '#060c2c', background: '#ffffff' }}
                       >
-                        {customVehicleOptions.map(opt => (
+                        {vehicleOptions.map(opt => (
                           <option key={opt} value={opt}>{opt}</option>
                         ))}
                       </select>
-                    )}
-                  </div>
-                  )}
-
-                  {/* RATE PLAN / TRIP TYPE SELECTOR */}
-                  {!hasFixedTotalPrice && (
-                  <div>
-                    <label style={{ fontSize: '0.82rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '0.35rem' }}>
-                      Select Trip / Rate Plan *
-                    </label>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.4rem' }}>
-                      {ratePlanOptions.map(plan => (
-                        <button
-                          key={plan.key}
-                          type="button"
-                          onClick={() => setFormData({ ...formData, ratePlan: plan.label })}
-                          style={{
-                            padding: '0.6rem 0.4rem',
-                            borderRadius: 10,
-                            border: formData.ratePlan === plan.label ? '2px solid #d97706' : '1.5px solid #cbd5e1',
-                            background: formData.ratePlan === plan.label ? '#fffdf5' : '#ffffff',
-                            color: formData.ratePlan === plan.label ? '#d97706' : '#475569',
-                            fontWeight: 800,
-                            fontSize: '0.75rem',
-                            cursor: 'pointer',
-                            textAlign: 'center',
-                            transition: 'all 0.2s ease',
-                            boxShadow: formData.ratePlan === plan.label ? '0 4px 12px rgba(217, 119, 6, 0.2)' : 'none'
-                          }}
-                        >
-                          {plan.label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  )}
-
-                  {hasFixedTotalPrice && (
-                    <div className="booking-fixed-total">
-                      <span>FIXED TOTAL COST</span>
-                      <strong>{fixedTotalPrice}</strong>
-                      <small>Fixed package/vehicle price. Local / Outstation selection is not required.</small>
                     </div>
                   )}
 
-                  {/* FULL NAME */}
+                  {/* USER CONTACT DETAILS */}
                   <div>
                     <label style={{ fontSize: '0.82rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '0.35rem' }}>
                       Full Name *
@@ -371,7 +381,6 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
                     />
                   </div>
 
-                  {/* PHONE & EMAIL (OPTIONAL) */}
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
                     <div>
                       <label style={{ fontSize: '0.82rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '0.35rem' }}>
@@ -400,7 +409,6 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
                     </div>
                   </div>
 
-                  {/* TRAVEL DATE & PICKUP LOCATION */}
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
                     <div>
                       <label style={{ fontSize: '0.82rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '0.35rem' }}>
@@ -430,7 +438,6 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
                     </div>
                   </div>
 
-                  {/* NEXT STEP PAY BUTTON */}
                   <button 
                     type="submit" 
                     className="button" 
@@ -459,20 +466,17 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
             )}
 
             {step === 2 && (
-              /* STEP 2: ADVANCE ₹1,000 COLLECTION PAGE ONLY WITH CLEAR LOCAL / OUTSTATION DISPLAY */
+              /* STEP 2: SUMMARY & ADVANCE PAYMENT */
               <div>
                 <div className="itinerary-modal-header" style={{ marginBottom: '1.1rem' }}>
-                  <span className="itinerary-icon" style={{ background: 'linear-gradient(135deg, #fbbf24, #f59e0b)', color: '#060c2c' }}>
-                    <CreditCard size={22} />
-                  </span>
                   <div>
-                    <p style={{ color: '#d97706', fontWeight: 800, fontSize: '0.75rem', letterSpacing: '1px' }}>STEP 2 OF 2 · ADVANCE PAYMENT</p>
-                    <h3 style={{ fontSize: '1.3rem', color: '#060c2c', margin: 0 }}>Adv ₹1,000 Payment Collect</h3>
+                    <p style={{ color: '#d97706', fontWeight: 800, fontSize: '0.72rem', letterSpacing: '1px', textTransform: 'uppercase' }}>STEP 2 OF 2 · ADVANCE PAYMENT</p>
+                    <h3 style={{ fontSize: '1.25rem', color: '#060c2c', margin: 0, fontWeight: 800 }}>Confirm & Lock Booking</h3>
                   </div>
                 </div>
 
                 <form onSubmit={handleSubmitPayment} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  {/* SUMMARY BOX OF STEP 1 DETAILS WITH LOCAL / OUTSTATION TYPE HIGHLIGHT */}
+                  {/* SUMMARY BOX */}
                   <div style={{ background: '#f8fafc', padding: '0.9rem 1rem', borderRadius: 14, border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '0.55rem', fontSize: '0.88rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed #e2e8f0', paddingBottom: '0.4rem' }}>
                       <span style={{ color: '#64748b' }}>Customer:</span>
@@ -480,7 +484,7 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
                     </div>
 
                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed #e2e8f0', paddingBottom: '0.4rem' }}>
-                      <span style={{ color: '#64748b' }}>Tour / Service:</span>
+                      <span style={{ color: '#64748b' }}>Service / Tour:</span>
                       <strong style={{ color: '#060c2c' }}>{formData.service}</strong>
                     </div>
 
@@ -490,13 +494,12 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
                         <strong style={{ color: '#0284c7', fontWeight: 800 }}>⏱️ {durationText}</strong>
                       </div>
                     )}
-                    
+
                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed #e2e8f0', paddingBottom: '0.4rem' }}>
-                      <span style={{ color: '#64748b' }}>Vehicle & Tariff:</span>
+                      <span style={{ color: '#64748b' }}>Selected Vehicle:</span>
                       <strong style={{ color: '#d97706', fontWeight: 800 }}>{formData.vehicle}</strong>
                     </div>
 
-                    {/* CLEAR DISPLAY OF LOCAL 8H / LOCAL 12H / OUTSTATION */}
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px dashed #e2e8f0', paddingBottom: '0.4rem' }}>
                       <span style={{ color: '#64748b' }}>Trip / Rate Type:</span>
                       <strong style={{ 
@@ -505,10 +508,10 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
                         padding: '3px 10px', 
                         borderRadius: 20, 
                         border: '1.5px solid #fde68a',
-                        fontSize: '0.85rem',
+                        fontSize: '0.82rem',
                         fontWeight: 900
                       }}>
-                        🚕 {formData.ratePlan}
+                        {dynamicRatePlan}
                       </strong>
                     </div>
 
@@ -518,7 +521,7 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
                     </div>
                   </div>
 
-                  {/* ADVANCE ₹1,000 PAYMENT ONLY BOX */}
+                  {/* ADVANCE TOKEN BOX */}
                   <div style={{ background: '#fffdf5', padding: '1rem', borderRadius: 14, border: '2px solid #f59e0b', textAlign: 'center', boxShadow: '0 4px 15px rgba(245, 158, 11, 0.15)' }}>
                     <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#d97706', display: 'block', letterSpacing: '0.05em' }}>
                       ADVANCE BOOKING TOKEN
@@ -527,7 +530,7 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
                       ₹1,000
                     </strong>
                     <span style={{ fontSize: '0.75rem', color: '#64748b', lineHeight: 1.4, display: 'block' }}>
-                      Fixed advance payment to confirm your cab booking. Remaining balance is payable to driver.
+                      Fixed advance deposit to lock your cab & driver. Remaining balance payable directly to driver.
                     </span>
                   </div>
 
@@ -539,7 +542,7 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
                     </span>
                   </div>
 
-                  {/* ACTION BUTTONS (BACK & PAY) */}
+                  {/* ACTION BUTTONS */}
                   <div style={{ display: 'flex', gap: '0.6rem', marginTop: '0.2rem' }}>
                     <button 
                       type="button" 

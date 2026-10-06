@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CalendarDays, MapPin, Route, MessageCircle, CreditCard, Car, Sparkles, Check, ChevronDown, ArrowRightLeft } from 'lucide-react';
 import { whatsappBooking } from '../data/siteData';
+import { packageDetails } from '../data/packageDetails';
 import PopularPackages from './PopularPackages';
 import EasebuzzModal from './EasebuzzModal';
 import { useData } from '../context/DataContext';
@@ -15,8 +16,24 @@ const popularRoutes = [
   { from: 'Tirupati', to: 'Bangalore', price: '₹5,500' }
 ];
 
+const vehicleOptions = [
+  { label: 'Swift Dzire / Etios (Sedan 4-Seater)', key: 'Sedan' },
+  { label: 'Maruti Ertiga (MUV 6-Seater)', key: 'Ertiga' },
+  { label: 'Toyota Innova Crysta (SUV 7-Seater)', key: 'Innova' },
+  { label: 'Toyota Hycross (Hybrid MUV 7-Seater)', key: 'Hycross' },
+  { label: 'Toyota Fortuner (Luxury SUV 7-Seater)', key: 'Fortuner' },
+  { label: 'Tempo Traveller 12 Seater (12-Seater AC)', key: 'Tempo Traveller 12' },
+  { label: 'Urbania 12 Seater (Luxury 12-Seater AC)', key: 'Urbania 12' },
+  { label: 'Tempo Traveller 16 Seater (16-Seater AC)', key: 'Tempo Traveller 16' },
+  { label: 'Urbania 16 Seater (Luxury 16-Seater AC)', key: 'Urbania 16' },
+  { label: 'Tempo Traveller 20 Seater (20-Seater AC)', key: 'Tempo Traveller 20' },
+  { label: 'Mini Bus 27 Seater (27-Seater AC Coach)', key: 'Mini Bus 27' },
+  { label: 'Bus 40 Seater (40-Seater Tourist Coach)', key: 'Bus 40' },
+  { label: 'Bus 45 Seater (45-Seater Volvo/Deluxe Bus)', key: 'Bus 45' }
+];
+
 export default function BookingForm({ showPackages = true }) {
-  const { addQuery } = useData();
+  const { addQuery, bookingSelection } = useData();
   const [f, setF] = useState({ 
     from: 'Tirupati', 
     to: 'Tirumala', 
@@ -28,10 +45,38 @@ export default function BookingForm({ showPackages = true }) {
   });
   const [isPayModalOpen, setIsPayModalOpen] = useState(false);
 
-  // Dynamic Fare Estimation
-  const matchedRoute = popularRoutes.find(
-    r => r.from.toLowerCase() === f.from.trim().toLowerCase() && r.to.toLowerCase() === f.to.trim().toLowerCase()
-  );
+  // Sync with global bookingSelection when user interacts with package/tour/destination/vehicle cards
+  useEffect(() => {
+    if (bookingSelection) {
+      setF(prev => ({
+        ...prev,
+        from: bookingSelection.from || prev.from || 'Tirupati',
+        to: bookingSelection.to || bookingSelection.name || bookingSelection.title || prev.to,
+        trip: bookingSelection.trip || prev.trip,
+        vehicle: bookingSelection.vehicle || prev.vehicle
+      }));
+    }
+  }, [bookingSelection]);
+
+  // Find package details matching current destination/package name
+  const matchedPkgData = packageDetails[f.to] || 
+    Object.entries(packageDetails).find(([key]) => f.to && (f.to.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(f.to.toLowerCase())))?.[1];
+
+  const getFareForVehicleOption = (vOpt) => {
+    if (matchedPkgData?.prices) {
+      const match = matchedPkgData.prices.find(([vName]) => vName.toLowerCase().includes(vOpt.key.toLowerCase()));
+      if (match) return match[1];
+    }
+    if (bookingSelection?.price && bookingSelection?.vehicle && f.vehicle === vOpt.label) {
+      return bookingSelection.price;
+    }
+    const matchedRoute = popularRoutes.find(
+      r => r.from.toLowerCase() === f.from.trim().toLowerCase() && r.to.toLowerCase() === f.to.trim().toLowerCase()
+    );
+    if (matchedRoute) return matchedRoute.price;
+
+    return getVehicleBaseRate(vOpt.label);
+  };
 
   const getVehicleBaseRate = (vehicleName) => {
     if (vehicleName.includes('Ertiga')) return '₹1,500';
@@ -44,7 +89,9 @@ export default function BookingForm({ showPackages = true }) {
     return '₹900';
   };
 
-  const estimatedPrice = matchedRoute ? matchedRoute.price : getVehicleBaseRate(f.vehicle);
+  // Compute estimated price for currently selected vehicle
+  const selectedOpt = vehicleOptions.find(v => v.label === f.vehicle) || vehicleOptions[0];
+  const estimatedPrice = getFareForVehicleOption(selectedOpt);
 
   function submit(e) {
     e.preventDefault();
@@ -59,7 +106,7 @@ export default function BookingForm({ showPackages = true }) {
       status: 'Pending'
     });
 
-    const message = `Hi, I would like to book a cab.\nFrom: ${f.from}\nTo: ${f.to}\nDate: ${f.date || 'Not specified'}\nTrip type: ${f.trip}\nVehicle: ${f.vehicle}`;
+    const message = `Hi, I would like to book a cab / tour package.\nBooked Item / Destination: ${f.to}\nFrom: ${f.from}\nDate: ${f.date || 'Not specified'}\nTrip type: ${f.trip}\nSelected Vehicle: ${f.vehicle}\nEstimated Fare: ${estimatedPrice}`;
     window.open(whatsappBooking(message), '_blank', 'noopener,noreferrer');
   }
 
@@ -82,9 +129,19 @@ export default function BookingForm({ showPackages = true }) {
 
   const todayStr = new Date().toISOString().split('T')[0];
 
+  const destLabel = (f.trip === 'Local Sightseeing' || f.trip === 'Outstation Tour') 
+    ? 'DESTINATION / PLACES TO VISIT' 
+    : 'DESTINATION (DROP)';
+
+  const destPlaceholder = f.trip === 'Local Sightseeing'
+    ? 'e.g. Tirupati Local Temples, Kapila Theertham, Kanipakam'
+    : f.trip === 'Outstation Tour'
+    ? 'e.g. Arunachalam, Golden Temple Vellore, Kanchipuram'
+    : 'e.g. Tirumala / Srikalahasti / Airport';
+
   return (
     <>
-      <div className="enhanced-booking-container">
+      <div className="enhanced-booking-container" id="booking-form">
         {/* Top Bar: Trip Types & Popular Route Chips */}
         <div className="booking-top-strip">
           <div className="trip-type-pills">
@@ -159,9 +216,9 @@ export default function BookingForm({ showPackages = true }) {
               <ArrowRightLeft size={14} />
             </button>
 
-            {/* To Field */}
+            {/* To Field (Places to Visit / Destination) */}
             <div className="field-box">
-              <label>DESTINATION (DROP)</label>
+              <label>{destLabel}</label>
               <div className="field-input-wrap">
                 <MapPin className="field-icon gold" size={17} />
                 <input 
@@ -169,7 +226,7 @@ export default function BookingForm({ showPackages = true }) {
                   value={f.to} 
                   onChange={e => setF({ ...f, to: e.target.value })} 
                   list="drop-suggestions"
-                  placeholder="e.g. Tirumala / Srikalahasti"
+                  placeholder={destPlaceholder}
                   required
                 />
               </div>
@@ -189,20 +246,20 @@ export default function BookingForm({ showPackages = true }) {
               </div>
             </div>
 
-            {/* Vehicle Selection Field */}
+            {/* Vehicle Selection Field with Price Shown */}
             <div className="field-box">
-              <label>VEHICLE CATEGORY</label>
+              <label>VEHICLE & PRICE SHOWN</label>
               <div className="field-input-wrap">
                 <Car className="field-icon gold" size={17} />
                 <select value={f.vehicle} onChange={e => setF({ ...f, vehicle: e.target.value })}>
-                  <option>Swift Dzire / Etios (Sedan 4-Seater)</option>
-                  <option>Maruti Ertiga (MUV 6-Seater)</option>
-                  <option>Toyota Innova Crysta (SUV 7-Seater)</option>
-                  <option>Toyota Hycross (Hybrid MUV 7-Seater)</option>
-                  <option>Toyota Fortuner (Luxury SUV 7-Seater)</option>
-                  <option>Tempo Traveller (12 / 17 Seater)</option>
-                  <option>Force Urbania (12 / 16 Seater)</option>
-                  <option>Luxury Bus (27 / 40 / 50 Seater)</option>
+                  {vehicleOptions.map(vOpt => {
+                    const fare = getFareForVehicleOption(vOpt);
+                    return (
+                      <option key={vOpt.label} value={vOpt.label}>
+                        {vOpt.label} — {fare}
+                      </option>
+                    );
+                  })}
                 </select>
                 <ChevronDown className="select-arrow" size={14} />
               </div>
@@ -213,7 +270,7 @@ export default function BookingForm({ showPackages = true }) {
           <div className="booking-card-footer">
             <div className="fare-estimate-badge">
               <span className="estimate-dot" />
-              <span>Est. Starting Fare: <strong>{estimatedPrice}</strong> <small>(AC Cab & Driver Incl.)</small></span>
+              <span>Selected Vehicle Fare: <strong>{estimatedPrice}</strong> <small>(AC Cab & Driver Incl.)</small></span>
             </div>
 
             <div className="booking-actions-group">
@@ -239,7 +296,7 @@ export default function BookingForm({ showPackages = true }) {
         isOpen={isPayModalOpen} 
         onClose={() => setIsPayModalOpen(false)}
         initialData={{
-          service: `${f.from} to ${f.to} (${f.trip})`,
+          service: `${f.to} (${f.trip})`,
           vehicle: f.vehicle,
           amount: '1000',
           fullAmount: estimatedPrice,
@@ -252,3 +309,4 @@ export default function BookingForm({ showPackages = true }) {
     </>
   );
 }
+

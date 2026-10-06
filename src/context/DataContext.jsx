@@ -239,6 +239,19 @@ export function DataProvider({ children }) {
     localStorage.removeItem('app_payments');
   };
 
+  // --- Active Booking Selection State ---
+  const [bookingSelection, setBookingSelection] = useState(null);
+
+  const selectBooking = (bookingData) => {
+    setBookingSelection(bookingData);
+    setTimeout(() => {
+      const el = document.getElementById('booking-form');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 80);
+  };
+
   return (
     <DataContext.Provider value={{
       fleets,
@@ -263,7 +276,9 @@ export function DataProvider({ children }) {
       deleteQuery,
       payments,
       recordPayment,
-      resetToDefaults
+      resetToDefaults,
+      bookingSelection,
+      selectBooking
     }}>
       {children}
     </DataContext.Provider>

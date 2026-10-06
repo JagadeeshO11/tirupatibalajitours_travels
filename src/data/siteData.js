@@ -114,36 +114,37 @@ const moreDestinationImages = [
 moreDestinationImages.forEach(([slug,name,image], index) => destinations.push([slug, name, `A curated travel and temple experience in ${name}.`, image, `₹${(4999 + index * 500).toLocaleString('en-IN')}`]));
 
 export const tours = [
-  // 1-Day & Local Temple Tours
-  ['Tirupati 5 Local Temples Tour', '1 Day', 'Tirumala · Tiruchanur · Kapila Theertham · Govindaraja Swamy · ISKCON', '₹3,500', images.tirumala],
-  ['Tirupati to Srikalahasti Temple Tour', '1 Day', 'Tirupati → Srikalahasti Rahu-Ketu Kshetram', '₹2,999', images.srikalahasti],
-  ['Tirupati to Kanipakam Varasiddhi Vinayaka', '1 Day', 'Tirupati → Kanipakam Vinayaka Temple', '₹3,499', images.kanipakam],
-  ['Srikalahasti & Kanipakam Dual Temple Tour', '1 Day', 'Tirupati → Srikalahasti → Kanipakam', '₹4,200', images.srikalahasti],
-  ['Vellore Sripuram Golden Temple Tour', '1 Day', 'Tirupati → Vellore Golden Temple', '₹5,000', images.goldentemple],
-  ['Kanchipuram Silk & Temple City Tour', '1 Day', 'Tirupati → Kanchipuram Kamakshi Amman & Silk Weavers', '₹5,000', images.kanchipuram],
-  ['1 Day Arunachalam (Tiruvannamalai) Tour', '1 Day', 'Tirupati → Arunachalam Annamalaiyar Temple', '₹7,000', images.arunachalam],
+  // 1-Day Tours
+  ['Tirupati 1 Day Taxi Package', '1 Day', 'Tirupati → Padmavathi → Tirumala → Varahaswamy → Balaji Darshan → Kapila Theertham → Tirupati', '₹3,500', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789290873/tirupati-1-day-taxi.png'],
+  ['1 Day Arunachalam Package', '1 Day', 'Tirupati → Kanipakam → Golden Temple → Arunachalam → Tirupati', '₹7,000', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789290831/arunachalam-1-day.webp'],
+  ['Tirupati to Golden Temple Vellore Tour', '1 Day', 'Tirupati → Srinivasa Mangapuram → Kanipakam → Golden Temple → Tirupati', '₹5,000', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789290888/vellore-golden-temple.jpg'],
+  ['Tirupati to Kanipakam Temple Tour', '1 Day', 'Tirupati → Vakula Devi → Srinivasa Mangapuram → Kanipakam → Tirupati', '₹3,580', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789290895/kanipakam-tour.jpg'],
+  ['Tirupati 5 Local Temples Tour Package', '1 Day', 'Tirupati → Kapila Theertham → ISKCON → Govindaraja Swamy → Padmavathi → Srikalahasti → Tirupati', '₹3,800', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789290903/tirupati-5-local-temples.png'],
+  ['Tirupati to Kanchipuram Taxi Service', '1 Day', 'Tirupati → Tiruttani → Kanchipuram → Varadaraja Perumal Temple → Kamakshi Amman Temple → Kailasanathar Temple → Tirupati', '₹5,000', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789290910/kanchipuram-taxi.png'],
 
-  // 2-Day & 3-Day Pilgrimage & Heritage Tours
-  ['2 Days Tirupati & Tirumala Balaji Darshan', '2 Days', 'Airport Pickup → Tirumala → Tiruchanur → Local Temples', '₹7,500', images.tirumala],
-  ['2 Days Arunachalam Girivalam Tour', '2 Days', 'Tirupati → Arunachalam Annamalaiyar & Girivalam', '₹9,500', images.arunachalam],
-  ['2 Days Tirupati to Srisailam Jyotirlinga', '2 Days', 'Tirupati → Srisailam Mallikarjuna Swamy Temple', '₹13,000', images.srisailam],
-  ['2 Days Tirupati to Madurai Meenakshi Tour', '2 Days', 'Tirupati → Madurai Meenakshi Amman Temple', '₹18,000', images.temple],
-  ['Pondicherry French Colony & Beach Tour', '2 Days', 'Tirupati → Pondicherry Promenade & Auroville', '₹10,000', images.pondicherry],
-  ['Mahabalipuram Shore Temple & Beach Tour', '2 Days', 'Tirupati → Mahabalipuram & Kovalam Beach', '₹10,000', images.temple],
-  ['3 Days Tirupati Pondicherry via Kanchipuram', '3 Days', 'Tirupati → Kanchipuram → Pondicherry Heritage', '₹15,500', images.pondicherry],
-  ['3 Days Srisailam & Srikalahasti Yatra', '3 Days', 'Tirupati → Srikalahasti → Srisailam Mallikarjuna', '₹15,500', images.srisailam],
-  ['3 Days Tirupati to Golden Temple & Arunachalam', '3 Days', 'Tirupati → Vellore Golden Temple → Arunachalam', '₹13,000', images.goldentemple],
-  ['3 Days Tirupati to Madurai & Trichy Tour', '3 Days', 'Tirupati → Trichy Srirangam → Madurai Meenakshi', '₹23,000', images.temple],
+  // 2-Day Tours
+  ['Tirupati 2 Days Taxi Package', '2 Days', 'Tirupati → Tirumala → Balaji Darshan → Kapila Theertham → ISKCON → Govindaraja → Padmavathi → Srikalahasti → Tirupati', '₹7,500', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789290881/tirupati-2-days-taxi.png'],
+  ['2 Days Arunachalam Package', '2 Days', 'Tirupati → Tiruttani → Kanchipuram → Arunachalam → Vellore → Kanipakam → Tirupati', '₹9,500', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789290980/arunachalam-2-days.png'],
+  ['Tirupati to Mahabalipuram Taxi Service', '2 Days', 'Tirupati → Kanchipuram → Kailasanathar Temple → Vaikunta Perumal Temple → Mahabalipuram Beach → Pancha Rathas → Arjuna’s Penance → Shore Temple → Tirupati', '₹10,000', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789290918/mahabalipuram-taxi.png'],
+  ['Tirupati to Golden Temple Arunachalam Kanchipuram Taxi Service', '2 Days', 'Tirupati → Kanipakam → Vellore → Arunachalam → Kanchipuram → Tiruttani → Tirupati', '₹9,500', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789290933/arunachalam-golden-temple-kanchipuram.jpg'],
+  ['2 Days Tirupati to Madurai Tour Package', '2 Days', 'Tirupati → Madurai → Meenakshi Amman Temple → Madurai Sightseeing → Tirupati', '₹18,000', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789290940/tirupati-madurai-2-days.png'],
+  ['Pondicherry Tour Package', '2 Days', 'Tirupati → Pondicherry → Promenade Beach → Rock Beach → French Colony → Paradise Beach → Auroville → Pondicherry Sightseeing → Tirupati', '₹10,000', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789290948/pondicherry-tour.png'],
+  ['2 Days Tirupati to Srisailam Taxi Package', '2 Days', 'Tirupati → Srisailam → Mallikarjuna Swamy Temple → Bhramaramba Devi Temple → Srisailam Dam → Akkamahadevi Caves → Paladhara Panchadhara → Tirupati', '₹13,000', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789290954/tirupati-srisailam-2-days.jpg'],
 
-  // Multi-Day & Interstate Pilgrimage Circuits
-  ['Pancha Linga Tour from Tirupati', '4 Days', 'Kanchipuram · Chidambaram · Tiruvannamalai · Srikalahasti · Kalahasti', '₹19,500', images.arunachalam],
-  ['4 Days Tirupati to Madurai & Rameshwaram Yatra', '4 Days', 'Tirupati → Madurai → Rameshwaram Ramanathaswamy', '₹29,000', images.srisailam],
-  ['4 Days Tirupati Temple Tour Package', '4 Days', 'Tirumala · Srikalahasti · Kanipakam · Vellore · Kanchipuram', '₹16,500', images.tirumala],
-  ['5 Days Divine South India Temple Circuit', '5 Days', 'Tirupati → Kanchipuram → Tanjore → Madurai → Rameshwaram', '₹26,500', images.goldentemple],
-  ['5 Days Arunachalam & Mahabalipuram Heritage', '5 Days', 'Tirupati → Arunachalam → Pondicherry → Mahabalipuram', '₹22,000', images.arunachalam],
-  ['Tirupati to Bangalore & Mysore Palace Tour', '4 Days', 'Tirupati → Bangalore Lalbagh → Mysore Palace & Chamundi Hill', '₹19,000', images.hero],
-  ['Tirupati to Kerala Backwaters & Kochi Tour', '5 Days', 'Tirupati → Palakkad → Coimbatore → Kochi → Alleppey', '₹28,000', images.hero],
-  ['Tirupati to Kanyakumari & Trivandrum Yatra', '6 Days', 'Tirupati → Madurai → Rameshwaram → Kanyakumari → Trivandrum', '₹38,000', images.temple],
-  ['7 Days Divine Tamil Nadu & AP Temple Tour', '7 Days', 'Tirupati → Kanchipuram → Chidambaram → Thanjavur → Madurai → Rameshwaram', '₹51,000', images.goldentemple],
-  ['Grand South India Inter-State Pilgrimage', '7 Days', 'Tirupati → Hyderabad → Vijayawada → Vizag → Kakinada Circuit', '₹45,000', images.hero]
+  // 3-Day Tours
+  ['Pancha Linga Tour from Tirupati', '3 Days', 'Tirupati → Srikalahasti → Kanchipuram → Chidambaram → Srirangam → Arunachalam → Vellore → Kanipakam → Tirupati', '₹19,500', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789290858/pancha-linga-tour.png'],
+  ['3 Days Tirupati to Madurai Taxi Tour Package', '3 Days', 'Tirupati → Arunachalam → Srirangam → Madurai → Tirupati', '₹23,000', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789290962/tirupati-madurai-3-days.png'],
+  ['3 Days Tirupati Pondicherry via Kanchipuram Tour Package', '3 Days', 'Tirupati → Tiruttani → Kanchipuram → Pondicherry → Auroville → Tirupati', '₹15,500', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789291129/tirupati-pondicherry-3-days.webp'],
+  ['3 Days Tirupati Kanchipuram Temple Tour Package', '3 Days', 'Tirupati → Tirumala → Tiruttani → Kanchipuram → Tirupati → Srikalahasti → Tirupati', '₹13,500', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789291137/tirupati-kanchipuram-3-days.jpg'],
+  ['3 Days Tirupati Srisailam Srikalahasti Taxi Package', '3 Days', 'Tirupati → Srikalahasti → Srisailam → Tirupati', '₹15,500', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789291143/tirupati-srisailam-srikalahasti-3-days.jpg'],
+  ['3 Days Tirupati Golden Temple Taxi Package', '3 Days', 'Tirupati → Tirumala → Srinivasa Mangapuram → Kanipakam → Vellore → Tirupati → Srikalahasti → Tirupati', '₹13,000', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789291152/tirupati-golden-temple-3-days.png'],
+
+  // 4-Day Tours
+  ['4 Days Tirupati Temple Tour Package – South India Pilgrimage Tour', '4 Days', 'Tirupati → Tirumala → Kanipakam → Vellore → Arunachalam → Kanchipuram → Tiruttani → Srikalahasti → Tirupati', '₹16,500', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789290864/tirupati-4-days-temple-tour.jpg'],
+  ['4 Days Tirupati to Madurai Meenakshi Temple Tour Package', '4 Days', 'Tirupati → Arunachalam → Srirangam → Madurai → Rameswaram → Tirupati', '₹29,000', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789290970/meenakshi-temple-4-days.png'],
+
+  // 5-Day & 7-Day Tours
+  ['Divine 5 Day South India Temple Tour Package', '5 Days', 'Tirupati → Tirumala → Srinivasa Mangapuram → Kanipakam → Golden Temple (Vellore) → Arunachalam → Srirangam → Kanchipuram → Tiruttani → Tirupati → Srikalahasti → Tirupati', '₹26,500', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789290925/south-india-temple-tour.png'],
+  ['Best 5 Day Tirupati Arunachalam Mahabalipuram Tour Package', '5 Days', 'Tirupati → Tirumala → Kanipakam → Vellore → Arunachalam → Mahabalipuram → Kanchipuram → Tiruttani → Tirupati → Srikalahasti → Tirupati', '₹22,000', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789291158/tirupati-arunachalam-mahabalipuram-5-days.jpg'],
+  ['7 Days Divine Tamil Nadu Temple Tour from Tirupati', '7 Days', 'Tirupati → Vellore → Arunachalam → Srirangam → Madurai → Trivandrum → Kanyakumari → Rameswaram → Kumbakonam → Chidambaram → Kanchipuram → Tirupati', '₹51,000', 'https://res.cloudinary.com/znbhjevm/image/upload/f_auto,q_auto/v1789291165/tamil-nadu-temple-tour-7-days.png']
 ];

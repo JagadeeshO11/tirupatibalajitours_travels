@@ -9,17 +9,25 @@ import {
 import { destinations, phone, whatsapp } from '../data/siteData';
 import { getVehicleInfo } from '../data/packageData';
 import { fleet } from '../data/fleetData';
+import { useData } from '../context/DataContext';
 import EasebuzzModal from '../components/EasebuzzModal';
 import './DestinationDetail.css';
 
 export default function DestinationDetail() {
+  const { selectBooking } = useData();
   const { slug } = useParams();
   const [payModalData, setPayModalData] = useState(null);
   const [activeFaq, setActiveFaq] = useState(null);
 
-  // Find destination by slug
-  const d = destinations.find(x => x[0] === slug) || destinations.find(x => x[0] === 'srikalahasti') || destinations[0];
-  const [destSlug, destName, destDesc, destImage, destPrice] = d;
+  const handleBookDestination = (name, price, vehicleName) => {
+    selectBooking({
+      to: destName,
+      trip: 'Outstation Tour',
+      vehicle: vehicleName || 'Swift Dzire / Etios (Sedan 4-Seater)',
+      price: price
+    });
+    setPayModalData({ name, price });
+  };
 
   const whatsappUrl = `${whatsapp}?text=${encodeURIComponent(`Hi, I would like to book or inquire about the ${destName} Tour starting from ${destPrice}. Please share vehicle availability.`)}`;
 
@@ -117,7 +125,7 @@ export default function DestinationDetail() {
               <button 
                 type="button"
                 className="btn-hero-pay"
-                onClick={() => setPayModalData({ name: `${destName} Tour`, price: destPrice })}
+                onClick={() => handleBookDestination(`${destName} Tour`, destPrice)}
               >
                 <CreditCard size={18} /> Book ₹1,000 Advance 💳
               </button>
@@ -196,7 +204,7 @@ export default function DestinationDetail() {
                       <button 
                         type="button" 
                         className="tariff-book-btn"
-                        onClick={() => setPayModalData({ name: `${destName} (${vehicle})`, price })}
+                        onClick={() => handleBookDestination(`${destName} (${vehicle})`, price, vehicle)}
                       >
                         Book ₹1,000 Token 💳
                       </button>
@@ -296,7 +304,7 @@ export default function DestinationDetail() {
                 <button 
                   type="button" 
                   className="sidebar-pay-btn"
-                  onClick={() => setPayModalData({ name: `${destName} Tour`, price: destPrice })}
+                  onClick={() => handleBookDestination(`${destName} Tour`, destPrice)}
                 >
                   <CreditCard size={18} /> Book ₹1,000 Advance Token 💳
                 </button>

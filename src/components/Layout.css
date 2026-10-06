@@ -562,10 +562,12 @@ body {
   background: linear-gradient(90deg, rgba(8, 19, 74, 0.98), rgba(8, 19, 74, 0.86)),
     url("https://res.cloudinary.com/znbhjevm/image/upload/v1786735447/c346a3bf-d3de-452f-abc8-d79b13b21eb8.png") right center/auto 100% no-repeat;
   color: #bec7e1;
-  padding: 65px clamp(20px, 8vw, 135px) 35px;
+  padding: 55px clamp(20px, 3vw, 50px) 35px;
+  width: 100%;
+  box-sizing: border-box;
   display: grid;
-  grid-template-columns: 1.5fr 0.7fr 1fr 1.35fr;
-  gap: 45px;
+  grid-template-columns: 1.35fr 1fr 1.05fr 1fr 1.15fr;
+  gap: clamp(16px, 2vw, 36px);
   border-top: 3px solid var(--gold);
 }
 
@@ -579,13 +581,15 @@ body {
   font-size: 12px;
   margin: 4px 0 15px;
   letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .site-footer > div > a:not(.brand) {
   display: block;
   font-size: 11px;
-  margin: 9px 0;
+  margin: 8px 0;
   transition: color 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
 }
 
 .site-footer > div > a:not(.brand):hover {
@@ -595,8 +599,8 @@ body {
 
 .site-footer p {
   font-size: 11px;
-  line-height: 1.7;
-  max-width: 270px;
+  line-height: 1.6;
+  max-width: 100%;
 }
 
 .site-footer > div:last-child a {

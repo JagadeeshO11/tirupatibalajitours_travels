@@ -14,6 +14,7 @@ import {
 import { destinations, images, services, tours, vehicles, whatsapp, phone } from '../data/siteData';
 import { fleet } from '../data/fleetData';
 import { cabRoutes } from '../data/cabRoutes';
+import { useData } from '../context/DataContext';
 import BookingForm from '../components/BookingForm';
 import PopularPackages from '../components/PopularPackages';
 import EasebuzzModal from '../components/EasebuzzModal';
@@ -99,7 +100,31 @@ const Slider = ({ children }) => (
 );
 
 function HomeFleetSlideCard({ v, onBook }) {
-  const startingPrice = v.local || v.price || '₹2,000';
+  const { selectBooking } = useData();
+  const [selectedRate, setSelectedRate] = useState('local'); // 'local' | 'localLong' | 'outstation'
+
+  const rateOptions = [
+    { key: 'local', label: 'Local 8h/80km', price: v.local || '₹2,880' },
+    { key: 'localLong', label: 'Local 12h/150km', price: v.localLong || '₹3,650' },
+    { key: 'outstation', label: 'Outstation', price: v.outstation || '₹15/km' }
+  ];
+
+  const currentOption = rateOptions.find(r => r.key === selectedRate) || rateOptions[0];
+
+  const handleBook = () => {
+    const isOutstation = selectedRate === 'outstation';
+    const tripType = isOutstation ? 'Outstation Tour' : 'Local Sightseeing';
+    const defaultDest = isOutstation ? 'Arunachalam & Golden Temple' : 'Tirupati Local Sightseeing (8h / 80km)';
+
+    selectBooking({
+      vehicle: v.name,
+      trip: tripType,
+      to: defaultDest,
+      price: currentOption.price
+    });
+
+    onBook({ name: v.name, vehicle: v.name, service: `${v.name} (${currentOption.label})`, price: currentOption.price });
+  };
 
   return (
     <article className="home-slide-card vehicle-card">
@@ -110,7 +135,7 @@ function HomeFleetSlideCard({ v, onBook }) {
       <div className="card-body">
         <div className="card-tag-row">
           <small className="category-tag">{v.category}</small>
-          <span className="rate-badge">From {startingPrice}</span>
+          <span className="rate-badge">{currentOption.price}</span>
         </div>
         <h3>{v.name}</h3>
         <div className="vehicle-specs-row">
@@ -118,13 +143,43 @@ function HomeFleetSlideCard({ v, onBook }) {
           <span>🧳 {v.bags} Bags</span>
         </div>
 
-        <p className="vehicle-desc">{v.use}</p>
+        {/* SELECTABLE RATES SECTION */}
+        <div className="selectable-rates-container" style={{ marginTop: '0.4rem', marginBottom: '0.4rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.25rem' }}>
+            {rateOptions.map(opt => (
+              <button
+                key={opt.key}
+                type="button"
+                onClick={() => setSelectedRate(opt.key)}
+                style={{
+                  padding: '0.35rem 0.15rem',
+                  borderRadius: 6,
+                  border: selectedRate === opt.key ? '2px solid #d97706' : '1px solid #cbd5e1',
+                  background: selectedRate === opt.key ? '#fffdf5' : '#f8fafc',
+                  cursor: 'pointer',
+                  textAlign: 'center',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: '1px'
+                }}
+              >
+                <small style={{ fontSize: '0.58rem', fontWeight: 800, color: selectedRate === opt.key ? '#d97706' : '#64748b' }}>
+                  {opt.label}
+                </small>
+                <b style={{ fontSize: '0.72rem', fontWeight: 800, color: '#060c2c', whiteSpace: 'nowrap' }}>
+                  {opt.price}
+                </b>
+              </button>
+            ))}
+          </div>
+        </div>
 
         <button
           type="button"
           className="button"
           style={{ width: '100%', marginTop: 'auto', background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7', fontSize: '0.85rem', padding: '0.6rem 0.75rem', borderRadius: '8px', fontWeight: 800 }}
-          onClick={() => onBook({ name: v.name, vehicle: v.name, service: `${v.name} Rental`, price: startingPrice })}
+          onClick={handleBook}
         >
           Book {v.name} 💳
         </button>

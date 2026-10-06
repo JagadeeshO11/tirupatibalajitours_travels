@@ -8,7 +8,7 @@ import ScrollReveal from '../components/ScrollReveal';
 import './Destinations.css';
 
 export default function Destinations() {
-  const { destinations } = useData();
+  const { destinations, selectBooking } = useData();
   const [selectedDestSlug, setSelectedDestSlug] = useState(destinations[0]?.[0] || 'tirumala');
   const [selectedPayDest, setSelectedPayDest] = useState(null);
 
@@ -16,6 +16,12 @@ export default function Destinations() {
 
   const handleHeroBookClick = () => {
     if (selectedDestObj) {
+      selectBooking({
+        to: selectedDestObj[1],
+        trip: 'Outstation Tour',
+        vehicle: 'Swift Dzire / Etios (Sedan 4-Seater)',
+        price: selectedDestObj[4] || '₹2,499'
+      });
       setSelectedPayDest(selectedDestObj);
     }
   };

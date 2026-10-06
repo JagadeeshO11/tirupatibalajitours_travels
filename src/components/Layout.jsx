@@ -322,29 +322,73 @@ export default function Layout() {
       <footer className="site-footer">
         <div>
           <Brand />
-          <p>Faithful journeys, comfortable miles, and memories that stay with you.</p>
+          <p>Faithful journeys, comfortable miles, and memories that stay with you. No. 1 trusted cab service & pilgrimage operator in Tirupati.</p>
+          <div className="footer-contact-details" style={{ margin: '12px 0 16px', fontSize: '11px', lineHeight: '1.8' }}>
+            <div>📞 <a href={`tel:${phone}`}>+91 86886 24758</a> / <a href="tel:+916303524758">+91 63035 24758</a></div>
+            <div>✉️ <a href={`mailto:${email}`}>{email}</a></div>
+            <div>📍 10-12A, Balakrishna Puram, Mangalam, Tirupati, AP 517507</div>
+          </div>
           <div className="footer-social-row">
             {socialLinks.map(({ name, url, Icon }) => (
               <a key={name} href={url} target="_blank" rel="noreferrer" className="footer-social-btn" title={name}><Icon size={14} /></a>
             ))}
           </div>
         </div>
+
         <div>
-          <h4>Services & Packages</h4>
-          {packageNavLinks.slice(0, 5).map(p => <Link key={p.slug} to={`/services/${p.slug}`}>{p.title}</Link>)}
+          <h4>Services & Rentals</h4>
+          <Link to="/car-rentals-in-tirupati">Car Rentals in Tirupati</Link>
+          <Link to="/tempo-traveller-rental-in-tirupati">Tempo Traveller Rental</Link>
+          <Link to="/urbania-traveller-rental-in-tirupati">Force Urbania Rental</Link>
+          <Link to="/bus-rental-in-tirupati">Luxury Bus Rental</Link>
+          <Link to="/tirupati-airport-taxi">Tirupati Airport Taxi</Link>
+          <Link to="/outstation-taxi-in-tirupati">Outstation Taxi Service</Link>
+          <Link to="/taxi-in-tirupati">Taxi Service in Tirupati</Link>
+          <Link to="/fleet">View Full Vehicle Fleet</Link>
         </div>
+
         <div>
-          <h4>More Info</h4>
-          {moreNavLinks.map(m => <Link key={m.path} to={m.path}>{m.title}</Link>)}
+          <h4>Popular Cab Routes</h4>
+          <Link to="/tirupati-cabs/tirupati-to-srikalahasti-distance">Tirupati to Srikalahasti Cab</Link>
+          <Link to="/tirupati-cabs/tirupati-to-arunachalam-distance">Tirupati to Arunachalam Cab</Link>
+          <Link to="/tirupati-cabs/tirupati-to-tirumala-distance">Tirupati to Tirumala Cab</Link>
+          <Link to="/tirupati-cabs/tirupati-to-kanipakam-distance">Tirupati to Kanipakam Cab</Link>
+          <Link to="/tirupati-cabs/tirupati-to-vellore-golden-temple-distance">Tirupati to Vellore Golden Temple</Link>
+          <Link to="/tirupati-cabs/tirupati-to-chennai-distance">Tirupati to Chennai Airport Cab</Link>
+          <Link to="/tirupati-cabs/tirupati-to-bangalore-distance">Tirupati to Bangalore Cab</Link>
+          <Link to="/tirupati-cabs/tirupati-to-kanchipuram-distance">Tirupati to Kanchipuram Cab</Link>
         </div>
+
         <div>
-          <h4>Get in touch</h4>
-          <a href={`tel:${phone}`}>+91 8688624758</a>
-          <a href={whatsapp}>WhatsApp Us</a>
-          <a href={`mailto:${email}`}>{email}</a>
-          <p>10-12A, Balakrishna Puram, Mangalam, Tirupati</p>
+          <h4>Tour Packages</h4>
+          {packageNavLinks.map(p => (
+            <Link key={p.slug} to={`/services/${p.slug}`}>{p.title}</Link>
+          ))}
+          <Link to="/tours">View All Tour Packages</Link>
+        </div>
+
+        <div>
+          <h4>Destinations & Policies</h4>
+          <Link to="/destinations/tirumala">Tirumala Balaji Temple</Link>
+          <Link to="/destinations/srikalahasti">Srikalahasti Temple</Link>
+          <Link to="/destinations/kanipakam">Kanipakam Vinayaka Temple</Link>
+          <Link to="/destinations/golden-temple">Vellore Golden Temple</Link>
+          <Link to="/destinations/arunachalam">Arunachalam (Tiruvannamalai)</Link>
+          <Link to="/blog">Travel Blog & News</Link>
+          <Link to="/about-us">About Us</Link>
+          <Link to="/contact-us">Contact Us</Link>
+          <Link to="/privacy-policy">Privacy Policy</Link>
+          <Link to="/terms-and-conditions">Terms & Conditions</Link>
+          <Link to="/refund-and-cancellation-policy">Refund Policy</Link>
         </div>
       </footer>
+
+      <div className="footer-copyright-strip" style={{ background: '#050b28', color: '#94a3b8', fontSize: '11px', textAlign: 'center', padding: '14px clamp(20px, 3vw, 50px)', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
+        <div style={{ width: '100%', maxWidth: '100%', margin: '0 auto', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px', alignItems: 'center' }}>
+          <span>© {new Date().getFullYear()} Tirupati Balaji Tours & Travels. All Rights Reserved.</span>
+          <span>No. 1 Taxi & Tour Agency in Tirupati · 24/7 Verified Service</span>
+        </div>
+      </div>
 
       <div className="floating-whatsapp-container">
         <div className="whatsapp-tooltip"><span className="online-dot" /> Need a Cab? <strong>Chat Now!</strong></div>
