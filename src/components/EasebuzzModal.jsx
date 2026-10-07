@@ -8,19 +8,19 @@ import { getVehicleInfo } from '../data/packageData';
 import './BookingForm.css';
 
 const vehicleOptionsList = [
-  'Swift Dzire / Etios (Sedan 4-Seater)',
-  'Maruti Ertiga (MUV 6-Seater)',
-  'Toyota Innova Crysta (SUV 7-Seater)',
-  'Toyota Hycross (Hybrid MUV 7-Seater)',
-  'Toyota Fortuner (Luxury SUV 7-Seater)',
-  'Tempo Traveller 12 Seater (12-Seater AC)',
-  'Urbania 12 Seater (Luxury 12-Seater AC)',
-  'Tempo Traveller 16 Seater (16-Seater AC)',
-  'Urbania 16 Seater (Luxury 16-Seater AC)',
-  'Tempo Traveller 20 Seater (20-Seater AC)',
-  'Mini Bus 27 Seater (27-Seater AC Coach)',
-  'Bus 40 Seater (40-Seater Tourist Coach)',
-  'Bus 45 Seater (45-Seater Volvo/Deluxe Bus)'
+  'Swift Dzire / Etios (Sedan 4-Seater) — ₹2,880 (Local 8h) / ₹15/km',
+  'Maruti Ertiga (MUV 6-Seater) — ₹3,380 (Local 8h) / ₹19/km',
+  'Toyota Innova Crysta (SUV 7-Seater) — ₹4,380 (Local 8h) / ₹23/km',
+  'Toyota Hycross (Hybrid MUV 7-Seater) — ₹6,100 (Local 8h) / ₹32/km',
+  'Toyota Fortuner (Luxury SUV 7-Seater) — ₹8,800 (Local 8h) / ₹43/km',
+  'Tempo Traveller 12 Seater (12-Seater AC) — ₹5,100 (Local 8h) / ₹26/km',
+  'Urbania 12 Seater (Luxury 12-Seater AC) — ₹10,000 (Local 8h) / ₹45/km',
+  'Tempo Traveller 16 Seater (16-Seater AC) — ₹6,800 (Local 8h) / ₹35/km',
+  'Urbania 16 Seater (Luxury 16-Seater AC) — ₹12,000 (Local 8h) / ₹48/km',
+  'Tempo Traveller 20 Seater (20-Seater AC) — ₹9,000 (Local 8h) / ₹45/km',
+  'Mini Bus 27 Seater (27-Seater AC Coach) — ₹12,000 (Local 8h) / ₹55/km',
+  'Bus 40 Seater (40-Seater Tourist Coach) — ₹15,200 (Local 8h) / ₹65/km',
+  'Bus 45 Seater (45-Seater Volvo/Deluxe Bus) — ₹18,000 (Local 8h) / ₹75/km'
 ];
 
 export function getBestMatchingVehicleOption(inputStr, availableOptions) {

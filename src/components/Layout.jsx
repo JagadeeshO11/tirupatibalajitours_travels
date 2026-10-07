@@ -19,16 +19,32 @@ import './Layout.css';
 import './LayoutDropdownFix.css';
 
 const packageNavLinks = [
-  { slug: 'local-packages', title: 'Local Packages' },
-  { slug: 'outstation-packages', title: 'Outstation Packages' },
-  { slug: 'balaji-darshan-packages', title: 'Balaji Darshan Packages' },
-  { slug: 'corporate-packages', title: 'Corporate Packages' },
-  { slug: 'customized-packages', title: 'Customized Packages' },
-  { slug: 'holiday-packages', title: 'Holiday Packages' },
-  { slug: 'family-packages', title: 'Family Packages' },
-  { slug: 'student-packages', title: 'Student Packages' },
-  { slug: 'wedding-packages', title: 'Wedding Packages' },
-  { slug: 'devotional-packages', title: 'Devotional Packages' }
+  { slug: 'local-packages', title: 'Local Packages', starting: '₹2,880' },
+  { slug: 'outstation-packages', title: 'Outstation Packages', starting: '₹15/km' },
+  { slug: 'balaji-darshan-packages', title: 'Balaji Darshan Packages', starting: '₹3,500' },
+  { slug: 'corporate-packages', title: 'Corporate Packages', starting: '₹3,000' },
+  { slug: 'customized-packages', title: 'Customized Packages', starting: 'Custom Quote' },
+  { slug: 'holiday-packages', title: 'Holiday Packages', starting: '₹9,500' },
+  { slug: 'family-packages', title: 'Family Packages', starting: '₹3,380' },
+  { slug: 'student-packages', title: 'Student Packages', starting: 'Group Rate' },
+  { slug: 'wedding-packages', title: 'Wedding Packages', starting: 'Event Rate' },
+  { slug: 'devotional-packages', title: 'Devotional Packages', starting: '₹3,500' }
+];
+
+const fleetNavLinks = [
+  { path: '/fleet/sedan', title: 'Sedan (Dzire / Etios)', starting: '₹2,880' },
+  { path: '/fleet/ertiga', title: 'Maruti Ertiga (MUV)', starting: '₹3,380' },
+  { path: '/fleet/innova-crysta', title: 'Toyota Innova Crysta', starting: '₹4,380' },
+  { path: '/fleet/hycross', title: 'Toyota Hycross', starting: '₹6,100' },
+  { path: '/fleet/fortuner', title: 'Toyota Fortuner', starting: '₹8,800' },
+  { path: '/fleet/tempo-12', title: 'Tempo Traveller 12 Seater', starting: '₹5,100' },
+  { path: '/fleet/urbania-12', title: 'Urbania 12 Seater', starting: '₹10,000' },
+  { path: '/fleet/tempo-16', title: 'Tempo Traveller 16 Seater', starting: '₹6,800' },
+  { path: '/fleet/urbania-16', title: 'Urbania 16 Seater', starting: '₹12,000' },
+  { path: '/fleet/tempo-20', title: 'Tempo Traveller 20 Seater', starting: '₹9,000' },
+  { path: '/fleet/bus-27', title: 'Mini Bus 27 Seater', starting: '₹12,000' },
+  { path: '/fleet/bus-40', title: 'Bus 40 Seater', starting: '₹15,200' },
+  { path: '/fleet/bus-45', title: 'Bus 45 Seater', starting: '₹18,000' }
 ];
 
 const moreNavLinks = [
@@ -192,7 +208,7 @@ export default function Layout() {
               <HeaderDropdown id="cabs" activeDropdown={activeDropdown} onEnter={handleDropdownEnter} onLeave={handleDropdownLeave} label="Tirupati Cabs" links={cabRoutes} getSlug={r => `/tirupati-cabs/${r.slug}`} />
               <HeaderDropdown id="taxi" activeDropdown={activeDropdown} onEnter={handleDropdownEnter} onLeave={handleDropdownLeave} label="Taxi in Tirupati" className="nav-taxi" links={taxiLinks} getSlug={r => `/${r.slug}`} />
               <HeaderDropdown id="services" activeDropdown={activeDropdown} onEnter={handleDropdownEnter} onLeave={handleDropdownLeave} label="Services" to="/services" className="nav-services" links={packageNavLinks} getSlug={p => `/services/${p.slug}`} />
-              <NavLink to="/fleet" onMouseEnter={() => handleDropdownLeave(true)}>Fleet & Rentals</NavLink>
+              <HeaderDropdown id="fleet" activeDropdown={activeDropdown} onEnter={handleDropdownEnter} onLeave={handleDropdownLeave} label="Fleet & Rentals" to="/fleet" className="nav-fleet" links={fleetNavLinks} />
               <NavLink to="/tours" onMouseEnter={() => handleDropdownLeave(true)}>Tours</NavLink>
               <NavLink to="/destinations" onMouseEnter={() => handleDropdownLeave(true)}>Destinations</NavLink>
               <NavLink to="/blog" onMouseEnter={() => handleDropdownLeave(true)}>Blog</NavLink>
@@ -263,6 +279,9 @@ export default function Layout() {
                 <button type="button" className={`drawer-tab drawer-tab-primary ${activeTab === 'cabs' ? 'is-active' : ''}`} onClick={() => setActiveTab('cabs')}>
                   <Car size={14} /> Cabs
                 </button>
+                <button type="button" className={`drawer-tab ${activeTab === 'fleet' ? 'is-active' : ''}`} onClick={() => setActiveTab('fleet')}>
+                  <Car size={14} /> Fleet
+                </button>
                 <button type="button" className={`drawer-tab ${activeTab === 'packages' ? 'is-active' : ''}`} onClick={() => setActiveTab('packages')}>
                   <Package size={14} /> Packages
                 </button>
@@ -289,13 +308,34 @@ export default function Layout() {
                   </div>
                 )}
 
+                {activeTab === 'fleet' && (
+                  <div className="drawer-section-block">
+                    <span className="drawer-badge-pill">Vehicle Fleet & Rates</span>
+                    <div className="drawer-link-card-grid">
+                      {fleetNavLinks.map(f => (
+                        <NavLink key={f.path} onClick={() => setOpen(false)} to={f.path} className="mob-link-card">
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', flex: 1, minWidth: 0 }}>
+                            <span>{f.title}</span>
+                            {f.starting && <small style={{ color: '#0284c7', fontWeight: 700, fontSize: '11px' }}>Starting from {f.starting}</small>}
+                          </div>
+                          <ChevronRight size={14} />
+                        </NavLink>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {activeTab === 'packages' && (
                   <div className="drawer-section-block">
                     <span className="drawer-badge-pill">Taxi & Tour Packages</span>
                     <div className="drawer-link-card-grid">
                       {packageNavLinks.map(p => (
                         <NavLink key={p.slug} onClick={() => setOpen(false)} to={`/services/${p.slug}`} className="mob-link-card">
-                          <span>{p.title}</span><ChevronRight size={14} />
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', flex: 1, minWidth: 0 }}>
+                            <span>{p.title}</span>
+                            {p.starting && <small style={{ color: '#0284c7', fontWeight: 700, fontSize: '11px' }}>Starting from {p.starting}</small>}
+                          </div>
+                          <ChevronRight size={14} />
                         </NavLink>
                       ))}
                     </div>

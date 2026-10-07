@@ -160,14 +160,19 @@ export default function BookingForm({ showPackages = true }) {
   };
 
   const getVehicleBaseRate = (vehicleName) => {
-    if (vehicleName.includes('Ertiga')) return '₹1,500';
-    if (vehicleName.includes('Innova')) return '₹2,200';
-    if (vehicleName.includes('Hycross')) return '₹3,200';
-    if (vehicleName.includes('Fortuner')) return '₹4,500';
-    if (vehicleName.includes('Tempo')) return '₹3,500';
-    if (vehicleName.includes('Urbania')) return '₹4,000';
-    if (vehicleName.includes('Bus')) return '₹7,500';
-    return '₹900';
+    if (vehicleName.includes('Ertiga')) return '₹3,380';
+    if (vehicleName.includes('Innova')) return '₹4,380';
+    if (vehicleName.includes('Hycross')) return '₹6,100';
+    if (vehicleName.includes('Fortuner')) return '₹8,800';
+    if (vehicleName.includes('Tempo Traveller 12')) return '₹5,100';
+    if (vehicleName.includes('Urbania 12')) return '₹10,000';
+    if (vehicleName.includes('Tempo Traveller 16')) return '₹6,800';
+    if (vehicleName.includes('Urbania 16')) return '₹12,000';
+    if (vehicleName.includes('Tempo Traveller 20')) return '₹9,000';
+    if (vehicleName.includes('Mini Bus 27')) return '₹12,000';
+    if (vehicleName.includes('Bus 40')) return '₹15,200';
+    if (vehicleName.includes('Bus 45')) return '₹18,000';
+    return '₹2,880';
   };
 
   // Compute estimated price for currently selected vehicle
