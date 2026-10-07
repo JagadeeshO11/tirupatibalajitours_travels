@@ -471,6 +471,17 @@ export const servicePages = {
   }
 };
 
+export const taxiLinks = [
+  { slug: 'car-rentals-in-tirupati', title: 'Car Rentals in Tirupati', starting: '₹2,880' },
+  { slug: 'tempo-traveller-rental-in-tirupati', title: 'Tempo Traveller Rental', starting: '₹5,100' },
+  { slug: 'urbania-traveller-rental-in-tirupati', title: 'Force Urbania Rental', starting: '₹10,000' },
+  { slug: 'bus-rental-in-tirupati', title: 'Luxury Bus Rental', starting: '₹12,000' },
+  { slug: 'outstation-taxi-in-tirupati', title: 'Outstation Taxi Service', starting: '₹15/km' },
+  { slug: 'taxi-in-tirupati', title: 'Taxi Service in Tirupati', starting: '₹2,880' },
+  { slug: 'tirupati-airport-taxi', title: 'Tirupati Airport Taxi', starting: '₹1,200' },
+  { slug: 'car-for-rent-in-tirupati-day-rentals', title: 'Car for Rent (Day Hire)', starting: '₹2,880' }
+];
+
 export const serviceLinks = Object.entries(servicePages).map(([slug, data]) => ({
   slug,
   title: data.eyebrow

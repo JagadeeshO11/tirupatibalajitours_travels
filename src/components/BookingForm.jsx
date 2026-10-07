@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { CalendarDays, MapPin, Route, MessageCircle, CreditCard, Car, Sparkles, Check, ChevronDown, ArrowRightLeft } from 'lucide-react';
 import { whatsappBooking } from '../data/siteData';
 import { packageDetails } from '../data/packageDetails';
+import { cabRoutes } from '../data/cabRoutes';
 import PopularPackages from './PopularPackages';
 import EasebuzzModal from './EasebuzzModal';
 import { useData } from '../context/DataContext';
@@ -9,27 +10,28 @@ import './BookingForm.css';
 
 const popularRoutes = [
   { from: 'Tirupati', to: 'Tirumala', price: '₹900' },
+  { from: 'Tirupati', to: 'Srikalahasti', price: '₹2,880' },
+  { from: 'Tirupati', to: 'Kanipakam', price: '₹3,580' },
   { from: 'Tirupati', to: 'Arunachalam', price: '₹4,500' },
-  { from: 'Tirupati', to: 'Kanipakam', price: '₹1,800' },
-  { from: 'Tirupati', to: 'Vellore Golden Temple', price: '₹3,200' },
+  { from: 'Tirupati', to: 'Vellore Golden Temple', price: '₹5,000' },
   { from: 'Tirupati', to: 'Chennai Airport', price: '₹3,500' },
   { from: 'Tirupati', to: 'Bangalore', price: '₹5,500' }
 ];
 
 const vehicleOptions = [
-  { label: 'Swift Dzire / Etios (Sedan 4-Seater)', key: 'Sedan' },
-  { label: 'Maruti Ertiga (MUV 6-Seater)', key: 'Ertiga' },
-  { label: 'Toyota Innova Crysta (SUV 7-Seater)', key: 'Innova' },
-  { label: 'Toyota Hycross (Hybrid MUV 7-Seater)', key: 'Hycross' },
-  { label: 'Toyota Fortuner (Luxury SUV 7-Seater)', key: 'Fortuner' },
-  { label: 'Tempo Traveller 12 Seater (12-Seater AC)', key: 'Tempo Traveller 12' },
-  { label: 'Urbania 12 Seater (Luxury 12-Seater AC)', key: 'Urbania 12' },
-  { label: 'Tempo Traveller 16 Seater (16-Seater AC)', key: 'Tempo Traveller 16' },
-  { label: 'Urbania 16 Seater (Luxury 16-Seater AC)', key: 'Urbania 16' },
-  { label: 'Tempo Traveller 20 Seater (20-Seater AC)', key: 'Tempo Traveller 20' },
-  { label: 'Mini Bus 27 Seater (27-Seater AC Coach)', key: 'Mini Bus 27' },
-  { label: 'Bus 40 Seater (40-Seater Tourist Coach)', key: 'Bus 40' },
-  { label: 'Bus 45 Seater (45-Seater Volvo/Deluxe Bus)', key: 'Bus 45' }
+  { label: 'Swift Dzire / Etios (Sedan 4-Seater)', key: 'Sedan', matchKeys: ['dzire', 'etios', 'sedan'] },
+  { label: 'Maruti Ertiga (MUV 6-Seater)', key: 'Ertiga', matchKeys: ['ertiga', 'muv'] },
+  { label: 'Toyota Innova Crysta (SUV 7-Seater)', key: 'Innova', matchKeys: ['innova', 'crysta'] },
+  { label: 'Toyota Hycross (Hybrid MUV 7-Seater)', key: 'Hycross', matchKeys: ['hycross', 'hybrid'] },
+  { label: 'Toyota Fortuner (Luxury SUV 7-Seater)', key: 'Fortuner', matchKeys: ['fortuner'] },
+  { label: 'Tempo Traveller 12 Seater (12-Seater AC)', key: 'Tempo Traveller 12', matchKeys: ['12 seater', '12-seater', 'tempo traveller 12'] },
+  { label: 'Urbania 12 Seater (Luxury 12-Seater AC)', key: 'Urbania 12', matchKeys: ['urbania 12', 'urbania'] },
+  { label: 'Tempo Traveller 16 Seater (16-Seater AC)', key: 'Tempo Traveller 16', matchKeys: ['16 seater', '16-seater', 'tempo traveller 16'] },
+  { label: 'Urbania 16 Seater (Luxury 16-Seater AC)', key: 'Urbania 16', matchKeys: ['urbania 16'] },
+  { label: 'Tempo Traveller 20 Seater (20-Seater AC)', key: 'Tempo Traveller 20', matchKeys: ['20 seater', '20-seater', 'tempo traveller 20'] },
+  { label: 'Mini Bus 27 Seater (27-Seater AC Coach)', key: 'Mini Bus 27', matchKeys: ['mini bus', '27 seater', 'bus 27'] },
+  { label: 'Bus 40 Seater (40-Seater Tourist Coach)', key: 'Bus 40', matchKeys: ['40 seater', 'bus 40'] },
+  { label: 'Bus 45 Seater (45-Seater Volvo/Deluxe Bus)', key: 'Bus 45', matchKeys: ['45 seater', 'bus 45'] }
 ];
 
 export default function BookingForm({ showPackages = true }) {
@@ -58,23 +60,102 @@ export default function BookingForm({ showPackages = true }) {
     }
   }, [bookingSelection]);
 
+  // Find matched cab route from cabRoutes data
+  const matchedCabRoute = cabRoutes.find(r => {
+    if (!f.to) return false;
+    const toClean = f.to.toLowerCase().trim();
+    const titleClean = r.title.toLowerCase();
+    const shortClean = r.shortTitle.toLowerCase();
+    const destName = shortClean.split('→')[1]?.trim().toLowerCase() || '';
+
+    return (
+      toClean.includes(titleClean) ||
+      titleClean.includes(toClean) ||
+      (destName && (toClean.includes(destName) || destName.includes(toClean))) ||
+      (r.slug && r.slug.toLowerCase().includes(toClean.replace(/[^a-z0-9]/g, '')))
+    );
+  });
+
   // Find package details matching current destination/package name
   const matchedPkgData = packageDetails[f.to] || 
     Object.entries(packageDetails).find(([key]) => f.to && (f.to.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(f.to.toLowerCase())))?.[1];
 
   const getFareForVehicleOption = (vOpt) => {
+    // 1. Check cabRoutes prices array first (Tirupati Cabs dropdown links)
+    if (matchedCabRoute?.prices?.length) {
+      const match = matchedCabRoute.prices.find(([vName]) => {
+        const vLower = vName.toLowerCase();
+        return vOpt.matchKeys.some(k => vLower.includes(k));
+      });
+      if (match) return match[1];
+
+      // Calculate proportional fare if specific vehicle option is not explicitly in route prices
+      const sedanMatch = matchedCabRoute.prices.find(([vName]) => {
+        const vLower = vName.toLowerCase();
+        return vLower.includes('etios') || vLower.includes('dzire') || vLower.includes('sedan');
+      });
+      const sedanFareStr = sedanMatch ? sedanMatch[1] : matchedCabRoute.starting;
+      if (sedanFareStr) {
+        const numPrice = parseInt(sedanFareStr.replace(/[^0-9]/g, ''), 10);
+        if (!isNaN(numPrice) && numPrice > 0) {
+          let mult = 1.0;
+          if (vOpt.key.includes('Ertiga')) mult = 1.25;
+          else if (vOpt.key.includes('Innova')) mult = 1.4;
+          else if (vOpt.key.includes('Hycross')) mult = 1.6;
+          else if (vOpt.key.includes('Fortuner')) mult = 2.0;
+          else if (vOpt.key.includes('Tempo Traveller 12')) mult = 1.75;
+          else if (vOpt.key.includes('Urbania 12')) mult = 2.1;
+          else if (vOpt.key.includes('Tempo Traveller 16')) mult = 2.35;
+          else if (vOpt.key.includes('Urbania 16')) mult = 2.6;
+          else if (vOpt.key.includes('Tempo Traveller 20')) mult = 2.8;
+          else if (vOpt.key.includes('Mini Bus')) mult = 3.5;
+          else if (vOpt.key.includes('Bus 40')) mult = 4.5;
+          else if (vOpt.key.includes('Bus 45')) mult = 5.0;
+
+          const calc = Math.round((numPrice * mult) / 50) * 50;
+          return `₹${calc.toLocaleString('en-IN')}`;
+        }
+      }
+    }
+
+    // 2. Check packageDetails prices array
     if (matchedPkgData?.prices) {
-      const match = matchedPkgData.prices.find(([vName]) => vName.toLowerCase().includes(vOpt.key.toLowerCase()));
+      const match = matchedPkgData.prices.find(([vName]) => {
+        const vLower = vName.toLowerCase();
+        return vOpt.matchKeys.some(k => vLower.includes(k));
+      });
       if (match) return match[1];
     }
+
+    // 3. Direct bookingSelection match
     if (bookingSelection?.price && bookingSelection?.vehicle && f.vehicle === vOpt.label) {
       return bookingSelection.price;
     }
+
+    // 4. Check popularRoutes
     const matchedRoute = popularRoutes.find(
       r => r.from.toLowerCase() === f.from.trim().toLowerCase() && r.to.toLowerCase() === f.to.trim().toLowerCase()
     );
-    if (matchedRoute) return matchedRoute.price;
+    if (matchedRoute) {
+      const numPrice = parseInt(matchedRoute.price.replace(/[^0-9]/g, ''), 10);
+      if (!isNaN(numPrice) && numPrice > 0) {
+        let mult = 1.0;
+        if (vOpt.key.includes('Ertiga')) mult = 1.3;
+        else if (vOpt.key.includes('Innova')) mult = 1.6;
+        else if (vOpt.key.includes('Hycross')) mult = 1.9;
+        else if (vOpt.key.includes('Fortuner')) mult = 2.4;
+        else if (vOpt.key.includes('Tempo Traveller 12')) mult = 2.1;
+        else if (vOpt.key.includes('Urbania')) mult = 2.5;
+        else if (vOpt.key.includes('Tempo Traveller 16')) mult = 2.8;
+        else if (vOpt.key.includes('Bus')) mult = 4.5;
 
+        const calc = Math.round((numPrice * mult) / 50) * 50;
+        return `₹${calc.toLocaleString('en-IN')}`;
+      }
+      return matchedRoute.price;
+    }
+
+    // 5. Fallback base rate
     return getVehicleBaseRate(vOpt.label);
   };
 

@@ -14,10 +14,28 @@ import EasebuzzModal from '../components/EasebuzzModal';
 import './DestinationDetail.css';
 
 export default function DestinationDetail() {
-  const { selectBooking } = useData();
+  const { destinations: contextDestinations, selectBooking } = useData();
   const { slug } = useParams();
   const [payModalData, setPayModalData] = useState(null);
   const [activeFaq, setActiveFaq] = useState(null);
+
+  const destinationsList = (contextDestinations && contextDestinations.length > 0)
+    ? contextDestinations
+    : destinations;
+
+  const dest = destinationsList.find(d => {
+    if (Array.isArray(d)) return d[0] === slug;
+    return d.slug === slug || d.id === slug;
+  }) || destinationsList.find(d => {
+    if (Array.isArray(d)) return d[0] === 'tirumala';
+    return d.slug === 'tirumala' || d.id === 'tirumala';
+  }) || destinationsList[0];
+
+  const destSlug = Array.isArray(dest) ? dest[0] : (dest?.slug || dest?.id || slug);
+  const destName = Array.isArray(dest) ? dest[1] : (dest?.name || 'Destination');
+  const destDesc = Array.isArray(dest) ? dest[2] : (dest?.desc || dest?.description || '');
+  const destImage = Array.isArray(dest) ? dest[3] : (dest?.image || '');
+  const destPrice = Array.isArray(dest) ? dest[4] : (dest?.price || '₹2,999');
 
   const handleBookDestination = (name, price, vehicleName) => {
     selectBooking({

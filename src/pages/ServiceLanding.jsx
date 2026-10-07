@@ -7,6 +7,7 @@ import {
   Car, Award, Navigation, Info, Fuel, CreditCard
 } from 'lucide-react';
 import { images, destinations, whatsapp, phone } from '../data/siteData';
+import { servicePages } from '../data/servicePages';
 import { fleet } from '../data/fleetData';
 import { useData } from '../context/DataContext';
 import StatsBanner from '../components/StatsBanner';

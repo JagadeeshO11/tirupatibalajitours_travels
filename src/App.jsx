@@ -161,8 +161,8 @@ export default function App() {
             <Route path="/destinations/:slug" element={<DestinationDetail />} />
             <Route path="/blog" element={<BlogIndex />} />
             <Route path="/blogs" element={<BlogIndex />} />
-            <Route path="/blog/:slug" element={<BlogRedirect />} />
-            <Route path="/blogs/:slug" element={<BlogRedirect />} />
+            <Route path="/blog/:slug" element={<Blog />} />
+            <Route path="/blogs/:slug" element={<Blog />} />
 
             {/* Direct Root Blog Post Slugs */}
             {blogPosts.map(post => (

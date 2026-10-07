@@ -11,7 +11,7 @@ import {
 } from 'react-icons/fa6';
 import { phone, whatsapp, email } from '../data/siteData';
 import { cabRoutes } from '../data/cabRoutes';
-import { serviceLinks } from '../data/servicePages';
+import { serviceLinks, taxiLinks } from '../data/servicePages';
 import { blogPosts } from '../data/blogData';
 import { useData } from '../context/DataContext';
 import EasebuzzModal from './EasebuzzModal';
@@ -88,9 +88,13 @@ function HeaderDropdown({ id, activeDropdown, onEnter, onLeave, label, to, links
         {links.map(item => {
           const path = item.path || (getSlug ? getSlug(item) : `/${item.slug}`);
           const lbl = item.shortTitle || item.title;
+          const rate = item.starting;
           return (
-            <NavLink key={path} to={path} onClick={() => onLeave(true)}>
-              {lbl}
+            <NavLink key={path} to={path} onClick={() => onLeave(true)} className="nav-dropdown-item">
+              <span className="nav-dropdown-item-title">{lbl}</span>
+              {rate && rate !== 'Call for current fare' && (
+                <span className="nav-dropdown-price-tag">{rate}</span>
+              )}
             </NavLink>
           );
         })}
@@ -186,7 +190,7 @@ export default function Layout() {
             <div className="desktop-nav-links">
               <NavLink to="/" onMouseEnter={() => handleDropdownLeave(true)}>Home</NavLink>
               <HeaderDropdown id="cabs" activeDropdown={activeDropdown} onEnter={handleDropdownEnter} onLeave={handleDropdownLeave} label="Tirupati Cabs" links={cabRoutes} getSlug={r => `/tirupati-cabs/${r.slug}`} />
-              <HeaderDropdown id="taxi" activeDropdown={activeDropdown} onEnter={handleDropdownEnter} onLeave={handleDropdownLeave} label="Taxi in Tirupati" className="nav-taxi" links={serviceLinks} getSlug={r => `/${r.slug}`} />
+              <HeaderDropdown id="taxi" activeDropdown={activeDropdown} onEnter={handleDropdownEnter} onLeave={handleDropdownLeave} label="Taxi in Tirupati" className="nav-taxi" links={taxiLinks} getSlug={r => `/${r.slug}`} />
               <HeaderDropdown id="services" activeDropdown={activeDropdown} onEnter={handleDropdownEnter} onLeave={handleDropdownLeave} label="Services" to="/services" className="nav-services" links={packageNavLinks} getSlug={p => `/services/${p.slug}`} />
               <NavLink to="/fleet" onMouseEnter={() => handleDropdownLeave(true)}>Fleet & Rentals</NavLink>
               <NavLink to="/tours" onMouseEnter={() => handleDropdownLeave(true)}>Tours</NavLink>
@@ -274,7 +278,11 @@ export default function Layout() {
                     <div className="drawer-link-card-grid">
                       {cabRoutes.map(r => (
                         <NavLink key={r.slug} onClick={() => setOpen(false)} to={`/tirupati-cabs/${r.slug}`} className="mob-link-card">
-                          <span>{r.shortTitle || r.title}</span><ChevronRight size={14} />
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', flex: 1, minWidth: 0 }}>
+                            <span>{r.shortTitle || r.title}</span>
+                            {r.starting && <small style={{ color: '#0284c7', fontWeight: 700, fontSize: '11px' }}>Starting from {r.starting}</small>}
+                          </div>
+                          <ChevronRight size={14} />
                         </NavLink>
                       ))}
                     </div>
