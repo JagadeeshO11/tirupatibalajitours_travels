@@ -1,4 +1,4 @@
-import { Car, Route, Landmark, Plane, Sparkles, MapPin, BriefcaseBusiness } from 'lucide-react';
+import { Car, Route, Landmark, Plane, Sparkles, MapPin, BriefcaseBusiness, Bus } from 'lucide-react';
 
 export const phone = '+918688624758';
 export const whatsapp = `https://wa.me/${phone}`;
@@ -43,14 +43,14 @@ export const images = {
 };
 
 export const services = [
-  [Car, 'One Way Cab', 'Simple, comfortable point-to-point travel.'],
-  [Route, 'Round Trip', 'Flexible return journeys at fair prices.'],
-  [Landmark, 'Local Sightseeing', 'Discover Tirupati at your own pace.'],
-  [Plane, 'Airport Taxi', 'Punctual pickup and drop, every time.'],
-  [Sparkles, 'Temple Darshan Taxi', 'Peaceful rides for your sacred visit.'],
-  [MapPin, 'Outstation Taxi', 'Go beyond Tirupati with confidence.'],
-  [BriefcaseBusiness, 'Corporate Travel', 'Professional transport that keeps moving.'],
-  [Car, 'Premium Car Rental', 'Elevated comfort for special journeys.']
+  [Car, 'Car Rentals in Tirupati', 'Economical and comfortable car rental service in Tirupati.', '₹2,880', 'car-rentals-in-tirupati'],
+  [Bus, 'Tempo Traveller Rental', 'Spacious 12, 16 & 20 seater Tempo Travellers for group travel.', '₹5,100', 'tempo-traveller-rental-in-tirupati'],
+  [Sparkles, 'Force Urbania Rental', 'Luxury 12 & 16 seater Force Urbania with modern interior comfort.', '₹10,000', 'urbania-traveller-rental-in-tirupati'],
+  [Bus, 'Luxury Bus Rental', '27, 40 and 45 seater luxury AC buses for large groups and pilgrimages.', '₹12,000', 'bus-rental-in-tirupati'],
+  [MapPin, 'Outstation Taxi Service', 'Reliable outstation cab services across South India at per km rates.', '₹15/km', 'outstation-taxi-in-tirupati'],
+  [Landmark, 'Taxi Service in Tirupati', 'Punctual local taxi service for Tirupati temple and city trips.', '₹2,880', 'taxi-in-tirupati'],
+  [Plane, 'Tirupati Airport Taxi', '24/7 dedicated pickup and drop services for Tirupati Airport.', '₹1,200', 'tirupati-airport-taxi'],
+  [Car, 'Car for Rent (Day Hire)', 'Flexible full-day car hire for local travel, business and sightseeing.', '₹2,880', 'car-for-rent-in-tirupati-day-rentals']
 ];
 
 // Vehicle names, capacities, indicative outstation rates and service notes are based on the official company website.

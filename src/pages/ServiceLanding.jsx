@@ -160,11 +160,32 @@ const vehicleImage = (name = '') => {
   return vehicle?.image || images.taxi;
 };
 
-function TaxiVehicleCard({ vehicle, onBook }) {
+function TaxiVehicleCard({ vehicle, onBook, pageSlug = '' }) {
   const { selectBooking } = useData();
   const [selectedRate, setSelectedRate] = useState('local');
 
-  const rateOptions = [
+  const sLower = (pageSlug || '').toLowerCase();
+  const isOutstationPage = sLower.includes('outstation');
+
+  const isDedicatedTaxiRental = !isOutstationPage && (
+    sLower.includes('car-rentals') || sLower.includes('car rentals') ||
+    sLower.includes('tempo-traveller') || sLower.includes('tempo traveller') || sLower.includes('tempo rental') ||
+    sLower.includes('urbania') ||
+    sLower.includes('bus-rental') || sLower.includes('bus rental') || sLower.includes('luxury bus') ||
+    sLower.includes('taxi-service') || sLower.includes('taxi service') || sLower.includes('taxi-in-tirupati') || (sLower.includes('taxi') && sLower.includes('tirupati')) ||
+    sLower.includes('airport-taxi') || sLower.includes('airport taxi') ||
+    sLower.includes('car-for-rent') || sLower.includes('day hire') || sLower.includes('day-rentals')
+  );
+
+  const isLocalPackages = sLower.includes('local-packages') || sLower.includes('local packages');
+  const isStudentPackages = sLower.includes('student-packages') || sLower.includes('student packages');
+  const isCustomPackages = sLower.includes('customized-packages') || sLower.includes('customized packages');
+  const isBalajiTour = sLower.includes('balaji-darshan') || sLower.includes('balaji darshan');
+
+  const rateOptions = isLocalPackages ? [
+    { key: 'local', label: 'Local 8h / 80km', price: vehicle.local },
+    { key: 'localLong', label: 'Local 12h / 150km', price: vehicle.localLong }
+  ] : [
     { key: 'local', label: 'Local 8h / 80km', price: vehicle.local },
     { key: 'localLong', label: 'Local 12h / 150km', price: vehicle.localLong },
     { key: 'outstation', label: 'Outstation (Min 300km/day)', price: vehicle.outstation }
@@ -172,24 +193,28 @@ function TaxiVehicleCard({ vehicle, onBook }) {
 
   const currentOption = rateOptions.find(r => r.key === selectedRate) || rateOptions[0];
 
-  const waMessage = `Hi, I want to book ${vehicle.name} in Tirupati for ${currentOption.label} (${currentOption.price}). Please share availability.`;
+  const waMessage = isDedicatedTaxiRental 
+    ? `Hi, I want to book ${vehicle.name} in Tirupati (${vehicle.local || vehicle.price}). Please share availability.`
+    : `Hi, I want to book ${vehicle.name} in Tirupati for ${currentOption.label} (${currentOption.price}). Please share availability.`;
 
   const handleBookClick = () => {
     const isOutstation = selectedRate === 'outstation';
     const tripType = isOutstation ? 'Outstation Tour' : 'Local Sightseeing';
-    const defaultDest = isOutstation ? 'Outstation Tour (Arunachalam / Vellore)' : 'Tirupati Local Sightseeing (8h / 80km)';
+    const defaultDest = isOutstation ? 'Outstation Tour (Arunachalam / Vellore)' : 'Tirupati Local Sightseeing';
 
     selectBooking({
       vehicle: vehicle.name,
       trip: tripType,
       to: defaultDest,
-      price: currentOption.price
+      price: vehicle.local || currentOption.price
     });
 
     onBook({
       name: vehicle.name,
-      service: `${vehicle.name} - ${currentOption.label} (${currentOption.price})`,
-      price: currentOption.price
+      service: isDedicatedTaxiRental ? `${vehicle.name} Rental` : `${vehicle.name} - ${currentOption.label} (${currentOption.price})`,
+      price: vehicle.local || currentOption.price,
+      slug: pageSlug,
+      pageSlug: pageSlug
     });
   };
 
@@ -213,42 +238,63 @@ function TaxiVehicleCard({ vehicle, onBook }) {
           <span><Snowflake size={13} /> Air Conditioned</span>
         </div>
 
-        {/* SELECTABLE RATES SECTION */}
-        <div className="selectable-rates-container" style={{ marginTop: '0.75rem', marginBottom: '0.75rem' }}>
-          <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#64748b', display: 'block', marginBottom: '0.35rem', letterSpacing: '0.04em' }}>
-            SELECT RATE PLAN:
-          </span>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.35rem' }}>
-            {rateOptions.map(opt => (
-              <button
-                key={opt.key}
-                type="button"
-                onClick={() => setSelectedRate(opt.key)}
-                style={{
-                  padding: '0.5rem 0.2rem',
-                  borderRadius: 8,
-                  border: selectedRate === opt.key ? '2px solid #d97706' : '1.5px solid #cbd5e1',
-                  background: selectedRate === opt.key ? '#fffdf5' : '#f8fafc',
-                  cursor: 'pointer',
-                  textAlign: 'center',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: '2px',
-                  boxShadow: selectedRate === opt.key ? '0 4px 10px rgba(217, 119, 6, 0.15)' : 'none',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                <small style={{ fontSize: '0.6rem', fontWeight: 800, color: selectedRate === opt.key ? '#d97706' : '#64748b', textTransform: 'uppercase' }}>
-                  {opt.label}
-                </small>
-                <b style={{ fontSize: '0.76rem', fontWeight: 800, color: '#060c2c', whiteSpace: 'nowrap' }}>
-                  {opt.price}
-                </b>
-              </button>
-            ))}
+        {/* SELECTABLE RATES SECTION - Hidden on dedicated taxi/rental pages */}
+        {!isDedicatedTaxiRental && !isCustomPackages && !isStudentPackages && (
+          <div className="selectable-rates-container" style={{ marginTop: '0.75rem', marginBottom: '0.75rem' }}>
+            <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#64748b', display: 'block', marginBottom: '0.35rem', letterSpacing: '0.04em' }}>
+              SELECT RATE PLAN:
+            </span>
+            <div style={{ display: 'grid', gridTemplateColumns: `repeat(${rateOptions.length}, 1fr)`, gap: '0.35rem' }}>
+              {rateOptions.map(opt => (
+                <button
+                  key={opt.key}
+                  type="button"
+                  onClick={() => setSelectedRate(opt.key)}
+                  style={{
+                    padding: '0.5rem 0.2rem',
+                    borderRadius: 8,
+                    border: selectedRate === opt.key ? '2px solid #d97706' : '1.5px solid #cbd5e1',
+                    background: selectedRate === opt.key ? '#fffdf5' : '#f8fafc',
+                    cursor: 'pointer',
+                    textAlign: 'center',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '2px',
+                    boxShadow: selectedRate === opt.key ? '0 4px 10px rgba(217, 119, 6, 0.15)' : 'none',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  <small style={{ fontSize: '0.6rem', fontWeight: 800, color: selectedRate === opt.key ? '#d97706' : '#64748b', textTransform: 'uppercase' }}>
+                    {opt.label}
+                  </small>
+                  <b style={{ fontSize: '0.76rem', fontWeight: 800, color: '#060c2c', whiteSpace: 'nowrap' }}>
+                    {opt.price}
+                  </b>
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
+
+        {isDedicatedTaxiRental && (
+          <div style={{ margin: '0.6rem 0', background: '#fffdf5', padding: '0.5rem 0.75rem', borderRadius: 8, border: '1.5px solid #fde68a', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontSize: '0.78rem', color: '#64748b', fontWeight: 700 }}>Starting Fare:</span>
+            <strong style={{ fontSize: '1rem', color: '#d97706', fontWeight: 800 }}>{vehicle.local || '₹2,880'}</strong>
+          </div>
+        )}
+
+        {isStudentPackages && (
+          <div style={{ margin: '0.6rem 0', background: '#f0fdf4', padding: '0.5rem 0.75rem', borderRadius: 8, border: '1px solid #bbf7d0', fontSize: '0.78rem', color: '#15803d', fontWeight: 800 }}>
+            🎓 Student Group Special Fare Applicable
+          </div>
+        )}
+
+        {isCustomPackages && (
+          <div style={{ margin: '0.6rem 0', background: '#f0f9ff', padding: '0.5rem 0.75rem', borderRadius: 8, border: '1px solid #bae6fd', fontSize: '0.78rem', color: '#0369a1', fontWeight: 800 }}>
+            💬 Custom Itinerary Quote on Request
+          </div>
+        )}
 
         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: 'auto', paddingTop: '0.5rem' }}>
           <a 
@@ -315,23 +361,29 @@ export default function ServiceLanding({ slug: routeSlug }) {
   const urbaniaCount = fleet.filter(v => ['urbania-12', 'urbania-16'].includes(v.id)).length;
   const busCount = fleet.filter(v => ['bus-27', 'bus-40', 'bus-45'].includes(v.id)).length;
 
-  const fleetCategories = [
-    { key: 'all', label: `All Vehicles (${fleet.length})` },
-    { key: 'cars', label: `Cars (${carsCount})` },
-    { key: 'tempo', label: `Tempo Travellers (${tempoCount})` },
-    { key: 'urbania', label: `Urbania (${urbaniaCount})` },
-    { key: 'bus', label: `Buses (${busCount})` }
-  ];
+  const isCarOnlyPage = slug === 'car-rentals-in-tirupati' || slug === 'car-for-rent-in-tirupati-day-rentals';
+  const isTempoOnlyPage = slug === 'tempo-traveller-rental-in-tirupati';
+  const isUrbaniaOnlyPage = slug === 'urbania-traveller-rental-in-tirupati';
+  const isBusOnlyPage = slug === 'bus-rental-in-tirupati';
+  const isDedicatedFleetPage = isCarOnlyPage || isTempoOnlyPage || isUrbaniaOnlyPage || isBusOnlyPage;
 
-  const displayedVehicles = selectedCategory === 'all' 
-    ? fleet 
-    : fleet.filter(v => {
-        if (selectedCategory === 'cars') return ['sedan', 'ertiga', 'innova-crysta', 'hycross', 'fortuner'].includes(v.id);
-        if (selectedCategory === 'tempo') return ['tempo-12', 'tempo-16', 'tempo-20'].includes(v.id);
-        if (selectedCategory === 'urbania') return ['urbania-12', 'urbania-16'].includes(v.id);
-        if (selectedCategory === 'bus') return ['bus-27', 'bus-40', 'bus-45'].includes(v.id);
-        return false;
-      });
+  const displayedVehicles = isCarOnlyPage
+    ? fleet.filter(v => ['sedan', 'ertiga', 'innova-crysta', 'hycross', 'fortuner'].includes(v.id))
+    : isTempoOnlyPage
+    ? fleet.filter(v => ['tempo-12', 'tempo-16', 'tempo-20'].includes(v.id))
+    : isUrbaniaOnlyPage
+    ? fleet.filter(v => ['urbania-12', 'urbania-16'].includes(v.id))
+    : isBusOnlyPage
+    ? fleet.filter(v => ['bus-27', 'bus-40', 'bus-45'].includes(v.id))
+    : (selectedCategory === 'all' 
+        ? fleet 
+        : fleet.filter(v => {
+            if (selectedCategory === 'cars') return ['sedan', 'ertiga', 'innova-crysta', 'hycross', 'fortuner'].includes(v.id);
+            if (selectedCategory === 'tempo') return ['tempo-12', 'tempo-16', 'tempo-20'].includes(v.id);
+            if (selectedCategory === 'urbania') return ['urbania-12', 'urbania-16'].includes(v.id);
+            if (selectedCategory === 'bus') return ['bus-27', 'bus-40', 'bus-45'].includes(v.id);
+            return false;
+          }));
 
   const trips = tripMap[slug] || defaultTrips;
   const isPackagePage = [
@@ -621,45 +673,54 @@ export default function ServiceLanding({ slug: routeSlug }) {
         </div>
 
         {/* Category Filter Tabs */}
-        <div className="fleet-filter-tabs" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1.5rem', justifyContent: 'center' }}>
-          {fleetCategories.map(cat => (
-            <button
-              key={cat.key}
-              type="button"
-              onClick={() => {
-                setSelectedCategory(cat.key);
-                const el = document.getElementById('service-vehicles-grid');
-                if (el) {
-                  const rect = el.getBoundingClientRect();
-                  if (rect.top < 120) {
-                    const y = window.pageYOffset + rect.top - 130;
-                    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+        {!isDedicatedFleetPage && (
+          <div className="fleet-filter-tabs" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1.5rem', justifyContent: 'center' }}>
+            {[
+              { key: 'all', label: `All Vehicles (${fleet.length})` },
+              { key: 'cars', label: `Cars (${carsCount})` },
+              { key: 'tempo', label: `Tempo Travellers (${tempoCount})` },
+              { key: 'urbania', label: `Urbania (${urbaniaCount})` },
+              { key: 'bus', label: `Buses (${busCount})` }
+            ].map(cat => (
+              <button
+                key={cat.key}
+                type="button"
+                onClick={() => {
+                  setSelectedCategory(cat.key);
+                  const el = document.getElementById('service-vehicles-grid');
+                  if (el) {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < 120) {
+                      const y = window.pageYOffset + rect.top - 130;
+                      window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+                    }
                   }
-                }
-              }}
-              style={{
-                padding: '0.5rem 1.1rem',
-                borderRadius: '999px',
-                border: selectedCategory === cat.key ? '2px solid #0284c7' : '1.5px solid #cbd5e1',
-                background: selectedCategory === cat.key ? '#0284c7' : '#ffffff',
-                color: selectedCategory === cat.key ? '#ffffff' : '#334155',
-                fontWeight: 700,
-                fontSize: '0.82rem',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-                boxShadow: selectedCategory === cat.key ? '0 4px 12px rgba(2, 132, 199, 0.25)' : 'none'
-              }}
-            >
-              {cat.label}
-            </button>
-          ))}
-        </div>
+                }}
+                style={{
+                  padding: '0.5rem 1.1rem',
+                  borderRadius: '999px',
+                  border: selectedCategory === cat.key ? '2px solid #0284c7' : '1.5px solid #cbd5e1',
+                  background: selectedCategory === cat.key ? '#0284c7' : '#ffffff',
+                  color: selectedCategory === cat.key ? '#ffffff' : '#334155',
+                  fontWeight: 700,
+                  fontSize: '0.82rem',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  boxShadow: selectedCategory === cat.key ? '0 4px 12px rgba(2, 132, 199, 0.25)' : 'none'
+                }}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+        )}
 
         <div className="service-vehicles-grid" id="service-vehicles-grid">
           {displayedVehicles.map(vehicle => (
             <TaxiVehicleCard 
               key={vehicle.id} 
               vehicle={vehicle} 
+              pageSlug={slug}
               onBook={(payload) => setSelectedPayVehicle(payload)} 
             />
           ))}
@@ -843,7 +904,10 @@ export default function ServiceLanding({ slug: routeSlug }) {
           isOpen={Boolean(selectedPayVehicle)}
           onClose={() => setSelectedPayVehicle(null)}
           initialData={{
-            service: selectedPayVehicle.service || `${selectedPayVehicle.name} (${selectedPayVehicle.serviceTitle || 'Cab Booking'})`,
+            service: selectedPayVehicle.service || data.title || slug,
+            slug: selectedPayVehicle.slug || slug,
+            pageSlug: slug,
+            pageTitle: data?.title,
             vehicle: selectedPayVehicle.name,
             amount: '1000',
             fullAmount: selectedPayVehicle.price || '2880'

@@ -40,7 +40,9 @@ function FleetCardItem({ vehicle, onBook }) {
     onBook({ 
       name: vehicle.name, 
       service: `${vehicle.name} - ${currentOption.label} (${currentOption.price})`, 
-      price: currentOption.price 
+      price: currentOption.price,
+      selectedRateKey: selectedRate,
+      type: 'vehicle'
     });
   };
 
@@ -242,8 +244,10 @@ export default function Fleet() {
           isOpen={Boolean(selectedPayVehicle)}
           onClose={() => setSelectedPayVehicle(null)}
           initialData={{
+            type: 'vehicle',
             service: selectedPayVehicle.service || `${selectedPayVehicle.name} Booking`,
             vehicle: selectedPayVehicle.name,
+            selectedRateKey: selectedPayVehicle.selectedRateKey || 'local',
             amount: '1000',
             fullAmount: selectedPayVehicle.price || '2880'
           }}

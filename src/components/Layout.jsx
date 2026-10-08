@@ -205,8 +205,8 @@ export default function Layout() {
           <nav>
             <div className="desktop-nav-links">
               <NavLink to="/" onMouseEnter={() => handleDropdownLeave(true)}>Home</NavLink>
-              <HeaderDropdown id="cabs" activeDropdown={activeDropdown} onEnter={handleDropdownEnter} onLeave={handleDropdownLeave} label="Tirupati Cabs" links={cabRoutes} getSlug={r => `/tirupati-cabs/${r.slug}`} />
-              <HeaderDropdown id="taxi" activeDropdown={activeDropdown} onEnter={handleDropdownEnter} onLeave={handleDropdownLeave} label="Taxi in Tirupati" className="nav-taxi" links={taxiLinks} getSlug={r => `/${r.slug}`} />
+              <HeaderDropdown id="cabs" activeDropdown={activeDropdown} onEnter={handleDropdownEnter} onLeave={handleDropdownLeave} label="Tirupati Cabs" to="/cabs" links={cabRoutes} getSlug={r => `/tirupati-cabs/${r.slug}`} />
+              <HeaderDropdown id="taxi" activeDropdown={activeDropdown} onEnter={handleDropdownEnter} onLeave={handleDropdownLeave} label="Taxi in Tirupati" to="/cabs" className="nav-taxi" links={taxiLinks} getSlug={r => `/${r.slug}`} />
               <HeaderDropdown id="services" activeDropdown={activeDropdown} onEnter={handleDropdownEnter} onLeave={handleDropdownLeave} label="Services" to="/services" className="nav-services" links={packageNavLinks} getSlug={p => `/services/${p.slug}`} />
               <HeaderDropdown id="fleet" activeDropdown={activeDropdown} onEnter={handleDropdownEnter} onLeave={handleDropdownLeave} label="Fleet & Rentals" to="/fleet" className="nav-fleet" links={fleetNavLinks} />
               <NavLink to="/tours" onMouseEnter={() => handleDropdownLeave(true)}>Tours</NavLink>

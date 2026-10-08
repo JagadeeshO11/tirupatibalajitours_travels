@@ -245,7 +245,9 @@ export default function PopularPackages() {
           isOpen={Boolean(payPkg)}
           onClose={() => setPayPkg(null)}
           initialData={{
+            type: 'tour',
             service: `${payPkg.name}`,
+            prices: packageDetails[payPkg.name]?.prices || [],
             amount: '1000',
             fullAmount: payPkg.price || '3500'
           }}

@@ -362,6 +362,7 @@ export default function TourDetail() {
           isOpen={Boolean(payModalData)}
           onClose={() => setPayModalData(null)}
           initialData={{
+            type: 'tour',
             service: `${payModalData.name}`,
             amount: '1000',
             fullAmount: payModalData.price || '3500'

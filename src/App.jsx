@@ -18,6 +18,7 @@ import Contact from './pages/Contact';
 import RefundPolicy from './pages/RefundPolicy';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsConditions from './pages/TermsConditions';
+import Cabs from './pages/Cabs';
 import CabRoutePage from './pages/CabRoutePage';
 import { cabRoutes } from './data/cabRoutes';
 import { blogPosts } from './data/blogData';
@@ -113,7 +114,9 @@ export default function App() {
           {/* Public Website Routes */}
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/cabs" element={<Navigate to="/tirupati-cabs/tirupati-to-srikalahasti-distance" replace />} />
+            <Route path="/cabs" element={<Cabs />} />
+            <Route path="/tirupati-cabs-service" element={<Cabs />} />
+            <Route path="/cabs-service" element={<Cabs />} />
             
             {/* Fixed routes for exact cab slugs */}
             {cabRoutes.map(route => {

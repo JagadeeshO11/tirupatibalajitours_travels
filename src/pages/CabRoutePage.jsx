@@ -296,7 +296,9 @@ function DetailedRouteContent({ content, route }) {
           isOpen={Boolean(payCar)}
           onClose={() => setPayCar(null)}
           initialData={{
+            type: 'route',
             service: `${payCar.name} for ${payCar.title || 'Cab Route'}`,
+            prices: route.prices,
             amount: '500'
           }}
         />
@@ -512,7 +514,9 @@ export default function CabRoutePage({ route: routeProp }) {
           isOpen={showHeroPayModal}
           onClose={() => setShowHeroPayModal(false)}
           initialData={{
+            type: 'route',
             service: `${route.title} Booking Token Deposit`,
+            prices: route.prices,
             amount: '500',
             fullAmount: route.starting
           }}

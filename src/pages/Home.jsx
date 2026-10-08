@@ -123,7 +123,14 @@ function HomeFleetSlideCard({ v, onBook }) {
       price: currentOption.price
     });
 
-    onBook({ name: v.name, vehicle: v.name, service: `${v.name} (${currentOption.label})`, price: currentOption.price });
+    onBook({ 
+      name: v.name, 
+      vehicle: v.name, 
+      service: `${v.name} (${currentOption.label})`, 
+      price: currentOption.price,
+      selectedRateKey: selectedRate,
+      type: 'vehicle'
+    });
   };
 
   return (
@@ -431,7 +438,7 @@ export default function Home() {
         </div>
 
         <div className="tours-static-grid">
-          {tours.map(t => (
+          {tours.slice(0, 9).map(t => (
             <article key={t[0]} className="home-slide-card package-card">
               <div className="slide-image">
                 <img src={t[4]} alt={t[0]} />
@@ -609,8 +616,10 @@ export default function Home() {
           isOpen={Boolean(homePayVehicle)}
           onClose={() => setHomePayVehicle(null)}
           initialData={{
+            type: 'vehicle',
             service: homePayVehicle.service || `${homePayVehicle.name} Booking`,
             vehicle: homePayVehicle.name,
+            selectedRateKey: homePayVehicle.selectedRateKey || 'local',
             amount: '1000',
             fullAmount: homePayVehicle.price || '2880'
           }}

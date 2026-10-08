@@ -28,19 +28,35 @@ export default function Cabs() {
           <Link className="button" to="/fleet">View vehicle availability</Link>
         </section>
         <div className="card-grid">
-          {services.map(([I, t, d]) => (
-            <article key={t}>
+          {services.map(([I, t, d, p, slug]) => (
+            <article key={t} style={{ display: 'flex', flexDirection: 'column' }}>
               <I />
-              <h3>{t}</h3>
-              <p>{d}</p>
-              <button
-                type="button"
-                className="button"
-                style={{ width: '100%', marginTop: '0.5rem', background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', cursor: 'pointer' }}
-                onClick={() => setPayService(t)}
-              >
-                Book now 💳 <CheckCircle2 size={15} />
-              </button>
+              <h3>
+                <Link to={`/${slug}`} style={{ color: 'inherit', textDecoration: 'none' }}>{t}</Link>
+              </h3>
+              <p style={{ flex: 1 }}>{d}</p>
+              {p && (
+                <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#d97706', margin: '0.4rem 0 0.2rem 0' }}>
+                  Starting from {p}
+                </div>
+              )}
+              <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
+                <Link
+                  to={`/${slug}`}
+                  className="button secondary"
+                  style={{ flex: 1, padding: '0.55rem 0.4rem', fontSize: '0.82rem', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                >
+                  View Details
+                </Link>
+                <button
+                  type="button"
+                  className="button"
+                  style={{ flex: 1, padding: '0.55rem 0.4rem', fontSize: '0.82rem', background: 'linear-gradient(135deg, #0284c7, #0369a1)', borderColor: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px', cursor: 'pointer' }}
+                  onClick={() => setPayService({ title: t, price: p })}
+                >
+                  Book now 💳
+                </button>
+              </div>
             </article>
           ))}
         </div>
@@ -51,9 +67,9 @@ export default function Cabs() {
           isOpen={Boolean(payService)}
           onClose={() => setPayService(null)}
           initialData={{
-            service: `${payService} Booking`,
-            amount: '500',
-            fullAmount: '2499'
+            service: payService.title,
+            fullAmount: payService.price,
+            type: 'service'
           }}
         />
       )}

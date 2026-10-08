@@ -3,6 +3,7 @@ import { CalendarDays, MapPin, Route, MessageCircle, CreditCard, Car, Sparkles, 
 import { whatsappBooking } from '../data/siteData';
 import { packageDetails } from '../data/packageDetails';
 import { cabRoutes } from '../data/cabRoutes';
+import { getVehicleInfo } from '../data/packageData';
 import PopularPackages from './PopularPackages';
 import EasebuzzModal from './EasebuzzModal';
 import { useData } from '../context/DataContext';
@@ -19,19 +20,19 @@ const popularRoutes = [
 ];
 
 const vehicleOptions = [
-  { label: 'Swift Dzire / Etios (Sedan 4-Seater)', key: 'Sedan', matchKeys: ['dzire', 'etios', 'sedan'] },
-  { label: 'Maruti Ertiga (MUV 6-Seater)', key: 'Ertiga', matchKeys: ['ertiga', 'muv'] },
-  { label: 'Toyota Innova Crysta (SUV 7-Seater)', key: 'Innova', matchKeys: ['innova', 'crysta'] },
-  { label: 'Toyota Hycross (Hybrid MUV 7-Seater)', key: 'Hycross', matchKeys: ['hycross', 'hybrid'] },
-  { label: 'Toyota Fortuner (Luxury SUV 7-Seater)', key: 'Fortuner', matchKeys: ['fortuner'] },
-  { label: 'Tempo Traveller 12 Seater (12-Seater AC)', key: 'Tempo Traveller 12', matchKeys: ['12 seater', '12-seater', 'tempo traveller 12'] },
-  { label: 'Urbania 12 Seater (Luxury 12-Seater AC)', key: 'Urbania 12', matchKeys: ['urbania 12', 'urbania'] },
-  { label: 'Tempo Traveller 16 Seater (16-Seater AC)', key: 'Tempo Traveller 16', matchKeys: ['16 seater', '16-seater', 'tempo traveller 16'] },
-  { label: 'Urbania 16 Seater (Luxury 16-Seater AC)', key: 'Urbania 16', matchKeys: ['urbania 16'] },
-  { label: 'Tempo Traveller 20 Seater (20-Seater AC)', key: 'Tempo Traveller 20', matchKeys: ['20 seater', '20-seater', 'tempo traveller 20'] },
-  { label: 'Mini Bus 27 Seater (27-Seater AC Coach)', key: 'Mini Bus 27', matchKeys: ['mini bus', '27 seater', 'bus 27'] },
-  { label: 'Bus 40 Seater (40-Seater Tourist Coach)', key: 'Bus 40', matchKeys: ['40 seater', 'bus 40'] },
-  { label: 'Bus 45 Seater (45-Seater Volvo/Deluxe Bus)', key: 'Bus 45', matchKeys: ['45 seater', 'bus 45'] }
+  { label: 'Sedan (4 Seater) — ₹2,880 (Local: 8h/80km ₹2,880 | 12h/150km ₹3,650 | +₹200/h | Out: ₹15/km)', key: 'Sedan', matchKeys: ['dzire', 'etios', 'sedan'] },
+  { label: 'Ertiga (6 Seater) — ₹3,380 (Local: 8h/80km ₹3,380 | 12h/150km ₹4,150 | +₹300/h | Out: ₹19/km)', key: 'Ertiga', matchKeys: ['ertiga', 'muv'] },
+  { label: 'Innova Crysta (7 Seater) — ₹4,380 (Local: 8h/80km ₹4,380 | 12h/150km ₹5,150 | +₹400/h | Out: ₹23/km)', key: 'Innova', matchKeys: ['innova', 'crysta'] },
+  { label: 'Hycross (7 Seater) — ₹6,100 (Local: 8h/80km ₹6,100 | 12h/150km ₹7,100 | +₹600/h | Out: ₹32/km)', key: 'Hycross', matchKeys: ['hycross', 'hybrid'] },
+  { label: 'Fortuner (7 Seater) — ₹8,800 (Local: 8h/80km ₹8,800 | 12h/150km ₹10,500 | +₹800/h | Out: ₹43/km)', key: 'Fortuner', matchKeys: ['fortuner'] },
+  { label: 'Tempo Traveller 12 Seater — ₹5,100 (Local: 8h/80km ₹5,100 | 12h/150km ₹6,000 | +₹1000/h | Out: ₹26/km)', key: 'Tempo Traveller 12', matchKeys: ['12 seater', '12-seater', 'tempo traveller 12'] },
+  { label: 'Urbania 12 Seater — ₹10,000 (Local: 8h/80km ₹10,000 | 12h/150km ₹12,000 | +₹1200/h | Out: ₹45/km)', key: 'Urbania 12', matchKeys: ['urbania 12', 'urbania'] },
+  { label: 'Tempo Traveller 16 Seater — ₹6,800 (Local: 8h/80km ₹6,800 | 12h/150km ₹7,800 | +₹1400/h | Out: ₹35/km)', key: 'Tempo Traveller 16', matchKeys: ['16 seater', '16-seater', 'tempo traveller 16'] },
+  { label: 'Urbania 16 Seater — ₹12,000 (Local: 8h/80km ₹12,000 | 12h/150km ₹15,000 | +₹1600/h | Out: ₹48/km)', key: 'Urbania 16', matchKeys: ['urbania 16'] },
+  { label: 'Tempo Traveller 20 Seater — ₹9,000 (Local: 8h/80km ₹9,000 | 12h/150km ₹10,500 | +₹1800/h | Out: ₹45/km)', key: 'Tempo Traveller 20', matchKeys: ['20 seater', '20-seater', 'tempo traveller 20'] },
+  { label: 'Mini Bus 27 Seater — ₹12,000 (Local: 8h/80km ₹12,000 | 12h/150km ₹13,500 | +₹2000/h | Out: ₹55/km)', key: 'Mini Bus 27', matchKeys: ['mini bus', '27 seater', 'bus 27'] },
+  { label: 'Bus 40 Seater — ₹15,200 (Local: 8h/80km ₹15,200 | 12h/150km ₹17,500 | +₹3000/h | Out: ₹65/km)', key: 'Bus 40', matchKeys: ['40 seater', 'bus 40'] },
+  { label: 'Bus 45 Seater — ₹18,000 (Local: 8h/80km ₹18,000 | 12h/150km ₹20,500 | +₹4000/h | Out: ₹75/km)', key: 'Bus 45', matchKeys: ['45 seater', 'bus 45'] }
 ];
 
 export default function BookingForm({ showPackages = true }) {
@@ -332,33 +333,65 @@ export default function BookingForm({ showPackages = true }) {
               </div>
             </div>
 
-            {/* Vehicle Selection Field with Price Shown */}
+            {/* Vehicle Selection Field */}
             <div className="field-box">
-              <label>VEHICLE & PRICE SHOWN</label>
+              <label>VEHICLES & BUSES FARE RATES</label>
               <div className="field-input-wrap">
                 <Car className="field-icon gold" size={17} />
                 <select value={f.vehicle} onChange={e => setF({ ...f, vehicle: e.target.value })}>
-                  {vehicleOptions.map(vOpt => {
-                    const fare = getFareForVehicleOption(vOpt);
-                    return (
-                      <option key={vOpt.label} value={vOpt.label}>
-                        {vOpt.label} — {fare}
-                      </option>
-                    );
-                  })}
+                  {(() => {
+                    const toCleanContext = `${f.to || ''} ${bookingSelection?.to || ''} ${bookingSelection?.service || ''}`.toLowerCase();
+                    const isCarOnlyForm = 
+                      toCleanContext.includes('car rental') || 
+                      toCleanContext.includes('car-rental') || 
+                      toCleanContext.includes('car rentals') || 
+                      toCleanContext.includes('car-rentals') || 
+                      toCleanContext.includes('car for rent') || 
+                      toCleanContext.includes('car-for-rent');
+
+                    const formOptions = isCarOnlyForm
+                      ? vehicleOptions.filter(vOpt => ['Sedan', 'Ertiga', 'Innova', 'Hycross', 'Fortuner'].includes(vOpt.key))
+                      : vehicleOptions;
+
+                    return formOptions.map(vOpt => {
+                      const computedFare = getFareForVehicleOption(vOpt);
+                      const vNameOnly = vOpt.label.split('—')[0].trim();
+                      const vObj = getVehicleInfo(vNameOnly);
+                      const outstationFare = vObj?.outstation || '₹15/km';
+                      const rawMin = vObj?.minimum || '300 km/day';
+                      const minKm = rawMin.toLowerCase().startsWith('min') ? rawMin : `Min ${rawMin}`;
+                      const isOutstation = f.trip === 'Outstation Tour';
+
+                      const toClean = (f.to || '').toLowerCase();
+                      const isCleanDropdownPkg = 
+                        toClean.includes('family') ||
+                        toClean.includes('wedding') ||
+                        toClean.includes('holiday') ||
+                        toClean.includes('corporate') ||
+                        toClean.includes('local') ||
+                        toClean.includes('student');
+
+                      const optionDisplay = isCleanDropdownPkg
+                        ? vNameOnly
+                        : isOutstation
+                        ? `${vNameOnly} — ${outstationFare} (${minKm})`
+                        : `${vNameOnly} — ${computedFare} · ${outstationFare} (${minKm})`;
+
+                      return (
+                        <option key={vOpt.label} value={vOpt.label}>
+                          {optionDisplay}
+                        </option>
+                      );
+                    });
+                  })()}
                 </select>
                 <ChevronDown className="select-arrow" size={14} />
               </div>
             </div>
           </div>
 
-          {/* Bottom Action Row with Estimated Fare Badge */}
+          {/* Bottom Action Row */}
           <div className="booking-card-footer">
-            <div className="fare-estimate-badge">
-              <span className="estimate-dot" />
-              <span>Selected Vehicle Fare: <strong>{estimatedPrice}</strong> <small>(AC Cab & Driver Incl.)</small></span>
-            </div>
-
             <div className="booking-actions-group">
               <button className="button wa-booking-btn" type="submit">
                 <MessageCircle size={16} /> Enquire on WhatsApp

@@ -1,30 +1,12 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Compass, CreditCard, Sparkles, MapPin } from 'lucide-react';
-import { images, whatsapp } from '../data/siteData';
-import EasebuzzModal from '../components/EasebuzzModal';
+import { ArrowRight, Compass, Sparkles } from 'lucide-react';
+import { images } from '../data/siteData';
 import { useData } from '../context/DataContext';
 import ScrollReveal from '../components/ScrollReveal';
 import './Destinations.css';
 
 export default function Destinations() {
-  const { destinations, selectBooking } = useData();
-  const [selectedDestSlug, setSelectedDestSlug] = useState(destinations[0]?.[0] || 'tirumala');
-  const [selectedPayDest, setSelectedPayDest] = useState(null);
-
-  const selectedDestObj = destinations.find(d => d[0] === selectedDestSlug) || destinations[0];
-
-  const handleHeroBookClick = () => {
-    if (selectedDestObj) {
-      selectBooking({
-        to: selectedDestObj[1],
-        trip: 'Outstation Tour',
-        vehicle: 'Swift Dzire / Etios (Sedan 4-Seater)',
-        price: selectedDestObj[4] || '₹2,499'
-      });
-      setSelectedPayDest(selectedDestObj);
-    }
-  };
+  const { destinations } = useData();
 
   return (
     <main className="page destinations-main-page">
@@ -41,35 +23,6 @@ export default function Destinations() {
           <p>
             Explore handpicked temple circuits, historical landmarks, and outstation pilgrimage destinations from Tirupati.
           </p>
-
-          {/* DESTINATION SELECTION BAR */}
-          <div className="dest-hero-booking-card">
-            <div className="dest-select-group">
-              <label htmlFor="hero-dest-picker">
-                <MapPin size={16} /> Select Destination:
-              </label>
-              <select
-                id="hero-dest-picker"
-                className="dest-select-field"
-                value={selectedDestSlug}
-                onChange={(e) => setSelectedDestSlug(e.target.value)}
-              >
-                {destinations.map(d => (
-                  <option key={d[0]} value={d[0]}>
-                    {d[1]} {d[4] ? `(${d[4]})` : ''}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <button
-              type="button"
-              className="button dest-hero-book-btn"
-              onClick={handleHeroBookClick}
-            >
-              <CreditCard size={18} /> Book {selectedDestObj ? selectedDestObj[1] : 'Cab'} 💳
-            </button>
-          </div>
         </div>
       </section>
 
@@ -111,19 +64,6 @@ export default function Destinations() {
           ))}
         </div>
       </div>
-
-      {/* Easebuzz Checkout Modal */}
-      {selectedPayDest && (
-        <EasebuzzModal 
-          isOpen={Boolean(selectedPayDest)}
-          onClose={() => setSelectedPayDest(null)}
-          initialData={{
-            service: `${selectedPayDest[1]} Cab Booking`,
-            amount: '500',
-            fullAmount: selectedPayDest[4] || '2499'
-          }}
-        />
-      )}
     </main>
   );
 }
