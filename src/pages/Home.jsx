@@ -240,8 +240,20 @@ export default function Home() {
           >
             <div className="hero-card-content">
               <div className="actions">
-                <a className="button" href={whatsapp} target="_blank" rel="noreferrer">
-                  Book Cab on WhatsApp <FaArrowRight size={14} />
+                <button 
+                  type="button" 
+                  className="button"
+                  onClick={() => setHomePayVehicle({
+                    name: 'Sedan (4 Seater)',
+                    service: 'Tirupati Cab Service',
+                    isNavbarBooking: true
+                  })}
+                  style={{ cursor: 'pointer' }}
+                >
+                  Book Cab 💳 <FaArrowRight size={14} />
+                </button>
+                <a className="button secondary" href={whatsapp} target="_blank" rel="noreferrer">
+                  <FaWhatsapp size={16} /> Enquiry on WhatsApp
                 </a>
                 <Link className="button secondary" to="/tours">
                   Explore Packages <FaChevronRight size={14} />
@@ -616,7 +628,8 @@ export default function Home() {
             vehicle: homePayVehicle.name,
             selectedRateKey: homePayVehicle.selectedRateKey || 'local',
             amount: '1000',
-            fullAmount: homePayVehicle.price || '2880'
+            fullAmount: homePayVehicle.price || '2880',
+            isNavbarBooking: homePayVehicle.isNavbarBooking
           }}
         />
       )}
