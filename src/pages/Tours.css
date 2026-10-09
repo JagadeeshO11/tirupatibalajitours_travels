@@ -739,7 +739,7 @@
   margin-bottom: 5px !important;
 }
 
-.compact-prices-grid {
+.compact-pricing-box .compact-prices-grid {
   display: grid !important;
   grid-template-columns: repeat(3, 1fr) !important;
   gap: 3px 4px !important;

@@ -462,7 +462,9 @@
   line-height: 1.35 !important;
 }
 
-/* 2. Vehicle Prices Grid */
+/* 2. Vehicle Prices Grid - 2x2 Layout */
+.package-detail-popup-modal .compact-prices-grid,
+.compact-modal-shell .compact-prices-grid,
 .compact-prices-grid {
   display: grid !important;
   grid-template-columns: repeat(2, 1fr) !important;
@@ -470,8 +472,10 @@
 }
 
 @media (max-width: 480px) {
+  .package-detail-popup-modal .compact-prices-grid,
+  .compact-modal-shell .compact-prices-grid,
   .compact-prices-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: repeat(2, 1fr) !important;
   }
 }
 
