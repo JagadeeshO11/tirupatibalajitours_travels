@@ -11,19 +11,19 @@ const buildAllVehiclePrices = (pricesArray, startingPriceStr) => {
   const baseNum = parseInt((startingPriceStr || '3500').replace(/[^0-9]/g, ''), 10) || 3500;
 
   const defaultVehicleMap = [
-    { key: 'Sedan', name: 'Sedan 4', mult: 1.0 },
-    { key: 'Ertiga', name: 'Ertiga 6', mult: 1.25 },
-    { key: 'Innova', name: 'Innova 7', mult: 1.45 },
-    { key: 'Hycross', name: 'Hycross', mult: 1.7 },
-    { key: 'Fortuner', name: 'Fortuner', mult: 2.3 },
-    { key: 'Tempo Traveller 12', name: 'Tempo 12', mult: 1.6 },
-    { key: 'Urbania 12', name: 'Urbania 12', mult: 2.5 },
-    { key: 'Tempo Traveller 16', name: 'Tempo 16', mult: 1.95 },
-    { key: 'Urbania 16', name: 'Urbania 16', mult: 2.7 },
-    { key: 'Tempo Traveller 20', name: 'Tempo 20', mult: 2.4 },
-    { key: 'Mini Bus 27', name: 'Mini Bus 27', mult: 3.4 },
-    { key: 'Bus 40', name: 'Bus 40', mult: 4.2 },
-    { key: 'Bus 45', name: 'Bus 45', mult: 4.8 }
+    { key: 'Sedan', name: 'Sedan (4 Seater)', mult: 1.0 },
+    { key: 'Ertiga', name: 'Ertiga (6 Seater)', mult: 1.25 },
+    { key: 'Innova', name: 'Innova Crysta (7 Seater)', mult: 1.45 },
+    { key: 'Hycross', name: 'Hycross (7 Seater)', mult: 1.7 },
+    { key: 'Fortuner', name: 'Fortuner (7 Seater)', mult: 2.3 },
+    { key: 'Tempo Traveller 12', name: 'Tempo Traveller 12 Seater', mult: 1.6 },
+    { key: 'Urbania 12', name: 'Urbania 12 Seater', mult: 2.5 },
+    { key: 'Tempo Traveller 16', name: 'Tempo Traveller 16 Seater', mult: 1.95 },
+    { key: 'Urbania 16', name: 'Urbania 16 Seater', mult: 2.7 },
+    { key: 'Tempo Traveller 20', name: 'Tempo Traveller 20 Seater', mult: 2.4 },
+    { key: 'Mini Bus 27', name: 'Mini Bus 27 Seater', mult: 3.4 },
+    { key: 'Bus 40', name: 'Bus 40 Seater', mult: 4.2 },
+    { key: 'Bus 45', name: 'Bus 45 Seater', mult: 4.8 }
   ];
 
   const result = [];

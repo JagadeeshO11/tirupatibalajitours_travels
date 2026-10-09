@@ -42,7 +42,7 @@ export default function BookingForm({ showPackages = true }) {
     to: 'Tirumala', 
     date: '', 
     trip: 'One Way', 
-    vehicle: 'Swift Dzire / Etios (Sedan 4-Seater)',
+    vehicle: vehicleOptions[0].label,
     name: '', 
     phone: '' 
   });
@@ -51,12 +51,23 @@ export default function BookingForm({ showPackages = true }) {
   // Sync with global bookingSelection when user interacts with package/tour/destination/vehicle cards
   useEffect(() => {
     if (bookingSelection) {
+      let matchedVehLabel = prev => prev.vehicle;
+      if (bookingSelection.vehicle) {
+        const foundOpt = vehicleOptions.find(v => {
+          const cleanV = bookingSelection.vehicle.toLowerCase();
+          return v.matchKeys.some(k => cleanV.includes(k)) || v.label.toLowerCase().includes(cleanV);
+        });
+        if (foundOpt) {
+          matchedVehLabel = () => foundOpt.label;
+        }
+      }
+
       setF(prev => ({
         ...prev,
         from: bookingSelection.from || prev.from || 'Tirupati',
         to: bookingSelection.to || bookingSelection.name || bookingSelection.title || prev.to,
         trip: bookingSelection.trip || prev.trip,
-        vehicle: bookingSelection.vehicle || prev.vehicle
+        vehicle: typeof matchedVehLabel === 'function' ? matchedVehLabel(prev) : matchedVehLabel
       }));
     }
   }, [bookingSelection]);
@@ -353,32 +364,28 @@ export default function BookingForm({ showPackages = true }) {
                       ? vehicleOptions.filter(vOpt => ['Sedan', 'Ertiga', 'Innova', 'Hycross', 'Fortuner'].includes(vOpt.key))
                       : vehicleOptions;
 
-                    return formOptions.map(vOpt => {
+                    const seenDisplayLabels = new Set();
+                    const renderedOptions = [];
+
+                    formOptions.forEach(vOpt => {
                       const computedFare = getFareForVehicleOption(vOpt);
                       const vNameOnly = vOpt.label.split('—')[0].trim();
                       const vObj = getVehicleInfo(vNameOnly);
-                      const outstationFare = vObj?.outstation || '₹15/km';
-                      const rawMin = vObj?.minimum || '300 km/day';
-                      const minKm = rawMin.toLowerCase().startsWith('min') ? rawMin : `Min ${rawMin}`;
-                      const isOutstation = f.trip === 'Outstation Tour';
+                      const vehicleName = vObj?.name || vNameOnly;
 
-                      const toClean = (f.to || '').toLowerCase();
-                      const isCleanDropdownPkg = 
-                        toClean.includes('family') ||
-                        toClean.includes('wedding') ||
-                        toClean.includes('holiday') ||
-                        toClean.includes('corporate') ||
-                        toClean.includes('local') ||
-                        toClean.includes('student');
+                      const optionDisplay = `${vehicleName} — ${computedFare}`;
 
-                      const optionDisplay = vObj?.name || vNameOnly;
-
-                      return (
-                        <option key={vOpt.label} value={vOpt.label}>
-                          {optionDisplay}
-                        </option>
-                      );
+                      if (!seenDisplayLabels.has(optionDisplay)) {
+                        seenDisplayLabels.add(optionDisplay);
+                        renderedOptions.push(
+                          <option key={vOpt.label} value={vOpt.label}>
+                            {optionDisplay}
+                          </option>
+                        );
+                      }
                     });
+
+                    return renderedOptions;
                   })()}
                 </select>
                 <ChevronDown className="select-arrow" size={14} />

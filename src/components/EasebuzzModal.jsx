@@ -50,6 +50,24 @@ export const busOnlyOptions = [
   'Bus 45 Seater'
 ];
 
+export function dedupeVehicleOptions(optionsList, serviceName = '', selectedRateKey = '') {
+  if (!optionsList || !Array.isArray(optionsList)) return [];
+
+  const seenLabels = new Set();
+  const uniqueOptions = [];
+
+  for (const opt of optionsList) {
+    if (!opt) continue;
+    const label = getFormattedVehicleOptionLabel(opt, serviceName, selectedRateKey);
+    if (!seenLabels.has(label)) {
+      seenLabels.add(label);
+      uniqueOptions.push(opt);
+    }
+  }
+
+  return uniqueOptions;
+}
+
 export function getFormattedVehicleOptionLabel(optStr, serviceName = '', selectedRateKey = '') {
   if (!optStr) return '';
 
@@ -230,13 +248,15 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
 
   // Vehicle options computation: tag package / cab route prices with vehicles or filtered list
   const filteredVehiclesList = getFilteredVehicleOptions(initialData.slug || serviceName, initialData.vehicleOptions);
-  const vehicleOptions = (isFixedRouteOrTour && tourPrices.length > 0)
+  const rawVehicleOptions = (isFixedRouteOrTour && tourPrices.length > 0)
     ? tourPrices.map(([vName, vPrice]) => {
         const vObj = getVehicleInfo(vName);
         const fullName = vObj?.name || vName;
         return `${fullName} — ${vPrice}`;
       })
     : filteredVehiclesList;
+
+  const vehicleOptions = dedupeVehicleOptions(rawVehicleOptions, initialData.slug || serviceName);
 
   const rawVehicleStr = initialData.vehicle || initialData.service || initialData.name || '';
   const initialVehicle = getBestMatchingVehicleOption(rawVehicleStr, vehicleOptions);
