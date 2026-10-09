@@ -15,7 +15,6 @@ import { destinations, images, services, tours, vehicles, whatsapp, phone } from
 import { fleet } from '../data/fleetData';
 import { cabRoutes } from '../data/cabRoutes';
 import { useData } from '../context/DataContext';
-import BookingForm from '../components/BookingForm';
 import PopularPackages from '../components/PopularPackages';
 import EasebuzzModal from '../components/EasebuzzModal';
 import AnimatedCounter from '../components/AnimatedCounter';
@@ -214,10 +213,6 @@ export default function Home() {
           backgroundPosition: 'center'
         }}
       >
-        <div className="hero-top-booking">
-          <BookingForm showPackages={false} />
-        </div>
-
         <div className="hero-main-grid">
           <div className="hero-copy">
             <motion.div

@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { X, CreditCard, CheckCircle2, AlertCircle, Lock, ArrowRight, Loader2, Car, Calendar, MapPin, Route, Tag, ArrowLeft } from 'lucide-react';
+import { X, CreditCard, CheckCircle2, AlertCircle, Lock, ArrowRight, Loader2, Car, Calendar, MapPin, Route, Tag, ArrowLeft, MessageCircle } from 'lucide-react';
 import { useData } from '../context/DataContext';
 import { getEasebuzzConfig, generateTransactionId, calculateEasebuzzHash } from '../services/easebuzzService';
 import { packageDetails } from '../data/packageDetails';
 import { cabRoutes } from '../data/cabRoutes';
 import { getVehicleInfo } from '../data/packageData';
+import { whatsappBooking } from '../data/siteData';
 import './BookingForm.css';
 
 const vehicleOptionsList = [
@@ -54,74 +55,16 @@ export function getFormattedVehicleOptionLabel(optStr, serviceName = '', selecte
 
   const parts = optStr.split('—').map(s => s.trim());
   const baseName = parts[0];
-  const tourOrPkgPrice = parts[1] || '';
-
-  const sLower = (serviceName || '').toLowerCase();
-
-  const isOutstationPage = sLower.includes('outstation');
-
-  const isDedicatedTaxiRental = !isOutstationPage && (
-    sLower.includes('car-rentals') || sLower.includes('car rentals') ||
-    sLower.includes('tempo-traveller') || sLower.includes('tempo traveller') || sLower.includes('tempo rental') ||
-    sLower.includes('urbania') ||
-    sLower.includes('bus-rental') || sLower.includes('bus rental') || sLower.includes('luxury bus') ||
-    sLower.includes('taxi-service') || sLower.includes('taxi service') || sLower.includes('taxi in tirupati') || sLower.includes('taxi-in-tirupati') ||
-    sLower.includes('airport-taxi') || sLower.includes('airport taxi') ||
-    sLower.includes('car-for-rent') || sLower.includes('day hire') || sLower.includes('day-rentals')
-  );
-
-  const isCleanDropdownPackages = 
-    isDedicatedTaxiRental ||
-    sLower.includes('family') ||
-    sLower.includes('wedding') ||
-    sLower.includes('holiday') ||
-    sLower.includes('corporate') ||
-    sLower.includes('local-packages') || sLower.includes('local packages') ||
-    sLower.includes('student');
-
-  const isCustomPackages = sLower.includes('customized') || sLower.includes('custom quote') || sLower.includes('custom package');
-  const isBalajiTour = sLower.includes('balaji-darshan') || sLower.includes('balaji darshan') || sLower.includes('balaji') || sLower.includes('tirumala');
-
-  // If Outstation Taxi page (and NOT dedicated taxi rental), return outstation fare in dropdown!
-  if (isOutstationPage && !isDedicatedTaxiRental) {
-    const vObj = getVehicleInfo(baseName);
-    const outstationFare = vObj?.outstation || '₹15/km';
-    const rawMin = vObj?.minimum || '300 km/day';
-    const minKm = rawMin.toLowerCase().startsWith('min') ? rawMin : `Min ${rawMin}`;
-    return `${baseName} — ${outstationFare} (${minKm})`;
-  }
-
-  // 1. Dedicated Taxi & Rental Pages, Packages: Vehicle name & seats ONLY, NO extra rates info!
-  if (isCleanDropdownPackages) {
-    return baseName;
-  }
-
-  // 2. Balaji Tour Packages: 1 single price tag sufficient!
-  if (isBalajiTour || tourOrPkgPrice) {
-    const vObj = getVehicleInfo(baseName);
-    const fallbackPrice = vObj?.local ? vObj.local.split('/')[0].trim() : '₹3,500';
-    const displayPrice = tourOrPkgPrice || fallbackPrice;
-    return `${baseName} — ${displayPrice}`;
-  }
+  const fixedPrice = parts[1] || '';
 
   const vObj = getVehicleInfo(baseName);
-  const outstationFare = vObj?.outstation || '₹15/km';
-  const rawMin = vObj?.minimum || '300 km/day';
-  const minKm = rawMin.toLowerCase().startsWith('min') ? rawMin : `Min ${rawMin}`;
-  const localFare = vObj?.local ? vObj.local.split('/')[0].trim() : '₹2,880';
-  const localLongFare = vObj?.localLong ? vObj.localLong.split('/')[0].trim() : '₹3,650';
+  const fullName = vObj?.name || baseName;
 
-  const isOutstationContext = selectedRateKey === 'outstation' || sLower.includes('outstation');
-
-  if (isOutstationContext) {
-    return `${baseName} — ${outstationFare} (${minKm})`;
+  if (fixedPrice) {
+    return `${fullName} — ${fixedPrice}`;
   }
 
-  if (selectedRateKey === 'localLong') {
-    return `${baseName} — ${localLongFare} (Local 12h/150km)`;
-  }
-
-  return `${baseName} — ${localFare} (Local 8h/80km) · ${outstationFare} (${minKm})`;
+  return fullName;
 }
 
 export function getFilteredVehicleOptions(serviceName = '', initialVehicleOptions = null) {
@@ -236,10 +179,13 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
   const matchedRoute = cabRoutes.find(r => {
     if (!serviceName) return false;
     const sLower = serviceName.toLowerCase();
-    return r.title.toLowerCase().includes(sLower) || sLower.includes(r.title.toLowerCase()) || r.shortTitle.toLowerCase().includes(sLower);
+    const rTitle = r.title.toLowerCase();
+    const rShort = r.shortTitle.toLowerCase();
+    const rSlug = r.slug.toLowerCase();
+    return sLower.includes(rTitle) || rTitle.includes(sLower) || sLower.includes(rShort) || rShort.includes(sLower) || sLower.includes(rSlug.replace(/-distance$/, ''));
   });
 
-  const tourPrices = initialData.prices || matchedPkg?.prices || matchedRoute?.prices || [];
+  const tourPrices = initialData.prices || matchedRoute?.prices || matchedPkg?.prices || [];
   const durationText = initialData.duration || (serviceName.includes('Days') || serviceName.includes('Day') ? serviceName.match(/\d+\s*Days?/i)?.[0] : null);
   const routeText = initialData.route || initialData.routeCorridor;
 
@@ -254,10 +200,42 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
     'general'
   );
 
+  const isNavbarBooking = initialData.isNavbarBooking === true;
+
+  const sLowerCheck = (initialData.slug || initialData.pageSlug || serviceName || initialData.service || '').toLowerCase();
+  const isCustomPackages = sLowerCheck.includes('customized-packages') || sLowerCheck.includes('customized packages') || sLowerCheck.includes('custom quote') || sLowerCheck.includes('custom package');
+
+  const isFixedRouteOrTour = !isNavbarBooking && !isCustomPackages && (
+    bookingType === 'route' || 
+    bookingType === 'tour' || 
+    Boolean(initialData.prices && initialData.prices.length > 0) || 
+    Boolean(matchedRoute) || 
+    Boolean(matchedPkg) ||
+    sLowerCheck.includes('tirupati-cabs') ||
+    sLowerCheck.includes('cabs/') ||
+    sLowerCheck.includes('srikalahasti') ||
+    sLowerCheck.includes('kanipakam') ||
+    sLowerCheck.includes('golden-temple') ||
+    sLowerCheck.includes('arunachalam') ||
+    sLowerCheck.includes('tiruvannamalai') ||
+    sLowerCheck.includes('kanchipuram') ||
+    sLowerCheck.includes('rameshwaram') ||
+    sLowerCheck.includes('srisailam') ||
+    sLowerCheck.includes('pondicherry') ||
+    sLowerCheck.includes('madurai') ||
+    sLowerCheck.includes('kanyakumari') ||
+    sLowerCheck.includes('talakona') ||
+    sLowerCheck.includes('mahabalipuram')
+  );
+
   // Vehicle options computation: tag package / cab route prices with vehicles or filtered list
   const filteredVehiclesList = getFilteredVehicleOptions(initialData.slug || serviceName, initialData.vehicleOptions);
-  const vehicleOptions = (bookingType === 'tour' || bookingType === 'route' || tourPrices.length > 0)
-    ? tourPrices.map(([vName, vPrice]) => `${vName} — ${vPrice}`)
+  const vehicleOptions = (isFixedRouteOrTour && tourPrices.length > 0)
+    ? tourPrices.map(([vName, vPrice]) => {
+        const vObj = getVehicleInfo(vName);
+        const fullName = vObj?.name || vName;
+        return `${fullName} — ${vPrice}`;
+      })
     : filteredVehiclesList;
 
   const rawVehicleStr = initialData.vehicle || initialData.service || initialData.name || '';
@@ -385,24 +363,21 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
 
   const isLocalPackages = sLowerContext.includes('local-packages') || sLowerContext.includes('local packages');
   const isBalajiTour = sLowerContext.includes('balaji-darshan') || sLowerContext.includes('balaji darshan') || sLowerContext.includes('balaji') || sLowerContext.includes('tirumala');
-  const isCustomPackages = sLowerContext.includes('customized-packages') || sLowerContext.includes('customized packages') || sLowerContext.includes('custom quote') || sLowerContext.includes('custom package');
   const isStudentPackages = sLowerContext.includes('student-packages') || sLowerContext.includes('student packages');
   const isTourPage = bookingType === 'tour' || isTourBooking || sLowerContext.includes('tour') || sLowerContext.includes('tours') || isBalajiTour || sLowerContext.includes('devotional') || sLowerContext.includes('holiday') || sLowerContext.includes('family') || sLowerContext.includes('wedding');
 
-  const currentTourPrice = (tourPrices.length > 0)
-    ? (tourPrices.find(([vName]) => vName.toLowerCase().includes(formData.vehicle.split('—')[0].trim().toLowerCase()) || formData.vehicle.toLowerCase().includes(vName.toLowerCase()))?.[1] || tourPrices[0]?.[1])
-    : null;
+  const currentRoutePrice = (tourPrices.length > 0)
+    ? (tourPrices.find(([vName]) => {
+        const vClean = vName.toLowerCase();
+        const selClean = (formData.vehicle || '').toLowerCase();
+        const selBase = selClean.split('—')[0].trim();
+        const vBase = vClean.split('—')[0].trim();
+        return vClean.includes(selBase) || selClean.includes(vBase);
+      })?.[1] || tourPrices[0]?.[1])
+    : initialData.fullAmount || initialData.price || 'Fixed Fare';
 
-  const dynamicRatePlan = isCustomPackages
-    ? 'Custom Quote Enquiry'
-    : isStudentPackages
-    ? 'Student Special Package'
-    : isLocalPackages
-    ? activeRateOption.val
-    : (isTourPage || isBalajiTour)
-    ? `Fixed Tour Package (${currentTourPrice || vehicleLocalRate})`
-    : bookingType === 'tour' 
-    ? 'Fixed Tour Package Tariff' 
+  const dynamicRatePlan = isFixedRouteOrTour 
+    ? `Fixed Cab Route / Package Tariff (${currentRoutePrice})`
     : activeRateOption.val;
 
   if (!isOpen) return null;
@@ -560,134 +535,99 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
                       </select>
                     </div>
 
-                    {/* CONTEXT-BASED RATE SELECTION CONTROLS */}
-                    {isDedicatedTaxiRentalPage ? (
-                      <div style={{ background: '#f0f9ff', padding: '0.65rem 0.85rem', borderRadius: 10, border: '1px solid #bae6fd', fontSize: '0.8rem', color: '#0369a1', fontWeight: 800 }}>
-                        🚖 Doorstep Pickup & Professional Driver Included
+                    {/* RATE CONTROLS: CUSTOM PACKAGE BANNER, FIXED ROUTE TARIFF CARD FOR CAB ROUTES / TOURS, OR LOCAL/OUTSTATION SELECTION FOR TAXI RENTALS */}
+                    {isCustomPackages ? (
+                      <div style={{ background: '#f0fdf4', padding: '0.75rem 1rem', borderRadius: 12, border: '1.5px solid #86efac', marginTop: '0.35rem' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+                          <span style={{ fontSize: '0.82rem', fontWeight: 800, color: '#15803d', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            ✨ Customized Tour Package:
+                          </span>
+                          <span style={{ fontSize: '0.68rem', background: '#166534', color: '#ffffff', padding: '3px 9px', borderRadius: 12, fontWeight: 800 }}>
+                            INSTANT QUOTE
+                          </span>
+                        </div>
+                        <p style={{ fontSize: '0.78rem', color: '#166534', margin: 0, lineHeight: 1.35 }}>
+                          Share your travel dates, pickup location & places to visit. Receive a 100% customized route itinerary & custom fare quote on WhatsApp!
+                        </p>
                       </div>
-                    ) : isCustomPackages ? (
-                      <div style={{ background: '#f0f9ff', padding: '0.65rem 0.85rem', borderRadius: 10, border: '1px solid #bae6fd', fontSize: '0.8rem', color: '#0369a1', fontWeight: 800 }}>
-                        💬 Customized Itinerary — Share your custom route on WhatsApp for direct quotation
-                      </div>
-                    ) : isStudentPackages ? (
-                      <div style={{ background: '#f0fdf4', padding: '0.65rem 0.85rem', borderRadius: 10, border: '1px solid #bbf7d0', fontSize: '0.8rem', color: '#15803d', fontWeight: 800 }}>
-                        🎓 Student Group Special Fare • Pay ₹1,000 Advance Token in Step 2 to Lock Booking
-                      </div>
-                    ) : isLocalPackages ? (
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', marginTop: '0.2rem' }}>
-                        <button
-                          type="button"
-                          onClick={() => setSelectedRateKey('local')}
-                          style={{
-                            padding: '0.6rem 0.4rem',
-                            borderRadius: 10,
-                            border: selectedRateKey === 'local' ? '2px solid #0284c7' : '1.5px solid #cbd5e1',
-                            background: selectedRateKey === 'local' ? '#f0f9ff' : '#f8fafc',
-                            color: selectedRateKey === 'local' ? '#0369a1' : '#334155',
-                            fontWeight: 800,
-                            fontSize: '0.78rem',
-                            cursor: 'pointer',
-                            textAlign: 'center'
-                          }}
-                        >
-                          <div>Local 8h / 80km</div>
-                          <small style={{ color: '#d97706', fontSize: '0.74rem', display: 'block', marginTop: '2px' }}>
-                            {vehicleLocalRate} ({extraHrText})
-                          </small>
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={() => setSelectedRateKey('localLong')}
-                          style={{
-                            padding: '0.6rem 0.4rem',
-                            borderRadius: 10,
-                            border: selectedRateKey === 'localLong' ? '2px solid #0284c7' : '1.5px solid #cbd5e1',
-                            background: selectedRateKey === 'localLong' ? '#f0f9ff' : '#f8fafc',
-                            color: selectedRateKey === 'localLong' ? '#0369a1' : '#334155',
-                            fontWeight: 800,
-                            fontSize: '0.78rem',
-                            cursor: 'pointer',
-                            textAlign: 'center'
-                          }}
-                        >
-                          <div>Local 12h / 150km</div>
-                          <small style={{ color: '#d97706', fontSize: '0.74rem', display: 'block', marginTop: '2px' }}>
-                            {vehicleLocalLongRate} ({extraHrText})
-                          </small>
-                        </button>
-                      </div>
-                    ) : (isTourPage || isBalajiTour) ? (
-                      <div style={{ background: '#fffdf5', padding: '0.65rem 0.85rem', borderRadius: 10, border: '1.5px solid #fde68a', fontSize: '0.82rem', color: '#d97706', fontWeight: 800, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span>🛕 Tour Package Fixed Tariff:</span>
-                        <strong style={{ fontSize: '1.05rem', color: '#060c2c' }}>{currentTourPrice || vehicleLocalRate}</strong>
-                      </div>
-                    ) : isOutstationTaxi ? (
-                      <div style={{ background: '#f0fdf4', padding: '0.65rem 0.85rem', borderRadius: 10, border: '1.5px solid #bbf7d0', fontSize: '0.82rem', color: '#15803d', fontWeight: 800, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span>𚟖 Outstation Tariff ({vehicleMinKm}):</span>
-                        <strong style={{ fontSize: '1.05rem', color: '#060c2c' }}>{vehicleOutstationRate}</strong>
+                    ) : isFixedRouteOrTour ? (
+                      <div style={{ background: '#fffdf5', padding: '0.75rem 1rem', borderRadius: 12, border: '1.5px solid #fde68a', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.35rem' }}>
+                        <span style={{ fontSize: '0.82rem', fontWeight: 800, color: '#d97706', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          📍 Fixed Cab Route / Package Fare:
+                        </span>
+                        <strong style={{ fontSize: '1.15rem', color: '#060c2c', fontWeight: 900 }}>
+                          {currentRoutePrice}
+                        </strong>
                       </div>
                     ) : (
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.35rem', marginTop: '0.2rem' }}>
-                        <button
-                          type="button"
-                          onClick={() => setSelectedRateKey('local')}
-                          style={{
-                            padding: '0.6rem 0.25rem',
-                            borderRadius: 10,
-                            border: selectedRateKey === 'local' ? '2px solid #0284c7' : '1.5px solid #cbd5e1',
-                            background: selectedRateKey === 'local' ? '#f0f9ff' : '#f8fafc',
-                            color: selectedRateKey === 'local' ? '#0369a1' : '#334155',
-                            fontWeight: 800,
-                            fontSize: '0.74rem',
-                            cursor: 'pointer',
-                            textAlign: 'center'
-                          }}
-                        >
-                          <div>Local 8h/80km</div>
-                          <b style={{ color: '#060c2c', fontSize: '0.84rem', display: 'block', margin: '2px 0 1px' }}>{vehicleLocalRate}</b>
-                          <small style={{ color: '#d97706', fontSize: '0.66rem', display: 'block', fontWeight: 700 }}>{extraHrText}</small>
-                        </button>
+                      <div style={{ marginTop: '0.2rem' }}>
+                        <label style={{ fontSize: '0.82rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '0.35rem' }}>
+                          Select Trip & Rate Plan *
+                        </label>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.35rem' }}>
+                          <button
+                            type="button"
+                            onClick={() => setSelectedRateKey('local')}
+                            style={{
+                              padding: '0.65rem 0.25rem',
+                              borderRadius: 10,
+                              border: selectedRateKey === 'local' ? '2px solid #0284c7' : '1.5px solid #cbd5e1',
+                              background: selectedRateKey === 'local' ? '#f0f9ff' : '#f8fafc',
+                              color: selectedRateKey === 'local' ? '#0369a1' : '#334155',
+                              fontWeight: 800,
+                              fontSize: '0.74rem',
+                              cursor: 'pointer',
+                              textAlign: 'center',
+                              transition: 'all 0.2s ease'
+                            }}
+                          >
+                            <div>Local 8h / 80km</div>
+                            <b style={{ color: '#060c2c', fontSize: '0.85rem', display: 'block', margin: '3px 0 1px' }}>{vehicleLocalRate}</b>
+                            <small style={{ color: '#d97706', fontSize: '0.66rem', display: 'block', fontWeight: 700 }}>{extraHrText}</small>
+                          </button>
 
-                        <button
-                          type="button"
-                          onClick={() => setSelectedRateKey('localLong')}
-                          style={{
-                            padding: '0.6rem 0.25rem',
-                            borderRadius: 10,
-                            border: selectedRateKey === 'localLong' ? '2px solid #0284c7' : '1.5px solid #cbd5e1',
-                            background: selectedRateKey === 'localLong' ? '#f0f9ff' : '#f8fafc',
-                            color: selectedRateKey === 'localLong' ? '#0369a1' : '#334155',
-                            fontWeight: 800,
-                            fontSize: '0.74rem',
-                            cursor: 'pointer',
-                            textAlign: 'center'
-                          }}
-                        >
-                          <div>Local 12h/150km</div>
-                          <b style={{ color: '#060c2c', fontSize: '0.84rem', display: 'block', margin: '2px 0 1px' }}>{vehicleLocalLongRate}</b>
-                          <small style={{ color: '#d97706', fontSize: '0.66rem', display: 'block', fontWeight: 700 }}>{extraHrText}</small>
-                        </button>
+                          <button
+                            type="button"
+                            onClick={() => setSelectedRateKey('localLong')}
+                            style={{
+                              padding: '0.65rem 0.25rem',
+                              borderRadius: 10,
+                              border: selectedRateKey === 'localLong' ? '2px solid #0284c7' : '1.5px solid #cbd5e1',
+                              background: selectedRateKey === 'localLong' ? '#f0f9ff' : '#f8fafc',
+                              color: selectedRateKey === 'localLong' ? '#0369a1' : '#334155',
+                              fontWeight: 800,
+                              fontSize: '0.74rem',
+                              cursor: 'pointer',
+                              textAlign: 'center',
+                              transition: 'all 0.2s ease'
+                            }}
+                          >
+                            <div>Local 12h / 150km</div>
+                            <b style={{ color: '#060c2c', fontSize: '0.85rem', display: 'block', margin: '3px 0 1px' }}>{vehicleLocalLongRate}</b>
+                            <small style={{ color: '#d97706', fontSize: '0.66rem', display: 'block', fontWeight: 700 }}>{extraHrText}</small>
+                          </button>
 
-                        <button
-                          type="button"
-                          onClick={() => setSelectedRateKey('outstation')}
-                          style={{
-                            padding: '0.6rem 0.25rem',
-                            borderRadius: 10,
-                            border: selectedRateKey === 'outstation' ? '2px solid #0284c7' : '1.5px solid #cbd5e1',
-                            background: selectedRateKey === 'outstation' ? '#f0f9ff' : '#f8fafc',
-                            color: selectedRateKey === 'outstation' ? '#0369a1' : '#334155',
-                            fontWeight: 800,
-                            fontSize: '0.74rem',
-                            cursor: 'pointer',
-                            textAlign: 'center'
-                          }}
-                        >
-                          <div>Outstation</div>
-                          <b style={{ color: '#060c2c', fontSize: '0.84rem', display: 'block', margin: '2px 0 1px' }}>{vehicleOutstationRate}</b>
-                          <small style={{ color: '#d97706', fontSize: '0.66rem', display: 'block', fontWeight: 700 }}>{vehicleMinKm}</small>
-                        </button>
+                          <button
+                            type="button"
+                            onClick={() => setSelectedRateKey('outstation')}
+                            style={{
+                              padding: '0.65rem 0.25rem',
+                              borderRadius: 10,
+                              border: selectedRateKey === 'outstation' ? '2px solid #0284c7' : '1.5px solid #cbd5e1',
+                              background: selectedRateKey === 'outstation' ? '#f0f9ff' : '#f8fafc',
+                              color: selectedRateKey === 'outstation' ? '#0369a1' : '#334155',
+                              fontWeight: 800,
+                              fontSize: '0.74rem',
+                              cursor: 'pointer',
+                              textAlign: 'center',
+                              transition: 'all 0.2s ease'
+                            }}
+                          >
+                            <div>Outstation Trip</div>
+                            <b style={{ color: '#060c2c', fontSize: '0.85rem', display: 'block', margin: '3px 0 1px' }}>{vehicleOutstationRate}</b>
+                            <small style={{ color: '#d97706', fontSize: '0.66rem', display: 'block', fontWeight: 700 }}>{vehicleMinKm}</small>
+                          </button>
+                        </div>
                       </div>
                     )}
                   </div>

@@ -458,8 +458,9 @@ export default function Layout() {
           isOpen={headerPayModalOpen}
           onClose={() => setHeaderPayModalOpen(false)}
           initialData={{
-            service: 'Tirupati Cab & Tour Booking',
-            amount: '500'
+            isNavbarBooking: true,
+            service: 'Tirupati Cab Service',
+            amount: '1000'
           }}
         />
       )}

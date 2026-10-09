@@ -585,9 +585,14 @@ export default function ServiceLanding({ slug: routeSlug }) {
             </>
           )}
           <div className="quick-action-box">
-            <a href={booking} target="_blank" rel="noreferrer" className="button quick-book-btn">
-              Get Trip Quote <ArrowRight size={15} />
-            </a>
+            <button
+              type="button"
+              className="button quick-book-btn"
+              style={{ border: 'none', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+              onClick={() => setSelectedPayVehicle({ service: data.title, price: '2880', slug })}
+            >
+              Book Cab 💳 <ArrowRight size={15} />
+            </button>
           </div>
         </div>
       </section>

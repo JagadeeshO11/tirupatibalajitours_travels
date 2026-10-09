@@ -371,11 +371,7 @@ export default function BookingForm({ showPackages = true }) {
                         toClean.includes('local') ||
                         toClean.includes('student');
 
-                      const optionDisplay = isCleanDropdownPkg
-                        ? vNameOnly
-                        : isOutstation
-                        ? `${vNameOnly} — ${outstationFare} (${minKm})`
-                        : `${vNameOnly} — ${computedFare} · ${outstationFare} (${minKm})`;
+                      const optionDisplay = vObj?.name || vNameOnly;
 
                       return (
                         <option key={vOpt.label} value={vOpt.label}>
