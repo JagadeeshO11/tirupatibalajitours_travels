@@ -251,10 +251,15 @@
     padding: 85px 14px 28px !important;
     min-height: auto !important;
     gap: 18px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
   }
   .hero-main-grid {
     grid-template-columns: 1fr !important;
     gap: 18px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
   .home-hero .type-title,
   .home-hero h1 {
@@ -268,27 +273,40 @@
     margin-bottom: 14px !important;
   }
   .hero-action-card {
-    padding: 20px 18px !important;
+    padding: 18px 14px !important;
     border-radius: 16px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
   }
   .hero-action-card-buttons {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 6px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 9px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
   .hero-card-btn {
-    padding: 10px 6px !important;
-    font-size: 0.74rem !important;
+    padding: 12px 14px !important;
+    font-size: 0.85rem !important;
     justify-content: center !important;
     width: 100% !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
   }
   .hero-action-card .hero-trust-row {
-    gap: 6px !important;
-    margin-top: 8px !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 6px 8px !important;
+    margin-top: 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
   .hero-action-card .hero-trust-row span {
-    padding: 4px 10px !important;
+    padding: 5px 12px !important;
     font-size: 10.5px !important;
+    box-sizing: border-box !important;
   }
 }
 
@@ -297,12 +315,21 @@
     padding: 80px 12px 24px !important;
     gap: 14px !important;
   }
+  .hero-action-card {
+    padding: 14px 12px !important;
+  }
   .hero-action-card-buttons {
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 4px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    width: 100% !important;
   }
   .hero-card-btn {
-    padding: 9px 3px !important;
-    font-size: 0.68rem !important;
+    padding: 11px 10px !important;
+    font-size: 0.82rem !important;
+  }
+  .hero-action-card .hero-trust-row span {
+    padding: 4px 9px !important;
+    font-size: 10px !important;
   }
 }
