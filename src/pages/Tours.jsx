@@ -11,19 +11,19 @@ const buildAllVehiclePrices = (pricesArray, startingPriceStr) => {
   const baseNum = parseInt((startingPriceStr || '3500').replace(/[^0-9]/g, ''), 10) || 3500;
 
   const defaultVehicleMap = [
-    { key: 'Sedan', name: 'Sedan (4 Seater)', mult: 1.0 },
-    { key: 'Ertiga', name: 'Ertiga (6 Seater)', mult: 1.25 },
-    { key: 'Innova', name: 'Innova Crysta (7 Seater)', mult: 1.45 },
-    { key: 'Hycross', name: 'Hycross (7 Seater)', mult: 1.7 },
-    { key: 'Fortuner', name: 'Fortuner (7 Seater)', mult: 2.3 },
-    { key: 'Tempo Traveller 12', name: 'Tempo Traveller 12 Seater', mult: 1.6 },
-    { key: 'Urbania 12', name: 'Urbania 12 Seater', mult: 2.5 },
-    { key: 'Tempo Traveller 16', name: 'Tempo Traveller 16 Seater', mult: 1.95 },
-    { key: 'Urbania 16', name: 'Urbania 16 Seater', mult: 2.7 },
-    { key: 'Tempo Traveller 20', name: 'Tempo Traveller 20 Seater', mult: 2.4 },
-    { key: 'Mini Bus 27', name: 'Mini Bus 27 Seater', mult: 3.4 },
-    { key: 'Bus 40', name: 'Bus 40 Seater', mult: 4.2 },
-    { key: 'Bus 45', name: 'Bus 45 Seater', mult: 4.8 }
+    { key: 'Sedan', shortName: 'Sedan 4', fullName: 'Sedan (4 Seater)', mult: 1.0 },
+    { key: 'Ertiga', shortName: 'Ertiga 6', fullName: 'Ertiga (6 Seater)', mult: 1.25 },
+    { key: 'Innova', shortName: 'Innova 7', fullName: 'Innova Crysta (7 Seater)', mult: 1.45 },
+    { key: 'Hycross', shortName: 'Hycross 7', fullName: 'Hycross (7 Seater)', mult: 1.7 },
+    { key: 'Fortuner', shortName: 'Fortuner 7', fullName: 'Fortuner (7 Seater)', mult: 2.3 },
+    { key: 'Tempo Traveller 12', shortName: 'Tempo 12', fullName: 'Tempo Traveller 12 Seater', mult: 1.6 },
+    { key: 'Urbania 12', shortName: 'Urbania 12', fullName: 'Urbania 12 Seater', mult: 2.5 },
+    { key: 'Tempo Traveller 16', shortName: 'Tempo 16', fullName: 'Tempo Traveller 16 Seater', mult: 1.95 },
+    { key: 'Urbania 16', shortName: 'Urbania 16', fullName: 'Urbania 16 Seater', mult: 2.7 },
+    { key: 'Tempo Traveller 20', shortName: 'Tempo 20', fullName: 'Tempo Traveller 20 Seater', mult: 2.4 },
+    { key: 'Mini Bus 27', shortName: 'Mini Bus 27', fullName: 'Mini Bus 27 Seater', mult: 3.4 },
+    { key: 'Bus 40', shortName: 'Bus 40', fullName: 'Bus 40 Seater', mult: 4.2 },
+    { key: 'Bus 45', shortName: 'Bus 45', fullName: 'Bus 45 Seater', mult: 4.8 }
   ];
 
   const result = [];
@@ -55,7 +55,7 @@ const buildAllVehiclePrices = (pricesArray, startingPriceStr) => {
       matchedFare = `₹${calcPrice.toLocaleString('en-IN')}`;
     }
 
-    result.push([vOpt.name, matchedFare]);
+    result.push([vOpt.shortName, matchedFare, vOpt.fullName]);
   });
 
   return result;
@@ -248,7 +248,14 @@ export default function Tours() {
                           vehicle: 'Swift Dzire / Etios (Sedan 4-Seater)',
                           price: price
                         });
-                        setSelectedPayTour({ type: 'tour', title, price, duration, prices: allVehiclePrices, route });
+                        setSelectedPayTour({ 
+                          type: 'tour', 
+                          title, 
+                          price, 
+                          duration, 
+                          prices: allVehiclePrices.map(([short, fare, full]) => [full || short, fare]), 
+                          route 
+                        });
                       }}
                     >
                       <CreditCard size={14} /> Book Cab 💳
