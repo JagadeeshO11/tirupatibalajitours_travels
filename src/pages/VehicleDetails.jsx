@@ -25,10 +25,20 @@ export default function VehicleDetails() {
 
   const { name, seats, bags, image, local, localLong, outstation, minimum, fuel, features, category, use } = vehicle;
 
+  const rawExtraHr = (vehicle.extraHr && vehicle.extraHr !== 'extra hr') ? vehicle.extraHr : '₹200/hr';
+  const rawOutstation = vehicle.outstation || '₹15/km';
+
+  const extraHrStr = rawExtraHr.replace(/\/hr?$/i, '/hr');
+  const extraKmStr = `${rawOutstation.replace(/\/km?$/i, '')}/extra km`;
+  const localExtraInfo = `${extraHrStr} & ${extraKmStr}`;
+  const outstationExtraInfo = vehicle.minimum ? (vehicle.minimum.toLowerCase().startsWith('min') ? vehicle.minimum : `Min ${vehicle.minimum}`) : 'Min 300 km/day';
+
+  const cleanPrice = (p) => p ? p.split('/')[0].trim() : '';
+
   const rateOptions = [
-    { key: 'local', label: 'Local 8h / 80km', price: local, ratePlan: 'Local 8 Hours / 80 Km' },
-    { key: 'localLong', label: 'Local 12h / 150km', price: localLong, ratePlan: 'Local 12 Hours / 150 Km' },
-    { key: 'outstation', label: 'Outstation (Min 300km/day)', price: outstation, ratePlan: 'Outstation Trip' }
+    { key: 'local', label: 'Local 8h / 80km', price: cleanPrice(local), ratePlan: 'Local 8 Hours / 80 Km', subText: localExtraInfo },
+    { key: 'localLong', label: 'Local 12h / 150km', price: cleanPrice(localLong), ratePlan: 'Local 12 Hours / 150 Km', subText: localExtraInfo },
+    { key: 'outstation', label: 'Outstation', price: outstation, ratePlan: 'Outstation Trip', subText: outstationExtraInfo }
   ];
 
   const currentOption = rateOptions.find(r => r.key === selectedRate) || rateOptions[0];
@@ -88,6 +98,9 @@ export default function VehicleDetails() {
                     <b style={{ fontSize: '0.88rem', fontWeight: 800, color: '#060c2c', whiteSpace: 'nowrap' }}>
                       {opt.price}
                     </b>
+                    <small style={{ fontSize: '0.6rem', fontWeight: 700, color: '#d97706', display: 'block', marginTop: '1px', lineHeight: 1.25 }}>
+                      {opt.subText}
+                    </small>
                   </button>
                 ))}
               </div>

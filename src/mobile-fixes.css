@@ -347,8 +347,8 @@
   .home-slide-card .slide-image { height: 125px; }
 
   /* Footer */
-  .site-footer { grid-template-columns: 1fr; padding-bottom: 90px; }
-  .site-footer > div:first-child { grid-column: auto; }
+  .site-footer { grid-template-columns: 1fr 1fr !important; gap: 24px 16px; padding-bottom: 100px; }
+  .site-footer > div:first-child { grid-column: 1 / -1 !important; }
 
   /* Page hero */
   .page-hero { padding: 95px 12px 36px; }

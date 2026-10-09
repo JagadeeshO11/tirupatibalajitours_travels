@@ -182,13 +182,23 @@ function TaxiVehicleCard({ vehicle, onBook, pageSlug = '' }) {
   const isCustomPackages = sLower.includes('customized-packages') || sLower.includes('customized packages');
   const isBalajiTour = sLower.includes('balaji-darshan') || sLower.includes('balaji darshan');
 
+  const rawExtraHr = (vehicle.extraHr && vehicle.extraHr !== 'extra hr') ? vehicle.extraHr : '₹200/hr';
+  const rawOutstation = vehicle.outstation || '₹15/km';
+
+  const extraHrStr = rawExtraHr.replace(/\/hr?$/i, '/hr');
+  const extraKmStr = `${rawOutstation.replace(/\/km?$/i, '')}/extra km`;
+  const localExtraInfo = `${extraHrStr} & ${extraKmStr}`;
+  const outstationExtraInfo = vehicle.minimum ? (vehicle.minimum.toLowerCase().startsWith('min') ? vehicle.minimum : `Min ${vehicle.minimum}`) : 'Min 300 km/day';
+
+  const cleanPrice = (p) => p ? p.split('/')[0].trim() : '';
+
   const rateOptions = isLocalPackages ? [
-    { key: 'local', label: 'Local 8h / 80km', price: vehicle.local },
-    { key: 'localLong', label: 'Local 12h / 150km', price: vehicle.localLong }
+    { key: 'local', label: 'Local 8h / 80km', price: cleanPrice(vehicle.local), subText: localExtraInfo },
+    { key: 'localLong', label: 'Local 12h / 150km', price: cleanPrice(vehicle.localLong), subText: localExtraInfo }
   ] : [
-    { key: 'local', label: 'Local 8h / 80km', price: vehicle.local },
-    { key: 'localLong', label: 'Local 12h / 150km', price: vehicle.localLong },
-    { key: 'outstation', label: 'Outstation (Min 300km/day)', price: vehicle.outstation }
+    { key: 'local', label: 'Local 8h / 80km', price: cleanPrice(vehicle.local), subText: localExtraInfo },
+    { key: 'localLong', label: 'Local 12h / 150km', price: cleanPrice(vehicle.localLong), subText: localExtraInfo },
+    { key: 'outstation', label: 'Outstation', price: vehicle.outstation, subText: outstationExtraInfo }
   ];
 
   const currentOption = rateOptions.find(r => r.key === selectedRate) || rateOptions[0];
@@ -271,6 +281,9 @@ function TaxiVehicleCard({ vehicle, onBook, pageSlug = '' }) {
                   <b style={{ fontSize: '0.76rem', fontWeight: 800, color: '#060c2c', whiteSpace: 'nowrap' }}>
                     {opt.price}
                   </b>
+                  <small style={{ fontSize: '0.52rem', fontWeight: 700, color: '#d97706', display: 'block', marginTop: '1px', lineHeight: 1.15 }}>
+                    {opt.subText}
+                  </small>
                 </button>
               ))}
             </div>

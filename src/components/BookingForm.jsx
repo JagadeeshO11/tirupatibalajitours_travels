@@ -20,19 +20,19 @@ const popularRoutes = [
 ];
 
 const vehicleOptions = [
-  { label: 'Sedan (4 Seater) — ₹2,880 (Local: 8h/80km ₹2,880 | 12h/150km ₹3,650 | +₹200/h | Out: ₹15/km)', key: 'Sedan', matchKeys: ['dzire', 'etios', 'sedan'] },
-  { label: 'Ertiga (6 Seater) — ₹3,380 (Local: 8h/80km ₹3,380 | 12h/150km ₹4,150 | +₹300/h | Out: ₹19/km)', key: 'Ertiga', matchKeys: ['ertiga', 'muv'] },
-  { label: 'Innova Crysta (7 Seater) — ₹4,380 (Local: 8h/80km ₹4,380 | 12h/150km ₹5,150 | +₹400/h | Out: ₹23/km)', key: 'Innova', matchKeys: ['innova', 'crysta'] },
-  { label: 'Hycross (7 Seater) — ₹6,100 (Local: 8h/80km ₹6,100 | 12h/150km ₹7,100 | +₹600/h | Out: ₹32/km)', key: 'Hycross', matchKeys: ['hycross', 'hybrid'] },
-  { label: 'Fortuner (7 Seater) — ₹8,800 (Local: 8h/80km ₹8,800 | 12h/150km ₹10,500 | +₹800/h | Out: ₹43/km)', key: 'Fortuner', matchKeys: ['fortuner'] },
-  { label: 'Tempo Traveller 12 Seater — ₹5,100 (Local: 8h/80km ₹5,100 | 12h/150km ₹6,000 | +₹1000/h | Out: ₹26/km)', key: 'Tempo Traveller 12', matchKeys: ['12 seater', '12-seater', 'tempo traveller 12'] },
-  { label: 'Urbania 12 Seater — ₹10,000 (Local: 8h/80km ₹10,000 | 12h/150km ₹12,000 | +₹1200/h | Out: ₹45/km)', key: 'Urbania 12', matchKeys: ['urbania 12', 'urbania'] },
-  { label: 'Tempo Traveller 16 Seater — ₹6,800 (Local: 8h/80km ₹6,800 | 12h/150km ₹7,800 | +₹1400/h | Out: ₹35/km)', key: 'Tempo Traveller 16', matchKeys: ['16 seater', '16-seater', 'tempo traveller 16'] },
-  { label: 'Urbania 16 Seater — ₹12,000 (Local: 8h/80km ₹12,000 | 12h/150km ₹15,000 | +₹1600/h | Out: ₹48/km)', key: 'Urbania 16', matchKeys: ['urbania 16'] },
-  { label: 'Tempo Traveller 20 Seater — ₹9,000 (Local: 8h/80km ₹9,000 | 12h/150km ₹10,500 | +₹1800/h | Out: ₹45/km)', key: 'Tempo Traveller 20', matchKeys: ['20 seater', '20-seater', 'tempo traveller 20'] },
-  { label: 'Mini Bus 27 Seater — ₹12,000 (Local: 8h/80km ₹12,000 | 12h/150km ₹13,500 | +₹2000/h | Out: ₹55/km)', key: 'Mini Bus 27', matchKeys: ['mini bus', '27 seater', 'bus 27'] },
-  { label: 'Bus 40 Seater — ₹15,200 (Local: 8h/80km ₹15,200 | 12h/150km ₹17,500 | +₹3000/h | Out: ₹65/km)', key: 'Bus 40', matchKeys: ['40 seater', 'bus 40'] },
-  { label: 'Bus 45 Seater — ₹18,000 (Local: 8h/80km ₹18,000 | 12h/150km ₹20,500 | +₹4000/h | Out: ₹75/km)', key: 'Bus 45', matchKeys: ['45 seater', 'bus 45'] }
+  { label: 'Sedan (4 Seater) — ₹2,880 (Local: 8h/80km ₹2,880 | 12h/150km ₹3,650 | ₹200/h & ₹15/extra km | Out: ₹15/km)', key: 'Sedan', matchKeys: ['dzire', 'etios', 'sedan'] },
+  { label: 'Ertiga (6 Seater) — ₹3,380 (Local: 8h/80km ₹3,380 | 12h/150km ₹4,150 | ₹300/h & ₹19/extra km | Out: ₹19/km)', key: 'Ertiga', matchKeys: ['ertiga', 'muv'] },
+  { label: 'Innova Crysta (7 Seater) — ₹4,380 (Local: 8h/80km ₹4,380 | 12h/150km ₹5,150 | ₹400/h & ₹23/extra km | Out: ₹23/km)', key: 'Innova', matchKeys: ['innova', 'crysta'] },
+  { label: 'Hycross (7 Seater) — ₹6,100 (Local: 8h/80km ₹6,100 | 12h/150km ₹7,100 | ₹600/h & ₹32/extra km | Out: ₹32/km)', key: 'Hycross', matchKeys: ['hycross', 'hybrid'] },
+  { label: 'Fortuner (7 Seater) — ₹8,800 (Local: 8h/80km ₹8,800 | 12h/150km ₹10,500 | ₹800/h & ₹43/extra km | Out: ₹43/km)', key: 'Fortuner', matchKeys: ['fortuner'] },
+  { label: 'Tempo Traveller 12 Seater — ₹5,100 (Local: 8h/80km ₹5,100 | 12h/150km ₹6,000 | ₹1000/h & ₹26/extra km | Out: ₹26/km)', key: 'Tempo Traveller 12', matchKeys: ['12 seater', '12-seater', 'tempo traveller 12'] },
+  { label: 'Urbania 12 Seater — ₹10,000 (Local: 8h/80km ₹10,000 | 12h/150km ₹12,000 | ₹1200/h & ₹45/extra km | Out: ₹45/km)', key: 'Urbania 12', matchKeys: ['urbania 12', 'urbania'] },
+  { label: 'Tempo Traveller 16 Seater — ₹6,800 (Local: 8h/80km ₹6,800 | 12h/150km ₹7,800 | ₹1400/h & ₹35/extra km | Out: ₹35/km)', key: 'Tempo Traveller 16', matchKeys: ['16 seater', '16-seater', 'tempo traveller 16'] },
+  { label: 'Urbania 16 Seater — ₹12,000 (Local: 8h/80km ₹12,000 | 12h/150km ₹15,000 | ₹1600/h & ₹48/extra km | Out: ₹48/km)', key: 'Urbania 16', matchKeys: ['urbania 16'] },
+  { label: 'Tempo Traveller 20 Seater — ₹9,000 (Local: 8h/80km ₹9,000 | 12h/150km ₹10,500 | ₹1800/h & ₹45/extra km | Out: ₹45/km)', key: 'Tempo Traveller 20', matchKeys: ['20 seater', '20-seater', 'tempo traveller 20'] },
+  { label: 'Mini Bus 27 Seater — ₹12,000 (Local: 8h/80km ₹12,000 | 12h/150km ₹13,500 | ₹2000/h & ₹55/extra km | Out: ₹55/km)', key: 'Mini Bus 27', matchKeys: ['mini bus', '27 seater', 'bus 27'] },
+  { label: 'Bus 40 Seater — ₹15,200 (Local: 8h/80km ₹15,200 | 12h/150km ₹17,500 | ₹3000/h & ₹65/extra km | Out: ₹65/km)', key: 'Bus 40', matchKeys: ['40 seater', 'bus 40'] },
+  { label: 'Bus 45 Seater — ₹18,000 (Local: 8h/80km ₹18,000 | 12h/150km ₹20,500 | ₹4000/h & ₹75/extra km | Out: ₹75/km)', key: 'Bus 45', matchKeys: ['45 seater', 'bus 45'] }
 ];
 
 export default function BookingForm({ showPackages = true }) {

@@ -59,7 +59,15 @@ export function DataProvider({ children }) {
       // Auto-update images to latest Cloudinary links
       return parsed.map(v => {
         const matching = initialFleet.find(f => f.id === v.id);
-        return matching ? { ...v, image: matching.image } : v;
+        return matching ? { 
+          ...matching, 
+          ...v, 
+          image: matching.image, 
+          extraHr: matching.extraHr || v.extraHr, 
+          outstation: matching.outstation || v.outstation,
+          local: matching.local || v.local,
+          localLong: matching.localLong || v.localLong
+        } : v;
       });
     } catch {
       return initialFleet;

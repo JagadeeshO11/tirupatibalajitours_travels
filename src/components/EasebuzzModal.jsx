@@ -318,24 +318,30 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
   const rawMin = currentVehicleObj?.minimum || initialData.minimum || '300 km/day';
   const vehicleMinKm = rawMin.toLowerCase().startsWith('min') ? rawMin : `Min ${rawMin}`;
 
-  const extraHrText = currentVehicleObj?.extraHr 
-    ? `+${currentVehicleObj.extraHr.replace(/\/hr?$/i, '/extra hr')}` 
-    : '+extra hr';
+  const extraHrVal = currentVehicleObj?.extraHr 
+    ? currentVehicleObj.extraHr.replace(/\/hr?$/i, '/extra hr') 
+    : 'extra hr';
+
+  const extraKmVal = vehicleOutstationRate 
+    ? `${vehicleOutstationRate.replace(/\/km?$/i, '')}/extra km` 
+    : 'extra km';
+
+  const extraHrKmText = `${extraHrVal} & ${extraKmVal}`;
 
   const ratePlanOptions = [
     { 
       key: 'local', 
       title: 'Local 8h / 80km',
       priceTag: vehicleLocalRate, 
-      subText: extraHrText,
-      val: `Local 8h / 80km — ${vehicleLocalRate} (${extraHrText})` 
+      subText: extraHrKmText,
+      val: `Local 8h / 80km — ${vehicleLocalRate} (${extraHrKmText})` 
     },
     { 
       key: 'localLong', 
       title: 'Local 12h / 150km',
       priceTag: vehicleLocalLongRate, 
-      subText: extraHrText,
-      val: `Local 12h / 150km — ${vehicleLocalLongRate} (${extraHrText})` 
+      subText: extraHrKmText,
+      val: `Local 12h / 150km — ${vehicleLocalLongRate} (${extraHrKmText})` 
     },
     { 
       key: 'outstation', 
@@ -583,7 +589,7 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
                           >
                             <div>Local 8h / 80km</div>
                             <b style={{ color: '#060c2c', fontSize: '0.85rem', display: 'block', margin: '3px 0 1px' }}>{vehicleLocalRate}</b>
-                            <small style={{ color: '#d97706', fontSize: '0.66rem', display: 'block', fontWeight: 700 }}>{extraHrText}</small>
+                            <small style={{ color: '#d97706', fontSize: '0.62rem', display: 'block', fontWeight: 700, lineHeight: 1.25 }}>{extraHrKmText}</small>
                           </button>
 
                           <button
@@ -604,7 +610,7 @@ export default function EasebuzzModal({ isOpen, onClose, initialData = {}, modal
                           >
                             <div>Local 12h / 150km</div>
                             <b style={{ color: '#060c2c', fontSize: '0.85rem', display: 'block', margin: '3px 0 1px' }}>{vehicleLocalLongRate}</b>
-                            <small style={{ color: '#d97706', fontSize: '0.66rem', display: 'block', fontWeight: 700 }}>{extraHrText}</small>
+                            <small style={{ color: '#d97706', fontSize: '0.62rem', display: 'block', fontWeight: 700, lineHeight: 1.25 }}>{extraHrKmText}</small>
                           </button>
 
                           <button

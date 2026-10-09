@@ -587,12 +587,14 @@ body {
 .site-footer > div > a:not(.brand) {
   display: block;
   font-size: 11px;
+  color: #cbd5e1;
   margin: 8px 0;
   transition: color 0.2s ease, transform 0.2s ease;
   white-space: nowrap;
 }
 
-.site-footer > div > a:not(.brand):hover {
+.site-footer > div > a:not(.brand):hover,
+.footer-contact-details a:hover {
   color: var(--gold);
   transform: translateX(3px);
 }
@@ -603,12 +605,10 @@ body {
   max-width: 100%;
 }
 
-.site-footer > div:last-child a {
-  color: #fff;
-}
-
-.site-footer > div:last-child a:hover {
-  color: var(--gold);
+.footer-contact-details a {
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 .navbar nav {

@@ -102,10 +102,20 @@ function HomeFleetSlideCard({ v, onBook }) {
   const { selectBooking } = useData();
   const [selectedRate, setSelectedRate] = useState('local'); // 'local' | 'localLong' | 'outstation'
 
+  const rawExtraHr = (v.extraHr && v.extraHr !== 'extra hr') ? v.extraHr : '₹200/hr';
+  const rawOutstation = v.outstation || '₹15/km';
+
+  const extraHrStr = rawExtraHr.replace(/\/hr?$/i, '/hr');
+  const extraKmStr = `${rawOutstation.replace(/\/km?$/i, '')}/extra km`;
+  const localExtraInfo = `${extraHrStr} & ${extraKmStr}`;
+  const outstationExtraInfo = v.minimum ? (v.minimum.toLowerCase().startsWith('min') ? v.minimum : `Min ${v.minimum}`) : 'Min 300 km/day';
+
+  const cleanPrice = (p) => p ? p.split('/')[0].trim() : '';
+
   const rateOptions = [
-    { key: 'local', label: 'Local 8h/80km', price: v.local || '₹2,880' },
-    { key: 'localLong', label: 'Local 12h/150km', price: v.localLong || '₹3,650' },
-    { key: 'outstation', label: 'Outstation', price: v.outstation || '₹15/km' }
+    { key: 'local', label: 'Local 8h/80km', price: cleanPrice(v.local) || '₹2,880', subText: localExtraInfo },
+    { key: 'localLong', label: 'Local 12h/150km', price: cleanPrice(v.localLong) || '₹3,650', subText: localExtraInfo },
+    { key: 'outstation', label: 'Outstation', price: v.outstation || '₹15/km', subText: outstationExtraInfo }
   ];
 
   const currentOption = rateOptions.find(r => r.key === selectedRate) || rateOptions[0];
@@ -176,6 +186,9 @@ function HomeFleetSlideCard({ v, onBook }) {
                 <b style={{ fontSize: '0.72rem', fontWeight: 800, color: '#060c2c', whiteSpace: 'nowrap' }}>
                   {opt.price}
                 </b>
+                <small style={{ fontSize: '0.5rem', fontWeight: 700, color: '#d97706', display: 'block', marginTop: '1px', lineHeight: 1.15 }}>
+                  {opt.subText}
+                </small>
               </button>
             ))}
           </div>
@@ -239,24 +252,23 @@ export default function Home() {
             transition={{ duration: 0.7, delay: 0.1 }}
           >
             <div className="hero-card-content">
-              <div className="actions">
+              <div className="hero-action-card-buttons">
                 <button 
                   type="button" 
-                  className="button"
+                  className="hero-card-btn hero-btn-book"
                   onClick={() => setHomePayVehicle({
                     name: 'Sedan (4 Seater)',
                     service: 'Tirupati Cab Service',
                     isNavbarBooking: true
                   })}
-                  style={{ cursor: 'pointer' }}
                 >
-                  Book Cab 💳 <FaArrowRight size={14} />
+                  Book Cab 💳
                 </button>
-                <a className="button secondary" href={whatsapp} target="_blank" rel="noreferrer">
-                  <FaWhatsapp size={16} /> Enquiry on WhatsApp
+                <a className="hero-card-btn hero-btn-whatsapp" href={whatsapp} target="_blank" rel="noreferrer">
+                  <FaWhatsapp size={14} /> Enquiry on WhatsApp
                 </a>
-                <Link className="button secondary" to="/tours">
-                  Explore Packages <FaChevronRight size={14} />
+                <Link className="hero-card-btn hero-btn-packages" to="/tours">
+                  Explore Packages <FaChevronRight size={11} />
                 </Link>
               </div>
 

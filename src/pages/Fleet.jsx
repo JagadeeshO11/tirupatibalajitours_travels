@@ -3,6 +3,7 @@ import { Luggage, Wind, ShieldCheck, Clock3, Fuel, Users, MapPin, CreditCard, Ch
 import Page from './PageTemplate';
 import { images, whatsapp } from '../data/siteData';
 import { fleetCategories } from '../data/fleetData';
+import { getVehicleInfo } from '../data/packageData';
 import StatsBanner from '../components/StatsBanner';
 import ScrollReveal from '../components/ScrollReveal';
 import EasebuzzModal from '../components/EasebuzzModal';
@@ -15,10 +16,21 @@ function FleetCardItem({ vehicle, onBook }) {
   const { selectBooking } = useData();
   const [selectedRate, setSelectedRate] = useState('local'); // 'local' | 'localLong' | 'outstation'
 
+  const vInfo = getVehicleInfo(vehicle.name || vehicle.id) || vehicle;
+  const rawExtraHr = (vehicle.extraHr && vehicle.extraHr !== 'extra hr') ? vehicle.extraHr : (vInfo.extraHr || '₹200/hr');
+  const rawOutstation = vehicle.outstation || vInfo.outstation || '₹15/km';
+
+  const extraHrStr = rawExtraHr.replace(/\/hr?$/i, '/hr');
+  const extraKmStr = `${rawOutstation.replace(/\/km?$/i, '')}/extra km`;
+  const localExtraInfo = `${extraHrStr} & ${extraKmStr}`;
+  const outstationExtraInfo = vehicle.minimum ? (vehicle.minimum.toLowerCase().startsWith('min') ? vehicle.minimum : `Min ${vehicle.minimum}`) : 'Min 300 km/day';
+
+  const cleanPrice = (p) => p ? p.split('/')[0].trim() : '';
+
   const rateOptions = [
-    { key: 'local', label: 'Local 8h / 80km', price: vehicle.local },
-    { key: 'localLong', label: 'Local 12h / 150km', price: vehicle.localLong },
-    { key: 'outstation', label: 'Outstation (Min 300km/day)', price: vehicle.outstation }
+    { key: 'local', label: 'Local 8h / 80km', price: cleanPrice(vehicle.local), subText: localExtraInfo },
+    { key: 'localLong', label: 'Local 12h / 150km', price: cleanPrice(vehicle.localLong), subText: localExtraInfo },
+    { key: 'outstation', label: 'Outstation', price: vehicle.outstation, subText: outstationExtraInfo }
   ];
 
   const currentOption = rateOptions.find(r => r.key === selectedRate) || rateOptions[0];
@@ -112,6 +124,9 @@ function FleetCardItem({ vehicle, onBook }) {
                 <b style={{ fontSize: '0.82rem', fontWeight: 800, color: '#060c2c', whiteSpace: 'nowrap' }}>
                   {opt.price}
                 </b>
+                <small style={{ fontSize: '0.58rem', fontWeight: 700, color: '#d97706', display: 'block', marginTop: '1px', lineHeight: 1.2 }}>
+                  {opt.subText}
+                </small>
               </button>
             ))}
           </div>
